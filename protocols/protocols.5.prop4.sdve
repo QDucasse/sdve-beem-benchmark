@@ -1,0 +1,469 @@
+state {ready(0), tr(1), data_lost(2)} channel_K.state = 0;
+byte channel_K.v = 0;
+byte channel_K.lost = 0;
+state {ready(0), tr(1), dataOK(2)} channel_L.state = 0;
+byte channel_L.v = 0;
+byte channel_L.lost = 0;
+state {ready(0), produce0(1), produce1(2)} Producer.state = 0;
+state {ready(0), got_msg(1), consume0(2), consume1(3)} Consumer.state = 0;
+byte Consumer.value = 0;
+state {ready(0), sending(1), wait_ack(2), failed(3)} Sender.state = 0;
+byte Sender.value = 0;
+byte Sender.sab = 0;
+byte Sender.retry = 0;
+state {waiting(0), got_msg(1), send_ack(2)} Receiver.state = 0;
+byte Receiver.value = 0;
+byte Receiver.rab = 1;
+state {q1(0), q2(1), q3(2), q4(3)} LTL_property.state = 1;
+transient bool t_0 = false;
+transient bool t_1 = false;
+transient bool t_2 = false;
+transient int t_3 = 0;
+transient bool t_4 = false;
+transient bool t_5 = false;
+transient bool t_6 = false;
+transient int t_7 = 0;
+transient bool t_8 = false;
+transient bool t_9 = false;
+transient bool t_10 = false;
+transient bool t_11 = false;
+transient bool t_12 = false;
+transient bool t_13 = false;
+transient bool t_14 = false;
+transient bool t_15 = false;
+transient bool t_16 = false;
+transient bool t_17 = false;
+transient bool t_18 = false;
+transient bool t_19 = false;
+transient bool t_20 = false;
+transient bool t_21 = false;
+transient int t_22 = 0;
+transient bool t_23 = false;
+transient bool t_24 = false;
+transient bool t_25 = false;
+transient bool t_26 = false;
+transient bool t_27 = false;
+transient bool t_28 = false;
+transient bool t_29 = false;
+transient bool t_30 = false;
+transient bool t_31 = false;
+transient bool t_32 = false;
+transient bool t_33 = false;
+transient bool t_34 = false;
+transient bool t_35 = false;
+transient bool t_36 = false;
+transient bool t_37 = false;
+transient bool t_38 = false;
+transient bool t_39 = false;
+transient bool t_40 = false;
+transient bool t_41 = false;
+transient bool t_42 = false;
+transient bool t_43 = false;
+transient bool t_44 = false;
+transient bool t_45 = false;
+transient bool t_46 = false;
+transient bool t_47 = false;
+transient bool t_48 = false;
+transient bool t_49 = false;
+transient bool t_50 = false;
+transient bool t_51 = false;
+transient bool t_52 = false;
+transient bool t_53 = false;
+transient bool t_54 = false;
+transient bool t_55 = false;
+transient bool t_56 = false;
+transient bool t_57 = false;
+transient bool t_58 = false;
+transient bool t_59 = false;
+transient bool t_60 = false;
+transient bool t_61 = false;
+transient bool t_62 = false;
+transient bool t_63 = false;
+transient bool t_64 = false;
+transient bool t_65 = false;
+transient bool t_66 = false;
+transient bool t_67 = false;
+transient bool t_68 = false;
+transient bool t_69 = false;
+transient bool t_70 = false;
+transient bool t_71 = false;
+transient bool t_72 = false;
+transient bool t_73 = false;
+transient bool t_74 = false;
+transient bool t_75 = false;
+transient bool t_76 = false;
+transient bool t_77 = false;
+transient bool t_78 = false;
+transient bool t_79 = false;
+transient bool t_80 = false;
+transient bool t_81 = false;
+transient int t_82 = 0;
+transient bool t_83 = false;
+transient bool t_84 = false;
+transient bool t_85 = false;
+transient int t_86 = 0;
+transient bool t_87 = false;
+transient bool t_88 = false;
+transient bool t_89 = false;
+transient int t_90 = 0;
+transient bool t_91 = false;
+transient bool t_92 = false;
+transient bool t_93 = false;
+transient int t_94 = 0;
+transient int t_95 = 0;
+transient bool t_96 = false;
+transient bool t_97 = false;
+transient bool t_98 = false;
+transient bool t_99 = false;
+transient bool t_100 = false;
+transient int t_101 = 0;
+transient int t_102 = 0;
+transient int t_103 = 0;
+transient bool t_104 = false;
+transient int t_105 = 0;
+transient bool t_106 = false;
+transient bool t_107 = false;
+transient bool t_108 = false;
+transient bool t_109 = false;
+transient int t_110 = 0;
+transient bool t_111 = false;
+transient bool t_112 = false;
+transient bool t_113 = false;
+transient bool t_114 = false;
+transient bool t_115 = false;
+transient bool t_116 = false;
+	process channel_K 
+		guardBlock
+			t_0 = channel_K.state == 1,
+			t_1 = channel_K.lost < 40,
+			t_2 = t_0 and t_1;
+
+		guardCondition t_2;
+		effect
+			channel_K.state = 0,
+			t_3 = channel_K.lost + 1,
+			channel_K.lost = t_3;
+
+	process channel_L 
+		guardBlock
+			t_4 = channel_L.state == 1,
+			t_5 = channel_L.lost < 40,
+			t_6 = t_4 and t_5;
+
+		guardCondition t_6;
+		effect
+			channel_L.state = 0,
+			t_7 = channel_L.lost + 1,
+			channel_L.lost = t_7;
+
+	process Producer 
+		guardBlock
+			t_8 = Producer.state == 0;
+
+		guardCondition t_8;
+		effect
+			Producer.state = 1;
+
+	process Producer 
+		guardBlock
+			t_9 = Producer.state == 0;
+
+		guardCondition t_9;
+		effect
+			Producer.state = 2;
+
+	process Consumer 
+		guardBlock
+			t_10 = Consumer.state == 1,
+			t_11 = Consumer.value == 0,
+			t_12 = t_10 and t_11;
+
+		guardCondition t_12;
+		effect
+			Consumer.state = 2;
+
+	process Consumer 
+		guardBlock
+			t_13 = Consumer.state == 1,
+			t_14 = Consumer.value == 1,
+			t_15 = t_13 and t_14;
+
+		guardCondition t_15;
+		effect
+			Consumer.state = 3;
+
+	process Consumer 
+		guardBlock
+			t_16 = Consumer.state == 2;
+
+		guardCondition t_16;
+		effect
+			Consumer.state = 0;
+
+	process Consumer 
+		guardBlock
+			t_17 = Consumer.state == 3;
+
+		guardCondition t_17;
+		effect
+			Consumer.state = 0;
+
+	process Sender 
+		guardBlock
+			t_18 = Sender.state == 2,
+			t_19 = Sender.retry == 40,
+			t_20 = t_18 and t_19;
+
+		guardCondition t_20;
+		effect
+			Sender.state = 3;
+
+	process Receiver 
+		guardBlock
+			t_21 = Receiver.state == 1,
+			t_22 = Receiver.value % 2,
+			t_23 = t_22 != Receiver.rab,
+			t_24 = t_21 and t_23;
+
+		guardCondition t_24;
+		effect
+			Receiver.state = 0;
+
+	process LTL_property 
+		guardBlock
+			t_25 = LTL_property.state == 0;
+
+		guardCondition t_25;
+		effect
+			LTL_property.state = 0;
+
+	process LTL_property 
+		guardBlock
+			t_26 = LTL_property.state == 1,
+			t_27 = Consumer.state == 2,
+			t_28 = not t_27,
+			t_29 = Producer.state == 0,
+			t_30 = t_28 and t_29,
+			t_31 = t_26 and t_30;
+
+		guardCondition t_31;
+		effect
+			LTL_property.state = 1;
+
+	process LTL_property 
+		guardBlock
+			t_32 = LTL_property.state == 1,
+			t_33 = Producer.state == 0,
+			t_34 = Consumer.state == 2,
+			t_35 = not t_34,
+			t_36 = t_33 and t_35,
+			t_37 = Consumer.state == 0,
+			t_38 = Consumer.state == 1,
+			t_39 = t_37 or t_38,
+			t_40 = not t_39,
+			t_41 = t_36 and t_40,
+			t_42 = t_32 and t_41;
+
+		guardCondition t_42;
+		effect
+			LTL_property.state = 2;
+
+	process LTL_property 
+		guardBlock
+			t_43 = LTL_property.state == 1,
+			t_44 = Consumer.state == 2,
+			t_45 = not t_44,
+			t_46 = Producer.state == 1,
+			t_47 = t_45 and t_46,
+			t_48 = t_43 and t_47;
+
+		guardCondition t_48;
+		effect
+			LTL_property.state = 3;
+
+	process LTL_property 
+		guardBlock
+			t_49 = LTL_property.state == 1,
+			t_50 = Producer.state == 1,
+			t_51 = Consumer.state == 2,
+			t_52 = not t_51,
+			t_53 = t_50 and t_52,
+			t_54 = Consumer.state == 0,
+			t_55 = Consumer.state == 1,
+			t_56 = t_54 or t_55,
+			t_57 = not t_56,
+			t_58 = t_53 and t_57,
+			t_59 = t_49 and t_58;
+
+		guardCondition t_59;
+		effect
+			LTL_property.state = 0;
+
+	process LTL_property 
+		guardBlock
+			t_60 = LTL_property.state == 2,
+			t_61 = Producer.state == 0,
+			t_62 = t_60 and t_61;
+
+		guardCondition t_62;
+		effect
+			LTL_property.state = 2;
+
+	process LTL_property 
+		guardBlock
+			t_63 = LTL_property.state == 2,
+			t_64 = Producer.state == 1,
+			t_65 = t_63 and t_64;
+
+		guardCondition t_65;
+		effect
+			LTL_property.state = 0;
+
+	process LTL_property 
+		guardBlock
+			t_66 = LTL_property.state == 3,
+			t_67 = Consumer.state == 2,
+			t_68 = not t_67,
+			t_69 = t_66 and t_68;
+
+		guardCondition t_69;
+		effect
+			LTL_property.state = 3;
+
+	process LTL_property 
+		guardBlock
+			t_70 = LTL_property.state == 3,
+			t_71 = Consumer.state == 2,
+			t_72 = not t_71,
+			t_73 = Consumer.state == 0,
+			t_74 = Consumer.state == 1,
+			t_75 = t_73 or t_74,
+			t_76 = not t_75,
+			t_77 = t_72 and t_76,
+			t_78 = t_70 and t_77;
+
+		guardCondition t_78;
+		effect
+			LTL_property.state = 0;
+
+	process Producer_Sender 
+		guardBlock
+			t_79 = Producer.state == 1,
+			t_80 = Sender.state == 0,
+			t_81 = t_79 and t_80;
+
+		guardCondition t_81;
+		effect
+			Producer.state = 0,
+			Sender.value = 0,
+			Sender.state = 1,
+			t_82 = 1 - Sender.sab,
+			Sender.sab = t_82;
+
+	process Producer_Sender 
+		guardBlock
+			t_83 = Producer.state == 2,
+			t_84 = Sender.state == 0,
+			t_85 = t_83 and t_84;
+
+		guardCondition t_85;
+		effect
+			Producer.state = 0,
+			Sender.value = 1,
+			Sender.state = 1,
+			t_86 = 1 - Sender.sab,
+			Sender.sab = t_86;
+
+	process Receiver_channel_L 
+		guardBlock
+			t_87 = Receiver.state == 2,
+			t_88 = channel_L.state == 0,
+			t_89 = t_87 and t_88;
+
+		guardCondition t_89;
+		effect
+			Receiver.state = 0,
+			t_90 = 1 - Receiver.rab,
+			Receiver.rab = t_90,
+			channel_L.v = 0,
+			channel_L.state = 1;
+
+	process Sender_channel_K 
+		guardBlock
+			t_91 = Sender.state == 1,
+			t_92 = channel_K.state == 0,
+			t_93 = t_91 and t_92;
+
+		guardCondition t_93;
+		effect
+			Sender.state = 2,
+			Sender.retry = 1,
+			t_94 = Sender.value * 2,
+			t_95 = t_94 + Sender.sab,
+			channel_K.v = t_95,
+			channel_K.state = 1;
+
+	process Sender_channel_K 
+		guardBlock
+			t_96 = Sender.state == 2,
+			t_97 = Sender.retry < 40,
+			t_98 = t_96 and t_97,
+			t_99 = channel_K.state == 0,
+			t_100 = t_98 and t_99;
+
+		guardCondition t_100;
+		effect
+			Sender.state = 2,
+			t_101 = Sender.retry + 1,
+			Sender.retry = t_101,
+			t_102 = Sender.value * 2,
+			t_103 = t_102 + Sender.sab,
+			channel_K.v = t_103,
+			channel_K.state = 1;
+
+	process Receiver_Consumer 
+		guardBlock
+			t_104 = Receiver.state == 1,
+			t_105 = Receiver.value % 2,
+			t_106 = t_105 == Receiver.rab,
+			t_107 = t_104 and t_106,
+			t_108 = Consumer.state == 0,
+			t_109 = t_107 and t_108;
+
+		guardCondition t_109;
+		effect
+			Receiver.state = 2,
+			t_110 = Receiver.value / 2,
+			Consumer.value = t_110,
+			Consumer.state = 1;
+
+	process channel_L_Sender 
+		guardBlock
+			t_111 = channel_L.state == 1,
+			t_112 = Sender.state == 2,
+			t_113 = t_111 and t_112;
+
+		guardCondition t_113;
+		effect
+			channel_L.state = 0,
+			channel_L.lost = 0,
+			Sender.value = channel_L.v,
+			Sender.state = 0;
+
+	process channel_K_Receiver 
+		guardBlock
+			t_114 = channel_K.state == 1,
+			t_115 = Receiver.state == 0,
+			t_116 = t_114 and t_115;
+
+		guardCondition t_116;
+		effect
+			channel_K.state = 0,
+			channel_K.lost = 0,
+			Receiver.value = channel_K.v,
+			Receiver.state = 1;
+
+accepting conditions
+	LTL_property.state == 0
+
+system async property LTL_property;

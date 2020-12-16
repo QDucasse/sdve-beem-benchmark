@@ -1,0 +1,1766 @@
+state {idle(0), ack_reset(1), reset(2), advance(3), N(4), E(5), q_i(6), q_e(7), q_n(8), q_a(9), q_error(10)} Sender.state = 0;
+int Sender.n = -1;
+int Sender.m = 0;
+state {idle(0), ack_reset(1), reset(2), advance(3), N(4), E(5), q_i(6), q_e(7), q_n(8), q_a(9), q_error(10), q_e2(11)} Receiver.state = 0;
+int Receiver.n = 0;
+int Receiver.m = 0;
+state {q(0)} StoR.state = 0;
+byte[4] StoR.buf = {0, 0, 0, 0};
+byte StoR.buf_act = 0;
+byte StoR.n = 0;
+state {q(0)} RtoS.state = 0;
+byte[4] RtoS.buf = {0, 0, 0, 0};
+byte RtoS.buf_act = 0;
+byte RtoS.n = 0;
+transient bool t_0 = false;
+transient int t_1 = 0;
+transient int t_2 = 0;
+transient bool t_3 = false;
+transient bool t_4 = false;
+transient bool t_5 = false;
+transient int t_6 = 0;
+transient int t_7 = 0;
+transient bool t_8 = false;
+transient bool t_9 = false;
+transient bool t_10 = false;
+transient int t_11 = 0;
+transient int t_12 = 0;
+transient bool t_13 = false;
+transient bool t_14 = false;
+transient int t_15 = 0;
+transient int t_16 = 0;
+transient bool t_17 = false;
+transient int t_18 = 0;
+transient int t_19 = 0;
+transient bool t_20 = false;
+transient bool t_21 = false;
+transient bool t_22 = false;
+transient bool t_23 = false;
+transient bool t_24 = false;
+transient bool t_25 = false;
+transient int t_26 = 0;
+transient int t_27 = 0;
+transient bool t_28 = false;
+transient bool t_29 = false;
+transient int t_30 = 0;
+transient int t_31 = 0;
+transient bool t_32 = false;
+transient bool t_33 = false;
+transient bool t_34 = false;
+transient bool t_35 = false;
+transient bool t_36 = false;
+transient bool t_37 = false;
+transient bool t_38 = false;
+transient bool t_39 = false;
+transient bool t_40 = false;
+transient int t_41 = 0;
+transient int t_42 = 0;
+transient bool t_43 = false;
+transient bool t_44 = false;
+transient bool t_45 = false;
+transient bool t_46 = false;
+transient int t_47 = 0;
+transient int t_48 = 0;
+transient bool t_49 = false;
+transient bool t_50 = false;
+transient bool t_51 = false;
+transient bool t_52 = false;
+transient bool t_53 = false;
+transient int t_54 = 0;
+transient int t_55 = 0;
+transient bool t_56 = false;
+transient bool t_57 = false;
+transient bool t_58 = false;
+transient bool t_59 = false;
+transient bool t_60 = false;
+transient bool t_61 = false;
+transient bool t_62 = false;
+transient bool t_63 = false;
+transient bool t_64 = false;
+transient byte t_65 = 0;
+transient bool t_66 = false;
+transient bool t_67 = false;
+transient bool t_68 = false;
+transient bool t_69 = false;
+transient bool t_70 = false;
+transient byte t_71 = 0;
+transient byte t_72 = 0;
+transient byte t_73 = 0;
+transient int t_74 = 0;
+transient bool t_75 = false;
+transient bool t_76 = false;
+transient bool t_77 = false;
+transient byte t_78 = 0;
+transient bool t_79 = false;
+transient bool t_80 = false;
+transient bool t_81 = false;
+transient bool t_82 = false;
+transient bool t_83 = false;
+transient byte t_84 = 0;
+transient byte t_85 = 0;
+transient byte t_86 = 0;
+transient int t_87 = 0;
+transient bool t_88 = false;
+transient bool t_89 = false;
+transient bool t_90 = false;
+transient byte t_91 = 0;
+transient bool t_92 = false;
+transient bool t_93 = false;
+transient bool t_94 = false;
+transient bool t_95 = false;
+transient bool t_96 = false;
+transient byte t_97 = 0;
+transient byte t_98 = 0;
+transient byte t_99 = 0;
+transient int t_100 = 0;
+transient bool t_101 = false;
+transient bool t_102 = false;
+transient bool t_103 = false;
+transient byte t_104 = 0;
+transient bool t_105 = false;
+transient bool t_106 = false;
+transient bool t_107 = false;
+transient bool t_108 = false;
+transient bool t_109 = false;
+transient byte t_110 = 0;
+transient byte t_111 = 0;
+transient byte t_112 = 0;
+transient int t_113 = 0;
+transient bool t_114 = false;
+transient bool t_115 = false;
+transient bool t_116 = false;
+transient bool t_117 = false;
+transient bool t_118 = false;
+transient bool t_119 = false;
+transient int t_120 = 0;
+transient bool t_121 = false;
+transient bool t_122 = false;
+transient bool t_123 = false;
+transient bool t_124 = false;
+transient bool t_125 = false;
+transient bool t_126 = false;
+transient int t_127 = 0;
+transient bool t_128 = false;
+transient bool t_129 = false;
+transient bool t_130 = false;
+transient bool t_131 = false;
+transient bool t_132 = false;
+transient bool t_133 = false;
+transient int t_134 = 0;
+transient bool t_135 = false;
+transient bool t_136 = false;
+transient bool t_137 = false;
+transient bool t_138 = false;
+transient bool t_139 = false;
+transient bool t_140 = false;
+transient int t_141 = 0;
+transient bool t_142 = false;
+transient bool t_143 = false;
+transient bool t_144 = false;
+transient bool t_145 = false;
+transient bool t_146 = false;
+transient bool t_147 = false;
+transient int t_148 = 0;
+transient int t_149 = 0;
+transient int t_150 = 0;
+transient bool t_151 = false;
+transient bool t_152 = false;
+transient bool t_153 = false;
+transient bool t_154 = false;
+transient bool t_155 = false;
+transient bool t_156 = false;
+transient int t_157 = 0;
+transient int t_158 = 0;
+transient int t_159 = 0;
+transient bool t_160 = false;
+transient bool t_161 = false;
+transient bool t_162 = false;
+transient bool t_163 = false;
+transient bool t_164 = false;
+transient bool t_165 = false;
+transient bool t_166 = false;
+transient bool t_167 = false;
+transient int t_168 = 0;
+transient int t_169 = 0;
+transient int t_170 = 0;
+transient bool t_171 = false;
+transient bool t_172 = false;
+transient bool t_173 = false;
+transient byte t_174 = 0;
+transient int t_175 = 0;
+transient bool t_176 = false;
+transient bool t_177 = false;
+transient bool t_178 = false;
+transient bool t_179 = false;
+transient bool t_180 = false;
+transient byte t_181 = 0;
+transient byte t_182 = 0;
+transient byte t_183 = 0;
+transient int t_184 = 0;
+transient byte t_185 = 0;
+transient int t_186 = 0;
+transient bool t_187 = false;
+transient bool t_188 = false;
+transient bool t_189 = false;
+transient byte t_190 = 0;
+transient int t_191 = 0;
+transient bool t_192 = false;
+transient bool t_193 = false;
+transient bool t_194 = false;
+transient bool t_195 = false;
+transient bool t_196 = false;
+transient byte t_197 = 0;
+transient byte t_198 = 0;
+transient byte t_199 = 0;
+transient int t_200 = 0;
+transient byte t_201 = 0;
+transient int t_202 = 0;
+transient bool t_203 = false;
+transient bool t_204 = false;
+transient bool t_205 = false;
+transient byte t_206 = 0;
+transient int t_207 = 0;
+transient bool t_208 = false;
+transient bool t_209 = false;
+transient bool t_210 = false;
+transient bool t_211 = false;
+transient bool t_212 = false;
+transient byte t_213 = 0;
+transient byte t_214 = 0;
+transient byte t_215 = 0;
+transient int t_216 = 0;
+transient byte t_217 = 0;
+transient int t_218 = 0;
+transient bool t_219 = false;
+transient bool t_220 = false;
+transient bool t_221 = false;
+transient byte t_222 = 0;
+transient int t_223 = 0;
+transient bool t_224 = false;
+transient bool t_225 = false;
+transient bool t_226 = false;
+transient bool t_227 = false;
+transient bool t_228 = false;
+transient byte t_229 = 0;
+transient byte t_230 = 0;
+transient byte t_231 = 0;
+transient int t_232 = 0;
+transient byte t_233 = 0;
+transient int t_234 = 0;
+transient bool t_235 = false;
+transient bool t_236 = false;
+transient bool t_237 = false;
+transient byte t_238 = 0;
+transient bool t_239 = false;
+transient bool t_240 = false;
+transient bool t_241 = false;
+transient bool t_242 = false;
+transient bool t_243 = false;
+transient byte t_244 = 0;
+transient byte t_245 = 0;
+transient byte t_246 = 0;
+transient int t_247 = 0;
+transient bool t_248 = false;
+transient bool t_249 = false;
+transient bool t_250 = false;
+transient byte t_251 = 0;
+transient bool t_252 = false;
+transient bool t_253 = false;
+transient bool t_254 = false;
+transient bool t_255 = false;
+transient bool t_256 = false;
+transient byte t_257 = 0;
+transient byte t_258 = 0;
+transient byte t_259 = 0;
+transient int t_260 = 0;
+transient bool t_261 = false;
+transient bool t_262 = false;
+transient bool t_263 = false;
+transient byte t_264 = 0;
+transient bool t_265 = false;
+transient bool t_266 = false;
+transient bool t_267 = false;
+transient bool t_268 = false;
+transient bool t_269 = false;
+transient byte t_270 = 0;
+transient byte t_271 = 0;
+transient byte t_272 = 0;
+transient int t_273 = 0;
+transient bool t_274 = false;
+transient bool t_275 = false;
+transient bool t_276 = false;
+transient byte t_277 = 0;
+transient bool t_278 = false;
+transient bool t_279 = false;
+transient bool t_280 = false;
+transient bool t_281 = false;
+transient bool t_282 = false;
+transient byte t_283 = 0;
+transient byte t_284 = 0;
+transient byte t_285 = 0;
+transient int t_286 = 0;
+transient bool t_287 = false;
+transient bool t_288 = false;
+transient bool t_289 = false;
+transient bool t_290 = false;
+transient bool t_291 = false;
+transient bool t_292 = false;
+transient int t_293 = 0;
+transient int t_294 = 0;
+transient int t_295 = 0;
+transient bool t_296 = false;
+transient bool t_297 = false;
+transient bool t_298 = false;
+transient bool t_299 = false;
+transient bool t_300 = false;
+transient bool t_301 = false;
+transient int t_302 = 0;
+transient int t_303 = 0;
+transient int t_304 = 0;
+transient bool t_305 = false;
+transient bool t_306 = false;
+transient bool t_307 = false;
+transient bool t_308 = false;
+transient bool t_309 = false;
+transient bool t_310 = false;
+transient int t_311 = 0;
+transient int t_312 = 0;
+transient int t_313 = 0;
+transient bool t_314 = false;
+transient bool t_315 = false;
+transient bool t_316 = false;
+transient bool t_317 = false;
+transient bool t_318 = false;
+transient bool t_319 = false;
+transient int t_320 = 0;
+transient int t_321 = 0;
+transient int t_322 = 0;
+transient bool t_323 = false;
+transient int t_324 = 0;
+transient int t_325 = 0;
+transient bool t_326 = false;
+transient bool t_327 = false;
+transient bool t_328 = false;
+transient bool t_329 = false;
+transient bool t_330 = false;
+transient bool t_331 = false;
+transient bool t_332 = false;
+transient int t_333 = 0;
+transient int t_334 = 0;
+transient int t_335 = 0;
+transient bool t_336 = false;
+transient bool t_337 = false;
+transient bool t_338 = false;
+transient byte t_339 = 0;
+transient int t_340 = 0;
+transient bool t_341 = false;
+transient bool t_342 = false;
+transient bool t_343 = false;
+transient bool t_344 = false;
+transient bool t_345 = false;
+transient byte t_346 = 0;
+transient byte t_347 = 0;
+transient byte t_348 = 0;
+transient int t_349 = 0;
+transient byte t_350 = 0;
+transient int t_351 = 0;
+transient bool t_352 = false;
+transient bool t_353 = false;
+transient bool t_354 = false;
+transient byte t_355 = 0;
+transient int t_356 = 0;
+transient bool t_357 = false;
+transient bool t_358 = false;
+transient bool t_359 = false;
+transient bool t_360 = false;
+transient bool t_361 = false;
+transient byte t_362 = 0;
+transient byte t_363 = 0;
+transient byte t_364 = 0;
+transient int t_365 = 0;
+transient byte t_366 = 0;
+transient int t_367 = 0;
+transient bool t_368 = false;
+transient bool t_369 = false;
+transient bool t_370 = false;
+transient byte t_371 = 0;
+transient int t_372 = 0;
+transient bool t_373 = false;
+transient bool t_374 = false;
+transient bool t_375 = false;
+transient bool t_376 = false;
+transient bool t_377 = false;
+transient byte t_378 = 0;
+transient byte t_379 = 0;
+transient byte t_380 = 0;
+transient int t_381 = 0;
+transient byte t_382 = 0;
+transient int t_383 = 0;
+transient bool t_384 = false;
+transient bool t_385 = false;
+transient bool t_386 = false;
+transient byte t_387 = 0;
+transient int t_388 = 0;
+transient bool t_389 = false;
+transient bool t_390 = false;
+transient bool t_391 = false;
+transient bool t_392 = false;
+transient bool t_393 = false;
+transient byte t_394 = 0;
+transient byte t_395 = 0;
+transient byte t_396 = 0;
+transient int t_397 = 0;
+transient byte t_398 = 0;
+transient int t_399 = 0;
+transient bool t_400 = false;
+transient bool t_401 = false;
+transient bool t_402 = false;
+transient byte t_403 = 0;
+transient int t_404 = 0;
+transient bool t_405 = false;
+transient bool t_406 = false;
+transient bool t_407 = false;
+transient bool t_408 = false;
+transient bool t_409 = false;
+transient byte t_410 = 0;
+transient byte t_411 = 0;
+transient byte t_412 = 0;
+transient int t_413 = 0;
+transient byte t_414 = 0;
+transient int t_415 = 0;
+transient bool t_416 = false;
+transient bool t_417 = false;
+transient bool t_418 = false;
+transient byte t_419 = 0;
+transient int t_420 = 0;
+transient bool t_421 = false;
+transient bool t_422 = false;
+transient bool t_423 = false;
+transient bool t_424 = false;
+transient bool t_425 = false;
+transient byte t_426 = 0;
+transient byte t_427 = 0;
+transient byte t_428 = 0;
+transient int t_429 = 0;
+transient byte t_430 = 0;
+transient int t_431 = 0;
+transient bool t_432 = false;
+transient bool t_433 = false;
+transient bool t_434 = false;
+transient byte t_435 = 0;
+transient int t_436 = 0;
+transient bool t_437 = false;
+transient bool t_438 = false;
+transient bool t_439 = false;
+transient bool t_440 = false;
+transient bool t_441 = false;
+transient byte t_442 = 0;
+transient byte t_443 = 0;
+transient byte t_444 = 0;
+transient int t_445 = 0;
+transient byte t_446 = 0;
+transient int t_447 = 0;
+transient bool t_448 = false;
+transient bool t_449 = false;
+transient bool t_450 = false;
+transient bool t_451 = false;
+transient bool t_452 = false;
+transient bool t_453 = false;
+transient int t_454 = 0;
+transient int t_455 = 0;
+transient int t_456 = 0;
+transient bool t_457 = false;
+transient bool t_458 = false;
+transient bool t_459 = false;
+transient bool t_460 = false;
+transient bool t_461 = false;
+transient bool t_462 = false;
+transient bool t_463 = false;
+transient bool t_464 = false;
+transient int t_465 = 0;
+transient int t_466 = 0;
+transient int t_467 = 0;
+transient bool t_468 = false;
+transient bool t_469 = false;
+transient bool t_470 = false;
+transient bool t_471 = false;
+transient bool t_472 = false;
+transient bool t_473 = false;
+transient int t_474 = 0;
+transient bool t_475 = false;
+transient bool t_476 = false;
+transient bool t_477 = false;
+transient bool t_478 = false;
+transient bool t_479 = false;
+transient bool t_480 = false;
+transient int t_481 = 0;
+transient bool t_482 = false;
+transient bool t_483 = false;
+transient bool t_484 = false;
+transient bool t_485 = false;
+transient bool t_486 = false;
+transient bool t_487 = false;
+transient int t_488 = 0;
+transient bool t_489 = false;
+transient bool t_490 = false;
+transient bool t_491 = false;
+transient bool t_492 = false;
+transient bool t_493 = false;
+transient bool t_494 = false;
+transient int t_495 = 0;
+transient bool t_496 = false;
+transient bool t_497 = false;
+transient bool t_498 = false;
+transient byte t_499 = 0;
+transient int t_500 = 0;
+transient bool t_501 = false;
+transient bool t_502 = false;
+transient bool t_503 = false;
+transient bool t_504 = false;
+transient bool t_505 = false;
+transient byte t_506 = 0;
+transient byte t_507 = 0;
+transient byte t_508 = 0;
+transient int t_509 = 0;
+transient byte t_510 = 0;
+transient int t_511 = 0;
+transient bool t_512 = false;
+transient bool t_513 = false;
+transient bool t_514 = false;
+transient byte t_515 = 0;
+transient int t_516 = 0;
+transient bool t_517 = false;
+transient bool t_518 = false;
+transient bool t_519 = false;
+transient bool t_520 = false;
+transient bool t_521 = false;
+transient byte t_522 = 0;
+transient byte t_523 = 0;
+transient byte t_524 = 0;
+transient int t_525 = 0;
+transient byte t_526 = 0;
+transient int t_527 = 0;
+transient bool t_528 = false;
+transient bool t_529 = false;
+transient bool t_530 = false;
+transient byte t_531 = 0;
+transient int t_532 = 0;
+transient bool t_533 = false;
+transient bool t_534 = false;
+transient bool t_535 = false;
+transient bool t_536 = false;
+transient bool t_537 = false;
+transient byte t_538 = 0;
+transient byte t_539 = 0;
+transient byte t_540 = 0;
+transient int t_541 = 0;
+transient byte t_542 = 0;
+transient int t_543 = 0;
+transient bool t_544 = false;
+transient bool t_545 = false;
+transient bool t_546 = false;
+transient bool t_547 = false;
+transient bool t_548 = false;
+transient bool t_549 = false;
+transient int t_550 = 0;
+transient int t_551 = 0;
+transient int t_552 = 0;
+transient bool t_553 = false;
+transient int t_554 = 0;
+transient int t_555 = 0;
+transient bool t_556 = false;
+transient bool t_557 = false;
+transient bool t_558 = false;
+transient bool t_559 = false;
+transient bool t_560 = false;
+transient bool t_561 = false;
+transient bool t_562 = false;
+transient int t_563 = 0;
+transient int t_564 = 0;
+transient int t_565 = 0;
+	process Sender 
+		guardBlock
+			t_0 = Sender.state == 6,
+			t_1 = Sender.n + 1,
+			t_2 = t_1 % 4,
+			t_3 = Sender.m == t_2,
+			t_4 = t_0 and t_3;
+
+		guardCondition t_4;
+		effect
+			Sender.state = 0;
+
+	process Sender 
+		guardBlock
+			t_5 = Sender.state == 6,
+			t_6 = Sender.n + 1,
+			t_7 = t_6 % 4,
+			t_8 = Sender.m != t_7,
+			t_9 = t_5 and t_8;
+
+		guardCondition t_9;
+		effect
+			Sender.state = 10;
+
+	process Sender 
+		guardBlock
+			t_10 = Sender.state == 9,
+			t_11 = Sender.n + 1,
+			t_12 = t_11 % 4,
+			t_13 = Sender.m == t_12,
+			t_14 = t_10 and t_13;
+
+		guardCondition t_14;
+		effect
+			Sender.state = 3,
+			t_15 = Sender.n + 1,
+			t_16 = t_15 % 4,
+			Sender.n = t_16;
+
+	process Sender 
+		guardBlock
+			t_17 = Sender.state == 9,
+			t_18 = Sender.n + 1,
+			t_19 = t_18 % 4,
+			t_20 = Sender.m != t_19,
+			t_21 = t_17 and t_20;
+
+		guardCondition t_21;
+		effect
+			Sender.state = 10;
+
+	process Sender 
+		guardBlock
+			t_22 = Sender.state == 8,
+			t_23 = Sender.m != Sender.n,
+			t_24 = t_22 and t_23;
+
+		guardCondition t_24;
+		effect
+			Sender.state = 10;
+
+	process Sender 
+		guardBlock
+			t_25 = Sender.state == 7,
+			t_26 = Sender.n + 1,
+			t_27 = t_26 % 4,
+			t_28 = Sender.m == t_27,
+			t_29 = t_25 and t_28;
+
+		guardCondition t_29;
+		effect
+			Sender.state = 3,
+			t_30 = Sender.n + 1,
+			t_31 = t_30 % 4,
+			Sender.n = t_31;
+
+	process Receiver 
+		guardBlock
+			t_32 = Receiver.state == 6,
+			t_33 = Receiver.m == Receiver.n,
+			t_34 = t_32 and t_33;
+
+		guardCondition t_34;
+		effect
+			Receiver.state = 0;
+
+	process Receiver 
+		guardBlock
+			t_35 = Receiver.state == 6,
+			t_36 = Receiver.m != Receiver.n,
+			t_37 = t_35 and t_36;
+
+		guardCondition t_37;
+		effect
+			Receiver.state = 10;
+
+	process Receiver 
+		guardBlock
+			t_38 = Receiver.state == 9,
+			t_39 = Receiver.m == Receiver.n,
+			t_40 = t_38 and t_39;
+
+		guardCondition t_40;
+		effect
+			Receiver.state = 3,
+			t_41 = Receiver.n + 1,
+			t_42 = t_41 % 4,
+			Receiver.n = t_42;
+
+	process Receiver 
+		guardBlock
+			t_43 = Receiver.state == 9,
+			t_44 = Receiver.m != Receiver.n,
+			t_45 = t_43 and t_44;
+
+		guardCondition t_45;
+		effect
+			Receiver.state = 10;
+
+	process Receiver 
+		guardBlock
+			t_46 = Receiver.state == 8,
+			t_47 = Receiver.m + 1,
+			t_48 = t_47 % 4,
+			t_49 = t_48 != Receiver.n,
+			t_50 = t_46 and t_49;
+
+		guardCondition t_50;
+		effect
+			Receiver.state = 4;
+
+	process Receiver 
+		guardBlock
+			t_51 = Receiver.state == 7,
+			t_52 = Receiver.m == Receiver.n,
+			t_53 = t_51 and t_52;
+
+		guardCondition t_53;
+		effect
+			Receiver.state = 3,
+			t_54 = Receiver.n + 1,
+			t_55 = t_54 % 4,
+			Receiver.n = t_55;
+
+	process Receiver 
+		guardBlock
+			t_56 = Receiver.state == 11,
+			t_57 = Receiver.m == Receiver.n,
+			t_58 = t_56 and t_57;
+
+		guardCondition t_58;
+		effect
+			Receiver.state = 0;
+
+	process Receiver 
+		guardBlock
+			t_59 = Receiver.state == 11,
+			t_60 = Receiver.m != Receiver.n,
+			t_61 = t_59 and t_60;
+
+		guardCondition t_61;
+		effect
+			Receiver.state = 10;
+
+	process StoR_Receiver 
+		guardBlock
+			t_62 = StoR.state == 0,
+			t_63 = StoR.buf_act == 0,
+			t_64 = not t_63,
+			t_65 = StoR.buf[0],
+			t_66 = t_65 == 0,
+			t_67 = t_64 and t_66,
+			t_68 = t_62 and t_67,
+			t_69 = Receiver.state == 0,
+			t_70 = t_68 and t_69;
+
+		guardCondition t_70;
+		effect
+			StoR.state = 0,
+			t_71 = StoR.buf[1],
+			StoR.buf[0] = t_71,
+			t_72 = StoR.buf[2],
+			StoR.buf[1] = t_72,
+			t_73 = StoR.buf[3],
+			StoR.buf[2] = t_73,
+			StoR.buf[3] = 0,
+			t_74 = StoR.buf_act - 1,
+			StoR.buf_act = t_74,
+			Receiver.state = 1;
+
+	process StoR_Receiver 
+		guardBlock
+			t_75 = StoR.state == 0,
+			t_76 = StoR.buf_act == 0,
+			t_77 = not t_76,
+			t_78 = StoR.buf[0],
+			t_79 = t_78 == 0,
+			t_80 = t_77 and t_79,
+			t_81 = t_75 and t_80,
+			t_82 = Receiver.state == 2,
+			t_83 = t_81 and t_82;
+
+		guardCondition t_83;
+		effect
+			StoR.state = 0,
+			t_84 = StoR.buf[1],
+			StoR.buf[0] = t_84,
+			t_85 = StoR.buf[2],
+			StoR.buf[1] = t_85,
+			t_86 = StoR.buf[3],
+			StoR.buf[2] = t_86,
+			StoR.buf[3] = 0,
+			t_87 = StoR.buf_act - 1,
+			StoR.buf_act = t_87,
+			Receiver.state = 0,
+			Receiver.n = 0;
+
+	process StoR_Receiver 
+		guardBlock
+			t_88 = StoR.state == 0,
+			t_89 = StoR.buf_act == 0,
+			t_90 = not t_89,
+			t_91 = StoR.buf[0],
+			t_92 = t_91 == 0,
+			t_93 = t_90 and t_92,
+			t_94 = t_88 and t_93,
+			t_95 = Receiver.state == 4,
+			t_96 = t_94 and t_95;
+
+		guardCondition t_96;
+		effect
+			StoR.state = 0,
+			t_97 = StoR.buf[1],
+			StoR.buf[0] = t_97,
+			t_98 = StoR.buf[2],
+			StoR.buf[1] = t_98,
+			t_99 = StoR.buf[3],
+			StoR.buf[2] = t_99,
+			StoR.buf[3] = 0,
+			t_100 = StoR.buf_act - 1,
+			StoR.buf_act = t_100,
+			Receiver.state = 1;
+
+	process StoR_Receiver 
+		guardBlock
+			t_101 = StoR.state == 0,
+			t_102 = StoR.buf_act == 0,
+			t_103 = not t_102,
+			t_104 = StoR.buf[0],
+			t_105 = t_104 == 0,
+			t_106 = t_103 and t_105,
+			t_107 = t_101 and t_106,
+			t_108 = Receiver.state == 5,
+			t_109 = t_107 and t_108;
+
+		guardCondition t_109;
+		effect
+			StoR.state = 0,
+			t_110 = StoR.buf[1],
+			StoR.buf[0] = t_110,
+			t_111 = StoR.buf[2],
+			StoR.buf[1] = t_111,
+			t_112 = StoR.buf[3],
+			StoR.buf[2] = t_112,
+			StoR.buf[3] = 0,
+			t_113 = StoR.buf_act - 1,
+			StoR.buf_act = t_113,
+			Receiver.state = 1;
+
+	process Receiver_RtoS 
+		guardBlock
+			t_114 = Receiver.state == 0,
+			t_115 = RtoS.state == 0,
+			t_116 = RtoS.buf_act == 4,
+			t_117 = not t_116,
+			t_118 = t_115 and t_117,
+			t_119 = t_114 and t_118;
+
+		guardCondition t_119;
+		effect
+			Receiver.state = 2,
+			RtoS.state = 0,
+			RtoS.buf[RtoS.buf_act] = 0,
+			t_120 = RtoS.buf_act + 1,
+			RtoS.buf_act = t_120;
+
+	process Receiver_RtoS 
+		guardBlock
+			t_121 = Receiver.state == 1,
+			t_122 = RtoS.state == 0,
+			t_123 = RtoS.buf_act == 4,
+			t_124 = not t_123,
+			t_125 = t_122 and t_124,
+			t_126 = t_121 and t_125;
+
+		guardCondition t_126;
+		effect
+			Receiver.state = 0,
+			Receiver.n = 0,
+			RtoS.state = 0,
+			RtoS.buf[RtoS.buf_act] = 0,
+			t_127 = RtoS.buf_act + 1,
+			RtoS.buf_act = t_127;
+
+	process Receiver_RtoS 
+		guardBlock
+			t_128 = Receiver.state == 4,
+			t_129 = RtoS.state == 0,
+			t_130 = RtoS.buf_act == 4,
+			t_131 = not t_130,
+			t_132 = t_129 and t_131,
+			t_133 = t_128 and t_132;
+
+		guardCondition t_133;
+		effect
+			Receiver.state = 2,
+			RtoS.state = 0,
+			RtoS.buf[RtoS.buf_act] = 0,
+			t_134 = RtoS.buf_act + 1,
+			RtoS.buf_act = t_134;
+
+	process Receiver_RtoS 
+		guardBlock
+			t_135 = Receiver.state == 5,
+			t_136 = RtoS.state == 0,
+			t_137 = RtoS.buf_act == 4,
+			t_138 = not t_137,
+			t_139 = t_136 and t_138,
+			t_140 = t_135 and t_139;
+
+		guardCondition t_140;
+		effect
+			Receiver.state = 2,
+			RtoS.state = 0,
+			RtoS.buf[RtoS.buf_act] = 0,
+			t_141 = RtoS.buf_act + 1,
+			RtoS.buf_act = t_141;
+
+	process Sender_StoR 
+		guardBlock
+			t_142 = Sender.state == 3,
+			t_143 = StoR.state == 0,
+			t_144 = StoR.buf_act == 4,
+			t_145 = not t_144,
+			t_146 = t_143 and t_145,
+			t_147 = t_142 and t_146;
+
+		guardCondition t_147;
+		effect
+			Sender.state = 5,
+			StoR.n = Sender.n,
+			StoR.state = 0,
+			t_148 = 8 * StoR.n,
+			t_149 = 3 + t_148,
+			StoR.buf[StoR.buf_act] = t_149,
+			t_150 = StoR.buf_act + 1,
+			StoR.buf_act = t_150;
+
+	process Sender_StoR 
+		guardBlock
+			t_151 = Sender.state == 4,
+			t_152 = StoR.state == 0,
+			t_153 = StoR.buf_act == 4,
+			t_154 = not t_153,
+			t_155 = t_152 and t_154,
+			t_156 = t_151 and t_155;
+
+		guardCondition t_156;
+		effect
+			Sender.state = 5,
+			StoR.n = Sender.n,
+			StoR.state = 0,
+			t_157 = 8 * StoR.n,
+			t_158 = 3 + t_157,
+			StoR.buf[StoR.buf_act] = t_158,
+			t_159 = StoR.buf_act + 1,
+			StoR.buf_act = t_159;
+
+	process Sender_StoR 
+		guardBlock
+			t_160 = Sender.state == 7,
+			t_161 = Sender.m == Sender.n,
+			t_162 = t_160 and t_161,
+			t_163 = StoR.state == 0,
+			t_164 = StoR.buf_act == 4,
+			t_165 = not t_164,
+			t_166 = t_163 and t_165,
+			t_167 = t_162 and t_166;
+
+		guardCondition t_167;
+		effect
+			Sender.state = 5,
+			StoR.n = Sender.n,
+			StoR.state = 0,
+			t_168 = 8 * StoR.n,
+			t_169 = 3 + t_168,
+			StoR.buf[StoR.buf_act] = t_169,
+			t_170 = StoR.buf_act + 1,
+			StoR.buf_act = t_170;
+
+	process StoR_Receiver 
+		guardBlock
+			t_171 = StoR.state == 0,
+			t_172 = StoR.buf_act == 0,
+			t_173 = not t_172,
+			t_174 = StoR.buf[0],
+			t_175 = t_174 % 8,
+			t_176 = t_175 == 3,
+			t_177 = t_173 and t_176,
+			t_178 = t_171 and t_177,
+			t_179 = Receiver.state == 0,
+			t_180 = t_178 and t_179;
+
+		guardCondition t_180;
+		effect
+			StoR.state = 0,
+			t_181 = StoR.buf[1],
+			StoR.buf[0] = t_181,
+			t_182 = StoR.buf[2],
+			StoR.buf[1] = t_182,
+			t_183 = StoR.buf[3],
+			StoR.buf[2] = t_183,
+			StoR.buf[3] = 0,
+			t_184 = StoR.buf_act - 1,
+			StoR.buf_act = t_184,
+			t_185 = StoR.buf[0],
+			t_186 = t_185 / 8,
+			Receiver.m = t_186,
+			Receiver.state = 9;
+
+	process StoR_Receiver 
+		guardBlock
+			t_187 = StoR.state == 0,
+			t_188 = StoR.buf_act == 0,
+			t_189 = not t_188,
+			t_190 = StoR.buf[0],
+			t_191 = t_190 % 8,
+			t_192 = t_191 == 3,
+			t_193 = t_189 and t_192,
+			t_194 = t_187 and t_193,
+			t_195 = Receiver.state == 2,
+			t_196 = t_194 and t_195;
+
+		guardCondition t_196;
+		effect
+			StoR.state = 0,
+			t_197 = StoR.buf[1],
+			StoR.buf[0] = t_197,
+			t_198 = StoR.buf[2],
+			StoR.buf[1] = t_198,
+			t_199 = StoR.buf[3],
+			StoR.buf[2] = t_199,
+			StoR.buf[3] = 0,
+			t_200 = StoR.buf_act - 1,
+			StoR.buf_act = t_200,
+			t_201 = StoR.buf[0],
+			t_202 = t_201 / 8,
+			Receiver.m = t_202,
+			Receiver.state = 2;
+
+	process StoR_Receiver 
+		guardBlock
+			t_203 = StoR.state == 0,
+			t_204 = StoR.buf_act == 0,
+			t_205 = not t_204,
+			t_206 = StoR.buf[0],
+			t_207 = t_206 % 8,
+			t_208 = t_207 == 3,
+			t_209 = t_205 and t_208,
+			t_210 = t_203 and t_209,
+			t_211 = Receiver.state == 4,
+			t_212 = t_210 and t_211;
+
+		guardCondition t_212;
+		effect
+			StoR.state = 0,
+			t_213 = StoR.buf[1],
+			StoR.buf[0] = t_213,
+			t_214 = StoR.buf[2],
+			StoR.buf[1] = t_214,
+			t_215 = StoR.buf[3],
+			StoR.buf[2] = t_215,
+			StoR.buf[3] = 0,
+			t_216 = StoR.buf_act - 1,
+			StoR.buf_act = t_216,
+			t_217 = StoR.buf[0],
+			t_218 = t_217 / 8,
+			Receiver.m = t_218,
+			Receiver.state = 8;
+
+	process StoR_Receiver 
+		guardBlock
+			t_219 = StoR.state == 0,
+			t_220 = StoR.buf_act == 0,
+			t_221 = not t_220,
+			t_222 = StoR.buf[0],
+			t_223 = t_222 % 8,
+			t_224 = t_223 == 3,
+			t_225 = t_221 and t_224,
+			t_226 = t_219 and t_225,
+			t_227 = Receiver.state == 5,
+			t_228 = t_226 and t_227;
+
+		guardCondition t_228;
+		effect
+			StoR.state = 0,
+			t_229 = StoR.buf[1],
+			StoR.buf[0] = t_229,
+			t_230 = StoR.buf[2],
+			StoR.buf[1] = t_230,
+			t_231 = StoR.buf[3],
+			StoR.buf[2] = t_231,
+			StoR.buf[3] = 0,
+			t_232 = StoR.buf_act - 1,
+			StoR.buf_act = t_232,
+			t_233 = StoR.buf[0],
+			t_234 = t_233 / 8,
+			Receiver.m = t_234,
+			Receiver.state = 7;
+
+	process RtoS_Sender 
+		guardBlock
+			t_235 = RtoS.state == 0,
+			t_236 = RtoS.buf_act == 0,
+			t_237 = not t_236,
+			t_238 = RtoS.buf[0],
+			t_239 = t_238 == 0,
+			t_240 = t_237 and t_239,
+			t_241 = t_235 and t_240,
+			t_242 = Sender.state == 0,
+			t_243 = t_241 and t_242;
+
+		guardCondition t_243;
+		effect
+			RtoS.state = 0,
+			t_244 = RtoS.buf[1],
+			RtoS.buf[0] = t_244,
+			t_245 = RtoS.buf[2],
+			RtoS.buf[1] = t_245,
+			t_246 = RtoS.buf[3],
+			RtoS.buf[2] = t_246,
+			RtoS.buf[3] = 0,
+			t_247 = RtoS.buf_act - 1,
+			RtoS.buf_act = t_247,
+			Sender.state = 1;
+
+	process RtoS_Sender 
+		guardBlock
+			t_248 = RtoS.state == 0,
+			t_249 = RtoS.buf_act == 0,
+			t_250 = not t_249,
+			t_251 = RtoS.buf[0],
+			t_252 = t_251 == 0,
+			t_253 = t_250 and t_252,
+			t_254 = t_248 and t_253,
+			t_255 = Sender.state == 2,
+			t_256 = t_254 and t_255;
+
+		guardCondition t_256;
+		effect
+			RtoS.state = 0,
+			t_257 = RtoS.buf[1],
+			RtoS.buf[0] = t_257,
+			t_258 = RtoS.buf[2],
+			RtoS.buf[1] = t_258,
+			t_259 = RtoS.buf[3],
+			RtoS.buf[2] = t_259,
+			RtoS.buf[3] = 0,
+			t_260 = RtoS.buf_act - 1,
+			RtoS.buf_act = t_260,
+			Sender.state = 0,
+			Sender.n = -1;
+
+	process RtoS_Sender 
+		guardBlock
+			t_261 = RtoS.state == 0,
+			t_262 = RtoS.buf_act == 0,
+			t_263 = not t_262,
+			t_264 = RtoS.buf[0],
+			t_265 = t_264 == 0,
+			t_266 = t_263 and t_265,
+			t_267 = t_261 and t_266,
+			t_268 = Sender.state == 4,
+			t_269 = t_267 and t_268;
+
+		guardCondition t_269;
+		effect
+			RtoS.state = 0,
+			t_270 = RtoS.buf[1],
+			RtoS.buf[0] = t_270,
+			t_271 = RtoS.buf[2],
+			RtoS.buf[1] = t_271,
+			t_272 = RtoS.buf[3],
+			RtoS.buf[2] = t_272,
+			RtoS.buf[3] = 0,
+			t_273 = RtoS.buf_act - 1,
+			RtoS.buf_act = t_273,
+			Sender.state = 1;
+
+	process RtoS_Sender 
+		guardBlock
+			t_274 = RtoS.state == 0,
+			t_275 = RtoS.buf_act == 0,
+			t_276 = not t_275,
+			t_277 = RtoS.buf[0],
+			t_278 = t_277 == 0,
+			t_279 = t_276 and t_278,
+			t_280 = t_274 and t_279,
+			t_281 = Sender.state == 5,
+			t_282 = t_280 and t_281;
+
+		guardCondition t_282;
+		effect
+			RtoS.state = 0,
+			t_283 = RtoS.buf[1],
+			RtoS.buf[0] = t_283,
+			t_284 = RtoS.buf[2],
+			RtoS.buf[1] = t_284,
+			t_285 = RtoS.buf[3],
+			RtoS.buf[2] = t_285,
+			RtoS.buf[3] = 0,
+			t_286 = RtoS.buf_act - 1,
+			RtoS.buf_act = t_286,
+			Sender.state = 1;
+
+	process Receiver_RtoS 
+		guardBlock
+			t_287 = Receiver.state == 0,
+			t_288 = RtoS.state == 0,
+			t_289 = RtoS.buf_act == 4,
+			t_290 = not t_289,
+			t_291 = t_288 and t_290,
+			t_292 = t_287 and t_291;
+
+		guardCondition t_292;
+		effect
+			Receiver.state = 5,
+			RtoS.n = Receiver.n,
+			RtoS.state = 0,
+			t_293 = 8 * RtoS.n,
+			t_294 = 1 + t_293,
+			RtoS.buf[RtoS.buf_act] = t_294,
+			t_295 = RtoS.buf_act + 1,
+			RtoS.buf_act = t_295;
+
+	process Receiver_RtoS 
+		guardBlock
+			t_296 = Receiver.state == 3,
+			t_297 = RtoS.state == 0,
+			t_298 = RtoS.buf_act == 4,
+			t_299 = not t_298,
+			t_300 = t_297 and t_299,
+			t_301 = t_296 and t_300;
+
+		guardCondition t_301;
+		effect
+			Receiver.state = 5,
+			RtoS.n = Receiver.n,
+			RtoS.state = 0,
+			t_302 = 8 * RtoS.n,
+			t_303 = 1 + t_302,
+			RtoS.buf[RtoS.buf_act] = t_303,
+			t_304 = RtoS.buf_act + 1,
+			RtoS.buf_act = t_304;
+
+	process Receiver_RtoS 
+		guardBlock
+			t_305 = Receiver.state == 4,
+			t_306 = RtoS.state == 0,
+			t_307 = RtoS.buf_act == 4,
+			t_308 = not t_307,
+			t_309 = t_306 and t_308,
+			t_310 = t_305 and t_309;
+
+		guardCondition t_310;
+		effect
+			Receiver.state = 5,
+			RtoS.n = Receiver.n,
+			RtoS.state = 0,
+			t_311 = 8 * RtoS.n,
+			t_312 = 1 + t_311,
+			RtoS.buf[RtoS.buf_act] = t_312,
+			t_313 = RtoS.buf_act + 1,
+			RtoS.buf_act = t_313;
+
+	process Receiver_RtoS 
+		guardBlock
+			t_314 = Receiver.state == 5,
+			t_315 = RtoS.state == 0,
+			t_316 = RtoS.buf_act == 4,
+			t_317 = not t_316,
+			t_318 = t_315 and t_317,
+			t_319 = t_314 and t_318;
+
+		guardCondition t_319;
+		effect
+			Receiver.state = 5,
+			RtoS.n = Receiver.n,
+			RtoS.state = 0,
+			t_320 = 8 * RtoS.n,
+			t_321 = 1 + t_320,
+			RtoS.buf[RtoS.buf_act] = t_321,
+			t_322 = RtoS.buf_act + 1,
+			RtoS.buf_act = t_322;
+
+	process Receiver_RtoS 
+		guardBlock
+			t_323 = Receiver.state == 7,
+			t_324 = Receiver.m + 1,
+			t_325 = t_324 % 4,
+			t_326 = t_325 == Receiver.n,
+			t_327 = t_323 and t_326,
+			t_328 = RtoS.state == 0,
+			t_329 = RtoS.buf_act == 4,
+			t_330 = not t_329,
+			t_331 = t_328 and t_330,
+			t_332 = t_327 and t_331;
+
+		guardCondition t_332;
+		effect
+			Receiver.state = 5,
+			RtoS.n = Receiver.n,
+			RtoS.state = 0,
+			t_333 = 8 * RtoS.n,
+			t_334 = 1 + t_333,
+			RtoS.buf[RtoS.buf_act] = t_334,
+			t_335 = RtoS.buf_act + 1,
+			RtoS.buf_act = t_335;
+
+	process RtoS_Sender 
+		guardBlock
+			t_336 = RtoS.state == 0,
+			t_337 = RtoS.buf_act == 0,
+			t_338 = not t_337,
+			t_339 = RtoS.buf[0],
+			t_340 = t_339 % 8,
+			t_341 = t_340 == 2,
+			t_342 = t_338 and t_341,
+			t_343 = t_336 and t_342,
+			t_344 = Sender.state == 0,
+			t_345 = t_343 and t_344;
+
+		guardCondition t_345;
+		effect
+			RtoS.state = 0,
+			t_346 = RtoS.buf[1],
+			RtoS.buf[0] = t_346,
+			t_347 = RtoS.buf[2],
+			RtoS.buf[1] = t_347,
+			t_348 = RtoS.buf[3],
+			RtoS.buf[2] = t_348,
+			RtoS.buf[3] = 0,
+			t_349 = RtoS.buf_act - 1,
+			RtoS.buf_act = t_349,
+			t_350 = RtoS.buf[0],
+			t_351 = t_350 / 8,
+			Sender.m = t_351,
+			Sender.state = 6;
+
+	process RtoS_Sender 
+		guardBlock
+			t_352 = RtoS.state == 0,
+			t_353 = RtoS.buf_act == 0,
+			t_354 = not t_353,
+			t_355 = RtoS.buf[0],
+			t_356 = t_355 % 8,
+			t_357 = t_356 == 2,
+			t_358 = t_354 and t_357,
+			t_359 = t_352 and t_358,
+			t_360 = Sender.state == 2,
+			t_361 = t_359 and t_360;
+
+		guardCondition t_361;
+		effect
+			RtoS.state = 0,
+			t_362 = RtoS.buf[1],
+			RtoS.buf[0] = t_362,
+			t_363 = RtoS.buf[2],
+			RtoS.buf[1] = t_363,
+			t_364 = RtoS.buf[3],
+			RtoS.buf[2] = t_364,
+			RtoS.buf[3] = 0,
+			t_365 = RtoS.buf_act - 1,
+			RtoS.buf_act = t_365,
+			t_366 = RtoS.buf[0],
+			t_367 = t_366 / 8,
+			Sender.m = t_367,
+			Sender.state = 2;
+
+	process RtoS_Sender 
+		guardBlock
+			t_368 = RtoS.state == 0,
+			t_369 = RtoS.buf_act == 0,
+			t_370 = not t_369,
+			t_371 = RtoS.buf[0],
+			t_372 = t_371 % 8,
+			t_373 = t_372 == 2,
+			t_374 = t_370 and t_373,
+			t_375 = t_368 and t_374,
+			t_376 = Sender.state == 5,
+			t_377 = t_375 and t_376;
+
+		guardCondition t_377;
+		effect
+			RtoS.state = 0,
+			t_378 = RtoS.buf[1],
+			RtoS.buf[0] = t_378,
+			t_379 = RtoS.buf[2],
+			RtoS.buf[1] = t_379,
+			t_380 = RtoS.buf[3],
+			RtoS.buf[2] = t_380,
+			RtoS.buf[3] = 0,
+			t_381 = RtoS.buf_act - 1,
+			RtoS.buf_act = t_381,
+			t_382 = RtoS.buf[0],
+			t_383 = t_382 / 8,
+			Sender.m = t_383,
+			Sender.state = 6;
+
+	process RtoS_Sender 
+		guardBlock
+			t_384 = RtoS.state == 0,
+			t_385 = RtoS.buf_act == 0,
+			t_386 = not t_385,
+			t_387 = RtoS.buf[0],
+			t_388 = t_387 % 8,
+			t_389 = t_388 == 1,
+			t_390 = t_386 and t_389,
+			t_391 = t_384 and t_390,
+			t_392 = Sender.state == 0,
+			t_393 = t_391 and t_392;
+
+		guardCondition t_393;
+		effect
+			RtoS.state = 0,
+			t_394 = RtoS.buf[1],
+			RtoS.buf[0] = t_394,
+			t_395 = RtoS.buf[2],
+			RtoS.buf[1] = t_395,
+			t_396 = RtoS.buf[3],
+			RtoS.buf[2] = t_396,
+			RtoS.buf[3] = 0,
+			t_397 = RtoS.buf_act - 1,
+			RtoS.buf_act = t_397,
+			t_398 = RtoS.buf[0],
+			t_399 = t_398 / 8,
+			Sender.m = t_399,
+			Sender.state = 9;
+
+	process RtoS_Sender 
+		guardBlock
+			t_400 = RtoS.state == 0,
+			t_401 = RtoS.buf_act == 0,
+			t_402 = not t_401,
+			t_403 = RtoS.buf[0],
+			t_404 = t_403 % 8,
+			t_405 = t_404 == 1,
+			t_406 = t_402 and t_405,
+			t_407 = t_400 and t_406,
+			t_408 = Sender.state == 2,
+			t_409 = t_407 and t_408;
+
+		guardCondition t_409;
+		effect
+			RtoS.state = 0,
+			t_410 = RtoS.buf[1],
+			RtoS.buf[0] = t_410,
+			t_411 = RtoS.buf[2],
+			RtoS.buf[1] = t_411,
+			t_412 = RtoS.buf[3],
+			RtoS.buf[2] = t_412,
+			RtoS.buf[3] = 0,
+			t_413 = RtoS.buf_act - 1,
+			RtoS.buf_act = t_413,
+			t_414 = RtoS.buf[0],
+			t_415 = t_414 / 8,
+			Sender.m = t_415,
+			Sender.state = 2;
+
+	process RtoS_Sender 
+		guardBlock
+			t_416 = RtoS.state == 0,
+			t_417 = RtoS.buf_act == 0,
+			t_418 = not t_417,
+			t_419 = RtoS.buf[0],
+			t_420 = t_419 % 8,
+			t_421 = t_420 == 1,
+			t_422 = t_418 and t_421,
+			t_423 = t_416 and t_422,
+			t_424 = Sender.state == 4,
+			t_425 = t_423 and t_424;
+
+		guardCondition t_425;
+		effect
+			RtoS.state = 0,
+			t_426 = RtoS.buf[1],
+			RtoS.buf[0] = t_426,
+			t_427 = RtoS.buf[2],
+			RtoS.buf[1] = t_427,
+			t_428 = RtoS.buf[3],
+			RtoS.buf[2] = t_428,
+			RtoS.buf[3] = 0,
+			t_429 = RtoS.buf_act - 1,
+			RtoS.buf_act = t_429,
+			t_430 = RtoS.buf[0],
+			t_431 = t_430 / 8,
+			Sender.m = t_431,
+			Sender.state = 8;
+
+	process RtoS_Sender 
+		guardBlock
+			t_432 = RtoS.state == 0,
+			t_433 = RtoS.buf_act == 0,
+			t_434 = not t_433,
+			t_435 = RtoS.buf[0],
+			t_436 = t_435 % 8,
+			t_437 = t_436 == 1,
+			t_438 = t_434 and t_437,
+			t_439 = t_432 and t_438,
+			t_440 = Sender.state == 5,
+			t_441 = t_439 and t_440;
+
+		guardCondition t_441;
+		effect
+			RtoS.state = 0,
+			t_442 = RtoS.buf[1],
+			RtoS.buf[0] = t_442,
+			t_443 = RtoS.buf[2],
+			RtoS.buf[1] = t_443,
+			t_444 = RtoS.buf[3],
+			RtoS.buf[2] = t_444,
+			RtoS.buf[3] = 0,
+			t_445 = RtoS.buf_act - 1,
+			RtoS.buf_act = t_445,
+			t_446 = RtoS.buf[0],
+			t_447 = t_446 / 8,
+			Sender.m = t_447,
+			Sender.state = 7;
+
+	process Sender_StoR 
+		guardBlock
+			t_448 = Sender.state == 3,
+			t_449 = StoR.state == 0,
+			t_450 = StoR.buf_act == 4,
+			t_451 = not t_450,
+			t_452 = t_449 and t_451,
+			t_453 = t_448 and t_452;
+
+		guardCondition t_453;
+		effect
+			Sender.state = 4,
+			StoR.n = Sender.n,
+			StoR.state = 0,
+			t_454 = 8 * StoR.n,
+			t_455 = 4 + t_454,
+			StoR.buf[StoR.buf_act] = t_455,
+			t_456 = StoR.buf_act + 1,
+			StoR.buf_act = t_456;
+
+	process Sender_StoR 
+		guardBlock
+			t_457 = Sender.state == 8,
+			t_458 = Sender.m == Sender.n,
+			t_459 = t_457 and t_458,
+			t_460 = StoR.state == 0,
+			t_461 = StoR.buf_act == 4,
+			t_462 = not t_461,
+			t_463 = t_460 and t_462,
+			t_464 = t_459 and t_463;
+
+		guardCondition t_464;
+		effect
+			Sender.state = 4,
+			StoR.n = Sender.n,
+			StoR.state = 0,
+			t_465 = 8 * StoR.n,
+			t_466 = 4 + t_465,
+			StoR.buf[StoR.buf_act] = t_466,
+			t_467 = StoR.buf_act + 1,
+			StoR.buf_act = t_467;
+
+	process Sender_StoR 
+		guardBlock
+			t_468 = Sender.state == 0,
+			t_469 = StoR.state == 0,
+			t_470 = StoR.buf_act == 4,
+			t_471 = not t_470,
+			t_472 = t_469 and t_471,
+			t_473 = t_468 and t_472;
+
+		guardCondition t_473;
+		effect
+			Sender.state = 2,
+			StoR.state = 0,
+			StoR.buf[StoR.buf_act] = 0,
+			t_474 = StoR.buf_act + 1,
+			StoR.buf_act = t_474;
+
+	process Sender_StoR 
+		guardBlock
+			t_475 = Sender.state == 1,
+			t_476 = StoR.state == 0,
+			t_477 = StoR.buf_act == 4,
+			t_478 = not t_477,
+			t_479 = t_476 and t_478,
+			t_480 = t_475 and t_479;
+
+		guardCondition t_480;
+		effect
+			Sender.state = 0,
+			Sender.n = -1,
+			StoR.state = 0,
+			StoR.buf[StoR.buf_act] = 0,
+			t_481 = StoR.buf_act + 1,
+			StoR.buf_act = t_481;
+
+	process Sender_StoR 
+		guardBlock
+			t_482 = Sender.state == 4,
+			t_483 = StoR.state == 0,
+			t_484 = StoR.buf_act == 4,
+			t_485 = not t_484,
+			t_486 = t_483 and t_485,
+			t_487 = t_482 and t_486;
+
+		guardCondition t_487;
+		effect
+			Sender.state = 2,
+			StoR.state = 0,
+			StoR.buf[StoR.buf_act] = 0,
+			t_488 = StoR.buf_act + 1,
+			StoR.buf_act = t_488;
+
+	process Sender_StoR 
+		guardBlock
+			t_489 = Sender.state == 5,
+			t_490 = StoR.state == 0,
+			t_491 = StoR.buf_act == 4,
+			t_492 = not t_491,
+			t_493 = t_490 and t_492,
+			t_494 = t_489 and t_493;
+
+		guardCondition t_494;
+		effect
+			Sender.state = 2,
+			StoR.state = 0,
+			StoR.buf[StoR.buf_act] = 0,
+			t_495 = StoR.buf_act + 1,
+			StoR.buf_act = t_495;
+
+	process StoR_Receiver 
+		guardBlock
+			t_496 = StoR.state == 0,
+			t_497 = StoR.buf_act == 0,
+			t_498 = not t_497,
+			t_499 = StoR.buf[0],
+			t_500 = t_499 % 8,
+			t_501 = t_500 == 4,
+			t_502 = t_498 and t_501,
+			t_503 = t_496 and t_502,
+			t_504 = Receiver.state == 0,
+			t_505 = t_503 and t_504;
+
+		guardCondition t_505;
+		effect
+			StoR.state = 0,
+			t_506 = StoR.buf[1],
+			StoR.buf[0] = t_506,
+			t_507 = StoR.buf[2],
+			StoR.buf[1] = t_507,
+			t_508 = StoR.buf[3],
+			StoR.buf[2] = t_508,
+			StoR.buf[3] = 0,
+			t_509 = StoR.buf_act - 1,
+			StoR.buf_act = t_509,
+			t_510 = StoR.buf[0],
+			t_511 = t_510 / 8,
+			Receiver.m = t_511,
+			Receiver.state = 6;
+
+	process StoR_Receiver 
+		guardBlock
+			t_512 = StoR.state == 0,
+			t_513 = StoR.buf_act == 0,
+			t_514 = not t_513,
+			t_515 = StoR.buf[0],
+			t_516 = t_515 % 8,
+			t_517 = t_516 == 4,
+			t_518 = t_514 and t_517,
+			t_519 = t_512 and t_518,
+			t_520 = Receiver.state == 2,
+			t_521 = t_519 and t_520;
+
+		guardCondition t_521;
+		effect
+			StoR.state = 0,
+			t_522 = StoR.buf[1],
+			StoR.buf[0] = t_522,
+			t_523 = StoR.buf[2],
+			StoR.buf[1] = t_523,
+			t_524 = StoR.buf[3],
+			StoR.buf[2] = t_524,
+			StoR.buf[3] = 0,
+			t_525 = StoR.buf_act - 1,
+			StoR.buf_act = t_525,
+			t_526 = StoR.buf[0],
+			t_527 = t_526 / 8,
+			Receiver.m = t_527,
+			Receiver.state = 2;
+
+	process StoR_Receiver 
+		guardBlock
+			t_528 = StoR.state == 0,
+			t_529 = StoR.buf_act == 0,
+			t_530 = not t_529,
+			t_531 = StoR.buf[0],
+			t_532 = t_531 % 8,
+			t_533 = t_532 == 4,
+			t_534 = t_530 and t_533,
+			t_535 = t_528 and t_534,
+			t_536 = Receiver.state == 5,
+			t_537 = t_535 and t_536;
+
+		guardCondition t_537;
+		effect
+			StoR.state = 0,
+			t_538 = StoR.buf[1],
+			StoR.buf[0] = t_538,
+			t_539 = StoR.buf[2],
+			StoR.buf[1] = t_539,
+			t_540 = StoR.buf[3],
+			StoR.buf[2] = t_540,
+			StoR.buf[3] = 0,
+			t_541 = StoR.buf_act - 1,
+			StoR.buf_act = t_541,
+			t_542 = StoR.buf[0],
+			t_543 = t_542 / 8,
+			Receiver.m = t_543,
+			Receiver.state = 11;
+
+	process Receiver_RtoS 
+		guardBlock
+			t_544 = Receiver.state == 3,
+			t_545 = RtoS.state == 0,
+			t_546 = RtoS.buf_act == 4,
+			t_547 = not t_546,
+			t_548 = t_545 and t_547,
+			t_549 = t_544 and t_548;
+
+		guardCondition t_549;
+		effect
+			Receiver.state = 4,
+			RtoS.n = Receiver.n,
+			RtoS.state = 0,
+			t_550 = 8 * RtoS.n,
+			t_551 = 2 + t_550,
+			RtoS.buf[RtoS.buf_act] = t_551,
+			t_552 = RtoS.buf_act + 1,
+			RtoS.buf_act = t_552;
+
+	process Receiver_RtoS 
+		guardBlock
+			t_553 = Receiver.state == 8,
+			t_554 = Receiver.m + 1,
+			t_555 = t_554 % 4,
+			t_556 = t_555 == Receiver.n,
+			t_557 = t_553 and t_556,
+			t_558 = RtoS.state == 0,
+			t_559 = RtoS.buf_act == 4,
+			t_560 = not t_559,
+			t_561 = t_558 and t_560,
+			t_562 = t_557 and t_561;
+
+		guardCondition t_562;
+		effect
+			Receiver.state = 4,
+			RtoS.n = Receiver.n,
+			RtoS.state = 0,
+			t_563 = 8 * RtoS.n,
+			t_564 = 2 + t_563,
+			RtoS.buf[RtoS.buf_act] = t_564,
+			t_565 = RtoS.buf_act + 1,
+			RtoS.buf_act = t_565;
+
+
+system async;

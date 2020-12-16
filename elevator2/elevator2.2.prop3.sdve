@@ -1,0 +1,671 @@
+byte[10] req = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+int t = 0;
+int p = 0;
+byte v = 0;
+state {idle(0), mov(1), open(2)} cabin.state = 0;
+state {read(0)} environment.state = 0;
+state {wait(0), work(1), done(2)} controller.state = 0;
+state {q1(0), q2(1), q3(2), q4(3), q5(4), q6(5)} LTL_property.state = 0;
+transient bool t_0 = false;
+transient bool t_1 = false;
+transient bool t_2 = false;
+transient bool t_3 = false;
+transient bool t_4 = false;
+transient bool t_5 = false;
+transient bool t_6 = false;
+transient bool t_7 = false;
+transient bool t_8 = false;
+transient int t_9 = 0;
+transient bool t_10 = false;
+transient bool t_11 = false;
+transient bool t_12 = false;
+transient int t_13 = 0;
+transient bool t_14 = false;
+transient bool t_15 = false;
+transient byte t_16 = 0;
+transient bool t_17 = false;
+transient bool t_18 = false;
+transient bool t_19 = false;
+transient byte t_20 = 0;
+transient bool t_21 = false;
+transient bool t_22 = false;
+transient bool t_23 = false;
+transient byte t_24 = 0;
+transient bool t_25 = false;
+transient bool t_26 = false;
+transient bool t_27 = false;
+transient byte t_28 = 0;
+transient bool t_29 = false;
+transient bool t_30 = false;
+transient bool t_31 = false;
+transient byte t_32 = 0;
+transient bool t_33 = false;
+transient bool t_34 = false;
+transient bool t_35 = false;
+transient byte t_36 = 0;
+transient bool t_37 = false;
+transient bool t_38 = false;
+transient bool t_39 = false;
+transient byte t_40 = 0;
+transient bool t_41 = false;
+transient bool t_42 = false;
+transient bool t_43 = false;
+transient byte t_44 = 0;
+transient bool t_45 = false;
+transient bool t_46 = false;
+transient bool t_47 = false;
+transient byte t_48 = 0;
+transient bool t_49 = false;
+transient bool t_50 = false;
+transient bool t_51 = false;
+transient byte t_52 = 0;
+transient bool t_53 = false;
+transient bool t_54 = false;
+transient bool t_55 = false;
+transient bool t_56 = false;
+transient bool t_57 = false;
+transient bool t_58 = false;
+transient byte t_59 = 0;
+transient bool t_60 = false;
+transient bool t_61 = false;
+transient bool t_62 = false;
+transient byte t_63 = 0;
+transient bool t_64 = false;
+transient bool t_65 = false;
+transient bool t_66 = false;
+transient byte t_67 = 0;
+transient bool t_68 = false;
+transient bool t_69 = false;
+transient bool t_70 = false;
+transient byte t_71 = 0;
+transient bool t_72 = false;
+transient bool t_73 = false;
+transient bool t_74 = false;
+transient byte t_75 = 0;
+transient bool t_76 = false;
+transient bool t_77 = false;
+transient bool t_78 = false;
+transient byte t_79 = 0;
+transient bool t_80 = false;
+transient bool t_81 = false;
+transient bool t_82 = false;
+transient byte t_83 = 0;
+transient bool t_84 = false;
+transient bool t_85 = false;
+transient bool t_86 = false;
+transient byte t_87 = 0;
+transient bool t_88 = false;
+transient bool t_89 = false;
+transient bool t_90 = false;
+transient byte t_91 = 0;
+transient bool t_92 = false;
+transient bool t_93 = false;
+transient bool t_94 = false;
+transient byte t_95 = 0;
+transient bool t_96 = false;
+transient bool t_97 = false;
+transient bool t_98 = false;
+transient bool t_99 = false;
+transient bool t_100 = false;
+transient byte t_101 = 0;
+transient bool t_102 = false;
+transient bool t_103 = false;
+transient bool t_104 = false;
+transient bool t_105 = false;
+transient bool t_106 = false;
+transient bool t_107 = false;
+transient byte t_108 = 0;
+transient bool t_109 = false;
+transient bool t_110 = false;
+transient bool t_111 = false;
+transient bool t_112 = false;
+transient bool t_113 = false;
+transient bool t_114 = false;
+transient byte t_115 = 0;
+transient bool t_116 = false;
+transient bool t_117 = false;
+transient bool t_118 = false;
+transient bool t_119 = false;
+transient bool t_120 = false;
+transient bool t_121 = false;
+transient bool t_122 = false;
+transient bool t_123 = false;
+transient bool t_124 = false;
+transient bool t_125 = false;
+transient bool t_126 = false;
+transient bool t_127 = false;
+transient bool t_128 = false;
+transient bool t_129 = false;
+transient bool t_130 = false;
+transient bool t_131 = false;
+transient bool t_132 = false;
+transient bool t_133 = false;
+transient bool t_134 = false;
+transient bool t_135 = false;
+transient bool t_136 = false;
+transient bool t_137 = false;
+transient bool t_138 = false;
+transient bool t_139 = false;
+transient bool t_140 = false;
+transient bool t_141 = false;
+transient bool t_142 = false;
+transient bool t_143 = false;
+transient bool t_144 = false;
+transient bool t_145 = false;
+transient bool t_146 = false;
+transient bool t_147 = false;
+transient bool t_148 = false;
+transient bool t_149 = false;
+transient bool t_150 = false;
+transient bool t_151 = false;
+transient bool t_152 = false;
+transient bool t_153 = false;
+transient bool t_154 = false;
+transient bool t_155 = false;
+transient bool t_156 = false;
+transient bool t_157 = false;
+transient bool t_158 = false;
+transient bool t_159 = false;
+transient bool t_160 = false;
+transient bool t_161 = false;
+transient bool t_162 = false;
+transient bool t_163 = false;
+transient bool t_164 = false;
+transient bool t_165 = false;
+transient bool t_166 = false;
+transient bool t_167 = false;
+	process cabin 
+		guardBlock
+			t_0 = cabin.state == 0,
+			t_1 = v > 0,
+			t_2 = t_0 and t_1;
+
+		guardCondition t_2;
+		effect
+			cabin.state = 1;
+
+	process cabin 
+		guardBlock
+			t_3 = cabin.state == 1,
+			t_4 = t == p,
+			t_5 = t_3 and t_4;
+
+		guardCondition t_5;
+		effect
+			cabin.state = 2;
+
+	process cabin 
+		guardBlock
+			t_6 = cabin.state == 1,
+			t_7 = t < p,
+			t_8 = t_6 and t_7;
+
+		guardCondition t_8;
+		effect
+			cabin.state = 1,
+			t_9 = p - 1,
+			p = t_9;
+
+	process cabin 
+		guardBlock
+			t_10 = cabin.state == 1,
+			t_11 = t > p,
+			t_12 = t_10 and t_11;
+
+		guardCondition t_12;
+		effect
+			cabin.state = 1,
+			t_13 = p + 1,
+			p = t_13;
+
+	process cabin 
+		guardBlock
+			t_14 = cabin.state == 2;
+
+		guardCondition t_14;
+		effect
+			cabin.state = 0,
+			req[p] = 0,
+			v = 0;
+
+	process environment 
+		guardBlock
+			t_15 = environment.state == 0,
+			t_16 = req[0],
+			t_17 = t_16 == 0,
+			t_18 = t_15 and t_17;
+
+		guardCondition t_18;
+		effect
+			environment.state = 0,
+			req[0] = 1;
+
+	process environment 
+		guardBlock
+			t_19 = environment.state == 0,
+			t_20 = req[1],
+			t_21 = t_20 == 0,
+			t_22 = t_19 and t_21;
+
+		guardCondition t_22;
+		effect
+			environment.state = 0,
+			req[1] = 1;
+
+	process environment 
+		guardBlock
+			t_23 = environment.state == 0,
+			t_24 = req[2],
+			t_25 = t_24 == 0,
+			t_26 = t_23 and t_25;
+
+		guardCondition t_26;
+		effect
+			environment.state = 0,
+			req[2] = 1;
+
+	process environment 
+		guardBlock
+			t_27 = environment.state == 0,
+			t_28 = req[3],
+			t_29 = t_28 == 0,
+			t_30 = t_27 and t_29;
+
+		guardCondition t_30;
+		effect
+			environment.state = 0,
+			req[3] = 1;
+
+	process environment 
+		guardBlock
+			t_31 = environment.state == 0,
+			t_32 = req[4],
+			t_33 = t_32 == 0,
+			t_34 = t_31 and t_33;
+
+		guardCondition t_34;
+		effect
+			environment.state = 0,
+			req[4] = 1;
+
+	process environment 
+		guardBlock
+			t_35 = environment.state == 0,
+			t_36 = req[5],
+			t_37 = t_36 == 0,
+			t_38 = t_35 and t_37;
+
+		guardCondition t_38;
+		effect
+			environment.state = 0,
+			req[5] = 1;
+
+	process environment 
+		guardBlock
+			t_39 = environment.state == 0,
+			t_40 = req[6],
+			t_41 = t_40 == 0,
+			t_42 = t_39 and t_41;
+
+		guardCondition t_42;
+		effect
+			environment.state = 0,
+			req[6] = 1;
+
+	process environment 
+		guardBlock
+			t_43 = environment.state == 0,
+			t_44 = req[7],
+			t_45 = t_44 == 0,
+			t_46 = t_43 and t_45;
+
+		guardCondition t_46;
+		effect
+			environment.state = 0,
+			req[7] = 1;
+
+	process environment 
+		guardBlock
+			t_47 = environment.state == 0,
+			t_48 = req[8],
+			t_49 = t_48 == 0,
+			t_50 = t_47 and t_49;
+
+		guardCondition t_50;
+		effect
+			environment.state = 0,
+			req[8] = 1;
+
+	process environment 
+		guardBlock
+			t_51 = environment.state == 0,
+			t_52 = req[9],
+			t_53 = t_52 == 0,
+			t_54 = t_51 and t_53;
+
+		guardCondition t_54;
+		effect
+			environment.state = 0,
+			req[9] = 1;
+
+	process controller 
+		guardBlock
+			t_55 = controller.state == 0,
+			t_56 = v == 0,
+			t_57 = t_55 and t_56;
+
+		guardCondition t_57;
+		effect
+			controller.state = 1;
+
+	process controller 
+		guardBlock
+			t_58 = controller.state == 1,
+			t_59 = req[0],
+			t_60 = t_59 == 1,
+			t_61 = t_58 and t_60;
+
+		guardCondition t_61;
+		effect
+			controller.state = 2,
+			t = 0;
+
+	process controller 
+		guardBlock
+			t_62 = controller.state == 1,
+			t_63 = req[1],
+			t_64 = t_63 == 1,
+			t_65 = t_62 and t_64;
+
+		guardCondition t_65;
+		effect
+			controller.state = 2,
+			t = 1;
+
+	process controller 
+		guardBlock
+			t_66 = controller.state == 1,
+			t_67 = req[2],
+			t_68 = t_67 == 1,
+			t_69 = t_66 and t_68;
+
+		guardCondition t_69;
+		effect
+			controller.state = 2,
+			t = 2;
+
+	process controller 
+		guardBlock
+			t_70 = controller.state == 1,
+			t_71 = req[3],
+			t_72 = t_71 == 1,
+			t_73 = t_70 and t_72;
+
+		guardCondition t_73;
+		effect
+			controller.state = 2,
+			t = 3;
+
+	process controller 
+		guardBlock
+			t_74 = controller.state == 1,
+			t_75 = req[4],
+			t_76 = t_75 == 1,
+			t_77 = t_74 and t_76;
+
+		guardCondition t_77;
+		effect
+			controller.state = 2,
+			t = 4;
+
+	process controller 
+		guardBlock
+			t_78 = controller.state == 1,
+			t_79 = req[5],
+			t_80 = t_79 == 1,
+			t_81 = t_78 and t_80;
+
+		guardCondition t_81;
+		effect
+			controller.state = 2,
+			t = 5;
+
+	process controller 
+		guardBlock
+			t_82 = controller.state == 1,
+			t_83 = req[6],
+			t_84 = t_83 == 1,
+			t_85 = t_82 and t_84;
+
+		guardCondition t_85;
+		effect
+			controller.state = 2,
+			t = 6;
+
+	process controller 
+		guardBlock
+			t_86 = controller.state == 1,
+			t_87 = req[7],
+			t_88 = t_87 == 1,
+			t_89 = t_86 and t_88;
+
+		guardCondition t_89;
+		effect
+			controller.state = 2,
+			t = 7;
+
+	process controller 
+		guardBlock
+			t_90 = controller.state == 1,
+			t_91 = req[8],
+			t_92 = t_91 == 1,
+			t_93 = t_90 and t_92;
+
+		guardCondition t_93;
+		effect
+			controller.state = 2,
+			t = 8;
+
+	process controller 
+		guardBlock
+			t_94 = controller.state == 1,
+			t_95 = req[9],
+			t_96 = t_95 == 1,
+			t_97 = t_94 and t_96;
+
+		guardCondition t_97;
+		effect
+			controller.state = 2,
+			t = 9;
+
+	process controller 
+		guardBlock
+			t_98 = controller.state == 2;
+
+		guardCondition t_98;
+		effect
+			controller.state = 0,
+			v = 1;
+
+	process LTL_property 
+		guardBlock
+			t_99 = LTL_property.state == 0;
+
+		guardCondition t_99;
+		effect
+			LTL_property.state = 0;
+
+	process LTL_property 
+		guardBlock
+			t_100 = LTL_property.state == 0,
+			t_101 = req[0],
+			t_102 = t_101 == 1,
+			t_103 = p == 1,
+			t_104 = not t_103,
+			t_105 = t_102 and t_104,
+			t_106 = t_100 and t_105;
+
+		guardCondition t_106;
+		effect
+			LTL_property.state = 1;
+
+	process LTL_property 
+		guardBlock
+			t_107 = LTL_property.state == 0,
+			t_108 = req[0],
+			t_109 = t_108 == 1,
+			t_110 = cabin.state == 2,
+			t_111 = not t_110,
+			t_112 = t_109 and t_111,
+			t_113 = t_107 and t_112;
+
+		guardCondition t_113;
+		effect
+			LTL_property.state = 1;
+
+	process LTL_property 
+		guardBlock
+			t_114 = LTL_property.state == 0,
+			t_115 = req[0],
+			t_116 = t_115 == 1,
+			t_117 = p == 1,
+			t_118 = t_116 and t_117,
+			t_119 = cabin.state == 2,
+			t_120 = not t_119,
+			t_121 = t_118 and t_120,
+			t_122 = t_114 and t_121;
+
+		guardCondition t_122;
+		effect
+			LTL_property.state = 2;
+
+	process LTL_property 
+		guardBlock
+			t_123 = LTL_property.state == 1,
+			t_124 = p == 1,
+			t_125 = not t_124,
+			t_126 = t_123 and t_125;
+
+		guardCondition t_126;
+		effect
+			LTL_property.state = 1;
+
+	process LTL_property 
+		guardBlock
+			t_127 = LTL_property.state == 1,
+			t_128 = cabin.state == 2,
+			t_129 = not t_128,
+			t_130 = t_127 and t_129;
+
+		guardCondition t_130;
+		effect
+			LTL_property.state = 1;
+
+	process LTL_property 
+		guardBlock
+			t_131 = LTL_property.state == 1,
+			t_132 = cabin.state == 2,
+			t_133 = not t_132,
+			t_134 = p == 1,
+			t_135 = t_133 and t_134,
+			t_136 = t_131 and t_135;
+
+		guardCondition t_136;
+		effect
+			LTL_property.state = 2;
+
+	process LTL_property 
+		guardBlock
+			t_137 = LTL_property.state == 2,
+			t_138 = p == 1,
+			t_139 = not t_138,
+			t_140 = t_137 and t_139;
+
+		guardCondition t_140;
+		effect
+			LTL_property.state = 3;
+
+	process LTL_property 
+		guardBlock
+			t_141 = LTL_property.state == 2,
+			t_142 = cabin.state == 2,
+			t_143 = not t_142,
+			t_144 = t_141 and t_143;
+
+		guardCondition t_144;
+		effect
+			LTL_property.state = 2;
+
+	process LTL_property 
+		guardBlock
+			t_145 = LTL_property.state == 3,
+			t_146 = p == 1,
+			t_147 = not t_146,
+			t_148 = t_145 and t_147;
+
+		guardCondition t_148;
+		effect
+			LTL_property.state = 3;
+
+	process LTL_property 
+		guardBlock
+			t_149 = LTL_property.state == 3,
+			t_150 = cabin.state == 2,
+			t_151 = not t_150,
+			t_152 = t_149 and t_151;
+
+		guardCondition t_152;
+		effect
+			LTL_property.state = 3;
+
+	process LTL_property 
+		guardBlock
+			t_153 = LTL_property.state == 3,
+			t_154 = p == 1,
+			t_155 = cabin.state == 2,
+			t_156 = not t_155,
+			t_157 = t_154 and t_156,
+			t_158 = t_153 and t_157;
+
+		guardCondition t_158;
+		effect
+			LTL_property.state = 4;
+
+	process LTL_property 
+		guardBlock
+			t_159 = LTL_property.state == 4,
+			t_160 = cabin.state == 2,
+			t_161 = not t_160,
+			t_162 = t_159 and t_161;
+
+		guardCondition t_162;
+		effect
+			LTL_property.state = 4;
+
+	process LTL_property 
+		guardBlock
+			t_163 = LTL_property.state == 4,
+			t_164 = p == 1,
+			t_165 = not t_164,
+			t_166 = t_163 and t_165;
+
+		guardCondition t_166;
+		effect
+			LTL_property.state = 5;
+
+	process LTL_property 
+		guardBlock
+			t_167 = LTL_property.state == 5;
+
+		guardCondition t_167;
+		effect
+			LTL_property.state = 5;
+
+accepting conditions
+	LTL_property.state == 1
+	LTL_property.state == 2
+	LTL_property.state == 3
+	LTL_property.state == 4
+	LTL_property.state == 5
+
+system async property LTL_property;

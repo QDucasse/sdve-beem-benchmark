@@ -1,0 +1,716 @@
+state {tick(0)} Timer.state = 0;
+state {wait(0), produce(1)} Producer.state = 0;
+byte Producer.message = 0;
+state {wait(0), consume(1)} Consumer.state = 0;
+byte Consumer.message = 0;
+state {wait(0), data(1), ack(2), nak(3), dataOk(4), ackOk(5), nakOk(6)} Medium.state = 0;
+byte Medium.value = 0;
+state {wait(0), data(1), ack(2), nak(3), timeout(4)} Sender.state = 0;
+byte Sender.sendseq = 1;
+byte Sender.rack = 0;
+byte Sender.value = 0;
+state {wait(0), data(1), put_data(2), send_naks(3), corr_data(4), on_timeout(5), timeout_ack(6)} Receiver.state = 0;
+byte Receiver.i = 0;
+byte Receiver.value = 0;
+byte Receiver.sent = 0;
+byte Receiver.recseq = 0;
+byte Receiver.lack = 0;
+byte[10] Receiver.recbuf = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+byte[10] Receiver.nakd = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+transient bool t_0 = false;
+transient bool t_1 = false;
+transient bool t_2 = false;
+transient bool t_3 = false;
+transient bool t_4 = false;
+transient bool t_5 = false;
+transient bool t_6 = false;
+transient bool t_7 = false;
+transient bool t_8 = false;
+transient bool t_9 = false;
+transient bool t_10 = false;
+transient bool t_11 = false;
+transient bool t_12 = false;
+transient bool t_13 = false;
+transient bool t_14 = false;
+transient bool t_15 = false;
+transient bool t_16 = false;
+transient bool t_17 = false;
+transient bool t_18 = false;
+transient bool t_19 = false;
+transient bool t_20 = false;
+transient bool t_21 = false;
+transient bool t_22 = false;
+transient bool t_23 = false;
+transient bool t_24 = false;
+transient bool t_25 = false;
+transient bool t_26 = false;
+transient bool t_27 = false;
+transient bool t_28 = false;
+transient bool t_29 = false;
+transient bool t_30 = false;
+transient bool t_31 = false;
+transient bool t_32 = false;
+transient bool t_33 = false;
+transient bool t_34 = false;
+transient bool t_35 = false;
+transient bool t_36 = false;
+transient bool t_37 = false;
+transient bool t_38 = false;
+transient bool t_39 = false;
+transient bool t_40 = false;
+transient bool t_41 = false;
+transient bool t_42 = false;
+transient bool t_43 = false;
+transient bool t_44 = false;
+transient bool t_45 = false;
+transient bool t_46 = false;
+transient bool t_47 = false;
+transient int t_48 = 0;
+transient int t_49 = 0;
+transient bool t_50 = false;
+transient bool t_51 = false;
+transient bool t_52 = false;
+transient int t_53 = 0;
+transient int t_54 = 0;
+transient bool t_55 = false;
+transient bool t_56 = false;
+transient int t_57 = 0;
+transient int t_58 = 0;
+transient bool t_59 = false;
+transient bool t_60 = false;
+transient byte t_61 = 0;
+transient bool t_62 = false;
+transient bool t_63 = false;
+transient bool t_64 = false;
+transient int t_65 = 0;
+transient int t_66 = 0;
+transient bool t_67 = false;
+transient bool t_68 = false;
+transient bool t_69 = false;
+transient bool t_70 = false;
+transient bool t_71 = false;
+transient int t_72 = 0;
+transient int t_73 = 0;
+transient byte t_74 = 0;
+transient bool t_75 = false;
+transient bool t_76 = false;
+transient bool t_77 = false;
+transient bool t_78 = false;
+transient byte t_79 = 0;
+transient bool t_80 = false;
+transient bool t_81 = false;
+transient bool t_82 = false;
+transient bool t_83 = false;
+transient bool t_84 = false;
+transient int t_85 = 0;
+transient bool t_86 = false;
+transient int t_87 = 0;
+transient int t_88 = 0;
+transient bool t_89 = false;
+transient bool t_90 = false;
+transient bool t_91 = false;
+transient bool t_92 = false;
+transient int t_93 = 0;
+transient int t_94 = 0;
+transient int t_95 = 0;
+transient int t_96 = 0;
+transient bool t_97 = false;
+transient bool t_98 = false;
+transient int t_99 = 0;
+transient int t_100 = 0;
+transient byte t_101 = 0;
+transient bool t_102 = false;
+transient bool t_103 = false;
+transient bool t_104 = false;
+transient bool t_105 = false;
+transient bool t_106 = false;
+transient int t_107 = 0;
+transient int t_108 = 0;
+transient int t_109 = 0;
+transient int t_110 = 0;
+transient bool t_111 = false;
+transient bool t_112 = false;
+transient bool t_113 = false;
+transient bool t_114 = false;
+transient bool t_115 = false;
+transient bool t_116 = false;
+transient bool t_117 = false;
+transient bool t_118 = false;
+transient bool t_119 = false;
+transient bool t_120 = false;
+transient bool t_121 = false;
+transient bool t_122 = false;
+transient bool t_123 = false;
+transient bool t_124 = false;
+transient bool t_125 = false;
+transient bool t_126 = false;
+transient bool t_127 = false;
+transient bool t_128 = false;
+transient bool t_129 = false;
+transient bool t_130 = false;
+transient bool t_131 = false;
+transient bool t_132 = false;
+transient bool t_133 = false;
+transient bool t_134 = false;
+transient bool t_135 = false;
+transient bool t_136 = false;
+transient bool t_137 = false;
+transient bool t_138 = false;
+transient int t_139 = 0;
+transient int t_140 = 0;
+transient bool t_141 = false;
+transient bool t_142 = false;
+transient bool t_143 = false;
+transient bool t_144 = false;
+transient int t_145 = 0;
+transient int t_146 = 0;
+transient bool t_147 = false;
+transient bool t_148 = false;
+transient bool t_149 = false;
+transient int t_150 = 0;
+transient int t_151 = 0;
+transient bool t_152 = false;
+transient bool t_153 = false;
+transient bool t_154 = false;
+transient bool t_155 = false;
+transient bool t_156 = false;
+transient bool t_157 = false;
+transient bool t_158 = false;
+transient bool t_159 = false;
+transient bool t_160 = false;
+transient bool t_161 = false;
+transient bool t_162 = false;
+transient bool t_163 = false;
+transient bool t_164 = false;
+transient bool t_165 = false;
+transient bool t_166 = false;
+transient bool t_167 = false;
+transient int t_168 = 0;
+transient int t_169 = 0;
+transient bool t_170 = false;
+transient bool t_171 = false;
+transient bool t_172 = false;
+transient int t_173 = 0;
+transient int t_174 = 0;
+transient bool t_175 = false;
+transient bool t_176 = false;
+transient byte t_177 = 0;
+transient bool t_178 = false;
+transient bool t_179 = false;
+transient bool t_180 = false;
+transient bool t_181 = false;
+transient bool t_182 = false;
+transient int t_183 = 0;
+transient int t_184 = 0;
+transient bool t_185 = false;
+transient byte t_186 = 0;
+transient bool t_187 = false;
+transient bool t_188 = false;
+transient bool t_189 = false;
+transient bool t_190 = false;
+transient bool t_191 = false;
+transient bool t_192 = false;
+transient bool t_193 = false;
+transient bool t_194 = false;
+transient bool t_195 = false;
+transient int t_196 = 0;
+transient int t_197 = 0;
+transient int t_198 = 0;
+transient int t_199 = 0;
+	process Producer 
+		guardBlock
+			t_0 = Producer.state == 0;
+
+		guardCondition t_0;
+		effect
+			Producer.state = 1;
+
+	process Consumer 
+		guardBlock
+			t_1 = Consumer.state == 1;
+
+		guardCondition t_1;
+		effect
+			Consumer.state = 0;
+
+	process Medium 
+		guardBlock
+			t_2 = Medium.state == 1;
+
+		guardCondition t_2;
+		effect
+			Medium.state = 0;
+
+	process Medium 
+		guardBlock
+			t_3 = Medium.state == 2;
+
+		guardCondition t_3;
+		effect
+			Medium.state = 0;
+
+	process Medium 
+		guardBlock
+			t_4 = Medium.state == 3;
+
+		guardCondition t_4;
+		effect
+			Medium.state = 0;
+
+	process Medium 
+		guardBlock
+			t_5 = Medium.state == 4;
+
+		guardCondition t_5;
+		effect
+			Medium.state = 0;
+
+	process Medium 
+		guardBlock
+			t_6 = Medium.state == 5;
+
+		guardCondition t_6;
+		effect
+			Medium.state = 0;
+
+	process Medium 
+		guardBlock
+			t_7 = Medium.state == 6;
+
+		guardCondition t_7;
+		effect
+			Medium.state = 0;
+
+	process Sender 
+		guardBlock
+			t_8 = Sender.state == 2,
+			t_9 = Sender.rack < Sender.sendseq,
+			t_10 = Sender.rack < Sender.value,
+			t_11 = t_9 and t_10,
+			t_12 = Sender.value < Sender.sendseq,
+			t_13 = t_11 and t_12,
+			t_14 = Sender.rack > Sender.sendseq,
+			t_15 = Sender.sendseq < Sender.value,
+			t_16 = t_14 and t_15,
+			t_17 = Sender.value < Sender.rack,
+			t_18 = t_16 and t_17,
+			t_19 = t_13 or t_18,
+			t_20 = t_8 and t_19;
+
+		guardCondition t_20;
+		effect
+			Sender.state = 0,
+			Sender.rack = Sender.value;
+
+	process Sender 
+		guardBlock
+			t_21 = Sender.state == 2,
+			t_22 = Sender.rack >= Sender.sendseq,
+			t_23 = Sender.rack >= Sender.value,
+			t_24 = t_22 or t_23,
+			t_25 = Sender.value >= Sender.sendseq,
+			t_26 = t_24 or t_25,
+			t_27 = Sender.rack <= Sender.sendseq,
+			t_28 = Sender.sendseq >= Sender.value,
+			t_29 = t_27 or t_28,
+			t_30 = Sender.value >= Sender.rack,
+			t_31 = t_29 or t_30,
+			t_32 = t_26 and t_31,
+			t_33 = t_21 and t_32;
+
+		guardCondition t_33;
+		effect
+			Sender.state = 0;
+
+	process Sender 
+		guardBlock
+			t_34 = Sender.state == 3,
+			t_35 = Sender.rack >= Sender.sendseq,
+			t_36 = Sender.rack >= Sender.value,
+			t_37 = t_35 or t_36,
+			t_38 = Sender.value >= Sender.sendseq,
+			t_39 = t_37 or t_38,
+			t_40 = Sender.rack <= Sender.sendseq,
+			t_41 = Sender.sendseq >= Sender.value,
+			t_42 = t_40 or t_41,
+			t_43 = Sender.value >= Sender.rack,
+			t_44 = t_42 or t_43,
+			t_45 = t_39 and t_44,
+			t_46 = t_34 and t_45;
+
+		guardCondition t_46;
+		effect
+			Sender.state = 0;
+
+	process Sender 
+		guardBlock
+			t_47 = Sender.state == 4,
+			t_48 = Sender.rack + 1,
+			t_49 = t_48 % 10,
+			t_50 = t_49 == Sender.sendseq,
+			t_51 = t_47 and t_50;
+
+		guardCondition t_51;
+		effect
+			Sender.state = 0;
+
+	process Receiver 
+		guardBlock
+			t_52 = Receiver.state == 1,
+			t_53 = Receiver.recseq + 1,
+			t_54 = t_53 % 10,
+			t_55 = Receiver.value != t_54,
+			t_56 = t_52 and t_55;
+
+		guardCondition t_56;
+		effect
+			Receiver.state = 3,
+			Receiver.recbuf[Receiver.value] = 1,
+			t_57 = Receiver.recseq + 1,
+			t_58 = t_57 % 10,
+			Receiver.i = t_58;
+
+	process Receiver 
+		guardBlock
+			t_59 = Receiver.state == 3,
+			t_60 = Receiver.i != Receiver.value,
+			t_61 = Receiver.nakd[Receiver.i],
+			t_62 = t_61 == 1,
+			t_63 = t_60 and t_62,
+			t_64 = t_59 and t_63;
+
+		guardCondition t_64;
+		effect
+			Receiver.state = 3,
+			t_65 = Receiver.i + 1,
+			t_66 = t_65 % 10,
+			Receiver.i = t_66;
+
+	process Receiver 
+		guardBlock
+			t_67 = Receiver.state == 3,
+			t_68 = Receiver.i == Receiver.value,
+			t_69 = t_67 and t_68;
+
+		guardCondition t_69;
+		effect
+			Receiver.state = 0;
+
+	process Receiver 
+		guardBlock
+			t_70 = Receiver.state == 2,
+			t_71 = Receiver.sent != 1,
+			t_72 = Receiver.recseq + 1,
+			t_73 = t_72 % 10,
+			t_74 = Receiver.recbuf[t_73],
+			t_75 = t_74 == 0,
+			t_76 = t_71 and t_75,
+			t_77 = t_70 and t_76;
+
+		guardCondition t_77;
+		effect
+			Receiver.state = 0;
+
+	process Receiver 
+		guardBlock
+			t_78 = Receiver.state == 4,
+			t_79 = Receiver.nakd[Receiver.value],
+			t_80 = t_79 == 1,
+			t_81 = t_78 and t_80;
+
+		guardCondition t_81;
+		effect
+			Receiver.state = 0;
+
+	process Receiver 
+		guardBlock
+			t_82 = Receiver.state == 5,
+			t_83 = Receiver.i < 10,
+			t_84 = t_82 and t_83;
+
+		guardCondition t_84;
+		effect
+			Receiver.state = 5,
+			Receiver.nakd[Receiver.i] = 0,
+			t_85 = Receiver.i + 1,
+			Receiver.i = t_85;
+
+	process Receiver_Consumer 
+		guardBlock
+			t_86 = Receiver.state == 1,
+			t_87 = Receiver.recseq + 1,
+			t_88 = t_87 % 10,
+			t_89 = Receiver.value == t_88,
+			t_90 = t_86 and t_89,
+			t_91 = Consumer.state == 0,
+			t_92 = t_90 and t_91;
+
+		guardCondition t_92;
+		effect
+			Receiver.state = 2,
+			t_93 = Receiver.recseq + 1,
+			t_94 = t_93 % 10,
+			Receiver.recseq = t_94,
+			t_95 = Receiver.sent + 1,
+			t_96 = t_95 % 10,
+			Receiver.sent = t_96,
+			Consumer.message = Receiver.value,
+			Consumer.state = 1;
+
+	process Receiver_Consumer 
+		guardBlock
+			t_97 = Receiver.state == 2,
+			t_98 = Receiver.sent != 1,
+			t_99 = Receiver.recseq + 1,
+			t_100 = t_99 % 10,
+			t_101 = Receiver.recbuf[t_100],
+			t_102 = t_101 == 1,
+			t_103 = t_98 and t_102,
+			t_104 = t_97 and t_103,
+			t_105 = Consumer.state == 0,
+			t_106 = t_104 and t_105;
+
+		guardCondition t_106;
+		effect
+			Receiver.state = 2,
+			t_107 = Receiver.recseq + 1,
+			t_108 = t_107 % 10,
+			Receiver.recseq = t_108,
+			Receiver.recbuf[Receiver.recseq] = 0,
+			t_109 = Receiver.recseq + 1,
+			t_110 = t_109 % 10,
+			Consumer.message = t_110,
+			Consumer.state = 1;
+
+	process Medium_Sender 
+		guardBlock
+			t_111 = Medium.state == 2,
+			t_112 = Sender.state == 0,
+			t_113 = t_111 and t_112;
+
+		guardCondition t_113;
+		effect
+			Medium.state = 5,
+			Sender.value = Medium.value,
+			Sender.state = 2;
+
+	process Medium_Sender 
+		guardBlock
+			t_114 = Medium.state == 3,
+			t_115 = Sender.state == 0,
+			t_116 = t_114 and t_115;
+
+		guardCondition t_116;
+		effect
+			Medium.state = 6,
+			Sender.value = Medium.value,
+			Sender.state = 3;
+
+	process Timer_Sender 
+		guardBlock
+			t_117 = Timer.state == 0,
+			t_118 = Sender.state == 0,
+			t_119 = t_117 and t_118;
+
+		guardCondition t_119;
+		effect
+			Timer.state = 0,
+			Sender.state = 4;
+
+	process Timer_Receiver 
+		guardBlock
+			t_120 = Timer.state == 0,
+			t_121 = Receiver.state == 0,
+			t_122 = t_120 and t_121;
+
+		guardCondition t_122;
+		effect
+			Timer.state = 0,
+			Receiver.state = 5,
+			Receiver.i = 0;
+
+	process Sender_Medium 
+		guardBlock
+			t_123 = Sender.state == 3,
+			t_124 = Sender.rack < Sender.sendseq,
+			t_125 = Sender.rack < Sender.value,
+			t_126 = t_124 and t_125,
+			t_127 = Sender.value < Sender.sendseq,
+			t_128 = t_126 and t_127,
+			t_129 = Sender.rack > Sender.sendseq,
+			t_130 = Sender.sendseq < Sender.value,
+			t_131 = t_129 and t_130,
+			t_132 = Sender.value < Sender.rack,
+			t_133 = t_131 and t_132,
+			t_134 = t_128 or t_133,
+			t_135 = t_123 and t_134,
+			t_136 = Medium.state == 0,
+			t_137 = t_135 and t_136;
+
+		guardCondition t_137;
+		effect
+			Sender.state = 0,
+			Medium.value = Sender.value,
+			Medium.state = 1;
+
+	process Sender_Medium 
+		guardBlock
+			t_138 = Sender.state == 4,
+			t_139 = Sender.rack + 1,
+			t_140 = t_139 % 10,
+			t_141 = t_140 != Sender.sendseq,
+			t_142 = t_138 and t_141,
+			t_143 = Medium.state == 0,
+			t_144 = t_142 and t_143;
+
+		guardCondition t_144;
+		effect
+			Sender.state = 0,
+			t_145 = Sender.rack + 1,
+			t_146 = t_145 % 10,
+			Medium.value = t_146,
+			Medium.state = 1;
+
+	process Sender_Medium 
+		guardBlock
+			t_147 = Sender.state == 1,
+			t_148 = Medium.state == 0,
+			t_149 = t_147 and t_148;
+
+		guardCondition t_149;
+		effect
+			Sender.state = 0,
+			t_150 = Sender.sendseq + 1,
+			t_151 = t_150 % 10,
+			Sender.sendseq = t_151,
+			Medium.value = Sender.sendseq,
+			Medium.state = 1;
+
+	process Medium_Receiver 
+		guardBlock
+			t_152 = Medium.state == 1,
+			t_153 = Receiver.state == 0,
+			t_154 = t_152 and t_153;
+
+		guardCondition t_154;
+		effect
+			Medium.state = 4,
+			Receiver.value = Medium.value,
+			Receiver.state = 1;
+
+	process Medium_Receiver 
+		guardBlock
+			t_155 = Medium.state == 1,
+			t_156 = Receiver.state == 0,
+			t_157 = t_155 and t_156;
+
+		guardCondition t_157;
+		effect
+			Medium.state = 0,
+			Receiver.value = Medium.value,
+			Receiver.state = 4;
+
+	process Receiver_Medium 
+		guardBlock
+			t_158 = Receiver.state == 2,
+			t_159 = Receiver.sent == 1,
+			t_160 = t_158 and t_159,
+			t_161 = Medium.state == 0,
+			t_162 = t_160 and t_161;
+
+		guardCondition t_162;
+		effect
+			Receiver.state = 2,
+			Receiver.lack = Receiver.recseq,
+			Receiver.sent = 0,
+			Medium.value = Receiver.recseq,
+			Medium.state = 2;
+
+	process Receiver_Medium 
+		guardBlock
+			t_163 = Receiver.state == 6,
+			t_164 = Medium.state == 0,
+			t_165 = t_163 and t_164;
+
+		guardCondition t_165;
+		effect
+			Receiver.state = 0,
+			Medium.value = Receiver.lack,
+			Medium.state = 2;
+
+	process Producer_Sender 
+		guardBlock
+			t_166 = Producer.state == 1,
+			t_167 = Sender.state == 0,
+			t_168 = Sender.rack + 3,
+			t_169 = t_168 % 10,
+			t_170 = t_169 > Sender.sendseq,
+			t_171 = t_167 and t_170,
+			t_172 = t_166 and t_171;
+
+		guardCondition t_172;
+		effect
+			Producer.state = 0,
+			t_173 = Producer.message + 1,
+			t_174 = t_173 % 10,
+			Producer.message = t_174,
+			Sender.value = Producer.message,
+			Sender.state = 1;
+
+	process Receiver_Medium 
+		guardBlock
+			t_175 = Receiver.state == 3,
+			t_176 = Receiver.i != Receiver.value,
+			t_177 = Receiver.nakd[Receiver.i],
+			t_178 = t_177 == 0,
+			t_179 = t_176 and t_178,
+			t_180 = t_175 and t_179,
+			t_181 = Medium.state == 0,
+			t_182 = t_180 and t_181;
+
+		guardCondition t_182;
+		effect
+			Receiver.state = 3,
+			Receiver.nakd[Receiver.i] = 1,
+			t_183 = Receiver.i + 1,
+			t_184 = t_183 % 10,
+			Receiver.i = t_184,
+			Medium.value = Receiver.i,
+			Medium.state = 3;
+
+	process Receiver_Medium 
+		guardBlock
+			t_185 = Receiver.state == 4,
+			t_186 = Receiver.nakd[Receiver.value],
+			t_187 = t_186 == 0,
+			t_188 = t_185 and t_187,
+			t_189 = Medium.state == 0,
+			t_190 = t_188 and t_189;
+
+		guardCondition t_190;
+		effect
+			Receiver.state = 0,
+			Medium.value = Receiver.value,
+			Medium.state = 3;
+
+	process Receiver_Medium 
+		guardBlock
+			t_191 = Receiver.state == 5,
+			t_192 = Receiver.i == 10,
+			t_193 = t_191 and t_192,
+			t_194 = Medium.state == 0,
+			t_195 = t_193 and t_194;
+
+		guardCondition t_195;
+		effect
+			Receiver.state = 6,
+			t_196 = Receiver.recseq + 1,
+			t_197 = t_196 % 10,
+			Receiver.nakd[t_197] = 1,
+			t_198 = Receiver.recseq + 1,
+			t_199 = t_198 % 10,
+			Medium.value = t_199,
+			Medium.state = 3;
+
+
+system async;

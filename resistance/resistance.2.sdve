@@ -1,0 +1,439 @@
+int cage_safe = 0;
+int actual_resistance = 0;
+int voltage = 0;
+int range = 0;
+state {measure_in_progress(0), measure_done(1), cage_opened(2), initial(3)} Measuring_0.state = 3;
+state {measure_in_progress(0), measure_done(1), cage_opened(2), initial(3)} Measuring_1.state = 3;
+state {measured(0), new_range(1), small_resistance(2), correct_value(3), large_resistance(4), too_small_resistance(5), too_large_resistance(6), start(7), finished_measuring(8), S1(9), S2(10)} Algorithm.state = 7;
+state {state_request(0), state0(1), err7(2), initial(3), state1(4)} Device_state.state = 3;
+transient bool t_0 = false;
+transient bool t_1 = false;
+transient bool t_2 = false;
+transient bool t_3 = false;
+transient bool t_4 = false;
+transient bool t_5 = false;
+transient bool t_6 = false;
+transient bool t_7 = false;
+transient int t_8 = 0;
+transient bool t_9 = false;
+transient int t_10 = 0;
+transient bool t_11 = false;
+transient int t_12 = 0;
+transient bool t_13 = false;
+transient bool t_14 = false;
+transient bool t_15 = false;
+transient bool t_16 = false;
+transient bool t_17 = false;
+transient bool t_18 = false;
+transient bool t_19 = false;
+transient bool t_20 = false;
+transient bool t_21 = false;
+transient bool t_22 = false;
+transient bool t_23 = false;
+transient bool t_24 = false;
+transient int t_25 = 0;
+transient bool t_26 = false;
+transient int t_27 = 0;
+transient bool t_28 = false;
+transient int t_29 = 0;
+transient bool t_30 = false;
+transient bool t_31 = false;
+transient bool t_32 = false;
+transient bool t_33 = false;
+transient bool t_34 = false;
+transient bool t_35 = false;
+transient bool t_36 = false;
+transient bool t_37 = false;
+transient bool t_38 = false;
+transient bool t_39 = false;
+transient bool t_40 = false;
+transient bool t_41 = false;
+transient bool t_42 = false;
+transient bool t_43 = false;
+transient bool t_44 = false;
+transient bool t_45 = false;
+transient bool t_46 = false;
+transient bool t_47 = false;
+transient int t_48 = 0;
+transient bool t_49 = false;
+transient bool t_50 = false;
+transient bool t_51 = false;
+transient int t_52 = 0;
+transient bool t_53 = false;
+transient bool t_54 = false;
+transient bool t_55 = false;
+transient bool t_56 = false;
+transient bool t_57 = false;
+transient bool t_58 = false;
+transient bool t_59 = false;
+transient bool t_60 = false;
+transient bool t_61 = false;
+transient bool t_62 = false;
+transient bool t_63 = false;
+transient bool t_64 = false;
+transient bool t_65 = false;
+transient bool t_66 = false;
+transient bool t_67 = false;
+transient bool t_68 = false;
+transient bool t_69 = false;
+transient bool t_70 = false;
+transient bool t_71 = false;
+transient bool t_72 = false;
+transient bool t_73 = false;
+transient bool t_74 = false;
+transient bool t_75 = false;
+transient bool t_76 = false;
+transient bool t_77 = false;
+transient bool t_78 = false;
+transient bool t_79 = false;
+transient bool t_80 = false;
+transient bool t_81 = false;
+transient bool t_82 = false;
+transient bool t_83 = false;
+transient bool t_84 = false;
+transient bool t_85 = false;
+transient bool t_86 = false;
+	process Measuring_0 
+		guardBlock
+			t_0 = Measuring_0.state == 1,
+			t_1 = cage_safe == 1,
+			t_2 = t_0 and t_1;
+
+		guardCondition t_2;
+		effect
+			Measuring_0.state = 0;
+
+	process Measuring_0 
+		guardBlock
+			t_3 = Measuring_0.state == 0,
+			t_4 = actual_resistance < 6200,
+			t_5 = cage_safe == 1,
+			t_6 = t_4 and t_5,
+			t_7 = t_3 and t_6;
+
+		guardCondition t_7;
+		effect
+			Measuring_0.state = 0,
+			t_8 = actual_resistance + 1,
+			actual_resistance = t_8;
+
+	process Measuring_0 
+		guardBlock
+			t_9 = Measuring_0.state == 2;
+
+		guardCondition t_9;
+		effect
+			Measuring_0.state = 0,
+			cage_safe = 1,
+			t_10 = actual_resistance - 1,
+			actual_resistance = t_10;
+
+	process Measuring_0 
+		guardBlock
+			t_11 = Measuring_0.state == 0;
+
+		guardCondition t_11;
+		effect
+			Measuring_0.state = 2,
+			cage_safe = 0,
+			t_12 = actual_resistance - 1,
+			actual_resistance = t_12;
+
+	process Measuring_0 
+		guardBlock
+			t_13 = Measuring_0.state == 1,
+			t_14 = cage_safe == 0,
+			t_15 = t_13 and t_14;
+
+		guardCondition t_15;
+		effect
+			Measuring_0.state = 2;
+
+	process Measuring_0 
+		guardBlock
+			t_16 = Measuring_0.state == 3;
+
+		guardCondition t_16;
+		effect
+			Measuring_0.state = 0,
+			cage_safe = 1;
+
+	process Measuring_1 
+		guardBlock
+			t_17 = Measuring_1.state == 1,
+			t_18 = cage_safe == 1,
+			t_19 = t_17 and t_18;
+
+		guardCondition t_19;
+		effect
+			Measuring_1.state = 0;
+
+	process Measuring_1 
+		guardBlock
+			t_20 = Measuring_1.state == 0,
+			t_21 = actual_resistance < 6200,
+			t_22 = cage_safe == 1,
+			t_23 = t_21 and t_22,
+			t_24 = t_20 and t_23;
+
+		guardCondition t_24;
+		effect
+			Measuring_1.state = 0,
+			t_25 = actual_resistance + 1,
+			actual_resistance = t_25;
+
+	process Measuring_1 
+		guardBlock
+			t_26 = Measuring_1.state == 2;
+
+		guardCondition t_26;
+		effect
+			Measuring_1.state = 0,
+			cage_safe = 1,
+			t_27 = actual_resistance - 1,
+			actual_resistance = t_27;
+
+	process Measuring_1 
+		guardBlock
+			t_28 = Measuring_1.state == 0;
+
+		guardCondition t_28;
+		effect
+			Measuring_1.state = 2,
+			cage_safe = 0,
+			t_29 = actual_resistance - 1,
+			actual_resistance = t_29;
+
+	process Measuring_1 
+		guardBlock
+			t_30 = Measuring_1.state == 1,
+			t_31 = cage_safe == 0,
+			t_32 = t_30 and t_31;
+
+		guardCondition t_32;
+		effect
+			Measuring_1.state = 2;
+
+	process Measuring_1 
+		guardBlock
+			t_33 = Measuring_1.state == 3;
+
+		guardCondition t_33;
+		effect
+			Measuring_1.state = 0,
+			cage_safe = 1;
+
+	process Algorithm 
+		guardBlock
+			t_34 = Algorithm.state == 0,
+			t_35 = actual_resistance > 999,
+			t_36 = actual_resistance < 5999,
+			t_37 = t_35 and t_36,
+			t_38 = t_34 and t_37;
+
+		guardCondition t_38;
+		effect
+			Algorithm.state = 3,
+			actual_resistance = 0;
+
+	process Algorithm 
+		guardBlock
+			t_39 = Algorithm.state == 0,
+			t_40 = actual_resistance < 1000,
+			t_41 = t_39 and t_40;
+
+		guardCondition t_41;
+		effect
+			Algorithm.state = 2,
+			actual_resistance = 0;
+
+	process Algorithm 
+		guardBlock
+			t_42 = Algorithm.state == 0,
+			t_43 = actual_resistance > 5800,
+			t_44 = t_42 and t_43;
+
+		guardCondition t_44;
+		effect
+			Algorithm.state = 4,
+			actual_resistance = 0;
+
+	process Algorithm 
+		guardBlock
+			t_45 = Algorithm.state == 2,
+			t_46 = range > 0,
+			t_47 = t_45 and t_46;
+
+		guardCondition t_47;
+		effect
+			Algorithm.state = 1,
+			t_48 = range - 1,
+			range = t_48;
+
+	process Algorithm 
+		guardBlock
+			t_49 = Algorithm.state == 4,
+			t_50 = range < 5,
+			t_51 = t_49 and t_50;
+
+		guardCondition t_51;
+		effect
+			Algorithm.state = 1,
+			t_52 = range + 1,
+			range = t_52;
+
+	process Algorithm 
+		guardBlock
+			t_53 = Algorithm.state == 7;
+
+		guardCondition t_53;
+		effect
+			Algorithm.state = 1,
+			range = 3;
+
+	process Algorithm 
+		guardBlock
+			t_54 = Algorithm.state == 2,
+			t_55 = range == 0,
+			t_56 = t_54 and t_55;
+
+		guardCondition t_56;
+		effect
+			Algorithm.state = 5;
+
+	process Algorithm 
+		guardBlock
+			t_57 = Algorithm.state == 4,
+			t_58 = range == 5,
+			t_59 = t_57 and t_58;
+
+		guardCondition t_59;
+		effect
+			Algorithm.state = 6;
+
+	process Algorithm 
+		guardBlock
+			t_60 = Algorithm.state == 5;
+
+		guardCondition t_60;
+		effect
+			Algorithm.state = 8;
+
+	process Algorithm 
+		guardBlock
+			t_61 = Algorithm.state == 6;
+
+		guardCondition t_61;
+		effect
+			Algorithm.state = 8;
+
+	process Algorithm 
+		guardBlock
+			t_62 = Algorithm.state == 3;
+
+		guardCondition t_62;
+		effect
+			Algorithm.state = 8;
+
+	process Algorithm 
+		guardBlock
+			t_63 = Algorithm.state == 8;
+
+		guardCondition t_63;
+		effect
+			Algorithm.state = 7;
+
+	process Device_state 
+		guardBlock
+			t_64 = Device_state.state == 0;
+
+		guardCondition t_64;
+		effect
+			Device_state.state = 1;
+
+	process Device_state 
+		guardBlock
+			t_65 = Device_state.state == 0;
+
+		guardCondition t_65;
+		effect
+			Device_state.state = 2;
+
+	process Device_state 
+		guardBlock
+			t_66 = Device_state.state == 1;
+
+		guardCondition t_66;
+		effect
+			Device_state.state = 4,
+			cage_safe = 1;
+
+	process Device_state 
+		guardBlock
+			t_67 = Device_state.state == 1;
+
+		guardCondition t_67;
+		effect
+			Device_state.state = 2;
+
+	process Device_state_Algorithm 
+		guardBlock
+			t_68 = Device_state.state == 2,
+			t_69 = Algorithm.state == 10,
+			t_70 = t_68 and t_69;
+
+		guardCondition t_70;
+		effect
+			Device_state.state = 3,
+			Algorithm.state = 4;
+
+	process Algorithm_Device_state 
+		guardBlock
+			t_71 = Algorithm.state == 9,
+			t_72 = Device_state.state == 3,
+			t_73 = t_71 and t_72;
+
+		guardCondition t_73;
+		effect
+			Algorithm.state = 10,
+			Device_state.state = 0;
+
+	process Device_state_Algorithm 
+		guardBlock
+			t_74 = Device_state.state == 4,
+			t_75 = Algorithm.state == 10,
+			t_76 = t_74 and t_75;
+
+		guardCondition t_76;
+		effect
+			Device_state.state = 3,
+			Algorithm.state = 0;
+
+	process Measuring_0_Algorithm 
+		guardBlock
+			t_77 = Measuring_0.state == 0,
+			t_78 = cage_safe == 1,
+			t_79 = t_77 and t_78,
+			t_80 = Algorithm.state == 1,
+			t_81 = t_79 and t_80;
+
+		guardCondition t_81;
+		effect
+			Measuring_0.state = 1,
+			Algorithm.state = 9;
+
+	process Measuring_1_Algorithm 
+		guardBlock
+			t_82 = Measuring_1.state == 0,
+			t_83 = cage_safe == 1,
+			t_84 = t_82 and t_83,
+			t_85 = Algorithm.state == 1,
+			t_86 = t_84 and t_85;
+
+		guardCondition t_86;
+		effect
+			Measuring_1.state = 1,
+			Algorithm.state = 9;
+
+
+system async;

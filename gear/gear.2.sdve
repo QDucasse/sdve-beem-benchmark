@@ -1,0 +1,910 @@
+byte tGB = 255;
+byte tC = 255;
+byte tE = 255;
+byte tGC = 255;
+int toGear = 0;
+int currentGear = 0;
+state {closed(0), opening(1), open(2), closing(3), error_open(4), error_close(5)} Clutch.state = 0;
+state {neutral(0), closing(1), idle(2), opening(3), error_idle(4), error_neu(5)} GearBox.state = 0;
+state {torque(0), dec_torque(1), clutch_close(2), clutch_open(3), initial(4), speed(5), error_speed(6), find_speed(7), zero(8)} Engine.state = 4;
+state {gear(0), go_up(1), go_down(2)} Interface.state = 0;
+state {gear(0), initiate(1), check_torque(2), req_neu_gear(3), check_gear_neu(4), copen_error(5), clutch_open2(6), gneu_error(7), check_gear_neu2(8), req_sync_speed(9), check_clutch(10), req_set_gear2(11), check_sync_speed(12), req_set_gear(13), clutch_open(14), check_gear_set1(15), gset_error(16), check_gear_set2(17), req_torque(18), check_clutch_closed(19), clutch_close(20), gear_changed(21), check_clutch_closed2(22), check_clutch2(23), cclose_error(24)} GearControl.state = 0;
+int GearControl.dir = 0;
+state {q(0)} Timer.state = 0;
+transient bool t_0 = false;
+transient bool t_1 = false;
+transient bool t_2 = false;
+transient bool t_3 = false;
+transient bool t_4 = false;
+transient bool t_5 = false;
+transient bool t_6 = false;
+transient bool t_7 = false;
+transient bool t_8 = false;
+transient bool t_9 = false;
+transient bool t_10 = false;
+transient bool t_11 = false;
+transient bool t_12 = false;
+transient bool t_13 = false;
+transient bool t_14 = false;
+transient bool t_15 = false;
+transient bool t_16 = false;
+transient bool t_17 = false;
+transient bool t_18 = false;
+transient bool t_19 = false;
+transient bool t_20 = false;
+transient bool t_21 = false;
+transient bool t_22 = false;
+transient bool t_23 = false;
+transient bool t_24 = false;
+transient bool t_25 = false;
+transient bool t_26 = false;
+transient bool t_27 = false;
+transient bool t_28 = false;
+transient bool t_29 = false;
+transient bool t_30 = false;
+transient bool t_31 = false;
+transient bool t_32 = false;
+transient bool t_33 = false;
+transient bool t_34 = false;
+transient bool t_35 = false;
+transient bool t_36 = false;
+transient bool t_37 = false;
+transient bool t_38 = false;
+transient bool t_39 = false;
+transient bool t_40 = false;
+transient bool t_41 = false;
+transient bool t_42 = false;
+transient bool t_43 = false;
+transient bool t_44 = false;
+transient bool t_45 = false;
+transient bool t_46 = false;
+transient bool t_47 = false;
+transient bool t_48 = false;
+transient bool t_49 = false;
+transient bool t_50 = false;
+transient bool t_51 = false;
+transient bool t_52 = false;
+transient bool t_53 = false;
+transient bool t_54 = false;
+transient bool t_55 = false;
+transient bool t_56 = false;
+transient bool t_57 = false;
+transient bool t_58 = false;
+transient bool t_59 = false;
+transient bool t_60 = false;
+transient bool t_61 = false;
+transient bool t_62 = false;
+transient bool t_63 = false;
+transient bool t_64 = false;
+transient bool t_65 = false;
+transient bool t_66 = false;
+transient bool t_67 = false;
+transient bool t_68 = false;
+transient bool t_69 = false;
+transient bool t_70 = false;
+transient bool t_71 = false;
+transient int t_72 = 0;
+transient bool t_73 = false;
+transient int t_74 = 0;
+transient int t_75 = 0;
+transient int t_76 = 0;
+transient bool t_77 = false;
+transient int t_78 = 0;
+transient int t_79 = 0;
+transient int t_80 = 0;
+transient bool t_81 = false;
+transient int t_82 = 0;
+transient int t_83 = 0;
+transient int t_84 = 0;
+transient bool t_85 = false;
+transient int t_86 = 0;
+transient int t_87 = 0;
+transient bool t_88 = false;
+transient bool t_89 = false;
+transient bool t_90 = false;
+transient bool t_91 = false;
+transient bool t_92 = false;
+transient bool t_93 = false;
+transient bool t_94 = false;
+transient bool t_95 = false;
+transient bool t_96 = false;
+transient bool t_97 = false;
+transient bool t_98 = false;
+transient bool t_99 = false;
+transient bool t_100 = false;
+transient bool t_101 = false;
+transient bool t_102 = false;
+transient bool t_103 = false;
+transient bool t_104 = false;
+transient bool t_105 = false;
+transient bool t_106 = false;
+transient bool t_107 = false;
+transient bool t_108 = false;
+transient bool t_109 = false;
+transient bool t_110 = false;
+transient bool t_111 = false;
+transient bool t_112 = false;
+transient bool t_113 = false;
+transient bool t_114 = false;
+transient bool t_115 = false;
+transient bool t_116 = false;
+transient bool t_117 = false;
+transient bool t_118 = false;
+transient bool t_119 = false;
+transient bool t_120 = false;
+transient bool t_121 = false;
+transient bool t_122 = false;
+transient bool t_123 = false;
+transient bool t_124 = false;
+transient bool t_125 = false;
+transient bool t_126 = false;
+transient bool t_127 = false;
+transient bool t_128 = false;
+transient bool t_129 = false;
+transient bool t_130 = false;
+transient bool t_131 = false;
+transient bool t_132 = false;
+transient bool t_133 = false;
+transient bool t_134 = false;
+transient int t_135 = 0;
+transient bool t_136 = false;
+transient bool t_137 = false;
+transient bool t_138 = false;
+transient int t_139 = 0;
+transient bool t_140 = false;
+transient bool t_141 = false;
+transient bool t_142 = false;
+transient bool t_143 = false;
+transient bool t_144 = false;
+transient bool t_145 = false;
+transient bool t_146 = false;
+transient bool t_147 = false;
+transient bool t_148 = false;
+transient bool t_149 = false;
+transient bool t_150 = false;
+transient bool t_151 = false;
+transient bool t_152 = false;
+transient bool t_153 = false;
+transient bool t_154 = false;
+transient bool t_155 = false;
+transient bool t_156 = false;
+transient bool t_157 = false;
+transient bool t_158 = false;
+transient bool t_159 = false;
+transient bool t_160 = false;
+transient bool t_161 = false;
+transient bool t_162 = false;
+transient bool t_163 = false;
+transient bool t_164 = false;
+transient bool t_165 = false;
+transient bool t_166 = false;
+transient bool t_167 = false;
+transient bool t_168 = false;
+transient bool t_169 = false;
+transient bool t_170 = false;
+transient bool t_171 = false;
+transient bool t_172 = false;
+transient bool t_173 = false;
+transient bool t_174 = false;
+transient bool t_175 = false;
+transient bool t_176 = false;
+transient bool t_177 = false;
+transient bool t_178 = false;
+transient bool t_179 = false;
+transient bool t_180 = false;
+transient bool t_181 = false;
+transient bool t_182 = false;
+transient bool t_183 = false;
+transient bool t_184 = false;
+transient bool t_185 = false;
+transient bool t_186 = false;
+transient bool t_187 = false;
+transient bool t_188 = false;
+transient bool t_189 = false;
+transient bool t_190 = false;
+transient bool t_191 = false;
+transient bool t_192 = false;
+transient bool t_193 = false;
+transient bool t_194 = false;
+transient bool t_195 = false;
+transient bool t_196 = false;
+transient bool t_197 = false;
+transient bool t_198 = false;
+transient bool t_199 = false;
+transient bool t_200 = false;
+transient bool t_201 = false;
+transient bool t_202 = false;
+transient bool t_203 = false;
+transient bool t_204 = false;
+transient bool t_205 = false;
+transient bool t_206 = false;
+transient int t_207 = 0;
+transient bool t_208 = false;
+transient bool t_209 = false;
+transient bool t_210 = false;
+transient bool t_211 = false;
+transient bool t_212 = false;
+transient int t_213 = 0;
+transient bool t_214 = false;
+transient bool t_215 = false;
+transient bool t_216 = false;
+transient bool t_217 = false;
+transient bool t_218 = false;
+transient bool t_219 = false;
+transient bool t_220 = false;
+transient bool t_221 = false;
+transient bool t_222 = false;
+transient bool t_223 = false;
+	process Clutch 
+		guardBlock
+			t_0 = Clutch.state == 1,
+			t_1 = tC == 0,
+			t_2 = t_0 and t_1;
+
+		guardCondition t_2;
+		effect
+			Clutch.state = 4,
+			tC = 255;
+
+	process Clutch 
+		guardBlock
+			t_3 = Clutch.state == 3,
+			t_4 = tC == 0,
+			t_5 = t_3 and t_4;
+
+		guardCondition t_5;
+		effect
+			Clutch.state = 5,
+			tC = 255;
+
+	process GearBox 
+		guardBlock
+			t_6 = GearBox.state == 1,
+			t_7 = tGB == 0,
+			t_8 = t_6 and t_7;
+
+		guardCondition t_8;
+		effect
+			GearBox.state = 4,
+			tGB = 255;
+
+	process GearBox 
+		guardBlock
+			t_9 = GearBox.state == 3,
+			t_10 = tGB == 0,
+			t_11 = t_9 and t_10;
+
+		guardCondition t_11;
+		effect
+			GearBox.state = 5,
+			tGB = 255;
+
+	process Engine 
+		guardBlock
+			t_12 = Engine.state == 7,
+			t_13 = tE == 0,
+			t_14 = t_12 and t_13;
+
+		guardCondition t_14;
+		effect
+			Engine.state = 3;
+
+	process Engine 
+		guardBlock
+			t_15 = Engine.state == 3,
+			t_16 = toGear == 0,
+			t_17 = t_15 and t_16;
+
+		guardCondition t_17;
+		effect
+			Engine.state = 4;
+
+	process Engine 
+		guardBlock
+			t_18 = Engine.state == 3,
+			t_19 = toGear != 0,
+			t_20 = t_18 and t_19;
+
+		guardCondition t_20;
+		effect
+			Engine.state = 2,
+			tE = 18;
+
+	process Engine 
+		guardBlock
+			t_21 = Engine.state == 5,
+			t_22 = tE == 0,
+			t_23 = t_21 and t_22;
+
+		guardCondition t_23;
+		effect
+			Engine.state = 6,
+			tE = 255;
+
+	process Engine 
+		guardBlock
+			t_24 = Engine.state == 2,
+			t_25 = tE == 0,
+			t_26 = t_24 and t_25;
+
+		guardCondition t_26;
+		effect
+			Engine.state = 6,
+			tE = 255;
+
+	process Engine 
+		guardBlock
+			t_27 = Engine.state == 1,
+			t_28 = tE == 0,
+			t_29 = t_27 and t_28;
+
+		guardCondition t_29;
+		effect
+			Engine.state = 3;
+
+	process Engine 
+		guardBlock
+			t_30 = Engine.state == 8,
+			t_31 = toGear == 0,
+			t_32 = t_30 and t_31;
+
+		guardCondition t_32;
+		effect
+			Engine.state = 4;
+
+	process GearControl 
+		guardBlock
+			t_33 = GearControl.state == 1,
+			t_34 = currentGear == 0,
+			t_35 = t_33 and t_34;
+
+		guardCondition t_35;
+		effect
+			GearControl.state = 9;
+
+	process GearControl 
+		guardBlock
+			t_36 = GearControl.state == 9,
+			t_37 = toGear == 0,
+			t_38 = t_36 and t_37;
+
+		guardCondition t_38;
+		effect
+			GearControl.state = 21;
+
+	process GearControl 
+		guardBlock
+			t_39 = GearControl.state == 15,
+			t_40 = tGC == 0,
+			t_41 = t_39 and t_40;
+
+		guardCondition t_41;
+		effect
+			GearControl.state = 16,
+			tGC = 255;
+
+	process GearControl 
+		guardBlock
+			t_42 = GearControl.state == 4,
+			t_43 = tGC == 0,
+			t_44 = t_42 and t_43;
+
+		guardCondition t_44;
+		effect
+			GearControl.state = 7,
+			tGC = 255;
+
+	process GearControl 
+		guardBlock
+			t_45 = GearControl.state == 23,
+			t_46 = tGC == 0,
+			t_47 = t_45 and t_46;
+
+		guardCondition t_47;
+		effect
+			GearControl.state = 5,
+			tGC = 255;
+
+	process GearControl 
+		guardBlock
+			t_48 = GearControl.state == 8,
+			t_49 = tGC == 0,
+			t_50 = t_48 and t_49;
+
+		guardCondition t_50;
+		effect
+			GearControl.state = 7,
+			tGC = 255;
+
+	process GearControl 
+		guardBlock
+			t_51 = GearControl.state == 10,
+			t_52 = tGC == 0,
+			t_53 = t_51 and t_52;
+
+		guardCondition t_53;
+		effect
+			GearControl.state = 5;
+
+	process GearControl 
+		guardBlock
+			t_54 = GearControl.state == 17,
+			t_55 = tGC == 0,
+			t_56 = t_54 and t_55;
+
+		guardCondition t_56;
+		effect
+			GearControl.state = 16,
+			tGC = 255;
+
+	process GearControl 
+		guardBlock
+			t_57 = GearControl.state == 19,
+			t_58 = tGC == 0,
+			t_59 = t_57 and t_58;
+
+		guardCondition t_59;
+		effect
+			GearControl.state = 24,
+			tGC = 255;
+
+	process GearControl 
+		guardBlock
+			t_60 = GearControl.state == 22,
+			t_61 = tGC == 0,
+			t_62 = t_60 and t_61;
+
+		guardCondition t_62;
+		effect
+			GearControl.state = 24,
+			tGC = 255;
+
+	process Timer 
+		guardBlock
+			t_63 = Timer.state == 0,
+			t_64 = tGB != 0,
+			t_65 = tC != 0,
+			t_66 = t_64 and t_65,
+			t_67 = tE != 0,
+			t_68 = t_66 and t_67,
+			t_69 = tGC != 0,
+			t_70 = t_68 and t_69,
+			t_71 = t_63 and t_70;
+
+		guardCondition t_71;
+		effect
+			Timer.state = 0,
+			t_72 = tGB - 1,
+			t_73 = tGB == 255,
+			t_74 = t_73 * 255,
+			t_75 = t_72 | t_74,
+			tGB = t_75,
+			t_76 = tC - 1,
+			t_77 = tC == 255,
+			t_78 = t_77 * 255,
+			t_79 = t_76 | t_78,
+			tC = t_79,
+			t_80 = tE - 1,
+			t_81 = tE == 255,
+			t_82 = t_81 * 255,
+			t_83 = t_80 | t_82,
+			tE = t_83,
+			t_84 = tGC - 1,
+			t_85 = tGC == 255,
+			t_86 = t_85 * 255,
+			t_87 = t_84 | t_86,
+			tGC = t_87;
+
+	process GearBox_GearControl 
+		guardBlock
+			t_88 = GearBox.state == 1,
+			t_89 = tGB <= 4,
+			t_90 = t_88 and t_89,
+			t_91 = GearControl.state == 15,
+			t_92 = t_90 and t_91;
+
+		guardCondition t_92;
+		effect
+			GearBox.state = 2,
+			tGB = 255,
+			GearControl.state = 18,
+			tGC = 0;
+
+	process GearBox_GearControl 
+		guardBlock
+			t_93 = GearBox.state == 1,
+			t_94 = tGB <= 4,
+			t_95 = t_93 and t_94,
+			t_96 = GearControl.state == 17,
+			t_97 = t_95 and t_96;
+
+		guardCondition t_97;
+		effect
+			GearBox.state = 2,
+			tGB = 255,
+			GearControl.state = 20,
+			tGC = 0;
+
+	process GearControl_Clutch 
+		guardBlock
+			t_98 = GearControl.state == 11,
+			t_99 = toGear == 0,
+			t_100 = t_98 and t_99,
+			t_101 = Clutch.state == 2,
+			t_102 = t_100 and t_101;
+
+		guardCondition t_102;
+		effect
+			GearControl.state = 22,
+			tGC = 4,
+			Clutch.state = 3,
+			tC = 3;
+
+	process GearControl_Clutch 
+		guardBlock
+			t_103 = GearControl.state == 20,
+			t_104 = Clutch.state == 2,
+			t_105 = t_103 and t_104;
+
+		guardCondition t_105;
+		effect
+			GearControl.state = 19,
+			tGC = 4,
+			Clutch.state = 3,
+			tC = 3;
+
+	process Engine_GearControl 
+		guardBlock
+			t_106 = Engine.state == 1,
+			t_107 = tE <= 5,
+			t_108 = t_106 and t_107,
+			t_109 = GearControl.state == 2,
+			t_110 = tGC > 0,
+			t_111 = t_109 and t_110,
+			t_112 = t_108 and t_111;
+
+		guardCondition t_112;
+		effect
+			Engine.state = 8,
+			tE = 255,
+			GearControl.state = 3;
+
+	process GearControl_Engine 
+		guardBlock
+			t_113 = GearControl.state == 9,
+			t_114 = toGear != 0,
+			t_115 = t_113 and t_114,
+			t_116 = Engine.state == 4,
+			t_117 = t_115 and t_116;
+
+		guardCondition t_117;
+		effect
+			GearControl.state = 12,
+			tGC = 3,
+			Engine.state = 7,
+			tE = 4;
+
+	process GearControl_Engine 
+		guardBlock
+			t_118 = GearControl.state == 9,
+			t_119 = toGear != 0,
+			t_120 = t_118 and t_119,
+			t_121 = Engine.state == 8,
+			t_122 = toGear != 0,
+			t_123 = t_121 and t_122,
+			t_124 = t_120 and t_123;
+
+		guardCondition t_124;
+		effect
+			GearControl.state = 12,
+			tGC = 3,
+			Engine.state = 7,
+			tE = 4;
+
+	process Engine_GearControl 
+		guardBlock
+			t_125 = Engine.state == 7,
+			t_126 = tE <= 3,
+			t_127 = t_125 and t_126,
+			t_128 = GearControl.state == 12,
+			t_129 = tGC > 0,
+			t_130 = t_128 and t_129,
+			t_131 = t_127 and t_130;
+
+		guardCondition t_131;
+		effect
+			Engine.state = 5,
+			tE = 10,
+			GearControl.state = 13;
+
+	process GearControl_Interface 
+		guardBlock
+			t_132 = GearControl.state == 21,
+			t_133 = Interface.state == 1,
+			t_134 = t_132 and t_133;
+
+		guardCondition t_134;
+		effect
+			GearControl.state = 0,
+			tGC = 255,
+			Interface.state = 0,
+			t_135 = currentGear + 1,
+			currentGear = t_135;
+
+	process GearControl_Interface 
+		guardBlock
+			t_136 = GearControl.state == 21,
+			t_137 = Interface.state == 2,
+			t_138 = t_136 and t_137;
+
+		guardCondition t_138;
+		effect
+			GearControl.state = 0,
+			tGC = 255,
+			Interface.state = 0,
+			t_139 = currentGear - 1,
+			currentGear = t_139;
+
+	process GearBox_GearControl 
+		guardBlock
+			t_140 = GearBox.state == 3,
+			t_141 = tGB <= 2,
+			t_142 = t_140 and t_141,
+			t_143 = GearControl.state == 4,
+			t_144 = t_142 and t_143;
+
+		guardCondition t_144;
+		effect
+			GearBox.state = 0,
+			tGB = 255,
+			GearControl.state = 9;
+
+	process GearBox_GearControl 
+		guardBlock
+			t_145 = GearBox.state == 3,
+			t_146 = tGB <= 2,
+			t_147 = t_145 and t_146,
+			t_148 = GearControl.state == 8,
+			t_149 = t_147 and t_148;
+
+		guardCondition t_149;
+		effect
+			GearBox.state = 0,
+			tGB = 255,
+			GearControl.state = 11,
+			tGC = 0;
+
+	process GearControl_Engine 
+		guardBlock
+			t_150 = GearControl.state == 1,
+			t_151 = currentGear != 0,
+			t_152 = t_150 and t_151,
+			t_153 = Engine.state == 0,
+			t_154 = t_152 and t_153;
+
+		guardCondition t_154;
+		effect
+			GearControl.state = 2,
+			tGC = 5,
+			Engine.state = 1,
+			tE = 8;
+
+	process GearControl_Engine 
+		guardBlock
+			t_155 = GearControl.state == 18,
+			t_156 = Engine.state == 5,
+			t_157 = tE > 0,
+			t_158 = t_156 and t_157,
+			t_159 = t_155 and t_158;
+
+		guardCondition t_159;
+		effect
+			GearControl.state = 21,
+			Engine.state = 0,
+			tE = 255;
+
+	process GearControl_Engine 
+		guardBlock
+			t_160 = GearControl.state == 18,
+			t_161 = Engine.state == 2,
+			t_162 = tE < 17,
+			t_163 = t_161 and t_162,
+			t_164 = t_160 and t_163;
+
+		guardCondition t_164;
+		effect
+			GearControl.state = 21,
+			Engine.state = 0,
+			tE = 255;
+
+	process Clutch_GearControl 
+		guardBlock
+			t_165 = Clutch.state == 3,
+			t_166 = tC <= 1,
+			t_167 = t_165 and t_166,
+			t_168 = GearControl.state == 19,
+			t_169 = t_167 and t_168;
+
+		guardCondition t_169;
+		effect
+			Clutch.state = 0,
+			tC = 255,
+			GearControl.state = 18,
+			tGC = 0;
+
+	process Clutch_GearControl 
+		guardBlock
+			t_170 = Clutch.state == 3,
+			t_171 = tC <= 1,
+			t_172 = t_170 and t_171,
+			t_173 = GearControl.state == 22,
+			t_174 = t_172 and t_173;
+
+		guardCondition t_174;
+		effect
+			Clutch.state = 0,
+			tC = 255,
+			GearControl.state = 21,
+			tGC = 0;
+
+	process GearControl_GearBox 
+		guardBlock
+			t_175 = GearControl.state == 13,
+			t_176 = GearBox.state == 0,
+			t_177 = t_175 and t_176;
+
+		guardCondition t_177;
+		effect
+			GearControl.state = 15,
+			tGC = 7,
+			GearBox.state = 1,
+			tGB = 6;
+
+	process GearControl_GearBox 
+		guardBlock
+			t_178 = GearControl.state == 11,
+			t_179 = toGear != 0,
+			t_180 = t_178 and t_179,
+			t_181 = GearBox.state == 0,
+			t_182 = t_180 and t_181;
+
+		guardCondition t_182;
+		effect
+			GearControl.state = 17,
+			tGC = 7,
+			GearBox.state = 1,
+			tGB = 6;
+
+	process GearControl_GearBox 
+		guardBlock
+			t_183 = GearControl.state == 14,
+			t_184 = GearBox.state == 0,
+			t_185 = t_183 and t_184;
+
+		guardCondition t_185;
+		effect
+			GearControl.state = 17,
+			tGC = 7,
+			GearBox.state = 1,
+			tGB = 6;
+
+	process GearControl_GearBox 
+		guardBlock
+			t_186 = GearControl.state == 3,
+			t_187 = GearBox.state == 2,
+			t_188 = t_186 and t_187;
+
+		guardCondition t_188;
+		effect
+			GearControl.state = 4,
+			tGC = 5,
+			GearBox.state = 3,
+			tGB = 4;
+
+	process GearControl_GearBox 
+		guardBlock
+			t_189 = GearControl.state == 6,
+			t_190 = GearBox.state == 2,
+			t_191 = t_189 and t_190;
+
+		guardCondition t_191;
+		effect
+			GearControl.state = 8,
+			tGC = 5,
+			GearBox.state = 3,
+			tGB = 4;
+
+	process Clutch_GearControl 
+		guardBlock
+			t_192 = Clutch.state == 1,
+			t_193 = tC <= 1,
+			t_194 = t_192 and t_193,
+			t_195 = GearControl.state == 23,
+			t_196 = t_194 and t_195;
+
+		guardCondition t_196;
+		effect
+			Clutch.state = 2,
+			tC = 255,
+			GearControl.state = 6,
+			tGC = 0;
+
+	process Clutch_GearControl 
+		guardBlock
+			t_197 = Clutch.state == 1,
+			t_198 = tC <= 1,
+			t_199 = t_197 and t_198,
+			t_200 = GearControl.state == 10,
+			t_201 = t_199 and t_200;
+
+		guardCondition t_201;
+		effect
+			Clutch.state = 2,
+			tC = 255,
+			GearControl.state = 14,
+			tGC = 0;
+
+	process Interface_GearControl 
+		guardBlock
+			t_202 = Interface.state == 0,
+			t_203 = currentGear < 30,
+			t_204 = t_202 and t_203,
+			t_205 = GearControl.state == 0,
+			t_206 = t_204 and t_205;
+
+		guardCondition t_206;
+		effect
+			Interface.state = 1,
+			GearControl.dir = 1,
+			GearControl.state = 1,
+			t_207 = toGear + GearControl.dir,
+			toGear = t_207;
+
+	process Interface_GearControl 
+		guardBlock
+			t_208 = Interface.state == 0,
+			t_209 = currentGear > -1,
+			t_210 = t_208 and t_209,
+			t_211 = GearControl.state == 0,
+			t_212 = t_210 and t_211;
+
+		guardCondition t_212;
+		effect
+			Interface.state = 2,
+			GearControl.dir = -1,
+			GearControl.state = 1,
+			t_213 = toGear + GearControl.dir,
+			toGear = t_213;
+
+	process GearControl_Clutch 
+		guardBlock
+			t_214 = GearControl.state == 12,
+			t_215 = tGC == 0,
+			t_216 = t_214 and t_215,
+			t_217 = Clutch.state == 0,
+			t_218 = t_216 and t_217;
+
+		guardCondition t_218;
+		effect
+			GearControl.state = 10,
+			tGC = 4,
+			Clutch.state = 1,
+			tC = 3;
+
+	process GearControl_Clutch 
+		guardBlock
+			t_219 = GearControl.state == 2,
+			t_220 = tGC == 0,
+			t_221 = t_219 and t_220,
+			t_222 = Clutch.state == 0,
+			t_223 = t_221 and t_222;
+
+		guardCondition t_223;
+		effect
+			GearControl.state = 23,
+			tGC = 4,
+			Clutch.state = 1,
+			tC = 3;
+
+
+system async;

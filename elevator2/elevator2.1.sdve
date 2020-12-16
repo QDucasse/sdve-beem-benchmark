@@ -1,0 +1,246 @@
+byte[4] req = {0, 0, 0, 0};
+int t = 0;
+int p = 0;
+byte v = 0;
+state {idle(0), mov(1), open(2)} cabin.state = 0;
+state {read(0)} environment.state = 0;
+state {wait(0), work(1), done(2)} controller.state = 0;
+byte controller.ldir = 0;
+transient bool t_0 = false;
+transient bool t_1 = false;
+transient bool t_2 = false;
+transient bool t_3 = false;
+transient bool t_4 = false;
+transient bool t_5 = false;
+transient bool t_6 = false;
+transient bool t_7 = false;
+transient bool t_8 = false;
+transient int t_9 = 0;
+transient bool t_10 = false;
+transient bool t_11 = false;
+transient bool t_12 = false;
+transient int t_13 = 0;
+transient bool t_14 = false;
+transient bool t_15 = false;
+transient byte t_16 = 0;
+transient bool t_17 = false;
+transient bool t_18 = false;
+transient bool t_19 = false;
+transient byte t_20 = 0;
+transient bool t_21 = false;
+transient bool t_22 = false;
+transient bool t_23 = false;
+transient byte t_24 = 0;
+transient bool t_25 = false;
+transient bool t_26 = false;
+transient bool t_27 = false;
+transient byte t_28 = 0;
+transient bool t_29 = false;
+transient bool t_30 = false;
+transient bool t_31 = false;
+transient bool t_32 = false;
+transient bool t_33 = false;
+transient int t_34 = 0;
+transient int t_35 = 0;
+transient int t_36 = 0;
+transient bool t_37 = false;
+transient bool t_38 = false;
+transient bool t_39 = false;
+transient bool t_40 = false;
+transient bool t_41 = false;
+transient int t_42 = 0;
+transient bool t_43 = false;
+transient bool t_44 = false;
+transient bool t_45 = false;
+transient bool t_46 = false;
+transient byte t_47 = 0;
+transient bool t_48 = false;
+transient bool t_49 = false;
+transient bool t_50 = false;
+transient bool t_51 = false;
+transient bool t_52 = false;
+transient bool t_53 = false;
+transient bool t_54 = false;
+transient byte t_55 = 0;
+transient bool t_56 = false;
+transient bool t_57 = false;
+transient bool t_58 = false;
+transient int t_59 = 0;
+transient int t_60 = 0;
+transient int t_61 = 0;
+transient bool t_62 = false;
+	process cabin 
+		guardBlock
+			t_0 = cabin.state == 0,
+			t_1 = v > 0,
+			t_2 = t_0 and t_1;
+
+		guardCondition t_2;
+		effect
+			cabin.state = 1;
+
+	process cabin 
+		guardBlock
+			t_3 = cabin.state == 1,
+			t_4 = t == p,
+			t_5 = t_3 and t_4;
+
+		guardCondition t_5;
+		effect
+			cabin.state = 2;
+
+	process cabin 
+		guardBlock
+			t_6 = cabin.state == 1,
+			t_7 = t < p,
+			t_8 = t_6 and t_7;
+
+		guardCondition t_8;
+		effect
+			cabin.state = 1,
+			t_9 = p - 1,
+			p = t_9;
+
+	process cabin 
+		guardBlock
+			t_10 = cabin.state == 1,
+			t_11 = t > p,
+			t_12 = t_10 and t_11;
+
+		guardCondition t_12;
+		effect
+			cabin.state = 1,
+			t_13 = p + 1,
+			p = t_13;
+
+	process cabin 
+		guardBlock
+			t_14 = cabin.state == 2;
+
+		guardCondition t_14;
+		effect
+			cabin.state = 0,
+			req[p] = 0,
+			v = 0;
+
+	process environment 
+		guardBlock
+			t_15 = environment.state == 0,
+			t_16 = req[0],
+			t_17 = t_16 == 0,
+			t_18 = t_15 and t_17;
+
+		guardCondition t_18;
+		effect
+			environment.state = 0,
+			req[0] = 1;
+
+	process environment 
+		guardBlock
+			t_19 = environment.state == 0,
+			t_20 = req[1],
+			t_21 = t_20 == 0,
+			t_22 = t_19 and t_21;
+
+		guardCondition t_22;
+		effect
+			environment.state = 0,
+			req[1] = 1;
+
+	process environment 
+		guardBlock
+			t_23 = environment.state == 0,
+			t_24 = req[2],
+			t_25 = t_24 == 0,
+			t_26 = t_23 and t_25;
+
+		guardCondition t_26;
+		effect
+			environment.state = 0,
+			req[2] = 1;
+
+	process environment 
+		guardBlock
+			t_27 = environment.state == 0,
+			t_28 = req[3],
+			t_29 = t_28 == 0,
+			t_30 = t_27 and t_29;
+
+		guardCondition t_30;
+		effect
+			environment.state = 0,
+			req[3] = 1;
+
+	process controller 
+		guardBlock
+			t_31 = controller.state == 0,
+			t_32 = v == 0,
+			t_33 = t_31 and t_32;
+
+		guardCondition t_33;
+		effect
+			controller.state = 1,
+			t_34 = 2 * controller.ldir,
+			t_35 = t + t_34,
+			t_36 = t_35 - 1,
+			t = t_36;
+
+	process controller 
+		guardBlock
+			t_37 = controller.state == 1,
+			t_38 = t < 0,
+			t_39 = t == 4,
+			t_40 = t_38 or t_39,
+			t_41 = t_37 and t_40;
+
+		guardCondition t_41;
+		effect
+			controller.state = 0,
+			t_42 = 1 - controller.ldir,
+			controller.ldir = t_42;
+
+	process controller 
+		guardBlock
+			t_43 = controller.state == 1,
+			t_44 = t >= 0,
+			t_45 = t < 4,
+			t_46 = t_44 and t_45,
+			t_47 = req[t],
+			t_48 = t_47 == 1,
+			t_49 = t_46 and t_48,
+			t_50 = t_43 and t_49;
+
+		guardCondition t_50;
+		effect
+			controller.state = 2;
+
+	process controller 
+		guardBlock
+			t_51 = controller.state == 1,
+			t_52 = t >= 0,
+			t_53 = t < 4,
+			t_54 = t_52 and t_53,
+			t_55 = req[t],
+			t_56 = t_55 == 0,
+			t_57 = t_54 and t_56,
+			t_58 = t_51 and t_57;
+
+		guardCondition t_58;
+		effect
+			controller.state = 1,
+			t_59 = 2 * controller.ldir,
+			t_60 = t + t_59,
+			t_61 = t_60 - 1,
+			t = t_61;
+
+	process controller 
+		guardBlock
+			t_62 = controller.state == 2;
+
+		guardCondition t_62;
+		effect
+			controller.state = 0,
+			v = 1;
+
+
+system async;

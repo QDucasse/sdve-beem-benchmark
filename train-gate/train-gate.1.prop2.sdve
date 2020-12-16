@@ -1,0 +1,485 @@
+byte[3] e = {0, 0, 0};
+byte x = 0;
+byte max_x_1 = 0;
+byte max_x_2 = 0;
+state {S1(0)} Clock.state = 0;
+state {S1(0), S2(1), S3(2), S4(3), S5(4), S6(5), Occ(6), Free(7), Send(8)} Gate.state = 7;
+state {Start(0), Shiftdown(1)} IntQueue.state = 0;
+byte[3] IntQueue.list = {0, 0, 0};
+byte IntQueue.len = 0;
+byte IntQueue.i = 0;
+state {Safe(0), Stop(1), Cross(2), Appr(3), Start(4)} Train_1.state = 0;
+state {Safe(0), Stop(1), Cross(2), Appr(3), Start(4)} Train_2.state = 0;
+state {q1(0), q2(1)} LTL_property.state = 0;
+transient bool t_0 = false;
+transient bool t_1 = false;
+transient bool t_2 = false;
+transient bool t_3 = false;
+transient bool t_4 = false;
+transient int t_5 = 0;
+transient bool t_6 = false;
+transient bool t_7 = false;
+transient bool t_8 = false;
+transient int t_9 = 0;
+transient byte t_10 = 0;
+transient int t_11 = 0;
+transient bool t_12 = false;
+transient bool t_13 = false;
+transient bool t_14 = false;
+transient bool t_15 = false;
+transient bool t_16 = false;
+transient bool t_17 = false;
+transient bool t_18 = false;
+transient bool t_19 = false;
+transient bool t_20 = false;
+transient bool t_21 = false;
+transient bool t_22 = false;
+transient bool t_23 = false;
+transient bool t_24 = false;
+transient bool t_25 = false;
+transient bool t_26 = false;
+transient bool t_27 = false;
+transient bool t_28 = false;
+transient bool t_29 = false;
+transient bool t_30 = false;
+transient bool t_31 = false;
+transient bool t_32 = false;
+transient bool t_33 = false;
+transient bool t_34 = false;
+transient bool t_35 = false;
+transient bool t_36 = false;
+transient bool t_37 = false;
+transient bool t_38 = false;
+transient bool t_39 = false;
+transient bool t_40 = false;
+transient bool t_41 = false;
+transient bool t_42 = false;
+transient bool t_43 = false;
+transient bool t_44 = false;
+transient bool t_45 = false;
+transient bool t_46 = false;
+transient bool t_47 = false;
+transient bool t_48 = false;
+transient bool t_49 = false;
+transient bool t_50 = false;
+transient bool t_51 = false;
+transient bool t_52 = false;
+transient bool t_53 = false;
+transient bool t_54 = false;
+transient bool t_55 = false;
+transient bool t_56 = false;
+transient bool t_57 = false;
+transient bool t_58 = false;
+transient bool t_59 = false;
+transient bool t_60 = false;
+transient bool t_61 = false;
+transient bool t_62 = false;
+transient bool t_63 = false;
+transient bool t_64 = false;
+transient bool t_65 = false;
+transient bool t_66 = false;
+transient bool t_67 = false;
+transient int t_68 = 0;
+transient bool t_69 = false;
+transient bool t_70 = false;
+transient bool t_71 = false;
+transient int t_72 = 0;
+transient bool t_73 = false;
+transient bool t_74 = false;
+transient bool t_75 = false;
+transient bool t_76 = false;
+transient bool t_77 = false;
+transient int t_78 = 0;
+transient bool t_79 = false;
+transient bool t_80 = false;
+transient bool t_81 = false;
+transient bool t_82 = false;
+transient bool t_83 = false;
+transient bool t_84 = false;
+transient bool t_85 = false;
+transient bool t_86 = false;
+transient bool t_87 = false;
+transient bool t_88 = false;
+transient bool t_89 = false;
+transient bool t_90 = false;
+transient bool t_91 = false;
+transient bool t_92 = false;
+transient bool t_93 = false;
+transient bool t_94 = false;
+transient bool t_95 = false;
+transient byte t_96 = 0;
+transient bool t_97 = false;
+transient bool t_98 = false;
+transient bool t_99 = false;
+transient bool t_100 = false;
+transient bool t_101 = false;
+transient bool t_102 = false;
+transient bool t_103 = false;
+transient bool t_104 = false;
+transient bool t_105 = false;
+transient bool t_106 = false;
+transient bool t_107 = false;
+transient bool t_108 = false;
+transient bool t_109 = false;
+transient bool t_110 = false;
+transient bool t_111 = false;
+	process Clock 
+		guardBlock
+			t_0 = Clock.state == 0,
+			t_1 = x <= max_x_2,
+			t_2 = x <= max_x_1,
+			t_3 = t_1 and t_2,
+			t_4 = t_0 and t_3;
+
+		guardCondition t_4;
+		effect
+			Clock.state = 0,
+			t_5 = x + 1,
+			x = t_5;
+
+	process IntQueue 
+		guardBlock
+			t_6 = IntQueue.state == 1,
+			t_7 = IntQueue.i < IntQueue.len,
+			t_8 = t_6 and t_7;
+
+		guardCondition t_8;
+		effect
+			IntQueue.state = 1,
+			t_9 = IntQueue.i + 1,
+			t_10 = IntQueue.list[t_9],
+			IntQueue.list[IntQueue.i] = t_10,
+			t_11 = IntQueue.i + 1,
+			IntQueue.i = t_11;
+
+	process IntQueue 
+		guardBlock
+			t_12 = IntQueue.state == 1,
+			t_13 = IntQueue.len == IntQueue.i,
+			t_14 = t_12 and t_13;
+
+		guardCondition t_14;
+		effect
+			IntQueue.state = 0,
+			IntQueue.list[IntQueue.i] = 0,
+			IntQueue.i = 0;
+
+	process Train_1 
+		guardBlock
+			t_15 = Train_1.state == 3,
+			t_16 = x >= 10,
+			t_17 = t_15 and t_16;
+
+		guardCondition t_17;
+		effect
+			Train_1.state = 2,
+			x = 0,
+			max_x_1 = 5;
+
+	process Train_1 
+		guardBlock
+			t_18 = Train_1.state == 4,
+			t_19 = x >= 5,
+			t_20 = t_18 and t_19;
+
+		guardCondition t_20;
+		effect
+			Train_1.state = 2,
+			x = 0,
+			max_x_1 = 5;
+
+	process Train_2 
+		guardBlock
+			t_21 = Train_2.state == 3,
+			t_22 = x >= 10,
+			t_23 = t_21 and t_22;
+
+		guardCondition t_23;
+		effect
+			Train_2.state = 2,
+			x = 0,
+			max_x_2 = 5;
+
+	process Train_2 
+		guardBlock
+			t_24 = Train_2.state == 4,
+			t_25 = x >= 5,
+			t_26 = t_24 and t_25;
+
+		guardCondition t_26;
+		effect
+			Train_2.state = 2,
+			x = 0,
+			max_x_2 = 5;
+
+	process LTL_property 
+		guardBlock
+			t_27 = LTL_property.state == 0;
+
+		guardCondition t_27;
+		effect
+			LTL_property.state = 0;
+
+	process LTL_property 
+		guardBlock
+			t_28 = LTL_property.state == 0,
+			t_29 = Train_1.state == 3,
+			t_30 = Train_1.state == 2,
+			t_31 = not t_30,
+			t_32 = t_29 and t_31,
+			t_33 = t_28 and t_32;
+
+		guardCondition t_33;
+		effect
+			LTL_property.state = 1;
+
+	process LTL_property 
+		guardBlock
+			t_34 = LTL_property.state == 1,
+			t_35 = Train_1.state == 2,
+			t_36 = not t_35,
+			t_37 = t_34 and t_36;
+
+		guardCondition t_37;
+		effect
+			LTL_property.state = 1;
+
+	process Gate_Train_1 
+		guardBlock
+			t_38 = Gate.state == 8,
+			t_39 = Train_1.state == 1,
+			t_40 = e == 1,
+			t_41 = t_39 and t_40,
+			t_42 = t_38 and t_41;
+
+		guardCondition t_42;
+		effect
+			Gate.state = 6,
+			Train_1.state = 4,
+			x = 0,
+			max_x_1 = 15;
+
+	process Gate_Train_2 
+		guardBlock
+			t_43 = Gate.state == 8,
+			t_44 = Train_2.state == 1,
+			t_45 = e == 2,
+			t_46 = t_44 and t_45,
+			t_47 = t_43 and t_46;
+
+		guardCondition t_47;
+		effect
+			Gate.state = 6,
+			Train_2.state = 4,
+			x = 0,
+			max_x_2 = 15;
+
+	process IntQueue_Gate 
+		guardBlock
+			t_48 = IntQueue.state == 0,
+			t_49 = IntQueue.len > 0,
+			t_50 = t_48 and t_49,
+			t_51 = Gate.state == 7,
+			t_52 = t_50 and t_51;
+
+		guardCondition t_52;
+		effect
+			IntQueue.state = 0,
+			Gate.state = 4;
+
+	process Train_1_Gate 
+		guardBlock
+			t_53 = Train_1.state == 0,
+			t_54 = Gate.state == 6,
+			t_55 = t_53 and t_54;
+
+		guardCondition t_55;
+		effect
+			Train_1.state = 3,
+			e = 1,
+			x = 0,
+			max_x_1 = 20,
+			Gate.state = 5;
+
+	process Train_1_Gate 
+		guardBlock
+			t_56 = Train_1.state == 0,
+			t_57 = Gate.state == 3,
+			t_58 = t_56 and t_57;
+
+		guardCondition t_58;
+		effect
+			Train_1.state = 3,
+			e = 1,
+			x = 0,
+			max_x_1 = 20,
+			Gate.state = 2;
+
+	process Train_2_Gate 
+		guardBlock
+			t_59 = Train_2.state == 0,
+			t_60 = Gate.state == 6,
+			t_61 = t_59 and t_60;
+
+		guardCondition t_61;
+		effect
+			Train_2.state = 3,
+			e = 2,
+			x = 0,
+			max_x_2 = 20,
+			Gate.state = 5;
+
+	process Train_2_Gate 
+		guardBlock
+			t_62 = Train_2.state == 0,
+			t_63 = Gate.state == 3,
+			t_64 = t_62 and t_63;
+
+		guardCondition t_64;
+		effect
+			Train_2.state = 3,
+			e = 2,
+			x = 0,
+			max_x_2 = 20,
+			Gate.state = 2;
+
+	process Gate_IntQueue 
+		guardBlock
+			t_65 = Gate.state == 2,
+			t_66 = IntQueue.state == 0,
+			t_67 = t_65 and t_66;
+
+		guardCondition t_67;
+		effect
+			Gate.state = 6,
+			IntQueue.state = 0,
+			IntQueue.list[IntQueue.len] = e,
+			t_68 = IntQueue.len + 1,
+			IntQueue.len = t_68;
+
+	process Gate_IntQueue 
+		guardBlock
+			t_69 = Gate.state == 1,
+			t_70 = IntQueue.state == 0,
+			t_71 = t_69 and t_70;
+
+		guardCondition t_71;
+		effect
+			Gate.state = 6,
+			IntQueue.state = 0,
+			IntQueue.list[IntQueue.len] = e,
+			t_72 = IntQueue.len + 1,
+			IntQueue.len = t_72;
+
+	process IntQueue_Gate 
+		guardBlock
+			t_73 = IntQueue.state == 0,
+			t_74 = IntQueue.len >= 1,
+			t_75 = t_73 and t_74,
+			t_76 = Gate.state == 0,
+			t_77 = t_75 and t_76;
+
+		guardCondition t_77;
+		effect
+			IntQueue.state = 1,
+			t_78 = IntQueue.len - 1,
+			IntQueue.len = t_78,
+			IntQueue.i = 0,
+			Gate.state = 7;
+
+	process Gate_Train_1 
+		guardBlock
+			t_79 = Gate.state == 5,
+			t_80 = Train_1.state == 3,
+			t_81 = x <= 10,
+			t_82 = e == 1,
+			t_83 = t_81 and t_82,
+			t_84 = t_80 and t_83,
+			t_85 = t_79 and t_84;
+
+		guardCondition t_85;
+		effect
+			Gate.state = 1,
+			Train_1.state = 1,
+			x = 0,
+			max_x_1 = 25;
+
+	process Gate_Train_2 
+		guardBlock
+			t_86 = Gate.state == 5,
+			t_87 = Train_2.state == 3,
+			t_88 = x <= 10,
+			t_89 = e == 2,
+			t_90 = t_88 and t_89,
+			t_91 = t_87 and t_90,
+			t_92 = t_86 and t_91;
+
+		guardCondition t_92;
+		effect
+			Gate.state = 1,
+			Train_2.state = 1,
+			x = 0,
+			max_x_2 = 25;
+
+	process Gate_IntQueue 
+		guardBlock
+			t_93 = Gate.state == 4,
+			t_94 = IntQueue.state == 0,
+			t_95 = t_93 and t_94;
+
+		guardCondition t_95;
+		effect
+			Gate.state = 8,
+			IntQueue.state = 0,
+			t_96 = IntQueue.list[0],
+			e = t_96;
+
+	process IntQueue_Gate 
+		guardBlock
+			t_97 = IntQueue.state == 0,
+			t_98 = IntQueue.len == 0,
+			t_99 = t_97 and t_98,
+			t_100 = Gate.state == 7,
+			t_101 = t_99 and t_100;
+
+		guardCondition t_101;
+		effect
+			IntQueue.state = 0,
+			Gate.state = 3;
+
+	process Train_1_Gate 
+		guardBlock
+			t_102 = Train_1.state == 2,
+			t_103 = x >= 3,
+			t_104 = t_102 and t_103,
+			t_105 = Gate.state == 6,
+			t_106 = t_104 and t_105;
+
+		guardCondition t_106;
+		effect
+			Train_1.state = 0,
+			e = 1,
+			x = 0,
+			max_x_1 = 25,
+			Gate.state = 0;
+
+	process Train_2_Gate 
+		guardBlock
+			t_107 = Train_2.state == 2,
+			t_108 = x >= 3,
+			t_109 = t_107 and t_108,
+			t_110 = Gate.state == 6,
+			t_111 = t_109 and t_110;
+
+		guardCondition t_111;
+		effect
+			Train_2.state = 0,
+			e = 2,
+			x = 0,
+			max_x_2 = 25,
+			Gate.state = 0;
+
+accepting conditions
+	LTL_property.state == 1
+
+system async property LTL_property;

@@ -1,0 +1,1326 @@
+byte cur = 0;
+byte sleeping = 0;
+byte sleep_op = 0;
+byte sw_stand_by = 0;
+byte generated_ap_interrupt = 0;
+byte lsl_command = 0;
+byte lsl_running = 0;
+byte lsl_data = 0;
+byte ap_interrupt = 0;
+byte enabled_lsl_interrupt = 0;
+byte lsl_interrupt = 0;
+byte lsl_interrupt_ex = 0;
+byte generated_lsl_interrupt = 0;
+byte some_running = 0;
+byte some_data = 0;
+byte some_interrupt = 0;
+state {active(0), prepare_ack(1), stand_by(2)} AP.state = 0;
+byte AP.no_ap_ints = 0;
+state {lsl_int_service(0), interrupt_received(1), awake(2), check_stand_by(3), insert_noop(4), clear_stand_by(5)} LSL_Interrupt_Handler.state = 0;
+state {ap_int_service(0), set_cur(1), interrupt_received(2), awake(3), check_stand_by(4), reset_cur(5), insert_noop(6), clear_stand_by(7)} AP_Interrupt_Handler.state = 0;
+byte AP_Interrupt_Handler.old_cur = 0;
+state {generate(0)} Interrupt_Generator.state = 0;
+byte Interrupt_Generator.no_lsl_ints = 0;
+state {stand_by(0), up_down_received(1), react(2), call(3)} LSL_Driver.state = 0;
+state {idle(0), calc_data(1), calc_running(2)} Calc.state = 0;
+state {going_down(0), clear_interrupts(1), active(2), enable_lsl_interrupt(3), issue_down_lsl(4), wait_for_down(5), down_expected(6), disable_lsl_interrupt(7), down_verified(8), down_received(9), insert_noop(10), set_stand_by(11), check_interrupts(12), check_noop(13), w_stand_by(14), wake_up(15), stand_by(16), clear_int(17), issue_lsl_up(18), wait_init_response(19), data_expected(20), noise(21), s_active(22), now_wait(23), re_enable_lsl_interrupt(24), re_issue_lsl_down(25), wait_response(26), observe_status(27), clear_lsl_interrupt(28), send_active_command(29), back_to_active(30), issue_active_commands(31), send_nack(32), enter_active(33)} IOP.state = 2;
+state {q1(0), q2(1), q3(2)} LTL_property.state = 1;
+transient bool t_0 = false;
+transient bool t_1 = false;
+transient bool t_2 = false;
+transient int t_3 = 0;
+transient bool t_4 = false;
+transient bool t_5 = false;
+transient bool t_6 = false;
+transient bool t_7 = false;
+transient bool t_8 = false;
+transient bool t_9 = false;
+transient bool t_10 = false;
+transient bool t_11 = false;
+transient bool t_12 = false;
+transient bool t_13 = false;
+transient bool t_14 = false;
+transient bool t_15 = false;
+transient bool t_16 = false;
+transient bool t_17 = false;
+transient bool t_18 = false;
+transient bool t_19 = false;
+transient bool t_20 = false;
+transient bool t_21 = false;
+transient bool t_22 = false;
+transient bool t_23 = false;
+transient bool t_24 = false;
+transient bool t_25 = false;
+transient bool t_26 = false;
+transient bool t_27 = false;
+transient bool t_28 = false;
+transient bool t_29 = false;
+transient bool t_30 = false;
+transient bool t_31 = false;
+transient bool t_32 = false;
+transient bool t_33 = false;
+transient bool t_34 = false;
+transient bool t_35 = false;
+transient bool t_36 = false;
+transient bool t_37 = false;
+transient bool t_38 = false;
+transient bool t_39 = false;
+transient bool t_40 = false;
+transient bool t_41 = false;
+transient bool t_42 = false;
+transient bool t_43 = false;
+transient bool t_44 = false;
+transient bool t_45 = false;
+transient bool t_46 = false;
+transient bool t_47 = false;
+transient bool t_48 = false;
+transient bool t_49 = false;
+transient bool t_50 = false;
+transient bool t_51 = false;
+transient bool t_52 = false;
+transient bool t_53 = false;
+transient bool t_54 = false;
+transient bool t_55 = false;
+transient bool t_56 = false;
+transient bool t_57 = false;
+transient bool t_58 = false;
+transient bool t_59 = false;
+transient bool t_60 = false;
+transient bool t_61 = false;
+transient bool t_62 = false;
+transient bool t_63 = false;
+transient bool t_64 = false;
+transient bool t_65 = false;
+transient bool t_66 = false;
+transient bool t_67 = false;
+transient bool t_68 = false;
+transient bool t_69 = false;
+transient bool t_70 = false;
+transient bool t_71 = false;
+transient bool t_72 = false;
+transient bool t_73 = false;
+transient bool t_74 = false;
+transient bool t_75 = false;
+transient bool t_76 = false;
+transient bool t_77 = false;
+transient int t_78 = 0;
+transient bool t_79 = false;
+transient bool t_80 = false;
+transient bool t_81 = false;
+transient bool t_82 = false;
+transient bool t_83 = false;
+transient bool t_84 = false;
+transient bool t_85 = false;
+transient bool t_86 = false;
+transient bool t_87 = false;
+transient bool t_88 = false;
+transient bool t_89 = false;
+transient bool t_90 = false;
+transient bool t_91 = false;
+transient bool t_92 = false;
+transient bool t_93 = false;
+transient bool t_94 = false;
+transient bool t_95 = false;
+transient bool t_96 = false;
+transient bool t_97 = false;
+transient bool t_98 = false;
+transient bool t_99 = false;
+transient bool t_100 = false;
+transient bool t_101 = false;
+transient bool t_102 = false;
+transient bool t_103 = false;
+transient bool t_104 = false;
+transient bool t_105 = false;
+transient bool t_106 = false;
+transient bool t_107 = false;
+transient bool t_108 = false;
+transient bool t_109 = false;
+transient bool t_110 = false;
+transient bool t_111 = false;
+transient bool t_112 = false;
+transient bool t_113 = false;
+transient bool t_114 = false;
+transient bool t_115 = false;
+transient bool t_116 = false;
+transient bool t_117 = false;
+transient bool t_118 = false;
+transient bool t_119 = false;
+transient bool t_120 = false;
+transient bool t_121 = false;
+transient bool t_122 = false;
+transient bool t_123 = false;
+transient bool t_124 = false;
+transient bool t_125 = false;
+transient bool t_126 = false;
+transient bool t_127 = false;
+transient bool t_128 = false;
+transient bool t_129 = false;
+transient bool t_130 = false;
+transient bool t_131 = false;
+transient bool t_132 = false;
+transient bool t_133 = false;
+transient bool t_134 = false;
+transient bool t_135 = false;
+transient bool t_136 = false;
+transient bool t_137 = false;
+transient bool t_138 = false;
+transient bool t_139 = false;
+transient bool t_140 = false;
+transient bool t_141 = false;
+transient bool t_142 = false;
+transient bool t_143 = false;
+transient bool t_144 = false;
+transient bool t_145 = false;
+transient bool t_146 = false;
+transient bool t_147 = false;
+transient bool t_148 = false;
+transient bool t_149 = false;
+transient bool t_150 = false;
+transient bool t_151 = false;
+transient bool t_152 = false;
+transient bool t_153 = false;
+transient bool t_154 = false;
+transient bool t_155 = false;
+transient bool t_156 = false;
+transient bool t_157 = false;
+transient bool t_158 = false;
+transient bool t_159 = false;
+transient bool t_160 = false;
+transient bool t_161 = false;
+transient bool t_162 = false;
+transient bool t_163 = false;
+transient bool t_164 = false;
+transient bool t_165 = false;
+transient bool t_166 = false;
+transient bool t_167 = false;
+transient bool t_168 = false;
+transient bool t_169 = false;
+transient bool t_170 = false;
+transient bool t_171 = false;
+transient bool t_172 = false;
+transient bool t_173 = false;
+transient bool t_174 = false;
+transient bool t_175 = false;
+transient bool t_176 = false;
+transient bool t_177 = false;
+transient bool t_178 = false;
+transient bool t_179 = false;
+transient bool t_180 = false;
+transient bool t_181 = false;
+transient bool t_182 = false;
+transient bool t_183 = false;
+transient bool t_184 = false;
+transient bool t_185 = false;
+transient bool t_186 = false;
+transient bool t_187 = false;
+transient bool t_188 = false;
+transient bool t_189 = false;
+transient bool t_190 = false;
+transient bool t_191 = false;
+transient bool t_192 = false;
+transient bool t_193 = false;
+transient bool t_194 = false;
+transient bool t_195 = false;
+transient bool t_196 = false;
+transient bool t_197 = false;
+transient bool t_198 = false;
+transient bool t_199 = false;
+transient bool t_200 = false;
+transient bool t_201 = false;
+transient bool t_202 = false;
+transient bool t_203 = false;
+transient bool t_204 = false;
+transient bool t_205 = false;
+transient bool t_206 = false;
+transient bool t_207 = false;
+transient bool t_208 = false;
+transient bool t_209 = false;
+transient bool t_210 = false;
+transient bool t_211 = false;
+transient bool t_212 = false;
+transient bool t_213 = false;
+transient bool t_214 = false;
+transient bool t_215 = false;
+transient bool t_216 = false;
+transient bool t_217 = false;
+transient bool t_218 = false;
+transient bool t_219 = false;
+transient bool t_220 = false;
+transient bool t_221 = false;
+transient bool t_222 = false;
+transient bool t_223 = false;
+transient bool t_224 = false;
+transient bool t_225 = false;
+transient bool t_226 = false;
+transient bool t_227 = false;
+transient bool t_228 = false;
+transient bool t_229 = false;
+transient bool t_230 = false;
+transient bool t_231 = false;
+transient bool t_232 = false;
+transient bool t_233 = false;
+transient bool t_234 = false;
+transient bool t_235 = false;
+transient bool t_236 = false;
+transient bool t_237 = false;
+transient bool t_238 = false;
+transient bool t_239 = false;
+transient bool t_240 = false;
+transient bool t_241 = false;
+transient bool t_242 = false;
+transient bool t_243 = false;
+transient bool t_244 = false;
+transient bool t_245 = false;
+transient bool t_246 = false;
+transient bool t_247 = false;
+transient bool t_248 = false;
+transient bool t_249 = false;
+transient bool t_250 = false;
+transient bool t_251 = false;
+transient bool t_252 = false;
+transient bool t_253 = false;
+transient bool t_254 = false;
+transient bool t_255 = false;
+transient bool t_256 = false;
+transient bool t_257 = false;
+transient bool t_258 = false;
+transient bool t_259 = false;
+transient bool t_260 = false;
+transient bool t_261 = false;
+transient bool t_262 = false;
+transient bool t_263 = false;
+transient bool t_264 = false;
+transient bool t_265 = false;
+transient bool t_266 = false;
+transient bool t_267 = false;
+transient bool t_268 = false;
+transient bool t_269 = false;
+transient bool t_270 = false;
+transient bool t_271 = false;
+transient bool t_272 = false;
+transient bool t_273 = false;
+transient bool t_274 = false;
+transient bool t_275 = false;
+transient bool t_276 = false;
+transient bool t_277 = false;
+transient bool t_278 = false;
+transient bool t_279 = false;
+transient bool t_280 = false;
+transient bool t_281 = false;
+transient bool t_282 = false;
+transient bool t_283 = false;
+transient bool t_284 = false;
+transient bool t_285 = false;
+transient bool t_286 = false;
+transient bool t_287 = false;
+transient bool t_288 = false;
+transient bool t_289 = false;
+transient bool t_290 = false;
+transient bool t_291 = false;
+transient bool t_292 = false;
+transient bool t_293 = false;
+transient bool t_294 = false;
+transient bool t_295 = false;
+transient bool t_296 = false;
+transient bool t_297 = false;
+transient bool t_298 = false;
+transient bool t_299 = false;
+transient bool t_300 = false;
+transient bool t_301 = false;
+transient bool t_302 = false;
+transient bool t_303 = false;
+transient bool t_304 = false;
+transient bool t_305 = false;
+transient bool t_306 = false;
+transient bool t_307 = false;
+transient bool t_308 = false;
+transient bool t_309 = false;
+transient bool t_310 = false;
+	process AP 
+		guardBlock
+			t_0 = AP.state == 0,
+			t_1 = AP.no_ap_ints < 7,
+			t_2 = t_0 and t_1;
+
+		guardCondition t_2;
+		effect
+			AP.state = 0,
+			generated_ap_interrupt = 1,
+			t_3 = AP.no_ap_ints + 1,
+			AP.no_ap_ints = t_3;
+
+	process AP 
+		guardBlock
+			t_4 = AP.state == 2;
+
+		guardCondition t_4;
+		effect
+			AP.state = 0;
+
+	process LSL_Interrupt_Handler 
+		guardBlock
+			t_5 = LSL_Interrupt_Handler.state == 0,
+			t_6 = cur == 0,
+			t_7 = enabled_lsl_interrupt == 1,
+			t_8 = t_6 and t_7,
+			t_9 = generated_lsl_interrupt == 1,
+			t_10 = t_8 and t_9,
+			t_11 = t_5 and t_10;
+
+		guardCondition t_11;
+		effect
+			LSL_Interrupt_Handler.state = 1,
+			cur = 1,
+			lsl_interrupt_ex = 1;
+
+	process LSL_Interrupt_Handler 
+		guardBlock
+			t_12 = LSL_Interrupt_Handler.state == 1,
+			t_13 = cur == 1,
+			t_14 = sleeping == 0,
+			t_15 = t_13 and t_14,
+			t_16 = t_12 and t_15;
+
+		guardCondition t_16;
+		effect
+			LSL_Interrupt_Handler.state = 2;
+
+	process LSL_Interrupt_Handler 
+		guardBlock
+			t_17 = LSL_Interrupt_Handler.state == 1,
+			t_18 = cur == 1,
+			t_19 = sleeping == 1,
+			t_20 = t_18 and t_19,
+			t_21 = t_17 and t_20;
+
+		guardCondition t_21;
+		effect
+			LSL_Interrupt_Handler.state = 2,
+			sleeping = 0;
+
+	process LSL_Interrupt_Handler 
+		guardBlock
+			t_22 = LSL_Interrupt_Handler.state == 2,
+			t_23 = cur == 1,
+			t_24 = t_22 and t_23;
+
+		guardCondition t_24;
+		effect
+			LSL_Interrupt_Handler.state = 3,
+			enabled_lsl_interrupt = 0,
+			generated_lsl_interrupt = 0,
+			lsl_interrupt = 1,
+			lsl_interrupt_ex = 0,
+			some_interrupt = 1;
+
+	process LSL_Interrupt_Handler 
+		guardBlock
+			t_25 = LSL_Interrupt_Handler.state == 3,
+			t_26 = cur == 1,
+			t_27 = sw_stand_by == 0,
+			t_28 = t_26 and t_27,
+			t_29 = t_25 and t_28;
+
+		guardCondition t_29;
+		effect
+			LSL_Interrupt_Handler.state = 0,
+			cur = 0;
+
+	process LSL_Interrupt_Handler 
+		guardBlock
+			t_30 = LSL_Interrupt_Handler.state == 3,
+			t_31 = cur == 1,
+			t_32 = sw_stand_by == 1,
+			t_33 = t_31 and t_32,
+			t_34 = t_30 and t_33;
+
+		guardCondition t_34;
+		effect
+			LSL_Interrupt_Handler.state = 4;
+
+	process LSL_Interrupt_Handler 
+		guardBlock
+			t_35 = LSL_Interrupt_Handler.state == 4,
+			t_36 = cur == 1,
+			t_37 = t_35 and t_36;
+
+		guardCondition t_37;
+		effect
+			LSL_Interrupt_Handler.state = 5,
+			sleep_op = 0;
+
+	process LSL_Interrupt_Handler 
+		guardBlock
+			t_38 = LSL_Interrupt_Handler.state == 5,
+			t_39 = cur == 1,
+			t_40 = t_38 and t_39;
+
+		guardCondition t_40;
+		effect
+			LSL_Interrupt_Handler.state = 0,
+			sw_stand_by = 0,
+			cur = 0;
+
+	process AP_Interrupt_Handler 
+		guardBlock
+			t_41 = AP_Interrupt_Handler.state == 0,
+			t_42 = generated_ap_interrupt == 1,
+			t_43 = lsl_interrupt_ex == 0,
+			t_44 = t_42 and t_43,
+			t_45 = t_41 and t_44;
+
+		guardCondition t_45;
+		effect
+			AP_Interrupt_Handler.state = 1,
+			generated_ap_interrupt = 0;
+
+	process AP_Interrupt_Handler 
+		guardBlock
+			t_46 = AP_Interrupt_Handler.state == 1,
+			t_47 = cur == 0,
+			t_48 = t_46 and t_47;
+
+		guardCondition t_48;
+		effect
+			AP_Interrupt_Handler.state = 2,
+			AP_Interrupt_Handler.old_cur = 0,
+			cur = 2;
+
+	process AP_Interrupt_Handler 
+		guardBlock
+			t_49 = AP_Interrupt_Handler.state == 1,
+			t_50 = cur == 1,
+			t_51 = t_49 and t_50;
+
+		guardCondition t_51;
+		effect
+			AP_Interrupt_Handler.state = 2,
+			AP_Interrupt_Handler.old_cur = 1,
+			cur = 2;
+
+	process AP_Interrupt_Handler 
+		guardBlock
+			t_52 = AP_Interrupt_Handler.state == 2,
+			t_53 = sleeping == 0,
+			t_54 = t_52 and t_53;
+
+		guardCondition t_54;
+		effect
+			AP_Interrupt_Handler.state = 3;
+
+	process AP_Interrupt_Handler 
+		guardBlock
+			t_55 = AP_Interrupt_Handler.state == 2,
+			t_56 = sleeping == 1,
+			t_57 = t_55 and t_56;
+
+		guardCondition t_57;
+		effect
+			AP_Interrupt_Handler.state = 3,
+			sleeping = 0;
+
+	process AP_Interrupt_Handler 
+		guardBlock
+			t_58 = AP_Interrupt_Handler.state == 3;
+
+		guardCondition t_58;
+		effect
+			AP_Interrupt_Handler.state = 4,
+			enabled_lsl_interrupt = 0,
+			generated_lsl_interrupt = 0,
+			ap_interrupt = 1,
+			some_interrupt = 1;
+
+	process AP_Interrupt_Handler 
+		guardBlock
+			t_59 = AP_Interrupt_Handler.state == 4,
+			t_60 = sw_stand_by == 0,
+			t_61 = t_59 and t_60;
+
+		guardCondition t_61;
+		effect
+			AP_Interrupt_Handler.state = 5;
+
+	process AP_Interrupt_Handler 
+		guardBlock
+			t_62 = AP_Interrupt_Handler.state == 4,
+			t_63 = sw_stand_by == 1,
+			t_64 = t_62 and t_63;
+
+		guardCondition t_64;
+		effect
+			AP_Interrupt_Handler.state = 6;
+
+	process AP_Interrupt_Handler 
+		guardBlock
+			t_65 = AP_Interrupt_Handler.state == 6;
+
+		guardCondition t_65;
+		effect
+			AP_Interrupt_Handler.state = 7,
+			sleep_op = 0;
+
+	process AP_Interrupt_Handler 
+		guardBlock
+			t_66 = AP_Interrupt_Handler.state == 7;
+
+		guardCondition t_66;
+		effect
+			AP_Interrupt_Handler.state = 5,
+			sw_stand_by = 0;
+
+	process AP_Interrupt_Handler 
+		guardBlock
+			t_67 = AP_Interrupt_Handler.state == 5,
+			t_68 = AP_Interrupt_Handler.old_cur == 0,
+			t_69 = t_67 and t_68;
+
+		guardCondition t_69;
+		effect
+			AP_Interrupt_Handler.state = 0,
+			cur = 0;
+
+	process AP_Interrupt_Handler 
+		guardBlock
+			t_70 = AP_Interrupt_Handler.state == 5,
+			t_71 = AP_Interrupt_Handler.old_cur == 1,
+			t_72 = t_70 and t_71;
+
+		guardCondition t_72;
+		effect
+			AP_Interrupt_Handler.state = 0,
+			cur = 1;
+
+	process Interrupt_Generator 
+		guardBlock
+			t_73 = Interrupt_Generator.state == 0,
+			t_74 = enabled_lsl_interrupt == 1,
+			t_75 = Interrupt_Generator.no_lsl_ints < 7,
+			t_76 = t_74 and t_75,
+			t_77 = t_73 and t_76;
+
+		guardCondition t_77;
+		effect
+			Interrupt_Generator.state = 0,
+			generated_lsl_interrupt = 1,
+			t_78 = Interrupt_Generator.no_lsl_ints + 1,
+			Interrupt_Generator.no_lsl_ints = t_78;
+
+	process LSL_Driver 
+		guardBlock
+			t_79 = LSL_Driver.state == 0,
+			t_80 = cur == 0,
+			t_81 = lsl_command == 3,
+			t_82 = t_80 and t_81,
+			t_83 = t_79 and t_82;
+
+		guardCondition t_83;
+		effect
+			LSL_Driver.state = 0,
+			lsl_command = 0;
+
+	process LSL_Driver 
+		guardBlock
+			t_84 = LSL_Driver.state == 0,
+			t_85 = cur == 0,
+			t_86 = lsl_command == 1,
+			t_87 = t_85 and t_86,
+			t_88 = t_84 and t_87;
+
+		guardCondition t_88;
+		effect
+			LSL_Driver.state = 1,
+			lsl_command = 0;
+
+	process LSL_Driver 
+		guardBlock
+			t_89 = LSL_Driver.state == 0,
+			t_90 = cur == 0,
+			t_91 = lsl_command == 2,
+			t_92 = t_90 and t_91,
+			t_93 = t_89 and t_92;
+
+		guardCondition t_93;
+		effect
+			LSL_Driver.state = 1,
+			lsl_command = 0;
+
+	process LSL_Driver 
+		guardBlock
+			t_94 = LSL_Driver.state == 1,
+			t_95 = cur == 0,
+			t_96 = t_94 and t_95;
+
+		guardCondition t_96;
+		effect
+			LSL_Driver.state = 2;
+
+	process LSL_Driver 
+		guardBlock
+			t_97 = LSL_Driver.state == 2,
+			t_98 = cur == 0,
+			t_99 = t_97 and t_98;
+
+		guardCondition t_99;
+		effect
+			LSL_Driver.state = 3,
+			lsl_running = 0,
+			lsl_data = 0;
+
+	process LSL_Driver 
+		guardBlock
+			t_100 = LSL_Driver.state == 2,
+			t_101 = cur == 0,
+			t_102 = t_100 and t_101;
+
+		guardCondition t_102;
+		effect
+			LSL_Driver.state = 0,
+			lsl_running = 1,
+			lsl_data = 1,
+			some_running = 1,
+			some_data = 1;
+
+	process Calc 
+		guardBlock
+			t_103 = Calc.state == 1,
+			t_104 = lsl_data == 1,
+			t_105 = t_103 and t_104;
+
+		guardCondition t_105;
+		effect
+			Calc.state = 2;
+
+	process Calc 
+		guardBlock
+			t_106 = Calc.state == 1,
+			t_107 = lsl_data == 0,
+			t_108 = t_106 and t_107;
+
+		guardCondition t_108;
+		effect
+			Calc.state = 2,
+			some_data = 0;
+
+	process Calc 
+		guardBlock
+			t_109 = Calc.state == 2,
+			t_110 = lsl_running == 1,
+			t_111 = t_109 and t_110;
+
+		guardCondition t_111;
+		effect
+			Calc.state = 0;
+
+	process Calc 
+		guardBlock
+			t_112 = Calc.state == 2,
+			t_113 = lsl_running == 0,
+			t_114 = t_112 and t_113;
+
+		guardCondition t_114;
+		effect
+			Calc.state = 0,
+			some_running = 0;
+
+	process IOP 
+		guardBlock
+			t_115 = IOP.state == 9;
+
+		guardCondition t_115;
+		effect
+			IOP.state = 0;
+
+	process IOP 
+		guardBlock
+			t_116 = IOP.state == 0,
+			t_117 = cur == 0,
+			t_118 = t_116 and t_117;
+
+		guardCondition t_118;
+		effect
+			IOP.state = 1,
+			lsl_data = 0,
+			some_data = 0,
+			lsl_running = 1,
+			some_running = 1;
+
+	process IOP 
+		guardBlock
+			t_119 = IOP.state == 1,
+			t_120 = cur == 0,
+			t_121 = t_119 and t_120;
+
+		guardCondition t_121;
+		effect
+			IOP.state = 3,
+			ap_interrupt = 0,
+			lsl_interrupt = 0,
+			some_interrupt = 0;
+
+	process IOP 
+		guardBlock
+			t_122 = IOP.state == 3,
+			t_123 = cur == 0,
+			t_124 = t_122 and t_123;
+
+		guardCondition t_124;
+		effect
+			IOP.state = 4,
+			enabled_lsl_interrupt = 1,
+			generated_lsl_interrupt = 0;
+
+	process IOP 
+		guardBlock
+			t_125 = IOP.state == 4,
+			t_126 = cur == 0,
+			t_127 = t_125 and t_126;
+
+		guardCondition t_127;
+		effect
+			IOP.state = 5,
+			lsl_command = 2;
+
+	process IOP 
+		guardBlock
+			t_128 = IOP.state == 5,
+			t_129 = cur == 0,
+			t_130 = some_running == 0,
+			t_131 = t_129 and t_130,
+			t_132 = t_128 and t_131;
+
+		guardCondition t_132;
+		effect
+			IOP.state = 6;
+
+	process IOP 
+		guardBlock
+			t_133 = IOP.state == 5,
+			t_134 = cur == 0,
+			t_135 = some_data == 1,
+			t_136 = t_134 and t_135,
+			t_137 = t_133 and t_136;
+
+		guardCondition t_137;
+		effect
+			IOP.state = 6;
+
+	process IOP 
+		guardBlock
+			t_138 = IOP.state == 6,
+			t_139 = cur == 0,
+			t_140 = some_data == 1,
+			t_141 = t_139 and t_140,
+			t_142 = t_138 and t_141;
+
+		guardCondition t_142;
+		effect
+			IOP.state = 7;
+
+	process IOP 
+		guardBlock
+			t_143 = IOP.state == 6,
+			t_144 = cur == 0,
+			t_145 = some_data == 0,
+			t_146 = t_144 and t_145,
+			t_147 = t_143 and t_146;
+
+		guardCondition t_147;
+		effect
+			IOP.state = 8;
+
+	process IOP 
+		guardBlock
+			t_148 = IOP.state == 7,
+			t_149 = cur == 0,
+			t_150 = t_148 and t_149;
+
+		guardCondition t_150;
+		effect
+			IOP.state = 31,
+			enabled_lsl_interrupt = 0,
+			generated_lsl_interrupt = 0;
+
+	process IOP 
+		guardBlock
+			t_151 = IOP.state == 31,
+			t_152 = cur == 0,
+			t_153 = t_151 and t_152;
+
+		guardCondition t_153;
+		effect
+			IOP.state = 32,
+			lsl_command = 3;
+
+	process IOP 
+		guardBlock
+			t_154 = IOP.state == 33,
+			t_155 = cur == 0,
+			t_156 = t_154 and t_155;
+
+		guardCondition t_156;
+		effect
+			IOP.state = 2;
+
+	process IOP 
+		guardBlock
+			t_157 = IOP.state == 10,
+			t_158 = cur == 0,
+			t_159 = t_157 and t_158;
+
+		guardCondition t_159;
+		effect
+			IOP.state = 11,
+			sleep_op = 1;
+
+	process IOP 
+		guardBlock
+			t_160 = IOP.state == 11,
+			t_161 = cur == 0,
+			t_162 = t_160 and t_161;
+
+		guardCondition t_162;
+		effect
+			IOP.state = 12,
+			sw_stand_by = 1;
+
+	process IOP 
+		guardBlock
+			t_163 = IOP.state == 12,
+			t_164 = cur == 0,
+			t_165 = some_interrupt == 0,
+			t_166 = t_164 and t_165,
+			t_167 = t_163 and t_166;
+
+		guardCondition t_167;
+		effect
+			IOP.state = 13;
+
+	process IOP 
+		guardBlock
+			t_168 = IOP.state == 12,
+			t_169 = cur == 0,
+			t_170 = some_interrupt == 1,
+			t_171 = t_169 and t_170,
+			t_172 = t_168 and t_171;
+
+		guardCondition t_172;
+		effect
+			IOP.state = 15;
+
+	process IOP 
+		guardBlock
+			t_173 = IOP.state == 13,
+			t_174 = cur == 0,
+			t_175 = sleep_op == 0,
+			t_176 = t_174 and t_175,
+			t_177 = t_173 and t_176;
+
+		guardCondition t_177;
+		effect
+			IOP.state = 15;
+
+	process IOP 
+		guardBlock
+			t_178 = IOP.state == 13,
+			t_179 = cur == 0,
+			t_180 = sleep_op == 1,
+			t_181 = t_179 and t_180,
+			t_182 = t_178 and t_181;
+
+		guardCondition t_182;
+		effect
+			IOP.state = 14,
+			sleeping = 1;
+
+	process IOP 
+		guardBlock
+			t_183 = IOP.state == 14,
+			t_184 = cur == 0,
+			t_185 = t_183 and t_184;
+
+		guardCondition t_185;
+		effect
+			IOP.state = 16;
+
+	process IOP 
+		guardBlock
+			t_186 = IOP.state == 16,
+			t_187 = cur == 0,
+			t_188 = some_interrupt == 1,
+			t_189 = t_187 and t_188,
+			t_190 = t_186 and t_189;
+
+		guardCondition t_190;
+		effect
+			IOP.state = 15;
+
+	process IOP 
+		guardBlock
+			t_191 = IOP.state == 15,
+			t_192 = cur == 0,
+			t_193 = t_191 and t_192;
+
+		guardCondition t_193;
+		effect
+			IOP.state = 17,
+			sw_stand_by = 0,
+			lsl_data = 0,
+			some_data = 0,
+			lsl_running = 1,
+			some_running = 1;
+
+	process IOP 
+		guardBlock
+			t_194 = IOP.state == 17,
+			t_195 = cur == 0,
+			t_196 = t_194 and t_195;
+
+		guardCondition t_196;
+		effect
+			IOP.state = 18,
+			ap_interrupt = 0,
+			lsl_interrupt = 0,
+			some_interrupt = 0;
+
+	process IOP 
+		guardBlock
+			t_197 = IOP.state == 18,
+			t_198 = cur == 0,
+			t_199 = t_197 and t_198;
+
+		guardCondition t_199;
+		effect
+			IOP.state = 19,
+			lsl_command = 1;
+
+	process IOP 
+		guardBlock
+			t_200 = IOP.state == 19,
+			t_201 = cur == 0,
+			t_202 = some_running == 0,
+			t_203 = t_201 and t_202,
+			t_204 = t_200 and t_203;
+
+		guardCondition t_204;
+		effect
+			IOP.state = 20;
+
+	process IOP 
+		guardBlock
+			t_205 = IOP.state == 19,
+			t_206 = cur == 0,
+			t_207 = some_data == 1,
+			t_208 = t_206 and t_207,
+			t_209 = t_205 and t_208;
+
+		guardCondition t_209;
+		effect
+			IOP.state = 20;
+
+	process IOP 
+		guardBlock
+			t_210 = IOP.state == 20,
+			t_211 = cur == 0,
+			t_212 = some_data == 1,
+			t_213 = t_211 and t_212,
+			t_214 = t_210 and t_213;
+
+		guardCondition t_214;
+		effect
+			IOP.state = 22;
+
+	process IOP 
+		guardBlock
+			t_215 = IOP.state == 23,
+			t_216 = cur == 0,
+			t_217 = t_215 and t_216;
+
+		guardCondition t_217;
+		effect
+			IOP.state = 2;
+
+	process IOP 
+		guardBlock
+			t_218 = IOP.state == 20,
+			t_219 = cur == 0,
+			t_220 = some_data == 0,
+			t_221 = t_219 and t_220,
+			t_222 = t_218 and t_221;
+
+		guardCondition t_222;
+		effect
+			IOP.state = 21;
+
+	process IOP 
+		guardBlock
+			t_223 = IOP.state == 21,
+			t_224 = cur == 0,
+			t_225 = t_223 and t_224;
+
+		guardCondition t_225;
+		effect
+			IOP.state = 24,
+			lsl_data = 0,
+			some_data = 0,
+			lsl_running = 1,
+			some_running = 1;
+
+	process IOP 
+		guardBlock
+			t_226 = IOP.state == 24,
+			t_227 = cur == 0,
+			t_228 = t_226 and t_227;
+
+		guardCondition t_228;
+		effect
+			IOP.state = 25,
+			enabled_lsl_interrupt = 1;
+
+	process IOP 
+		guardBlock
+			t_229 = IOP.state == 25,
+			t_230 = cur == 0,
+			t_231 = t_229 and t_230;
+
+		guardCondition t_231;
+		effect
+			IOP.state = 26,
+			lsl_command = 2;
+
+	process IOP 
+		guardBlock
+			t_232 = IOP.state == 26,
+			t_233 = cur == 0,
+			t_234 = some_running == 0,
+			t_235 = t_233 and t_234,
+			t_236 = t_232 and t_235;
+
+		guardCondition t_236;
+		effect
+			IOP.state = 27;
+
+	process IOP 
+		guardBlock
+			t_237 = IOP.state == 26,
+			t_238 = cur == 0,
+			t_239 = some_data == 1,
+			t_240 = t_238 and t_239,
+			t_241 = t_237 and t_240;
+
+		guardCondition t_241;
+		effect
+			IOP.state = 27;
+
+	process IOP 
+		guardBlock
+			t_242 = IOP.state == 27,
+			t_243 = cur == 0,
+			t_244 = some_data == 0,
+			t_245 = t_243 and t_244,
+			t_246 = t_242 and t_245;
+
+		guardCondition t_246;
+		effect
+			IOP.state = 10;
+
+	process IOP 
+		guardBlock
+			t_247 = IOP.state == 27,
+			t_248 = cur == 0,
+			t_249 = some_data == 1,
+			t_250 = t_248 and t_249,
+			t_251 = t_247 and t_250;
+
+		guardCondition t_251;
+		effect
+			IOP.state = 28;
+
+	process IOP 
+		guardBlock
+			t_252 = IOP.state == 28,
+			t_253 = cur == 0,
+			t_254 = t_252 and t_253;
+
+		guardCondition t_254;
+		effect
+			IOP.state = 29,
+			enabled_lsl_interrupt = 0,
+			generated_lsl_interrupt = 0;
+
+	process IOP 
+		guardBlock
+			t_255 = IOP.state == 30,
+			t_256 = cur == 0,
+			t_257 = t_255 and t_256;
+
+		guardCondition t_257;
+		effect
+			IOP.state = 2;
+
+	process LTL_property 
+		guardBlock
+			t_258 = LTL_property.state == 0;
+
+		guardCondition t_258;
+		effect
+			LTL_property.state = 0;
+
+	process LTL_property 
+		guardBlock
+			t_259 = LTL_property.state == 1;
+
+		guardCondition t_259;
+		effect
+			LTL_property.state = 1;
+
+	process LTL_property 
+		guardBlock
+			t_260 = LTL_property.state == 1,
+			t_261 = sleeping == 0,
+			t_262 = lsl_interrupt == 1,
+			t_263 = ap_interrupt == 1,
+			t_264 = t_262 or t_263,
+			t_265 = t_261 and t_264,
+			t_266 = t_260 and t_265;
+
+		guardCondition t_266;
+		effect
+			LTL_property.state = 2;
+
+	process LTL_property 
+		guardBlock
+			t_267 = LTL_property.state == 2,
+			t_268 = lsl_interrupt == 1,
+			t_269 = ap_interrupt == 1,
+			t_270 = t_268 or t_269,
+			t_271 = t_267 and t_270;
+
+		guardCondition t_271;
+		effect
+			LTL_property.state = 2;
+
+	process LTL_property 
+		guardBlock
+			t_272 = LTL_property.state == 2,
+			t_273 = sleeping == 0,
+			t_274 = not t_273,
+			t_275 = lsl_interrupt == 1,
+			t_276 = ap_interrupt == 1,
+			t_277 = t_275 or t_276,
+			t_278 = t_274 and t_277,
+			t_279 = t_272 and t_278;
+
+		guardCondition t_279;
+		effect
+			LTL_property.state = 0;
+
+	process IOP_AP 
+		guardBlock
+			t_280 = IOP.state == 8,
+			t_281 = AP.state == 1,
+			t_282 = t_280 and t_281;
+
+		guardCondition t_282;
+		effect
+			IOP.state = 10,
+			AP.state = 2;
+
+	process IOP_AP 
+		guardBlock
+			t_283 = IOP.state == 22,
+			t_284 = AP.state == 0,
+			t_285 = t_283 and t_284;
+
+		guardCondition t_285;
+		effect
+			IOP.state = 23,
+			AP.state = 0;
+
+	process IOP_AP 
+		guardBlock
+			t_286 = IOP.state == 22,
+			t_287 = AP.state == 2,
+			t_288 = t_286 and t_287;
+
+		guardCondition t_288;
+		effect
+			IOP.state = 23,
+			AP.state = 0;
+
+	process IOP_AP 
+		guardBlock
+			t_289 = IOP.state == 29,
+			t_290 = AP.state == 0,
+			t_291 = t_289 and t_290;
+
+		guardCondition t_291;
+		effect
+			IOP.state = 30,
+			lsl_command = 3,
+			AP.state = 0;
+
+	process IOP_AP 
+		guardBlock
+			t_292 = IOP.state == 29,
+			t_293 = AP.state == 2,
+			t_294 = t_292 and t_293;
+
+		guardCondition t_294;
+		effect
+			IOP.state = 30,
+			lsl_command = 3,
+			AP.state = 0;
+
+	process LSL_Driver_Calc 
+		guardBlock
+			t_295 = LSL_Driver.state == 3,
+			t_296 = Calc.state == 0,
+			t_297 = t_295 and t_296;
+
+		guardCondition t_297;
+		effect
+			LSL_Driver.state = 0,
+			Calc.state = 1;
+
+	process IOP_AP 
+		guardBlock
+			t_298 = IOP.state == 32,
+			t_299 = AP.state == 1,
+			t_300 = t_298 and t_299;
+
+		guardCondition t_300;
+		effect
+			IOP.state = 33,
+			AP.state = 0;
+
+	process AP_IOP 
+		guardBlock
+			t_301 = AP.state == 0,
+			t_302 = IOP.state == 2,
+			t_303 = cur == 0,
+			t_304 = t_302 and t_303,
+			t_305 = t_301 and t_304;
+
+		guardCondition t_305;
+		effect
+			AP.state = 1,
+			IOP.state = 9;
+
+	process AP_IOP 
+		guardBlock
+			t_306 = AP.state == 1,
+			t_307 = IOP.state == 2,
+			t_308 = cur == 0,
+			t_309 = t_307 and t_308,
+			t_310 = t_306 and t_309;
+
+		guardCondition t_310;
+		effect
+			AP.state = 1,
+			IOP.state = 9;
+
+accepting conditions
+	LTL_property.state == 0
+
+system async property LTL_property;

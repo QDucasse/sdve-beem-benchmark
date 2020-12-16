@@ -1,0 +1,4642 @@
+byte[4] b = {0, 0, 0, 2};
+byte readers = 0;
+byte sem = 1;
+byte change_to = 0;
+state {idle(0), q0(1), q1(2), q2(3), q3(4), error_state(5)} slave_1.state = 0;
+state {idle(0), q0(1), q1(2), q2(3), q3(4), error_state(5)} slave_2.state = 0;
+state {idle(0), q0(1), q1(2), q2(3), q3(4), error_state(5)} slave_3.state = 0;
+state {idle(0), q0(1), q1(2), q2(3), q3(4), error_state(5)} slave_4.state = 0;
+state {idle(0), q0(1), q1(2), q2(3), q3(4), error_state(5)} slave_5.state = 0;
+state {idle(0), q0(1), q1(2), q2(3), q3(4), error_state(5)} slave_6.state = 0;
+state {idle(0), q0(1), q1(2), q2(3), q3(4), error_state(5)} slave_7.state = 0;
+state {idle(0), q0(1), no_master(2), master(3), reading(4), r0(5), no_readers(6), change(7), r1(8)} master_1.state = 0;
+state {idle(0), q0(1), no_master(2), master(3), reading(4), r0(5), no_readers(6), change(7), r1(8)} master_2.state = 0;
+state {idle(0), q0(1), no_master(2), master(3), reading(4), r0(5), no_readers(6), change(7), r1(8)} master_3.state = 0;
+state {idle(0), q0(1), no_master(2), master(3), reading(4), r0(5), no_readers(6), change(7), r1(8)} master_4.state = 0;
+state {idle(0), q0(1), no_master(2), master(3), reading(4), r0(5), no_readers(6), change(7), r1(8)} master_5.state = 0;
+state {idle(0), q0(1), no_master(2), master(3), reading(4), r0(5), no_readers(6), change(7), r1(8)} master_6.state = 0;
+transient bool t_0 = false;
+transient bool t_1 = false;
+transient bool t_2 = false;
+transient bool t_3 = false;
+transient byte t_4 = 0;
+transient bool t_5 = false;
+transient bool t_6 = false;
+transient bool t_7 = false;
+transient byte t_8 = 0;
+transient bool t_9 = false;
+transient bool t_10 = false;
+transient bool t_11 = false;
+transient byte t_12 = 0;
+transient bool t_13 = false;
+transient bool t_14 = false;
+transient bool t_15 = false;
+transient byte t_16 = 0;
+transient bool t_17 = false;
+transient bool t_18 = false;
+transient bool t_19 = false;
+transient byte t_20 = 0;
+transient bool t_21 = false;
+transient byte t_22 = 0;
+transient bool t_23 = false;
+transient bool t_24 = false;
+transient byte t_25 = 0;
+transient bool t_26 = false;
+transient bool t_27 = false;
+transient byte t_28 = 0;
+transient bool t_29 = false;
+transient bool t_30 = false;
+transient bool t_31 = false;
+transient bool t_32 = false;
+transient byte t_33 = 0;
+transient bool t_34 = false;
+transient bool t_35 = false;
+transient bool t_36 = false;
+transient byte t_37 = 0;
+transient bool t_38 = false;
+transient bool t_39 = false;
+transient bool t_40 = false;
+transient byte t_41 = 0;
+transient bool t_42 = false;
+transient bool t_43 = false;
+transient bool t_44 = false;
+transient byte t_45 = 0;
+transient bool t_46 = false;
+transient bool t_47 = false;
+transient bool t_48 = false;
+transient byte t_49 = 0;
+transient bool t_50 = false;
+transient byte t_51 = 0;
+transient bool t_52 = false;
+transient bool t_53 = false;
+transient byte t_54 = 0;
+transient bool t_55 = false;
+transient bool t_56 = false;
+transient byte t_57 = 0;
+transient bool t_58 = false;
+transient bool t_59 = false;
+transient bool t_60 = false;
+transient bool t_61 = false;
+transient byte t_62 = 0;
+transient bool t_63 = false;
+transient bool t_64 = false;
+transient bool t_65 = false;
+transient byte t_66 = 0;
+transient bool t_67 = false;
+transient bool t_68 = false;
+transient bool t_69 = false;
+transient byte t_70 = 0;
+transient bool t_71 = false;
+transient bool t_72 = false;
+transient bool t_73 = false;
+transient byte t_74 = 0;
+transient bool t_75 = false;
+transient bool t_76 = false;
+transient bool t_77 = false;
+transient byte t_78 = 0;
+transient bool t_79 = false;
+transient byte t_80 = 0;
+transient bool t_81 = false;
+transient bool t_82 = false;
+transient byte t_83 = 0;
+transient bool t_84 = false;
+transient bool t_85 = false;
+transient byte t_86 = 0;
+transient bool t_87 = false;
+transient bool t_88 = false;
+transient bool t_89 = false;
+transient bool t_90 = false;
+transient bool t_91 = false;
+transient bool t_92 = false;
+transient bool t_93 = false;
+transient bool t_94 = false;
+transient byte t_95 = 0;
+transient bool t_96 = false;
+transient bool t_97 = false;
+transient bool t_98 = false;
+transient byte t_99 = 0;
+transient bool t_100 = false;
+transient bool t_101 = false;
+transient bool t_102 = false;
+transient byte t_103 = 0;
+transient bool t_104 = false;
+transient bool t_105 = false;
+transient bool t_106 = false;
+transient byte t_107 = 0;
+transient bool t_108 = false;
+transient bool t_109 = false;
+transient bool t_110 = false;
+transient byte t_111 = 0;
+transient bool t_112 = false;
+transient byte t_113 = 0;
+transient bool t_114 = false;
+transient bool t_115 = false;
+transient byte t_116 = 0;
+transient bool t_117 = false;
+transient bool t_118 = false;
+transient byte t_119 = 0;
+transient bool t_120 = false;
+transient bool t_121 = false;
+transient bool t_122 = false;
+transient bool t_123 = false;
+transient byte t_124 = 0;
+transient bool t_125 = false;
+transient bool t_126 = false;
+transient bool t_127 = false;
+transient byte t_128 = 0;
+transient bool t_129 = false;
+transient bool t_130 = false;
+transient bool t_131 = false;
+transient byte t_132 = 0;
+transient bool t_133 = false;
+transient bool t_134 = false;
+transient bool t_135 = false;
+transient byte t_136 = 0;
+transient bool t_137 = false;
+transient bool t_138 = false;
+transient bool t_139 = false;
+transient byte t_140 = 0;
+transient bool t_141 = false;
+transient byte t_142 = 0;
+transient bool t_143 = false;
+transient bool t_144 = false;
+transient byte t_145 = 0;
+transient bool t_146 = false;
+transient bool t_147 = false;
+transient byte t_148 = 0;
+transient bool t_149 = false;
+transient bool t_150 = false;
+transient bool t_151 = false;
+transient bool t_152 = false;
+transient byte t_153 = 0;
+transient bool t_154 = false;
+transient bool t_155 = false;
+transient bool t_156 = false;
+transient byte t_157 = 0;
+transient bool t_158 = false;
+transient bool t_159 = false;
+transient bool t_160 = false;
+transient byte t_161 = 0;
+transient bool t_162 = false;
+transient bool t_163 = false;
+transient bool t_164 = false;
+transient byte t_165 = 0;
+transient bool t_166 = false;
+transient bool t_167 = false;
+transient bool t_168 = false;
+transient byte t_169 = 0;
+transient bool t_170 = false;
+transient byte t_171 = 0;
+transient bool t_172 = false;
+transient bool t_173 = false;
+transient byte t_174 = 0;
+transient bool t_175 = false;
+transient bool t_176 = false;
+transient byte t_177 = 0;
+transient bool t_178 = false;
+transient bool t_179 = false;
+transient bool t_180 = false;
+transient bool t_181 = false;
+transient bool t_182 = false;
+transient bool t_183 = false;
+transient bool t_184 = false;
+transient bool t_185 = false;
+transient byte t_186 = 0;
+transient bool t_187 = false;
+transient bool t_188 = false;
+transient bool t_189 = false;
+transient byte t_190 = 0;
+transient bool t_191 = false;
+transient bool t_192 = false;
+transient bool t_193 = false;
+transient byte t_194 = 0;
+transient bool t_195 = false;
+transient bool t_196 = false;
+transient bool t_197 = false;
+transient byte t_198 = 0;
+transient bool t_199 = false;
+transient bool t_200 = false;
+transient bool t_201 = false;
+transient byte t_202 = 0;
+transient bool t_203 = false;
+transient byte t_204 = 0;
+transient bool t_205 = false;
+transient bool t_206 = false;
+transient byte t_207 = 0;
+transient bool t_208 = false;
+transient bool t_209 = false;
+transient byte t_210 = 0;
+transient bool t_211 = false;
+transient bool t_212 = false;
+transient bool t_213 = false;
+transient bool t_214 = false;
+transient byte t_215 = 0;
+transient bool t_216 = false;
+transient bool t_217 = false;
+transient bool t_218 = false;
+transient byte t_219 = 0;
+transient bool t_220 = false;
+transient bool t_221 = false;
+transient bool t_222 = false;
+transient byte t_223 = 0;
+transient bool t_224 = false;
+transient bool t_225 = false;
+transient bool t_226 = false;
+transient byte t_227 = 0;
+transient bool t_228 = false;
+transient bool t_229 = false;
+transient bool t_230 = false;
+transient byte t_231 = 0;
+transient bool t_232 = false;
+transient byte t_233 = 0;
+transient bool t_234 = false;
+transient bool t_235 = false;
+transient byte t_236 = 0;
+transient bool t_237 = false;
+transient bool t_238 = false;
+transient byte t_239 = 0;
+transient bool t_240 = false;
+transient bool t_241 = false;
+transient bool t_242 = false;
+transient bool t_243 = false;
+transient byte t_244 = 0;
+transient bool t_245 = false;
+transient bool t_246 = false;
+transient bool t_247 = false;
+transient byte t_248 = 0;
+transient bool t_249 = false;
+transient bool t_250 = false;
+transient bool t_251 = false;
+transient byte t_252 = 0;
+transient bool t_253 = false;
+transient bool t_254 = false;
+transient bool t_255 = false;
+transient byte t_256 = 0;
+transient bool t_257 = false;
+transient bool t_258 = false;
+transient bool t_259 = false;
+transient byte t_260 = 0;
+transient bool t_261 = false;
+transient byte t_262 = 0;
+transient bool t_263 = false;
+transient bool t_264 = false;
+transient byte t_265 = 0;
+transient bool t_266 = false;
+transient bool t_267 = false;
+transient byte t_268 = 0;
+transient bool t_269 = false;
+transient bool t_270 = false;
+transient bool t_271 = false;
+transient bool t_272 = false;
+transient bool t_273 = false;
+transient bool t_274 = false;
+transient bool t_275 = false;
+transient bool t_276 = false;
+transient byte t_277 = 0;
+transient bool t_278 = false;
+transient bool t_279 = false;
+transient bool t_280 = false;
+transient byte t_281 = 0;
+transient bool t_282 = false;
+transient bool t_283 = false;
+transient bool t_284 = false;
+transient byte t_285 = 0;
+transient bool t_286 = false;
+transient bool t_287 = false;
+transient bool t_288 = false;
+transient byte t_289 = 0;
+transient bool t_290 = false;
+transient bool t_291 = false;
+transient bool t_292 = false;
+transient byte t_293 = 0;
+transient bool t_294 = false;
+transient byte t_295 = 0;
+transient bool t_296 = false;
+transient bool t_297 = false;
+transient byte t_298 = 0;
+transient bool t_299 = false;
+transient bool t_300 = false;
+transient byte t_301 = 0;
+transient bool t_302 = false;
+transient bool t_303 = false;
+transient bool t_304 = false;
+transient bool t_305 = false;
+transient byte t_306 = 0;
+transient bool t_307 = false;
+transient bool t_308 = false;
+transient bool t_309 = false;
+transient byte t_310 = 0;
+transient bool t_311 = false;
+transient bool t_312 = false;
+transient bool t_313 = false;
+transient byte t_314 = 0;
+transient bool t_315 = false;
+transient bool t_316 = false;
+transient bool t_317 = false;
+transient byte t_318 = 0;
+transient bool t_319 = false;
+transient bool t_320 = false;
+transient bool t_321 = false;
+transient byte t_322 = 0;
+transient bool t_323 = false;
+transient byte t_324 = 0;
+transient bool t_325 = false;
+transient bool t_326 = false;
+transient byte t_327 = 0;
+transient bool t_328 = false;
+transient bool t_329 = false;
+transient byte t_330 = 0;
+transient bool t_331 = false;
+transient bool t_332 = false;
+transient bool t_333 = false;
+transient bool t_334 = false;
+transient byte t_335 = 0;
+transient bool t_336 = false;
+transient bool t_337 = false;
+transient bool t_338 = false;
+transient byte t_339 = 0;
+transient bool t_340 = false;
+transient bool t_341 = false;
+transient bool t_342 = false;
+transient byte t_343 = 0;
+transient bool t_344 = false;
+transient bool t_345 = false;
+transient bool t_346 = false;
+transient byte t_347 = 0;
+transient bool t_348 = false;
+transient bool t_349 = false;
+transient bool t_350 = false;
+transient byte t_351 = 0;
+transient bool t_352 = false;
+transient byte t_353 = 0;
+transient bool t_354 = false;
+transient bool t_355 = false;
+transient byte t_356 = 0;
+transient bool t_357 = false;
+transient bool t_358 = false;
+transient byte t_359 = 0;
+transient bool t_360 = false;
+transient bool t_361 = false;
+transient bool t_362 = false;
+transient bool t_363 = false;
+transient bool t_364 = false;
+transient bool t_365 = false;
+transient bool t_366 = false;
+transient bool t_367 = false;
+transient byte t_368 = 0;
+transient bool t_369 = false;
+transient bool t_370 = false;
+transient bool t_371 = false;
+transient byte t_372 = 0;
+transient bool t_373 = false;
+transient bool t_374 = false;
+transient bool t_375 = false;
+transient byte t_376 = 0;
+transient bool t_377 = false;
+transient bool t_378 = false;
+transient bool t_379 = false;
+transient byte t_380 = 0;
+transient bool t_381 = false;
+transient bool t_382 = false;
+transient bool t_383 = false;
+transient byte t_384 = 0;
+transient bool t_385 = false;
+transient byte t_386 = 0;
+transient bool t_387 = false;
+transient bool t_388 = false;
+transient byte t_389 = 0;
+transient bool t_390 = false;
+transient bool t_391 = false;
+transient byte t_392 = 0;
+transient bool t_393 = false;
+transient bool t_394 = false;
+transient bool t_395 = false;
+transient bool t_396 = false;
+transient byte t_397 = 0;
+transient bool t_398 = false;
+transient bool t_399 = false;
+transient bool t_400 = false;
+transient byte t_401 = 0;
+transient bool t_402 = false;
+transient bool t_403 = false;
+transient bool t_404 = false;
+transient byte t_405 = 0;
+transient bool t_406 = false;
+transient bool t_407 = false;
+transient bool t_408 = false;
+transient byte t_409 = 0;
+transient bool t_410 = false;
+transient bool t_411 = false;
+transient bool t_412 = false;
+transient byte t_413 = 0;
+transient bool t_414 = false;
+transient byte t_415 = 0;
+transient bool t_416 = false;
+transient bool t_417 = false;
+transient byte t_418 = 0;
+transient bool t_419 = false;
+transient bool t_420 = false;
+transient byte t_421 = 0;
+transient bool t_422 = false;
+transient bool t_423 = false;
+transient bool t_424 = false;
+transient bool t_425 = false;
+transient byte t_426 = 0;
+transient bool t_427 = false;
+transient bool t_428 = false;
+transient bool t_429 = false;
+transient byte t_430 = 0;
+transient bool t_431 = false;
+transient bool t_432 = false;
+transient bool t_433 = false;
+transient byte t_434 = 0;
+transient bool t_435 = false;
+transient bool t_436 = false;
+transient bool t_437 = false;
+transient byte t_438 = 0;
+transient bool t_439 = false;
+transient bool t_440 = false;
+transient bool t_441 = false;
+transient byte t_442 = 0;
+transient bool t_443 = false;
+transient byte t_444 = 0;
+transient bool t_445 = false;
+transient bool t_446 = false;
+transient byte t_447 = 0;
+transient bool t_448 = false;
+transient bool t_449 = false;
+transient byte t_450 = 0;
+transient bool t_451 = false;
+transient bool t_452 = false;
+transient bool t_453 = false;
+transient bool t_454 = false;
+transient bool t_455 = false;
+transient bool t_456 = false;
+transient bool t_457 = false;
+transient bool t_458 = false;
+transient byte t_459 = 0;
+transient bool t_460 = false;
+transient bool t_461 = false;
+transient bool t_462 = false;
+transient byte t_463 = 0;
+transient bool t_464 = false;
+transient bool t_465 = false;
+transient bool t_466 = false;
+transient byte t_467 = 0;
+transient bool t_468 = false;
+transient bool t_469 = false;
+transient bool t_470 = false;
+transient byte t_471 = 0;
+transient bool t_472 = false;
+transient bool t_473 = false;
+transient bool t_474 = false;
+transient byte t_475 = 0;
+transient bool t_476 = false;
+transient byte t_477 = 0;
+transient bool t_478 = false;
+transient bool t_479 = false;
+transient byte t_480 = 0;
+transient bool t_481 = false;
+transient bool t_482 = false;
+transient byte t_483 = 0;
+transient bool t_484 = false;
+transient bool t_485 = false;
+transient bool t_486 = false;
+transient bool t_487 = false;
+transient byte t_488 = 0;
+transient bool t_489 = false;
+transient bool t_490 = false;
+transient bool t_491 = false;
+transient byte t_492 = 0;
+transient bool t_493 = false;
+transient bool t_494 = false;
+transient bool t_495 = false;
+transient byte t_496 = 0;
+transient bool t_497 = false;
+transient bool t_498 = false;
+transient bool t_499 = false;
+transient byte t_500 = 0;
+transient bool t_501 = false;
+transient bool t_502 = false;
+transient bool t_503 = false;
+transient byte t_504 = 0;
+transient bool t_505 = false;
+transient byte t_506 = 0;
+transient bool t_507 = false;
+transient bool t_508 = false;
+transient byte t_509 = 0;
+transient bool t_510 = false;
+transient bool t_511 = false;
+transient byte t_512 = 0;
+transient bool t_513 = false;
+transient bool t_514 = false;
+transient bool t_515 = false;
+transient bool t_516 = false;
+transient byte t_517 = 0;
+transient bool t_518 = false;
+transient bool t_519 = false;
+transient bool t_520 = false;
+transient byte t_521 = 0;
+transient bool t_522 = false;
+transient bool t_523 = false;
+transient bool t_524 = false;
+transient byte t_525 = 0;
+transient bool t_526 = false;
+transient bool t_527 = false;
+transient bool t_528 = false;
+transient byte t_529 = 0;
+transient bool t_530 = false;
+transient bool t_531 = false;
+transient bool t_532 = false;
+transient byte t_533 = 0;
+transient bool t_534 = false;
+transient byte t_535 = 0;
+transient bool t_536 = false;
+transient bool t_537 = false;
+transient byte t_538 = 0;
+transient bool t_539 = false;
+transient bool t_540 = false;
+transient byte t_541 = 0;
+transient bool t_542 = false;
+transient bool t_543 = false;
+transient bool t_544 = false;
+transient bool t_545 = false;
+transient bool t_546 = false;
+transient bool t_547 = false;
+transient bool t_548 = false;
+transient bool t_549 = false;
+transient byte t_550 = 0;
+transient bool t_551 = false;
+transient bool t_552 = false;
+transient bool t_553 = false;
+transient byte t_554 = 0;
+transient bool t_555 = false;
+transient bool t_556 = false;
+transient bool t_557 = false;
+transient byte t_558 = 0;
+transient bool t_559 = false;
+transient bool t_560 = false;
+transient bool t_561 = false;
+transient byte t_562 = 0;
+transient bool t_563 = false;
+transient bool t_564 = false;
+transient bool t_565 = false;
+transient byte t_566 = 0;
+transient bool t_567 = false;
+transient byte t_568 = 0;
+transient bool t_569 = false;
+transient bool t_570 = false;
+transient byte t_571 = 0;
+transient bool t_572 = false;
+transient bool t_573 = false;
+transient byte t_574 = 0;
+transient bool t_575 = false;
+transient bool t_576 = false;
+transient bool t_577 = false;
+transient bool t_578 = false;
+transient byte t_579 = 0;
+transient bool t_580 = false;
+transient bool t_581 = false;
+transient bool t_582 = false;
+transient byte t_583 = 0;
+transient bool t_584 = false;
+transient bool t_585 = false;
+transient bool t_586 = false;
+transient byte t_587 = 0;
+transient bool t_588 = false;
+transient bool t_589 = false;
+transient bool t_590 = false;
+transient byte t_591 = 0;
+transient bool t_592 = false;
+transient bool t_593 = false;
+transient bool t_594 = false;
+transient byte t_595 = 0;
+transient bool t_596 = false;
+transient byte t_597 = 0;
+transient bool t_598 = false;
+transient bool t_599 = false;
+transient byte t_600 = 0;
+transient bool t_601 = false;
+transient bool t_602 = false;
+transient byte t_603 = 0;
+transient bool t_604 = false;
+transient bool t_605 = false;
+transient bool t_606 = false;
+transient bool t_607 = false;
+transient byte t_608 = 0;
+transient bool t_609 = false;
+transient bool t_610 = false;
+transient bool t_611 = false;
+transient byte t_612 = 0;
+transient bool t_613 = false;
+transient bool t_614 = false;
+transient bool t_615 = false;
+transient byte t_616 = 0;
+transient bool t_617 = false;
+transient bool t_618 = false;
+transient bool t_619 = false;
+transient byte t_620 = 0;
+transient bool t_621 = false;
+transient bool t_622 = false;
+transient bool t_623 = false;
+transient byte t_624 = 0;
+transient bool t_625 = false;
+transient byte t_626 = 0;
+transient bool t_627 = false;
+transient bool t_628 = false;
+transient byte t_629 = 0;
+transient bool t_630 = false;
+transient bool t_631 = false;
+transient byte t_632 = 0;
+transient bool t_633 = false;
+transient bool t_634 = false;
+transient bool t_635 = false;
+transient bool t_636 = false;
+transient bool t_637 = false;
+transient bool t_638 = false;
+transient bool t_639 = false;
+transient bool t_640 = false;
+transient byte t_641 = 0;
+transient bool t_642 = false;
+transient bool t_643 = false;
+transient bool t_644 = false;
+transient byte t_645 = 0;
+transient bool t_646 = false;
+transient bool t_647 = false;
+transient bool t_648 = false;
+transient byte t_649 = 0;
+transient bool t_650 = false;
+transient bool t_651 = false;
+transient bool t_652 = false;
+transient byte t_653 = 0;
+transient bool t_654 = false;
+transient bool t_655 = false;
+transient bool t_656 = false;
+transient byte t_657 = 0;
+transient bool t_658 = false;
+transient byte t_659 = 0;
+transient bool t_660 = false;
+transient bool t_661 = false;
+transient byte t_662 = 0;
+transient bool t_663 = false;
+transient bool t_664 = false;
+transient byte t_665 = 0;
+transient bool t_666 = false;
+transient bool t_667 = false;
+transient bool t_668 = false;
+transient bool t_669 = false;
+transient byte t_670 = 0;
+transient bool t_671 = false;
+transient bool t_672 = false;
+transient bool t_673 = false;
+transient byte t_674 = 0;
+transient bool t_675 = false;
+transient bool t_676 = false;
+transient bool t_677 = false;
+transient byte t_678 = 0;
+transient bool t_679 = false;
+transient bool t_680 = false;
+transient bool t_681 = false;
+transient byte t_682 = 0;
+transient bool t_683 = false;
+transient bool t_684 = false;
+transient bool t_685 = false;
+transient byte t_686 = 0;
+transient bool t_687 = false;
+transient byte t_688 = 0;
+transient bool t_689 = false;
+transient bool t_690 = false;
+transient byte t_691 = 0;
+transient bool t_692 = false;
+transient bool t_693 = false;
+transient byte t_694 = 0;
+transient bool t_695 = false;
+transient bool t_696 = false;
+transient bool t_697 = false;
+transient bool t_698 = false;
+transient int t_699 = 0;
+transient bool t_700 = false;
+transient bool t_701 = false;
+transient bool t_702 = false;
+transient int t_703 = 0;
+transient bool t_704 = false;
+transient bool t_705 = false;
+transient bool t_706 = false;
+transient bool t_707 = false;
+transient bool t_708 = false;
+transient bool t_709 = false;
+transient bool t_710 = false;
+transient byte t_711 = 0;
+transient bool t_712 = false;
+transient byte t_713 = 0;
+transient bool t_714 = false;
+transient bool t_715 = false;
+transient byte t_716 = 0;
+transient bool t_717 = false;
+transient bool t_718 = false;
+transient byte t_719 = 0;
+transient bool t_720 = false;
+transient bool t_721 = false;
+transient bool t_722 = false;
+transient bool t_723 = false;
+transient byte t_724 = 0;
+transient bool t_725 = false;
+transient byte t_726 = 0;
+transient bool t_727 = false;
+transient bool t_728 = false;
+transient byte t_729 = 0;
+transient bool t_730 = false;
+transient bool t_731 = false;
+transient byte t_732 = 0;
+transient bool t_733 = false;
+transient bool t_734 = false;
+transient bool t_735 = false;
+transient bool t_736 = false;
+transient byte t_737 = 0;
+transient bool t_738 = false;
+transient bool t_739 = false;
+transient bool t_740 = false;
+transient byte t_741 = 0;
+transient bool t_742 = false;
+transient bool t_743 = false;
+transient bool t_744 = false;
+transient byte t_745 = 0;
+transient bool t_746 = false;
+transient bool t_747 = false;
+transient bool t_748 = false;
+transient byte t_749 = 0;
+transient bool t_750 = false;
+transient bool t_751 = false;
+transient bool t_752 = false;
+transient bool t_753 = false;
+transient bool t_754 = false;
+transient bool t_755 = false;
+transient bool t_756 = false;
+transient byte t_757 = 0;
+transient bool t_758 = false;
+transient bool t_759 = false;
+transient bool t_760 = false;
+transient byte t_761 = 0;
+transient bool t_762 = false;
+transient bool t_763 = false;
+transient bool t_764 = false;
+transient byte t_765 = 0;
+transient bool t_766 = false;
+transient bool t_767 = false;
+transient bool t_768 = false;
+transient byte t_769 = 0;
+transient bool t_770 = false;
+transient bool t_771 = false;
+transient bool t_772 = false;
+transient byte t_773 = 0;
+transient bool t_774 = false;
+transient byte t_775 = 0;
+transient bool t_776 = false;
+transient bool t_777 = false;
+transient byte t_778 = 0;
+transient bool t_779 = false;
+transient bool t_780 = false;
+transient byte t_781 = 0;
+transient bool t_782 = false;
+transient bool t_783 = false;
+transient bool t_784 = false;
+transient bool t_785 = false;
+transient byte t_786 = 0;
+transient bool t_787 = false;
+transient bool t_788 = false;
+transient bool t_789 = false;
+transient byte t_790 = 0;
+transient bool t_791 = false;
+transient bool t_792 = false;
+transient bool t_793 = false;
+transient byte t_794 = 0;
+transient bool t_795 = false;
+transient bool t_796 = false;
+transient bool t_797 = false;
+transient byte t_798 = 0;
+transient bool t_799 = false;
+transient bool t_800 = false;
+transient bool t_801 = false;
+transient byte t_802 = 0;
+transient bool t_803 = false;
+transient byte t_804 = 0;
+transient bool t_805 = false;
+transient bool t_806 = false;
+transient byte t_807 = 0;
+transient bool t_808 = false;
+transient bool t_809 = false;
+transient byte t_810 = 0;
+transient bool t_811 = false;
+transient bool t_812 = false;
+transient bool t_813 = false;
+transient bool t_814 = false;
+transient int t_815 = 0;
+transient bool t_816 = false;
+transient bool t_817 = false;
+transient bool t_818 = false;
+transient int t_819 = 0;
+transient bool t_820 = false;
+transient bool t_821 = false;
+transient bool t_822 = false;
+transient bool t_823 = false;
+transient bool t_824 = false;
+transient bool t_825 = false;
+transient bool t_826 = false;
+transient byte t_827 = 0;
+transient bool t_828 = false;
+transient byte t_829 = 0;
+transient bool t_830 = false;
+transient bool t_831 = false;
+transient byte t_832 = 0;
+transient bool t_833 = false;
+transient bool t_834 = false;
+transient byte t_835 = 0;
+transient bool t_836 = false;
+transient bool t_837 = false;
+transient bool t_838 = false;
+transient bool t_839 = false;
+transient byte t_840 = 0;
+transient bool t_841 = false;
+transient byte t_842 = 0;
+transient bool t_843 = false;
+transient bool t_844 = false;
+transient byte t_845 = 0;
+transient bool t_846 = false;
+transient bool t_847 = false;
+transient byte t_848 = 0;
+transient bool t_849 = false;
+transient bool t_850 = false;
+transient bool t_851 = false;
+transient bool t_852 = false;
+transient byte t_853 = 0;
+transient bool t_854 = false;
+transient bool t_855 = false;
+transient bool t_856 = false;
+transient byte t_857 = 0;
+transient bool t_858 = false;
+transient bool t_859 = false;
+transient bool t_860 = false;
+transient byte t_861 = 0;
+transient bool t_862 = false;
+transient bool t_863 = false;
+transient bool t_864 = false;
+transient byte t_865 = 0;
+transient bool t_866 = false;
+transient bool t_867 = false;
+transient bool t_868 = false;
+transient bool t_869 = false;
+transient bool t_870 = false;
+transient bool t_871 = false;
+transient bool t_872 = false;
+transient byte t_873 = 0;
+transient bool t_874 = false;
+transient bool t_875 = false;
+transient bool t_876 = false;
+transient byte t_877 = 0;
+transient bool t_878 = false;
+transient bool t_879 = false;
+transient bool t_880 = false;
+transient byte t_881 = 0;
+transient bool t_882 = false;
+transient bool t_883 = false;
+transient bool t_884 = false;
+transient byte t_885 = 0;
+transient bool t_886 = false;
+transient bool t_887 = false;
+transient bool t_888 = false;
+transient byte t_889 = 0;
+transient bool t_890 = false;
+transient byte t_891 = 0;
+transient bool t_892 = false;
+transient bool t_893 = false;
+transient byte t_894 = 0;
+transient bool t_895 = false;
+transient bool t_896 = false;
+transient byte t_897 = 0;
+transient bool t_898 = false;
+transient bool t_899 = false;
+transient bool t_900 = false;
+transient bool t_901 = false;
+transient byte t_902 = 0;
+transient bool t_903 = false;
+transient bool t_904 = false;
+transient bool t_905 = false;
+transient byte t_906 = 0;
+transient bool t_907 = false;
+transient bool t_908 = false;
+transient bool t_909 = false;
+transient byte t_910 = 0;
+transient bool t_911 = false;
+transient bool t_912 = false;
+transient bool t_913 = false;
+transient byte t_914 = 0;
+transient bool t_915 = false;
+transient bool t_916 = false;
+transient bool t_917 = false;
+transient byte t_918 = 0;
+transient bool t_919 = false;
+transient byte t_920 = 0;
+transient bool t_921 = false;
+transient bool t_922 = false;
+transient byte t_923 = 0;
+transient bool t_924 = false;
+transient bool t_925 = false;
+transient byte t_926 = 0;
+transient bool t_927 = false;
+transient bool t_928 = false;
+transient bool t_929 = false;
+transient bool t_930 = false;
+transient int t_931 = 0;
+transient bool t_932 = false;
+transient bool t_933 = false;
+transient bool t_934 = false;
+transient int t_935 = 0;
+transient bool t_936 = false;
+transient bool t_937 = false;
+transient bool t_938 = false;
+transient bool t_939 = false;
+transient bool t_940 = false;
+transient bool t_941 = false;
+transient bool t_942 = false;
+transient byte t_943 = 0;
+transient bool t_944 = false;
+transient byte t_945 = 0;
+transient bool t_946 = false;
+transient bool t_947 = false;
+transient byte t_948 = 0;
+transient bool t_949 = false;
+transient bool t_950 = false;
+transient byte t_951 = 0;
+transient bool t_952 = false;
+transient bool t_953 = false;
+transient bool t_954 = false;
+transient bool t_955 = false;
+transient byte t_956 = 0;
+transient bool t_957 = false;
+transient byte t_958 = 0;
+transient bool t_959 = false;
+transient bool t_960 = false;
+transient byte t_961 = 0;
+transient bool t_962 = false;
+transient bool t_963 = false;
+transient byte t_964 = 0;
+transient bool t_965 = false;
+transient bool t_966 = false;
+transient bool t_967 = false;
+transient bool t_968 = false;
+transient byte t_969 = 0;
+transient bool t_970 = false;
+transient bool t_971 = false;
+transient bool t_972 = false;
+transient byte t_973 = 0;
+transient bool t_974 = false;
+transient bool t_975 = false;
+transient bool t_976 = false;
+transient byte t_977 = 0;
+transient bool t_978 = false;
+transient bool t_979 = false;
+transient bool t_980 = false;
+transient byte t_981 = 0;
+transient bool t_982 = false;
+transient bool t_983 = false;
+transient bool t_984 = false;
+transient bool t_985 = false;
+transient bool t_986 = false;
+transient bool t_987 = false;
+transient bool t_988 = false;
+transient byte t_989 = 0;
+transient bool t_990 = false;
+transient bool t_991 = false;
+transient bool t_992 = false;
+transient byte t_993 = 0;
+transient bool t_994 = false;
+transient bool t_995 = false;
+transient bool t_996 = false;
+transient byte t_997 = 0;
+transient bool t_998 = false;
+transient bool t_999 = false;
+transient bool t_1000 = false;
+transient byte t_1001 = 0;
+transient bool t_1002 = false;
+transient bool t_1003 = false;
+transient bool t_1004 = false;
+transient byte t_1005 = 0;
+transient bool t_1006 = false;
+transient byte t_1007 = 0;
+transient bool t_1008 = false;
+transient bool t_1009 = false;
+transient byte t_1010 = 0;
+transient bool t_1011 = false;
+transient bool t_1012 = false;
+transient byte t_1013 = 0;
+transient bool t_1014 = false;
+transient bool t_1015 = false;
+transient bool t_1016 = false;
+transient bool t_1017 = false;
+transient byte t_1018 = 0;
+transient bool t_1019 = false;
+transient bool t_1020 = false;
+transient bool t_1021 = false;
+transient byte t_1022 = 0;
+transient bool t_1023 = false;
+transient bool t_1024 = false;
+transient bool t_1025 = false;
+transient byte t_1026 = 0;
+transient bool t_1027 = false;
+transient bool t_1028 = false;
+transient bool t_1029 = false;
+transient byte t_1030 = 0;
+transient bool t_1031 = false;
+transient bool t_1032 = false;
+transient bool t_1033 = false;
+transient byte t_1034 = 0;
+transient bool t_1035 = false;
+transient byte t_1036 = 0;
+transient bool t_1037 = false;
+transient bool t_1038 = false;
+transient byte t_1039 = 0;
+transient bool t_1040 = false;
+transient bool t_1041 = false;
+transient byte t_1042 = 0;
+transient bool t_1043 = false;
+transient bool t_1044 = false;
+transient bool t_1045 = false;
+transient bool t_1046 = false;
+transient int t_1047 = 0;
+transient bool t_1048 = false;
+transient bool t_1049 = false;
+transient bool t_1050 = false;
+transient int t_1051 = 0;
+transient bool t_1052 = false;
+transient bool t_1053 = false;
+transient bool t_1054 = false;
+transient bool t_1055 = false;
+transient bool t_1056 = false;
+transient bool t_1057 = false;
+transient bool t_1058 = false;
+transient byte t_1059 = 0;
+transient bool t_1060 = false;
+transient byte t_1061 = 0;
+transient bool t_1062 = false;
+transient bool t_1063 = false;
+transient byte t_1064 = 0;
+transient bool t_1065 = false;
+transient bool t_1066 = false;
+transient byte t_1067 = 0;
+transient bool t_1068 = false;
+transient bool t_1069 = false;
+transient bool t_1070 = false;
+transient bool t_1071 = false;
+transient byte t_1072 = 0;
+transient bool t_1073 = false;
+transient byte t_1074 = 0;
+transient bool t_1075 = false;
+transient bool t_1076 = false;
+transient byte t_1077 = 0;
+transient bool t_1078 = false;
+transient bool t_1079 = false;
+transient byte t_1080 = 0;
+transient bool t_1081 = false;
+transient bool t_1082 = false;
+transient bool t_1083 = false;
+transient bool t_1084 = false;
+transient byte t_1085 = 0;
+transient bool t_1086 = false;
+transient bool t_1087 = false;
+transient bool t_1088 = false;
+transient byte t_1089 = 0;
+transient bool t_1090 = false;
+transient bool t_1091 = false;
+transient bool t_1092 = false;
+transient byte t_1093 = 0;
+transient bool t_1094 = false;
+transient bool t_1095 = false;
+transient bool t_1096 = false;
+transient byte t_1097 = 0;
+transient bool t_1098 = false;
+transient bool t_1099 = false;
+transient bool t_1100 = false;
+transient bool t_1101 = false;
+transient bool t_1102 = false;
+transient bool t_1103 = false;
+transient bool t_1104 = false;
+transient byte t_1105 = 0;
+transient bool t_1106 = false;
+transient bool t_1107 = false;
+transient bool t_1108 = false;
+transient byte t_1109 = 0;
+transient bool t_1110 = false;
+transient bool t_1111 = false;
+transient bool t_1112 = false;
+transient byte t_1113 = 0;
+transient bool t_1114 = false;
+transient bool t_1115 = false;
+transient bool t_1116 = false;
+transient byte t_1117 = 0;
+transient bool t_1118 = false;
+transient bool t_1119 = false;
+transient bool t_1120 = false;
+transient byte t_1121 = 0;
+transient bool t_1122 = false;
+transient byte t_1123 = 0;
+transient bool t_1124 = false;
+transient bool t_1125 = false;
+transient byte t_1126 = 0;
+transient bool t_1127 = false;
+transient bool t_1128 = false;
+transient byte t_1129 = 0;
+transient bool t_1130 = false;
+transient bool t_1131 = false;
+transient bool t_1132 = false;
+transient bool t_1133 = false;
+transient byte t_1134 = 0;
+transient bool t_1135 = false;
+transient bool t_1136 = false;
+transient bool t_1137 = false;
+transient byte t_1138 = 0;
+transient bool t_1139 = false;
+transient bool t_1140 = false;
+transient bool t_1141 = false;
+transient byte t_1142 = 0;
+transient bool t_1143 = false;
+transient bool t_1144 = false;
+transient bool t_1145 = false;
+transient byte t_1146 = 0;
+transient bool t_1147 = false;
+transient bool t_1148 = false;
+transient bool t_1149 = false;
+transient byte t_1150 = 0;
+transient bool t_1151 = false;
+transient byte t_1152 = 0;
+transient bool t_1153 = false;
+transient bool t_1154 = false;
+transient byte t_1155 = 0;
+transient bool t_1156 = false;
+transient bool t_1157 = false;
+transient byte t_1158 = 0;
+transient bool t_1159 = false;
+transient bool t_1160 = false;
+transient bool t_1161 = false;
+transient bool t_1162 = false;
+transient int t_1163 = 0;
+transient bool t_1164 = false;
+transient bool t_1165 = false;
+transient bool t_1166 = false;
+transient int t_1167 = 0;
+transient bool t_1168 = false;
+transient bool t_1169 = false;
+transient bool t_1170 = false;
+transient bool t_1171 = false;
+transient bool t_1172 = false;
+transient bool t_1173 = false;
+transient bool t_1174 = false;
+transient byte t_1175 = 0;
+transient bool t_1176 = false;
+transient byte t_1177 = 0;
+transient bool t_1178 = false;
+transient bool t_1179 = false;
+transient byte t_1180 = 0;
+transient bool t_1181 = false;
+transient bool t_1182 = false;
+transient byte t_1183 = 0;
+transient bool t_1184 = false;
+transient bool t_1185 = false;
+transient bool t_1186 = false;
+transient bool t_1187 = false;
+transient byte t_1188 = 0;
+transient bool t_1189 = false;
+transient byte t_1190 = 0;
+transient bool t_1191 = false;
+transient bool t_1192 = false;
+transient byte t_1193 = 0;
+transient bool t_1194 = false;
+transient bool t_1195 = false;
+transient byte t_1196 = 0;
+transient bool t_1197 = false;
+transient bool t_1198 = false;
+transient bool t_1199 = false;
+transient bool t_1200 = false;
+transient byte t_1201 = 0;
+transient bool t_1202 = false;
+transient bool t_1203 = false;
+transient bool t_1204 = false;
+transient byte t_1205 = 0;
+transient bool t_1206 = false;
+transient bool t_1207 = false;
+transient bool t_1208 = false;
+transient byte t_1209 = 0;
+transient bool t_1210 = false;
+transient bool t_1211 = false;
+transient bool t_1212 = false;
+transient byte t_1213 = 0;
+transient bool t_1214 = false;
+transient bool t_1215 = false;
+transient bool t_1216 = false;
+transient bool t_1217 = false;
+transient bool t_1218 = false;
+transient bool t_1219 = false;
+transient bool t_1220 = false;
+transient byte t_1221 = 0;
+transient bool t_1222 = false;
+transient bool t_1223 = false;
+transient bool t_1224 = false;
+transient byte t_1225 = 0;
+transient bool t_1226 = false;
+transient bool t_1227 = false;
+transient bool t_1228 = false;
+transient byte t_1229 = 0;
+transient bool t_1230 = false;
+transient bool t_1231 = false;
+transient bool t_1232 = false;
+transient byte t_1233 = 0;
+transient bool t_1234 = false;
+transient bool t_1235 = false;
+transient bool t_1236 = false;
+transient byte t_1237 = 0;
+transient bool t_1238 = false;
+transient byte t_1239 = 0;
+transient bool t_1240 = false;
+transient bool t_1241 = false;
+transient byte t_1242 = 0;
+transient bool t_1243 = false;
+transient bool t_1244 = false;
+transient byte t_1245 = 0;
+transient bool t_1246 = false;
+transient bool t_1247 = false;
+transient bool t_1248 = false;
+transient bool t_1249 = false;
+transient byte t_1250 = 0;
+transient bool t_1251 = false;
+transient bool t_1252 = false;
+transient bool t_1253 = false;
+transient byte t_1254 = 0;
+transient bool t_1255 = false;
+transient bool t_1256 = false;
+transient bool t_1257 = false;
+transient byte t_1258 = 0;
+transient bool t_1259 = false;
+transient bool t_1260 = false;
+transient bool t_1261 = false;
+transient byte t_1262 = 0;
+transient bool t_1263 = false;
+transient bool t_1264 = false;
+transient bool t_1265 = false;
+transient byte t_1266 = 0;
+transient bool t_1267 = false;
+transient byte t_1268 = 0;
+transient bool t_1269 = false;
+transient bool t_1270 = false;
+transient byte t_1271 = 0;
+transient bool t_1272 = false;
+transient bool t_1273 = false;
+transient byte t_1274 = 0;
+transient bool t_1275 = false;
+transient bool t_1276 = false;
+transient bool t_1277 = false;
+transient bool t_1278 = false;
+transient int t_1279 = 0;
+transient bool t_1280 = false;
+transient bool t_1281 = false;
+transient bool t_1282 = false;
+transient int t_1283 = 0;
+transient bool t_1284 = false;
+transient bool t_1285 = false;
+transient bool t_1286 = false;
+transient bool t_1287 = false;
+transient bool t_1288 = false;
+transient bool t_1289 = false;
+transient bool t_1290 = false;
+transient byte t_1291 = 0;
+transient bool t_1292 = false;
+transient byte t_1293 = 0;
+transient bool t_1294 = false;
+transient bool t_1295 = false;
+transient byte t_1296 = 0;
+transient bool t_1297 = false;
+transient bool t_1298 = false;
+transient byte t_1299 = 0;
+transient bool t_1300 = false;
+transient bool t_1301 = false;
+transient bool t_1302 = false;
+transient bool t_1303 = false;
+transient byte t_1304 = 0;
+transient bool t_1305 = false;
+transient byte t_1306 = 0;
+transient bool t_1307 = false;
+transient bool t_1308 = false;
+transient byte t_1309 = 0;
+transient bool t_1310 = false;
+transient bool t_1311 = false;
+transient byte t_1312 = 0;
+transient bool t_1313 = false;
+transient bool t_1314 = false;
+transient bool t_1315 = false;
+transient bool t_1316 = false;
+transient byte t_1317 = 0;
+transient bool t_1318 = false;
+transient bool t_1319 = false;
+transient bool t_1320 = false;
+transient byte t_1321 = 0;
+transient bool t_1322 = false;
+transient bool t_1323 = false;
+transient bool t_1324 = false;
+transient byte t_1325 = 0;
+transient bool t_1326 = false;
+transient bool t_1327 = false;
+transient bool t_1328 = false;
+transient byte t_1329 = 0;
+transient bool t_1330 = false;
+transient bool t_1331 = false;
+transient bool t_1332 = false;
+	process slave_1 
+		guardBlock
+			t_0 = slave_1.state == 0,
+			t_1 = sem == 1,
+			t_2 = t_0 and t_1;
+
+		guardCondition t_2;
+		effect
+			slave_1.state = 1,
+			sem = 0;
+
+	process slave_1 
+		guardBlock
+			t_3 = slave_1.state == 1,
+			t_4 = b[0],
+			t_5 = t_4 == 1,
+			t_6 = t_3 and t_5;
+
+		guardCondition t_6;
+		effect
+			slave_1.state = 2,
+			b[0] = 0;
+
+	process slave_1 
+		guardBlock
+			t_7 = slave_1.state == 1,
+			t_8 = b[1],
+			t_9 = t_8 == 1,
+			t_10 = t_7 and t_9;
+
+		guardCondition t_10;
+		effect
+			slave_1.state = 2,
+			b[1] = 0;
+
+	process slave_1 
+		guardBlock
+			t_11 = slave_1.state == 1,
+			t_12 = b[2],
+			t_13 = t_12 == 1,
+			t_14 = t_11 and t_13;
+
+		guardCondition t_14;
+		effect
+			slave_1.state = 2,
+			b[2] = 0;
+
+	process slave_1 
+		guardBlock
+			t_15 = slave_1.state == 1,
+			t_16 = b[3],
+			t_17 = t_16 == 1,
+			t_18 = t_15 and t_17;
+
+		guardCondition t_18;
+		effect
+			slave_1.state = 2,
+			b[3] = 0;
+
+	process slave_1 
+		guardBlock
+			t_19 = slave_1.state == 1,
+			t_20 = b[0],
+			t_21 = t_20 != 1,
+			t_22 = b[1],
+			t_23 = t_22 != 1,
+			t_24 = t_21 and t_23,
+			t_25 = b[2],
+			t_26 = t_25 != 1,
+			t_27 = t_24 and t_26,
+			t_28 = b[3],
+			t_29 = t_28 != 1,
+			t_30 = t_27 and t_29,
+			t_31 = t_19 and t_30;
+
+		guardCondition t_31;
+		effect
+			slave_1.state = 2;
+
+	process slave_1 
+		guardBlock
+			t_32 = slave_1.state == 2,
+			t_33 = b[0],
+			t_34 = t_33 == 2,
+			t_35 = t_32 and t_34;
+
+		guardCondition t_35;
+		effect
+			slave_1.state = 3,
+			b[0] = 1;
+
+	process slave_1 
+		guardBlock
+			t_36 = slave_1.state == 2,
+			t_37 = b[1],
+			t_38 = t_37 == 2,
+			t_39 = t_36 and t_38;
+
+		guardCondition t_39;
+		effect
+			slave_1.state = 3,
+			b[1] = 1;
+
+	process slave_1 
+		guardBlock
+			t_40 = slave_1.state == 2,
+			t_41 = b[2],
+			t_42 = t_41 == 2,
+			t_43 = t_40 and t_42;
+
+		guardCondition t_43;
+		effect
+			slave_1.state = 3,
+			b[2] = 1;
+
+	process slave_1 
+		guardBlock
+			t_44 = slave_1.state == 2,
+			t_45 = b[3],
+			t_46 = t_45 == 2,
+			t_47 = t_44 and t_46;
+
+		guardCondition t_47;
+		effect
+			slave_1.state = 3,
+			b[3] = 1;
+
+	process slave_1 
+		guardBlock
+			t_48 = slave_1.state == 2,
+			t_49 = b[0],
+			t_50 = t_49 != 2,
+			t_51 = b[1],
+			t_52 = t_51 != 2,
+			t_53 = t_50 and t_52,
+			t_54 = b[2],
+			t_55 = t_54 != 2,
+			t_56 = t_53 and t_55,
+			t_57 = b[3],
+			t_58 = t_57 != 2,
+			t_59 = t_56 and t_58,
+			t_60 = t_48 and t_59;
+
+		guardCondition t_60;
+		effect
+			slave_1.state = 5;
+
+	process slave_1 
+		guardBlock
+			t_61 = slave_1.state == 3,
+			t_62 = b[0],
+			t_63 = t_62 == 0,
+			t_64 = t_61 and t_63;
+
+		guardCondition t_64;
+		effect
+			slave_1.state = 4,
+			b[0] = 2;
+
+	process slave_1 
+		guardBlock
+			t_65 = slave_1.state == 3,
+			t_66 = b[1],
+			t_67 = t_66 == 0,
+			t_68 = t_65 and t_67;
+
+		guardCondition t_68;
+		effect
+			slave_1.state = 4,
+			b[1] = 2;
+
+	process slave_1 
+		guardBlock
+			t_69 = slave_1.state == 3,
+			t_70 = b[2],
+			t_71 = t_70 == 0,
+			t_72 = t_69 and t_71;
+
+		guardCondition t_72;
+		effect
+			slave_1.state = 4,
+			b[2] = 2;
+
+	process slave_1 
+		guardBlock
+			t_73 = slave_1.state == 3,
+			t_74 = b[3],
+			t_75 = t_74 == 0,
+			t_76 = t_73 and t_75;
+
+		guardCondition t_76;
+		effect
+			slave_1.state = 4,
+			b[3] = 2;
+
+	process slave_1 
+		guardBlock
+			t_77 = slave_1.state == 3,
+			t_78 = b[0],
+			t_79 = t_78 != 0,
+			t_80 = b[1],
+			t_81 = t_80 != 0,
+			t_82 = t_79 and t_81,
+			t_83 = b[2],
+			t_84 = t_83 != 0,
+			t_85 = t_82 and t_84,
+			t_86 = b[3],
+			t_87 = t_86 != 0,
+			t_88 = t_85 and t_87,
+			t_89 = t_77 and t_88;
+
+		guardCondition t_89;
+		effect
+			slave_1.state = 5;
+
+	process slave_1 
+		guardBlock
+			t_90 = slave_1.state == 4;
+
+		guardCondition t_90;
+		effect
+			slave_1.state = 0,
+			sem = 1;
+
+	process slave_2 
+		guardBlock
+			t_91 = slave_2.state == 0,
+			t_92 = sem == 1,
+			t_93 = t_91 and t_92;
+
+		guardCondition t_93;
+		effect
+			slave_2.state = 1,
+			sem = 0;
+
+	process slave_2 
+		guardBlock
+			t_94 = slave_2.state == 1,
+			t_95 = b[0],
+			t_96 = t_95 == 1,
+			t_97 = t_94 and t_96;
+
+		guardCondition t_97;
+		effect
+			slave_2.state = 2,
+			b[0] = 0;
+
+	process slave_2 
+		guardBlock
+			t_98 = slave_2.state == 1,
+			t_99 = b[1],
+			t_100 = t_99 == 1,
+			t_101 = t_98 and t_100;
+
+		guardCondition t_101;
+		effect
+			slave_2.state = 2,
+			b[1] = 0;
+
+	process slave_2 
+		guardBlock
+			t_102 = slave_2.state == 1,
+			t_103 = b[2],
+			t_104 = t_103 == 1,
+			t_105 = t_102 and t_104;
+
+		guardCondition t_105;
+		effect
+			slave_2.state = 2,
+			b[2] = 0;
+
+	process slave_2 
+		guardBlock
+			t_106 = slave_2.state == 1,
+			t_107 = b[3],
+			t_108 = t_107 == 1,
+			t_109 = t_106 and t_108;
+
+		guardCondition t_109;
+		effect
+			slave_2.state = 2,
+			b[3] = 0;
+
+	process slave_2 
+		guardBlock
+			t_110 = slave_2.state == 1,
+			t_111 = b[0],
+			t_112 = t_111 != 1,
+			t_113 = b[1],
+			t_114 = t_113 != 1,
+			t_115 = t_112 and t_114,
+			t_116 = b[2],
+			t_117 = t_116 != 1,
+			t_118 = t_115 and t_117,
+			t_119 = b[3],
+			t_120 = t_119 != 1,
+			t_121 = t_118 and t_120,
+			t_122 = t_110 and t_121;
+
+		guardCondition t_122;
+		effect
+			slave_2.state = 2;
+
+	process slave_2 
+		guardBlock
+			t_123 = slave_2.state == 2,
+			t_124 = b[0],
+			t_125 = t_124 == 2,
+			t_126 = t_123 and t_125;
+
+		guardCondition t_126;
+		effect
+			slave_2.state = 3,
+			b[0] = 1;
+
+	process slave_2 
+		guardBlock
+			t_127 = slave_2.state == 2,
+			t_128 = b[1],
+			t_129 = t_128 == 2,
+			t_130 = t_127 and t_129;
+
+		guardCondition t_130;
+		effect
+			slave_2.state = 3,
+			b[1] = 1;
+
+	process slave_2 
+		guardBlock
+			t_131 = slave_2.state == 2,
+			t_132 = b[2],
+			t_133 = t_132 == 2,
+			t_134 = t_131 and t_133;
+
+		guardCondition t_134;
+		effect
+			slave_2.state = 3,
+			b[2] = 1;
+
+	process slave_2 
+		guardBlock
+			t_135 = slave_2.state == 2,
+			t_136 = b[3],
+			t_137 = t_136 == 2,
+			t_138 = t_135 and t_137;
+
+		guardCondition t_138;
+		effect
+			slave_2.state = 3,
+			b[3] = 1;
+
+	process slave_2 
+		guardBlock
+			t_139 = slave_2.state == 2,
+			t_140 = b[0],
+			t_141 = t_140 != 2,
+			t_142 = b[1],
+			t_143 = t_142 != 2,
+			t_144 = t_141 and t_143,
+			t_145 = b[2],
+			t_146 = t_145 != 2,
+			t_147 = t_144 and t_146,
+			t_148 = b[3],
+			t_149 = t_148 != 2,
+			t_150 = t_147 and t_149,
+			t_151 = t_139 and t_150;
+
+		guardCondition t_151;
+		effect
+			slave_2.state = 5;
+
+	process slave_2 
+		guardBlock
+			t_152 = slave_2.state == 3,
+			t_153 = b[0],
+			t_154 = t_153 == 0,
+			t_155 = t_152 and t_154;
+
+		guardCondition t_155;
+		effect
+			slave_2.state = 4,
+			b[0] = 2;
+
+	process slave_2 
+		guardBlock
+			t_156 = slave_2.state == 3,
+			t_157 = b[1],
+			t_158 = t_157 == 0,
+			t_159 = t_156 and t_158;
+
+		guardCondition t_159;
+		effect
+			slave_2.state = 4,
+			b[1] = 2;
+
+	process slave_2 
+		guardBlock
+			t_160 = slave_2.state == 3,
+			t_161 = b[2],
+			t_162 = t_161 == 0,
+			t_163 = t_160 and t_162;
+
+		guardCondition t_163;
+		effect
+			slave_2.state = 4,
+			b[2] = 2;
+
+	process slave_2 
+		guardBlock
+			t_164 = slave_2.state == 3,
+			t_165 = b[3],
+			t_166 = t_165 == 0,
+			t_167 = t_164 and t_166;
+
+		guardCondition t_167;
+		effect
+			slave_2.state = 4,
+			b[3] = 2;
+
+	process slave_2 
+		guardBlock
+			t_168 = slave_2.state == 3,
+			t_169 = b[0],
+			t_170 = t_169 != 0,
+			t_171 = b[1],
+			t_172 = t_171 != 0,
+			t_173 = t_170 and t_172,
+			t_174 = b[2],
+			t_175 = t_174 != 0,
+			t_176 = t_173 and t_175,
+			t_177 = b[3],
+			t_178 = t_177 != 0,
+			t_179 = t_176 and t_178,
+			t_180 = t_168 and t_179;
+
+		guardCondition t_180;
+		effect
+			slave_2.state = 5;
+
+	process slave_2 
+		guardBlock
+			t_181 = slave_2.state == 4;
+
+		guardCondition t_181;
+		effect
+			slave_2.state = 0,
+			sem = 1;
+
+	process slave_3 
+		guardBlock
+			t_182 = slave_3.state == 0,
+			t_183 = sem == 1,
+			t_184 = t_182 and t_183;
+
+		guardCondition t_184;
+		effect
+			slave_3.state = 1,
+			sem = 0;
+
+	process slave_3 
+		guardBlock
+			t_185 = slave_3.state == 1,
+			t_186 = b[0],
+			t_187 = t_186 == 1,
+			t_188 = t_185 and t_187;
+
+		guardCondition t_188;
+		effect
+			slave_3.state = 2,
+			b[0] = 0;
+
+	process slave_3 
+		guardBlock
+			t_189 = slave_3.state == 1,
+			t_190 = b[1],
+			t_191 = t_190 == 1,
+			t_192 = t_189 and t_191;
+
+		guardCondition t_192;
+		effect
+			slave_3.state = 2,
+			b[1] = 0;
+
+	process slave_3 
+		guardBlock
+			t_193 = slave_3.state == 1,
+			t_194 = b[2],
+			t_195 = t_194 == 1,
+			t_196 = t_193 and t_195;
+
+		guardCondition t_196;
+		effect
+			slave_3.state = 2,
+			b[2] = 0;
+
+	process slave_3 
+		guardBlock
+			t_197 = slave_3.state == 1,
+			t_198 = b[3],
+			t_199 = t_198 == 1,
+			t_200 = t_197 and t_199;
+
+		guardCondition t_200;
+		effect
+			slave_3.state = 2,
+			b[3] = 0;
+
+	process slave_3 
+		guardBlock
+			t_201 = slave_3.state == 1,
+			t_202 = b[0],
+			t_203 = t_202 != 1,
+			t_204 = b[1],
+			t_205 = t_204 != 1,
+			t_206 = t_203 and t_205,
+			t_207 = b[2],
+			t_208 = t_207 != 1,
+			t_209 = t_206 and t_208,
+			t_210 = b[3],
+			t_211 = t_210 != 1,
+			t_212 = t_209 and t_211,
+			t_213 = t_201 and t_212;
+
+		guardCondition t_213;
+		effect
+			slave_3.state = 2;
+
+	process slave_3 
+		guardBlock
+			t_214 = slave_3.state == 2,
+			t_215 = b[0],
+			t_216 = t_215 == 2,
+			t_217 = t_214 and t_216;
+
+		guardCondition t_217;
+		effect
+			slave_3.state = 3,
+			b[0] = 1;
+
+	process slave_3 
+		guardBlock
+			t_218 = slave_3.state == 2,
+			t_219 = b[1],
+			t_220 = t_219 == 2,
+			t_221 = t_218 and t_220;
+
+		guardCondition t_221;
+		effect
+			slave_3.state = 3,
+			b[1] = 1;
+
+	process slave_3 
+		guardBlock
+			t_222 = slave_3.state == 2,
+			t_223 = b[2],
+			t_224 = t_223 == 2,
+			t_225 = t_222 and t_224;
+
+		guardCondition t_225;
+		effect
+			slave_3.state = 3,
+			b[2] = 1;
+
+	process slave_3 
+		guardBlock
+			t_226 = slave_3.state == 2,
+			t_227 = b[3],
+			t_228 = t_227 == 2,
+			t_229 = t_226 and t_228;
+
+		guardCondition t_229;
+		effect
+			slave_3.state = 3,
+			b[3] = 1;
+
+	process slave_3 
+		guardBlock
+			t_230 = slave_3.state == 2,
+			t_231 = b[0],
+			t_232 = t_231 != 2,
+			t_233 = b[1],
+			t_234 = t_233 != 2,
+			t_235 = t_232 and t_234,
+			t_236 = b[2],
+			t_237 = t_236 != 2,
+			t_238 = t_235 and t_237,
+			t_239 = b[3],
+			t_240 = t_239 != 2,
+			t_241 = t_238 and t_240,
+			t_242 = t_230 and t_241;
+
+		guardCondition t_242;
+		effect
+			slave_3.state = 5;
+
+	process slave_3 
+		guardBlock
+			t_243 = slave_3.state == 3,
+			t_244 = b[0],
+			t_245 = t_244 == 0,
+			t_246 = t_243 and t_245;
+
+		guardCondition t_246;
+		effect
+			slave_3.state = 4,
+			b[0] = 2;
+
+	process slave_3 
+		guardBlock
+			t_247 = slave_3.state == 3,
+			t_248 = b[1],
+			t_249 = t_248 == 0,
+			t_250 = t_247 and t_249;
+
+		guardCondition t_250;
+		effect
+			slave_3.state = 4,
+			b[1] = 2;
+
+	process slave_3 
+		guardBlock
+			t_251 = slave_3.state == 3,
+			t_252 = b[2],
+			t_253 = t_252 == 0,
+			t_254 = t_251 and t_253;
+
+		guardCondition t_254;
+		effect
+			slave_3.state = 4,
+			b[2] = 2;
+
+	process slave_3 
+		guardBlock
+			t_255 = slave_3.state == 3,
+			t_256 = b[3],
+			t_257 = t_256 == 0,
+			t_258 = t_255 and t_257;
+
+		guardCondition t_258;
+		effect
+			slave_3.state = 4,
+			b[3] = 2;
+
+	process slave_3 
+		guardBlock
+			t_259 = slave_3.state == 3,
+			t_260 = b[0],
+			t_261 = t_260 != 0,
+			t_262 = b[1],
+			t_263 = t_262 != 0,
+			t_264 = t_261 and t_263,
+			t_265 = b[2],
+			t_266 = t_265 != 0,
+			t_267 = t_264 and t_266,
+			t_268 = b[3],
+			t_269 = t_268 != 0,
+			t_270 = t_267 and t_269,
+			t_271 = t_259 and t_270;
+
+		guardCondition t_271;
+		effect
+			slave_3.state = 5;
+
+	process slave_3 
+		guardBlock
+			t_272 = slave_3.state == 4;
+
+		guardCondition t_272;
+		effect
+			slave_3.state = 0,
+			sem = 1;
+
+	process slave_4 
+		guardBlock
+			t_273 = slave_4.state == 0,
+			t_274 = sem == 1,
+			t_275 = t_273 and t_274;
+
+		guardCondition t_275;
+		effect
+			slave_4.state = 1,
+			sem = 0;
+
+	process slave_4 
+		guardBlock
+			t_276 = slave_4.state == 1,
+			t_277 = b[0],
+			t_278 = t_277 == 1,
+			t_279 = t_276 and t_278;
+
+		guardCondition t_279;
+		effect
+			slave_4.state = 2,
+			b[0] = 0;
+
+	process slave_4 
+		guardBlock
+			t_280 = slave_4.state == 1,
+			t_281 = b[1],
+			t_282 = t_281 == 1,
+			t_283 = t_280 and t_282;
+
+		guardCondition t_283;
+		effect
+			slave_4.state = 2,
+			b[1] = 0;
+
+	process slave_4 
+		guardBlock
+			t_284 = slave_4.state == 1,
+			t_285 = b[2],
+			t_286 = t_285 == 1,
+			t_287 = t_284 and t_286;
+
+		guardCondition t_287;
+		effect
+			slave_4.state = 2,
+			b[2] = 0;
+
+	process slave_4 
+		guardBlock
+			t_288 = slave_4.state == 1,
+			t_289 = b[3],
+			t_290 = t_289 == 1,
+			t_291 = t_288 and t_290;
+
+		guardCondition t_291;
+		effect
+			slave_4.state = 2,
+			b[3] = 0;
+
+	process slave_4 
+		guardBlock
+			t_292 = slave_4.state == 1,
+			t_293 = b[0],
+			t_294 = t_293 != 1,
+			t_295 = b[1],
+			t_296 = t_295 != 1,
+			t_297 = t_294 and t_296,
+			t_298 = b[2],
+			t_299 = t_298 != 1,
+			t_300 = t_297 and t_299,
+			t_301 = b[3],
+			t_302 = t_301 != 1,
+			t_303 = t_300 and t_302,
+			t_304 = t_292 and t_303;
+
+		guardCondition t_304;
+		effect
+			slave_4.state = 2;
+
+	process slave_4 
+		guardBlock
+			t_305 = slave_4.state == 2,
+			t_306 = b[0],
+			t_307 = t_306 == 2,
+			t_308 = t_305 and t_307;
+
+		guardCondition t_308;
+		effect
+			slave_4.state = 3,
+			b[0] = 1;
+
+	process slave_4 
+		guardBlock
+			t_309 = slave_4.state == 2,
+			t_310 = b[1],
+			t_311 = t_310 == 2,
+			t_312 = t_309 and t_311;
+
+		guardCondition t_312;
+		effect
+			slave_4.state = 3,
+			b[1] = 1;
+
+	process slave_4 
+		guardBlock
+			t_313 = slave_4.state == 2,
+			t_314 = b[2],
+			t_315 = t_314 == 2,
+			t_316 = t_313 and t_315;
+
+		guardCondition t_316;
+		effect
+			slave_4.state = 3,
+			b[2] = 1;
+
+	process slave_4 
+		guardBlock
+			t_317 = slave_4.state == 2,
+			t_318 = b[3],
+			t_319 = t_318 == 2,
+			t_320 = t_317 and t_319;
+
+		guardCondition t_320;
+		effect
+			slave_4.state = 3,
+			b[3] = 1;
+
+	process slave_4 
+		guardBlock
+			t_321 = slave_4.state == 2,
+			t_322 = b[0],
+			t_323 = t_322 != 2,
+			t_324 = b[1],
+			t_325 = t_324 != 2,
+			t_326 = t_323 and t_325,
+			t_327 = b[2],
+			t_328 = t_327 != 2,
+			t_329 = t_326 and t_328,
+			t_330 = b[3],
+			t_331 = t_330 != 2,
+			t_332 = t_329 and t_331,
+			t_333 = t_321 and t_332;
+
+		guardCondition t_333;
+		effect
+			slave_4.state = 5;
+
+	process slave_4 
+		guardBlock
+			t_334 = slave_4.state == 3,
+			t_335 = b[0],
+			t_336 = t_335 == 0,
+			t_337 = t_334 and t_336;
+
+		guardCondition t_337;
+		effect
+			slave_4.state = 4,
+			b[0] = 2;
+
+	process slave_4 
+		guardBlock
+			t_338 = slave_4.state == 3,
+			t_339 = b[1],
+			t_340 = t_339 == 0,
+			t_341 = t_338 and t_340;
+
+		guardCondition t_341;
+		effect
+			slave_4.state = 4,
+			b[1] = 2;
+
+	process slave_4 
+		guardBlock
+			t_342 = slave_4.state == 3,
+			t_343 = b[2],
+			t_344 = t_343 == 0,
+			t_345 = t_342 and t_344;
+
+		guardCondition t_345;
+		effect
+			slave_4.state = 4,
+			b[2] = 2;
+
+	process slave_4 
+		guardBlock
+			t_346 = slave_4.state == 3,
+			t_347 = b[3],
+			t_348 = t_347 == 0,
+			t_349 = t_346 and t_348;
+
+		guardCondition t_349;
+		effect
+			slave_4.state = 4,
+			b[3] = 2;
+
+	process slave_4 
+		guardBlock
+			t_350 = slave_4.state == 3,
+			t_351 = b[0],
+			t_352 = t_351 != 0,
+			t_353 = b[1],
+			t_354 = t_353 != 0,
+			t_355 = t_352 and t_354,
+			t_356 = b[2],
+			t_357 = t_356 != 0,
+			t_358 = t_355 and t_357,
+			t_359 = b[3],
+			t_360 = t_359 != 0,
+			t_361 = t_358 and t_360,
+			t_362 = t_350 and t_361;
+
+		guardCondition t_362;
+		effect
+			slave_4.state = 5;
+
+	process slave_4 
+		guardBlock
+			t_363 = slave_4.state == 4;
+
+		guardCondition t_363;
+		effect
+			slave_4.state = 0,
+			sem = 1;
+
+	process slave_5 
+		guardBlock
+			t_364 = slave_5.state == 0,
+			t_365 = sem == 1,
+			t_366 = t_364 and t_365;
+
+		guardCondition t_366;
+		effect
+			slave_5.state = 1,
+			sem = 0;
+
+	process slave_5 
+		guardBlock
+			t_367 = slave_5.state == 1,
+			t_368 = b[0],
+			t_369 = t_368 == 1,
+			t_370 = t_367 and t_369;
+
+		guardCondition t_370;
+		effect
+			slave_5.state = 2,
+			b[0] = 0;
+
+	process slave_5 
+		guardBlock
+			t_371 = slave_5.state == 1,
+			t_372 = b[1],
+			t_373 = t_372 == 1,
+			t_374 = t_371 and t_373;
+
+		guardCondition t_374;
+		effect
+			slave_5.state = 2,
+			b[1] = 0;
+
+	process slave_5 
+		guardBlock
+			t_375 = slave_5.state == 1,
+			t_376 = b[2],
+			t_377 = t_376 == 1,
+			t_378 = t_375 and t_377;
+
+		guardCondition t_378;
+		effect
+			slave_5.state = 2,
+			b[2] = 0;
+
+	process slave_5 
+		guardBlock
+			t_379 = slave_5.state == 1,
+			t_380 = b[3],
+			t_381 = t_380 == 1,
+			t_382 = t_379 and t_381;
+
+		guardCondition t_382;
+		effect
+			slave_5.state = 2,
+			b[3] = 0;
+
+	process slave_5 
+		guardBlock
+			t_383 = slave_5.state == 1,
+			t_384 = b[0],
+			t_385 = t_384 != 1,
+			t_386 = b[1],
+			t_387 = t_386 != 1,
+			t_388 = t_385 and t_387,
+			t_389 = b[2],
+			t_390 = t_389 != 1,
+			t_391 = t_388 and t_390,
+			t_392 = b[3],
+			t_393 = t_392 != 1,
+			t_394 = t_391 and t_393,
+			t_395 = t_383 and t_394;
+
+		guardCondition t_395;
+		effect
+			slave_5.state = 2;
+
+	process slave_5 
+		guardBlock
+			t_396 = slave_5.state == 2,
+			t_397 = b[0],
+			t_398 = t_397 == 2,
+			t_399 = t_396 and t_398;
+
+		guardCondition t_399;
+		effect
+			slave_5.state = 3,
+			b[0] = 1;
+
+	process slave_5 
+		guardBlock
+			t_400 = slave_5.state == 2,
+			t_401 = b[1],
+			t_402 = t_401 == 2,
+			t_403 = t_400 and t_402;
+
+		guardCondition t_403;
+		effect
+			slave_5.state = 3,
+			b[1] = 1;
+
+	process slave_5 
+		guardBlock
+			t_404 = slave_5.state == 2,
+			t_405 = b[2],
+			t_406 = t_405 == 2,
+			t_407 = t_404 and t_406;
+
+		guardCondition t_407;
+		effect
+			slave_5.state = 3,
+			b[2] = 1;
+
+	process slave_5 
+		guardBlock
+			t_408 = slave_5.state == 2,
+			t_409 = b[3],
+			t_410 = t_409 == 2,
+			t_411 = t_408 and t_410;
+
+		guardCondition t_411;
+		effect
+			slave_5.state = 3,
+			b[3] = 1;
+
+	process slave_5 
+		guardBlock
+			t_412 = slave_5.state == 2,
+			t_413 = b[0],
+			t_414 = t_413 != 2,
+			t_415 = b[1],
+			t_416 = t_415 != 2,
+			t_417 = t_414 and t_416,
+			t_418 = b[2],
+			t_419 = t_418 != 2,
+			t_420 = t_417 and t_419,
+			t_421 = b[3],
+			t_422 = t_421 != 2,
+			t_423 = t_420 and t_422,
+			t_424 = t_412 and t_423;
+
+		guardCondition t_424;
+		effect
+			slave_5.state = 5;
+
+	process slave_5 
+		guardBlock
+			t_425 = slave_5.state == 3,
+			t_426 = b[0],
+			t_427 = t_426 == 0,
+			t_428 = t_425 and t_427;
+
+		guardCondition t_428;
+		effect
+			slave_5.state = 4,
+			b[0] = 2;
+
+	process slave_5 
+		guardBlock
+			t_429 = slave_5.state == 3,
+			t_430 = b[1],
+			t_431 = t_430 == 0,
+			t_432 = t_429 and t_431;
+
+		guardCondition t_432;
+		effect
+			slave_5.state = 4,
+			b[1] = 2;
+
+	process slave_5 
+		guardBlock
+			t_433 = slave_5.state == 3,
+			t_434 = b[2],
+			t_435 = t_434 == 0,
+			t_436 = t_433 and t_435;
+
+		guardCondition t_436;
+		effect
+			slave_5.state = 4,
+			b[2] = 2;
+
+	process slave_5 
+		guardBlock
+			t_437 = slave_5.state == 3,
+			t_438 = b[3],
+			t_439 = t_438 == 0,
+			t_440 = t_437 and t_439;
+
+		guardCondition t_440;
+		effect
+			slave_5.state = 4,
+			b[3] = 2;
+
+	process slave_5 
+		guardBlock
+			t_441 = slave_5.state == 3,
+			t_442 = b[0],
+			t_443 = t_442 != 0,
+			t_444 = b[1],
+			t_445 = t_444 != 0,
+			t_446 = t_443 and t_445,
+			t_447 = b[2],
+			t_448 = t_447 != 0,
+			t_449 = t_446 and t_448,
+			t_450 = b[3],
+			t_451 = t_450 != 0,
+			t_452 = t_449 and t_451,
+			t_453 = t_441 and t_452;
+
+		guardCondition t_453;
+		effect
+			slave_5.state = 5;
+
+	process slave_5 
+		guardBlock
+			t_454 = slave_5.state == 4;
+
+		guardCondition t_454;
+		effect
+			slave_5.state = 0,
+			sem = 1;
+
+	process slave_6 
+		guardBlock
+			t_455 = slave_6.state == 0,
+			t_456 = sem == 1,
+			t_457 = t_455 and t_456;
+
+		guardCondition t_457;
+		effect
+			slave_6.state = 1,
+			sem = 0;
+
+	process slave_6 
+		guardBlock
+			t_458 = slave_6.state == 1,
+			t_459 = b[0],
+			t_460 = t_459 == 1,
+			t_461 = t_458 and t_460;
+
+		guardCondition t_461;
+		effect
+			slave_6.state = 2,
+			b[0] = 0;
+
+	process slave_6 
+		guardBlock
+			t_462 = slave_6.state == 1,
+			t_463 = b[1],
+			t_464 = t_463 == 1,
+			t_465 = t_462 and t_464;
+
+		guardCondition t_465;
+		effect
+			slave_6.state = 2,
+			b[1] = 0;
+
+	process slave_6 
+		guardBlock
+			t_466 = slave_6.state == 1,
+			t_467 = b[2],
+			t_468 = t_467 == 1,
+			t_469 = t_466 and t_468;
+
+		guardCondition t_469;
+		effect
+			slave_6.state = 2,
+			b[2] = 0;
+
+	process slave_6 
+		guardBlock
+			t_470 = slave_6.state == 1,
+			t_471 = b[3],
+			t_472 = t_471 == 1,
+			t_473 = t_470 and t_472;
+
+		guardCondition t_473;
+		effect
+			slave_6.state = 2,
+			b[3] = 0;
+
+	process slave_6 
+		guardBlock
+			t_474 = slave_6.state == 1,
+			t_475 = b[0],
+			t_476 = t_475 != 1,
+			t_477 = b[1],
+			t_478 = t_477 != 1,
+			t_479 = t_476 and t_478,
+			t_480 = b[2],
+			t_481 = t_480 != 1,
+			t_482 = t_479 and t_481,
+			t_483 = b[3],
+			t_484 = t_483 != 1,
+			t_485 = t_482 and t_484,
+			t_486 = t_474 and t_485;
+
+		guardCondition t_486;
+		effect
+			slave_6.state = 2;
+
+	process slave_6 
+		guardBlock
+			t_487 = slave_6.state == 2,
+			t_488 = b[0],
+			t_489 = t_488 == 2,
+			t_490 = t_487 and t_489;
+
+		guardCondition t_490;
+		effect
+			slave_6.state = 3,
+			b[0] = 1;
+
+	process slave_6 
+		guardBlock
+			t_491 = slave_6.state == 2,
+			t_492 = b[1],
+			t_493 = t_492 == 2,
+			t_494 = t_491 and t_493;
+
+		guardCondition t_494;
+		effect
+			slave_6.state = 3,
+			b[1] = 1;
+
+	process slave_6 
+		guardBlock
+			t_495 = slave_6.state == 2,
+			t_496 = b[2],
+			t_497 = t_496 == 2,
+			t_498 = t_495 and t_497;
+
+		guardCondition t_498;
+		effect
+			slave_6.state = 3,
+			b[2] = 1;
+
+	process slave_6 
+		guardBlock
+			t_499 = slave_6.state == 2,
+			t_500 = b[3],
+			t_501 = t_500 == 2,
+			t_502 = t_499 and t_501;
+
+		guardCondition t_502;
+		effect
+			slave_6.state = 3,
+			b[3] = 1;
+
+	process slave_6 
+		guardBlock
+			t_503 = slave_6.state == 2,
+			t_504 = b[0],
+			t_505 = t_504 != 2,
+			t_506 = b[1],
+			t_507 = t_506 != 2,
+			t_508 = t_505 and t_507,
+			t_509 = b[2],
+			t_510 = t_509 != 2,
+			t_511 = t_508 and t_510,
+			t_512 = b[3],
+			t_513 = t_512 != 2,
+			t_514 = t_511 and t_513,
+			t_515 = t_503 and t_514;
+
+		guardCondition t_515;
+		effect
+			slave_6.state = 5;
+
+	process slave_6 
+		guardBlock
+			t_516 = slave_6.state == 3,
+			t_517 = b[0],
+			t_518 = t_517 == 0,
+			t_519 = t_516 and t_518;
+
+		guardCondition t_519;
+		effect
+			slave_6.state = 4,
+			b[0] = 2;
+
+	process slave_6 
+		guardBlock
+			t_520 = slave_6.state == 3,
+			t_521 = b[1],
+			t_522 = t_521 == 0,
+			t_523 = t_520 and t_522;
+
+		guardCondition t_523;
+		effect
+			slave_6.state = 4,
+			b[1] = 2;
+
+	process slave_6 
+		guardBlock
+			t_524 = slave_6.state == 3,
+			t_525 = b[2],
+			t_526 = t_525 == 0,
+			t_527 = t_524 and t_526;
+
+		guardCondition t_527;
+		effect
+			slave_6.state = 4,
+			b[2] = 2;
+
+	process slave_6 
+		guardBlock
+			t_528 = slave_6.state == 3,
+			t_529 = b[3],
+			t_530 = t_529 == 0,
+			t_531 = t_528 and t_530;
+
+		guardCondition t_531;
+		effect
+			slave_6.state = 4,
+			b[3] = 2;
+
+	process slave_6 
+		guardBlock
+			t_532 = slave_6.state == 3,
+			t_533 = b[0],
+			t_534 = t_533 != 0,
+			t_535 = b[1],
+			t_536 = t_535 != 0,
+			t_537 = t_534 and t_536,
+			t_538 = b[2],
+			t_539 = t_538 != 0,
+			t_540 = t_537 and t_539,
+			t_541 = b[3],
+			t_542 = t_541 != 0,
+			t_543 = t_540 and t_542,
+			t_544 = t_532 and t_543;
+
+		guardCondition t_544;
+		effect
+			slave_6.state = 5;
+
+	process slave_6 
+		guardBlock
+			t_545 = slave_6.state == 4;
+
+		guardCondition t_545;
+		effect
+			slave_6.state = 0,
+			sem = 1;
+
+	process slave_7 
+		guardBlock
+			t_546 = slave_7.state == 0,
+			t_547 = sem == 1,
+			t_548 = t_546 and t_547;
+
+		guardCondition t_548;
+		effect
+			slave_7.state = 1,
+			sem = 0;
+
+	process slave_7 
+		guardBlock
+			t_549 = slave_7.state == 1,
+			t_550 = b[0],
+			t_551 = t_550 == 1,
+			t_552 = t_549 and t_551;
+
+		guardCondition t_552;
+		effect
+			slave_7.state = 2,
+			b[0] = 0;
+
+	process slave_7 
+		guardBlock
+			t_553 = slave_7.state == 1,
+			t_554 = b[1],
+			t_555 = t_554 == 1,
+			t_556 = t_553 and t_555;
+
+		guardCondition t_556;
+		effect
+			slave_7.state = 2,
+			b[1] = 0;
+
+	process slave_7 
+		guardBlock
+			t_557 = slave_7.state == 1,
+			t_558 = b[2],
+			t_559 = t_558 == 1,
+			t_560 = t_557 and t_559;
+
+		guardCondition t_560;
+		effect
+			slave_7.state = 2,
+			b[2] = 0;
+
+	process slave_7 
+		guardBlock
+			t_561 = slave_7.state == 1,
+			t_562 = b[3],
+			t_563 = t_562 == 1,
+			t_564 = t_561 and t_563;
+
+		guardCondition t_564;
+		effect
+			slave_7.state = 2,
+			b[3] = 0;
+
+	process slave_7 
+		guardBlock
+			t_565 = slave_7.state == 1,
+			t_566 = b[0],
+			t_567 = t_566 != 1,
+			t_568 = b[1],
+			t_569 = t_568 != 1,
+			t_570 = t_567 and t_569,
+			t_571 = b[2],
+			t_572 = t_571 != 1,
+			t_573 = t_570 and t_572,
+			t_574 = b[3],
+			t_575 = t_574 != 1,
+			t_576 = t_573 and t_575,
+			t_577 = t_565 and t_576;
+
+		guardCondition t_577;
+		effect
+			slave_7.state = 2;
+
+	process slave_7 
+		guardBlock
+			t_578 = slave_7.state == 2,
+			t_579 = b[0],
+			t_580 = t_579 == 2,
+			t_581 = t_578 and t_580;
+
+		guardCondition t_581;
+		effect
+			slave_7.state = 3,
+			b[0] = 1;
+
+	process slave_7 
+		guardBlock
+			t_582 = slave_7.state == 2,
+			t_583 = b[1],
+			t_584 = t_583 == 2,
+			t_585 = t_582 and t_584;
+
+		guardCondition t_585;
+		effect
+			slave_7.state = 3,
+			b[1] = 1;
+
+	process slave_7 
+		guardBlock
+			t_586 = slave_7.state == 2,
+			t_587 = b[2],
+			t_588 = t_587 == 2,
+			t_589 = t_586 and t_588;
+
+		guardCondition t_589;
+		effect
+			slave_7.state = 3,
+			b[2] = 1;
+
+	process slave_7 
+		guardBlock
+			t_590 = slave_7.state == 2,
+			t_591 = b[3],
+			t_592 = t_591 == 2,
+			t_593 = t_590 and t_592;
+
+		guardCondition t_593;
+		effect
+			slave_7.state = 3,
+			b[3] = 1;
+
+	process slave_7 
+		guardBlock
+			t_594 = slave_7.state == 2,
+			t_595 = b[0],
+			t_596 = t_595 != 2,
+			t_597 = b[1],
+			t_598 = t_597 != 2,
+			t_599 = t_596 and t_598,
+			t_600 = b[2],
+			t_601 = t_600 != 2,
+			t_602 = t_599 and t_601,
+			t_603 = b[3],
+			t_604 = t_603 != 2,
+			t_605 = t_602 and t_604,
+			t_606 = t_594 and t_605;
+
+		guardCondition t_606;
+		effect
+			slave_7.state = 5;
+
+	process slave_7 
+		guardBlock
+			t_607 = slave_7.state == 3,
+			t_608 = b[0],
+			t_609 = t_608 == 0,
+			t_610 = t_607 and t_609;
+
+		guardCondition t_610;
+		effect
+			slave_7.state = 4,
+			b[0] = 2;
+
+	process slave_7 
+		guardBlock
+			t_611 = slave_7.state == 3,
+			t_612 = b[1],
+			t_613 = t_612 == 0,
+			t_614 = t_611 and t_613;
+
+		guardCondition t_614;
+		effect
+			slave_7.state = 4,
+			b[1] = 2;
+
+	process slave_7 
+		guardBlock
+			t_615 = slave_7.state == 3,
+			t_616 = b[2],
+			t_617 = t_616 == 0,
+			t_618 = t_615 and t_617;
+
+		guardCondition t_618;
+		effect
+			slave_7.state = 4,
+			b[2] = 2;
+
+	process slave_7 
+		guardBlock
+			t_619 = slave_7.state == 3,
+			t_620 = b[3],
+			t_621 = t_620 == 0,
+			t_622 = t_619 and t_621;
+
+		guardCondition t_622;
+		effect
+			slave_7.state = 4,
+			b[3] = 2;
+
+	process slave_7 
+		guardBlock
+			t_623 = slave_7.state == 3,
+			t_624 = b[0],
+			t_625 = t_624 != 0,
+			t_626 = b[1],
+			t_627 = t_626 != 0,
+			t_628 = t_625 and t_627,
+			t_629 = b[2],
+			t_630 = t_629 != 0,
+			t_631 = t_628 and t_630,
+			t_632 = b[3],
+			t_633 = t_632 != 0,
+			t_634 = t_631 and t_633,
+			t_635 = t_623 and t_634;
+
+		guardCondition t_635;
+		effect
+			slave_7.state = 5;
+
+	process slave_7 
+		guardBlock
+			t_636 = slave_7.state == 4;
+
+		guardCondition t_636;
+		effect
+			slave_7.state = 0,
+			sem = 1;
+
+	process master_1 
+		guardBlock
+			t_637 = master_1.state == 0,
+			t_638 = sem == 1,
+			t_639 = t_637 and t_638;
+
+		guardCondition t_639;
+		effect
+			master_1.state = 1,
+			sem = 0;
+
+	process master_1 
+		guardBlock
+			t_640 = master_1.state == 1,
+			t_641 = b[0],
+			t_642 = t_641 == 3,
+			t_643 = t_640 and t_642;
+
+		guardCondition t_643;
+		effect
+			master_1.state = 3;
+
+	process master_1 
+		guardBlock
+			t_644 = master_1.state == 1,
+			t_645 = b[1],
+			t_646 = t_645 == 3,
+			t_647 = t_644 and t_646;
+
+		guardCondition t_647;
+		effect
+			master_1.state = 3;
+
+	process master_1 
+		guardBlock
+			t_648 = master_1.state == 1,
+			t_649 = b[2],
+			t_650 = t_649 == 3,
+			t_651 = t_648 and t_650;
+
+		guardCondition t_651;
+		effect
+			master_1.state = 3;
+
+	process master_1 
+		guardBlock
+			t_652 = master_1.state == 1,
+			t_653 = b[3],
+			t_654 = t_653 == 3,
+			t_655 = t_652 and t_654;
+
+		guardCondition t_655;
+		effect
+			master_1.state = 3;
+
+	process master_1 
+		guardBlock
+			t_656 = master_1.state == 1,
+			t_657 = b[0],
+			t_658 = t_657 != 3,
+			t_659 = b[1],
+			t_660 = t_659 != 3,
+			t_661 = t_658 and t_660,
+			t_662 = b[2],
+			t_663 = t_662 != 3,
+			t_664 = t_661 and t_663,
+			t_665 = b[3],
+			t_666 = t_665 != 3,
+			t_667 = t_664 and t_666,
+			t_668 = t_656 and t_667;
+
+		guardCondition t_668;
+		effect
+			master_1.state = 2;
+
+	process master_1 
+		guardBlock
+			t_669 = master_1.state == 2,
+			t_670 = b[0],
+			t_671 = t_670 == 1,
+			t_672 = t_669 and t_671;
+
+		guardCondition t_672;
+		effect
+			master_1.state = 3,
+			b[0] = 3;
+
+	process master_1 
+		guardBlock
+			t_673 = master_1.state == 2,
+			t_674 = b[1],
+			t_675 = t_674 == 1,
+			t_676 = t_673 and t_675;
+
+		guardCondition t_676;
+		effect
+			master_1.state = 3,
+			b[1] = 3;
+
+	process master_1 
+		guardBlock
+			t_677 = master_1.state == 2,
+			t_678 = b[2],
+			t_679 = t_678 == 1,
+			t_680 = t_677 and t_679;
+
+		guardCondition t_680;
+		effect
+			master_1.state = 3,
+			b[2] = 3;
+
+	process master_1 
+		guardBlock
+			t_681 = master_1.state == 2,
+			t_682 = b[3],
+			t_683 = t_682 == 1,
+			t_684 = t_681 and t_683;
+
+		guardCondition t_684;
+		effect
+			master_1.state = 3,
+			b[3] = 3;
+
+	process master_1 
+		guardBlock
+			t_685 = master_1.state == 2,
+			t_686 = b[0],
+			t_687 = t_686 != 1,
+			t_688 = b[1],
+			t_689 = t_688 != 1,
+			t_690 = t_687 and t_689,
+			t_691 = b[2],
+			t_692 = t_691 != 1,
+			t_693 = t_690 and t_692,
+			t_694 = b[3],
+			t_695 = t_694 != 1,
+			t_696 = t_693 and t_695,
+			t_697 = t_685 and t_696;
+
+		guardCondition t_697;
+		effect
+			master_1.state = 0,
+			sem = 1;
+
+	process master_1 
+		guardBlock
+			t_698 = master_1.state == 3;
+
+		guardCondition t_698;
+		effect
+			master_1.state = 4,
+			t_699 = readers + 1,
+			readers = t_699,
+			sem = 1;
+
+	process master_1 
+		guardBlock
+			t_700 = master_1.state == 4,
+			t_701 = sem == 1,
+			t_702 = t_700 and t_701;
+
+		guardCondition t_702;
+		effect
+			master_1.state = 5,
+			sem = 0,
+			t_703 = readers - 1,
+			readers = t_703;
+
+	process master_1 
+		guardBlock
+			t_704 = master_1.state == 5,
+			t_705 = readers == 0,
+			t_706 = t_704 and t_705;
+
+		guardCondition t_706;
+		effect
+			master_1.state = 6;
+
+	process master_1 
+		guardBlock
+			t_707 = master_1.state == 5,
+			t_708 = readers > 0,
+			t_709 = t_707 and t_708;
+
+		guardCondition t_709;
+		effect
+			master_1.state = 8;
+
+	process master_1 
+		guardBlock
+			t_710 = master_1.state == 6,
+			t_711 = b[0],
+			t_712 = t_711 == 1,
+			t_713 = b[0],
+			t_714 = t_713 == 1,
+			t_715 = t_712 or t_714,
+			t_716 = b[0],
+			t_717 = t_716 == 1,
+			t_718 = t_715 or t_717,
+			t_719 = b[0],
+			t_720 = t_719 == 1,
+			t_721 = t_718 or t_720,
+			t_722 = t_710 and t_721;
+
+		guardCondition t_722;
+		effect
+			master_1.state = 7,
+			change_to = 0;
+
+	process master_1 
+		guardBlock
+			t_723 = master_1.state == 6,
+			t_724 = b[0],
+			t_725 = t_724 != 1,
+			t_726 = b[0],
+			t_727 = t_726 != 1,
+			t_728 = t_725 and t_727,
+			t_729 = b[0],
+			t_730 = t_729 != 1,
+			t_731 = t_728 and t_730,
+			t_732 = b[0],
+			t_733 = t_732 != 1,
+			t_734 = t_731 and t_733,
+			t_735 = t_723 and t_734;
+
+		guardCondition t_735;
+		effect
+			master_1.state = 7,
+			change_to = 1;
+
+	process master_1 
+		guardBlock
+			t_736 = master_1.state == 7,
+			t_737 = b[0],
+			t_738 = t_737 == 3,
+			t_739 = t_736 and t_738;
+
+		guardCondition t_739;
+		effect
+			master_1.state = 8,
+			b[0] = change_to;
+
+	process master_1 
+		guardBlock
+			t_740 = master_1.state == 7,
+			t_741 = b[0],
+			t_742 = t_741 == 3,
+			t_743 = t_740 and t_742;
+
+		guardCondition t_743;
+		effect
+			master_1.state = 8,
+			b[0] = change_to;
+
+	process master_1 
+		guardBlock
+			t_744 = master_1.state == 7,
+			t_745 = b[0],
+			t_746 = t_745 == 3,
+			t_747 = t_744 and t_746;
+
+		guardCondition t_747;
+		effect
+			master_1.state = 8,
+			b[0] = change_to;
+
+	process master_1 
+		guardBlock
+			t_748 = master_1.state == 7,
+			t_749 = b[0],
+			t_750 = t_749 == 3,
+			t_751 = t_748 and t_750;
+
+		guardCondition t_751;
+		effect
+			master_1.state = 8,
+			b[0] = change_to;
+
+	process master_1 
+		guardBlock
+			t_752 = master_1.state == 8;
+
+		guardCondition t_752;
+		effect
+			master_1.state = 0,
+			sem = 1;
+
+	process master_2 
+		guardBlock
+			t_753 = master_2.state == 0,
+			t_754 = sem == 1,
+			t_755 = t_753 and t_754;
+
+		guardCondition t_755;
+		effect
+			master_2.state = 1,
+			sem = 0;
+
+	process master_2 
+		guardBlock
+			t_756 = master_2.state == 1,
+			t_757 = b[0],
+			t_758 = t_757 == 3,
+			t_759 = t_756 and t_758;
+
+		guardCondition t_759;
+		effect
+			master_2.state = 3;
+
+	process master_2 
+		guardBlock
+			t_760 = master_2.state == 1,
+			t_761 = b[1],
+			t_762 = t_761 == 3,
+			t_763 = t_760 and t_762;
+
+		guardCondition t_763;
+		effect
+			master_2.state = 3;
+
+	process master_2 
+		guardBlock
+			t_764 = master_2.state == 1,
+			t_765 = b[2],
+			t_766 = t_765 == 3,
+			t_767 = t_764 and t_766;
+
+		guardCondition t_767;
+		effect
+			master_2.state = 3;
+
+	process master_2 
+		guardBlock
+			t_768 = master_2.state == 1,
+			t_769 = b[3],
+			t_770 = t_769 == 3,
+			t_771 = t_768 and t_770;
+
+		guardCondition t_771;
+		effect
+			master_2.state = 3;
+
+	process master_2 
+		guardBlock
+			t_772 = master_2.state == 1,
+			t_773 = b[0],
+			t_774 = t_773 != 3,
+			t_775 = b[1],
+			t_776 = t_775 != 3,
+			t_777 = t_774 and t_776,
+			t_778 = b[2],
+			t_779 = t_778 != 3,
+			t_780 = t_777 and t_779,
+			t_781 = b[3],
+			t_782 = t_781 != 3,
+			t_783 = t_780 and t_782,
+			t_784 = t_772 and t_783;
+
+		guardCondition t_784;
+		effect
+			master_2.state = 2;
+
+	process master_2 
+		guardBlock
+			t_785 = master_2.state == 2,
+			t_786 = b[0],
+			t_787 = t_786 == 1,
+			t_788 = t_785 and t_787;
+
+		guardCondition t_788;
+		effect
+			master_2.state = 3,
+			b[0] = 3;
+
+	process master_2 
+		guardBlock
+			t_789 = master_2.state == 2,
+			t_790 = b[1],
+			t_791 = t_790 == 1,
+			t_792 = t_789 and t_791;
+
+		guardCondition t_792;
+		effect
+			master_2.state = 3,
+			b[1] = 3;
+
+	process master_2 
+		guardBlock
+			t_793 = master_2.state == 2,
+			t_794 = b[2],
+			t_795 = t_794 == 1,
+			t_796 = t_793 and t_795;
+
+		guardCondition t_796;
+		effect
+			master_2.state = 3,
+			b[2] = 3;
+
+	process master_2 
+		guardBlock
+			t_797 = master_2.state == 2,
+			t_798 = b[3],
+			t_799 = t_798 == 1,
+			t_800 = t_797 and t_799;
+
+		guardCondition t_800;
+		effect
+			master_2.state = 3,
+			b[3] = 3;
+
+	process master_2 
+		guardBlock
+			t_801 = master_2.state == 2,
+			t_802 = b[0],
+			t_803 = t_802 != 1,
+			t_804 = b[1],
+			t_805 = t_804 != 1,
+			t_806 = t_803 and t_805,
+			t_807 = b[2],
+			t_808 = t_807 != 1,
+			t_809 = t_806 and t_808,
+			t_810 = b[3],
+			t_811 = t_810 != 1,
+			t_812 = t_809 and t_811,
+			t_813 = t_801 and t_812;
+
+		guardCondition t_813;
+		effect
+			master_2.state = 0,
+			sem = 1;
+
+	process master_2 
+		guardBlock
+			t_814 = master_2.state == 3;
+
+		guardCondition t_814;
+		effect
+			master_2.state = 4,
+			t_815 = readers + 1,
+			readers = t_815,
+			sem = 1;
+
+	process master_2 
+		guardBlock
+			t_816 = master_2.state == 4,
+			t_817 = sem == 1,
+			t_818 = t_816 and t_817;
+
+		guardCondition t_818;
+		effect
+			master_2.state = 5,
+			sem = 0,
+			t_819 = readers - 1,
+			readers = t_819;
+
+	process master_2 
+		guardBlock
+			t_820 = master_2.state == 5,
+			t_821 = readers == 0,
+			t_822 = t_820 and t_821;
+
+		guardCondition t_822;
+		effect
+			master_2.state = 6;
+
+	process master_2 
+		guardBlock
+			t_823 = master_2.state == 5,
+			t_824 = readers > 0,
+			t_825 = t_823 and t_824;
+
+		guardCondition t_825;
+		effect
+			master_2.state = 8;
+
+	process master_2 
+		guardBlock
+			t_826 = master_2.state == 6,
+			t_827 = b[0],
+			t_828 = t_827 == 1,
+			t_829 = b[0],
+			t_830 = t_829 == 1,
+			t_831 = t_828 or t_830,
+			t_832 = b[0],
+			t_833 = t_832 == 1,
+			t_834 = t_831 or t_833,
+			t_835 = b[0],
+			t_836 = t_835 == 1,
+			t_837 = t_834 or t_836,
+			t_838 = t_826 and t_837;
+
+		guardCondition t_838;
+		effect
+			master_2.state = 7,
+			change_to = 0;
+
+	process master_2 
+		guardBlock
+			t_839 = master_2.state == 6,
+			t_840 = b[0],
+			t_841 = t_840 != 1,
+			t_842 = b[0],
+			t_843 = t_842 != 1,
+			t_844 = t_841 and t_843,
+			t_845 = b[0],
+			t_846 = t_845 != 1,
+			t_847 = t_844 and t_846,
+			t_848 = b[0],
+			t_849 = t_848 != 1,
+			t_850 = t_847 and t_849,
+			t_851 = t_839 and t_850;
+
+		guardCondition t_851;
+		effect
+			master_2.state = 7,
+			change_to = 1;
+
+	process master_2 
+		guardBlock
+			t_852 = master_2.state == 7,
+			t_853 = b[0],
+			t_854 = t_853 == 3,
+			t_855 = t_852 and t_854;
+
+		guardCondition t_855;
+		effect
+			master_2.state = 8,
+			b[0] = change_to;
+
+	process master_2 
+		guardBlock
+			t_856 = master_2.state == 7,
+			t_857 = b[0],
+			t_858 = t_857 == 3,
+			t_859 = t_856 and t_858;
+
+		guardCondition t_859;
+		effect
+			master_2.state = 8,
+			b[0] = change_to;
+
+	process master_2 
+		guardBlock
+			t_860 = master_2.state == 7,
+			t_861 = b[0],
+			t_862 = t_861 == 3,
+			t_863 = t_860 and t_862;
+
+		guardCondition t_863;
+		effect
+			master_2.state = 8,
+			b[0] = change_to;
+
+	process master_2 
+		guardBlock
+			t_864 = master_2.state == 7,
+			t_865 = b[0],
+			t_866 = t_865 == 3,
+			t_867 = t_864 and t_866;
+
+		guardCondition t_867;
+		effect
+			master_2.state = 8,
+			b[0] = change_to;
+
+	process master_2 
+		guardBlock
+			t_868 = master_2.state == 8;
+
+		guardCondition t_868;
+		effect
+			master_2.state = 0,
+			sem = 1;
+
+	process master_3 
+		guardBlock
+			t_869 = master_3.state == 0,
+			t_870 = sem == 1,
+			t_871 = t_869 and t_870;
+
+		guardCondition t_871;
+		effect
+			master_3.state = 1,
+			sem = 0;
+
+	process master_3 
+		guardBlock
+			t_872 = master_3.state == 1,
+			t_873 = b[0],
+			t_874 = t_873 == 3,
+			t_875 = t_872 and t_874;
+
+		guardCondition t_875;
+		effect
+			master_3.state = 3;
+
+	process master_3 
+		guardBlock
+			t_876 = master_3.state == 1,
+			t_877 = b[1],
+			t_878 = t_877 == 3,
+			t_879 = t_876 and t_878;
+
+		guardCondition t_879;
+		effect
+			master_3.state = 3;
+
+	process master_3 
+		guardBlock
+			t_880 = master_3.state == 1,
+			t_881 = b[2],
+			t_882 = t_881 == 3,
+			t_883 = t_880 and t_882;
+
+		guardCondition t_883;
+		effect
+			master_3.state = 3;
+
+	process master_3 
+		guardBlock
+			t_884 = master_3.state == 1,
+			t_885 = b[3],
+			t_886 = t_885 == 3,
+			t_887 = t_884 and t_886;
+
+		guardCondition t_887;
+		effect
+			master_3.state = 3;
+
+	process master_3 
+		guardBlock
+			t_888 = master_3.state == 1,
+			t_889 = b[0],
+			t_890 = t_889 != 3,
+			t_891 = b[1],
+			t_892 = t_891 != 3,
+			t_893 = t_890 and t_892,
+			t_894 = b[2],
+			t_895 = t_894 != 3,
+			t_896 = t_893 and t_895,
+			t_897 = b[3],
+			t_898 = t_897 != 3,
+			t_899 = t_896 and t_898,
+			t_900 = t_888 and t_899;
+
+		guardCondition t_900;
+		effect
+			master_3.state = 2;
+
+	process master_3 
+		guardBlock
+			t_901 = master_3.state == 2,
+			t_902 = b[0],
+			t_903 = t_902 == 1,
+			t_904 = t_901 and t_903;
+
+		guardCondition t_904;
+		effect
+			master_3.state = 3,
+			b[0] = 3;
+
+	process master_3 
+		guardBlock
+			t_905 = master_3.state == 2,
+			t_906 = b[1],
+			t_907 = t_906 == 1,
+			t_908 = t_905 and t_907;
+
+		guardCondition t_908;
+		effect
+			master_3.state = 3,
+			b[1] = 3;
+
+	process master_3 
+		guardBlock
+			t_909 = master_3.state == 2,
+			t_910 = b[2],
+			t_911 = t_910 == 1,
+			t_912 = t_909 and t_911;
+
+		guardCondition t_912;
+		effect
+			master_3.state = 3,
+			b[2] = 3;
+
+	process master_3 
+		guardBlock
+			t_913 = master_3.state == 2,
+			t_914 = b[3],
+			t_915 = t_914 == 1,
+			t_916 = t_913 and t_915;
+
+		guardCondition t_916;
+		effect
+			master_3.state = 3,
+			b[3] = 3;
+
+	process master_3 
+		guardBlock
+			t_917 = master_3.state == 2,
+			t_918 = b[0],
+			t_919 = t_918 != 1,
+			t_920 = b[1],
+			t_921 = t_920 != 1,
+			t_922 = t_919 and t_921,
+			t_923 = b[2],
+			t_924 = t_923 != 1,
+			t_925 = t_922 and t_924,
+			t_926 = b[3],
+			t_927 = t_926 != 1,
+			t_928 = t_925 and t_927,
+			t_929 = t_917 and t_928;
+
+		guardCondition t_929;
+		effect
+			master_3.state = 0,
+			sem = 1;
+
+	process master_3 
+		guardBlock
+			t_930 = master_3.state == 3;
+
+		guardCondition t_930;
+		effect
+			master_3.state = 4,
+			t_931 = readers + 1,
+			readers = t_931,
+			sem = 1;
+
+	process master_3 
+		guardBlock
+			t_932 = master_3.state == 4,
+			t_933 = sem == 1,
+			t_934 = t_932 and t_933;
+
+		guardCondition t_934;
+		effect
+			master_3.state = 5,
+			sem = 0,
+			t_935 = readers - 1,
+			readers = t_935;
+
+	process master_3 
+		guardBlock
+			t_936 = master_3.state == 5,
+			t_937 = readers == 0,
+			t_938 = t_936 and t_937;
+
+		guardCondition t_938;
+		effect
+			master_3.state = 6;
+
+	process master_3 
+		guardBlock
+			t_939 = master_3.state == 5,
+			t_940 = readers > 0,
+			t_941 = t_939 and t_940;
+
+		guardCondition t_941;
+		effect
+			master_3.state = 8;
+
+	process master_3 
+		guardBlock
+			t_942 = master_3.state == 6,
+			t_943 = b[0],
+			t_944 = t_943 == 1,
+			t_945 = b[0],
+			t_946 = t_945 == 1,
+			t_947 = t_944 or t_946,
+			t_948 = b[0],
+			t_949 = t_948 == 1,
+			t_950 = t_947 or t_949,
+			t_951 = b[0],
+			t_952 = t_951 == 1,
+			t_953 = t_950 or t_952,
+			t_954 = t_942 and t_953;
+
+		guardCondition t_954;
+		effect
+			master_3.state = 7,
+			change_to = 0;
+
+	process master_3 
+		guardBlock
+			t_955 = master_3.state == 6,
+			t_956 = b[0],
+			t_957 = t_956 != 1,
+			t_958 = b[0],
+			t_959 = t_958 != 1,
+			t_960 = t_957 and t_959,
+			t_961 = b[0],
+			t_962 = t_961 != 1,
+			t_963 = t_960 and t_962,
+			t_964 = b[0],
+			t_965 = t_964 != 1,
+			t_966 = t_963 and t_965,
+			t_967 = t_955 and t_966;
+
+		guardCondition t_967;
+		effect
+			master_3.state = 7,
+			change_to = 1;
+
+	process master_3 
+		guardBlock
+			t_968 = master_3.state == 7,
+			t_969 = b[0],
+			t_970 = t_969 == 3,
+			t_971 = t_968 and t_970;
+
+		guardCondition t_971;
+		effect
+			master_3.state = 8,
+			b[0] = change_to;
+
+	process master_3 
+		guardBlock
+			t_972 = master_3.state == 7,
+			t_973 = b[0],
+			t_974 = t_973 == 3,
+			t_975 = t_972 and t_974;
+
+		guardCondition t_975;
+		effect
+			master_3.state = 8,
+			b[0] = change_to;
+
+	process master_3 
+		guardBlock
+			t_976 = master_3.state == 7,
+			t_977 = b[0],
+			t_978 = t_977 == 3,
+			t_979 = t_976 and t_978;
+
+		guardCondition t_979;
+		effect
+			master_3.state = 8,
+			b[0] = change_to;
+
+	process master_3 
+		guardBlock
+			t_980 = master_3.state == 7,
+			t_981 = b[0],
+			t_982 = t_981 == 3,
+			t_983 = t_980 and t_982;
+
+		guardCondition t_983;
+		effect
+			master_3.state = 8,
+			b[0] = change_to;
+
+	process master_3 
+		guardBlock
+			t_984 = master_3.state == 8;
+
+		guardCondition t_984;
+		effect
+			master_3.state = 0,
+			sem = 1;
+
+	process master_4 
+		guardBlock
+			t_985 = master_4.state == 0,
+			t_986 = sem == 1,
+			t_987 = t_985 and t_986;
+
+		guardCondition t_987;
+		effect
+			master_4.state = 1,
+			sem = 0;
+
+	process master_4 
+		guardBlock
+			t_988 = master_4.state == 1,
+			t_989 = b[0],
+			t_990 = t_989 == 3,
+			t_991 = t_988 and t_990;
+
+		guardCondition t_991;
+		effect
+			master_4.state = 3;
+
+	process master_4 
+		guardBlock
+			t_992 = master_4.state == 1,
+			t_993 = b[1],
+			t_994 = t_993 == 3,
+			t_995 = t_992 and t_994;
+
+		guardCondition t_995;
+		effect
+			master_4.state = 3;
+
+	process master_4 
+		guardBlock
+			t_996 = master_4.state == 1,
+			t_997 = b[2],
+			t_998 = t_997 == 3,
+			t_999 = t_996 and t_998;
+
+		guardCondition t_999;
+		effect
+			master_4.state = 3;
+
+	process master_4 
+		guardBlock
+			t_1000 = master_4.state == 1,
+			t_1001 = b[3],
+			t_1002 = t_1001 == 3,
+			t_1003 = t_1000 and t_1002;
+
+		guardCondition t_1003;
+		effect
+			master_4.state = 3;
+
+	process master_4 
+		guardBlock
+			t_1004 = master_4.state == 1,
+			t_1005 = b[0],
+			t_1006 = t_1005 != 3,
+			t_1007 = b[1],
+			t_1008 = t_1007 != 3,
+			t_1009 = t_1006 and t_1008,
+			t_1010 = b[2],
+			t_1011 = t_1010 != 3,
+			t_1012 = t_1009 and t_1011,
+			t_1013 = b[3],
+			t_1014 = t_1013 != 3,
+			t_1015 = t_1012 and t_1014,
+			t_1016 = t_1004 and t_1015;
+
+		guardCondition t_1016;
+		effect
+			master_4.state = 2;
+
+	process master_4 
+		guardBlock
+			t_1017 = master_4.state == 2,
+			t_1018 = b[0],
+			t_1019 = t_1018 == 1,
+			t_1020 = t_1017 and t_1019;
+
+		guardCondition t_1020;
+		effect
+			master_4.state = 3,
+			b[0] = 3;
+
+	process master_4 
+		guardBlock
+			t_1021 = master_4.state == 2,
+			t_1022 = b[1],
+			t_1023 = t_1022 == 1,
+			t_1024 = t_1021 and t_1023;
+
+		guardCondition t_1024;
+		effect
+			master_4.state = 3,
+			b[1] = 3;
+
+	process master_4 
+		guardBlock
+			t_1025 = master_4.state == 2,
+			t_1026 = b[2],
+			t_1027 = t_1026 == 1,
+			t_1028 = t_1025 and t_1027;
+
+		guardCondition t_1028;
+		effect
+			master_4.state = 3,
+			b[2] = 3;
+
+	process master_4 
+		guardBlock
+			t_1029 = master_4.state == 2,
+			t_1030 = b[3],
+			t_1031 = t_1030 == 1,
+			t_1032 = t_1029 and t_1031;
+
+		guardCondition t_1032;
+		effect
+			master_4.state = 3,
+			b[3] = 3;
+
+	process master_4 
+		guardBlock
+			t_1033 = master_4.state == 2,
+			t_1034 = b[0],
+			t_1035 = t_1034 != 1,
+			t_1036 = b[1],
+			t_1037 = t_1036 != 1,
+			t_1038 = t_1035 and t_1037,
+			t_1039 = b[2],
+			t_1040 = t_1039 != 1,
+			t_1041 = t_1038 and t_1040,
+			t_1042 = b[3],
+			t_1043 = t_1042 != 1,
+			t_1044 = t_1041 and t_1043,
+			t_1045 = t_1033 and t_1044;
+
+		guardCondition t_1045;
+		effect
+			master_4.state = 0,
+			sem = 1;
+
+	process master_4 
+		guardBlock
+			t_1046 = master_4.state == 3;
+
+		guardCondition t_1046;
+		effect
+			master_4.state = 4,
+			t_1047 = readers + 1,
+			readers = t_1047,
+			sem = 1;
+
+	process master_4 
+		guardBlock
+			t_1048 = master_4.state == 4,
+			t_1049 = sem == 1,
+			t_1050 = t_1048 and t_1049;
+
+		guardCondition t_1050;
+		effect
+			master_4.state = 5,
+			sem = 0,
+			t_1051 = readers - 1,
+			readers = t_1051;
+
+	process master_4 
+		guardBlock
+			t_1052 = master_4.state == 5,
+			t_1053 = readers == 0,
+			t_1054 = t_1052 and t_1053;
+
+		guardCondition t_1054;
+		effect
+			master_4.state = 6;
+
+	process master_4 
+		guardBlock
+			t_1055 = master_4.state == 5,
+			t_1056 = readers > 0,
+			t_1057 = t_1055 and t_1056;
+
+		guardCondition t_1057;
+		effect
+			master_4.state = 8;
+
+	process master_4 
+		guardBlock
+			t_1058 = master_4.state == 6,
+			t_1059 = b[0],
+			t_1060 = t_1059 == 1,
+			t_1061 = b[0],
+			t_1062 = t_1061 == 1,
+			t_1063 = t_1060 or t_1062,
+			t_1064 = b[0],
+			t_1065 = t_1064 == 1,
+			t_1066 = t_1063 or t_1065,
+			t_1067 = b[0],
+			t_1068 = t_1067 == 1,
+			t_1069 = t_1066 or t_1068,
+			t_1070 = t_1058 and t_1069;
+
+		guardCondition t_1070;
+		effect
+			master_4.state = 7,
+			change_to = 0;
+
+	process master_4 
+		guardBlock
+			t_1071 = master_4.state == 6,
+			t_1072 = b[0],
+			t_1073 = t_1072 != 1,
+			t_1074 = b[0],
+			t_1075 = t_1074 != 1,
+			t_1076 = t_1073 and t_1075,
+			t_1077 = b[0],
+			t_1078 = t_1077 != 1,
+			t_1079 = t_1076 and t_1078,
+			t_1080 = b[0],
+			t_1081 = t_1080 != 1,
+			t_1082 = t_1079 and t_1081,
+			t_1083 = t_1071 and t_1082;
+
+		guardCondition t_1083;
+		effect
+			master_4.state = 7,
+			change_to = 1;
+
+	process master_4 
+		guardBlock
+			t_1084 = master_4.state == 7,
+			t_1085 = b[0],
+			t_1086 = t_1085 == 3,
+			t_1087 = t_1084 and t_1086;
+
+		guardCondition t_1087;
+		effect
+			master_4.state = 8,
+			b[0] = change_to;
+
+	process master_4 
+		guardBlock
+			t_1088 = master_4.state == 7,
+			t_1089 = b[0],
+			t_1090 = t_1089 == 3,
+			t_1091 = t_1088 and t_1090;
+
+		guardCondition t_1091;
+		effect
+			master_4.state = 8,
+			b[0] = change_to;
+
+	process master_4 
+		guardBlock
+			t_1092 = master_4.state == 7,
+			t_1093 = b[0],
+			t_1094 = t_1093 == 3,
+			t_1095 = t_1092 and t_1094;
+
+		guardCondition t_1095;
+		effect
+			master_4.state = 8,
+			b[0] = change_to;
+
+	process master_4 
+		guardBlock
+			t_1096 = master_4.state == 7,
+			t_1097 = b[0],
+			t_1098 = t_1097 == 3,
+			t_1099 = t_1096 and t_1098;
+
+		guardCondition t_1099;
+		effect
+			master_4.state = 8,
+			b[0] = change_to;
+
+	process master_4 
+		guardBlock
+			t_1100 = master_4.state == 8;
+
+		guardCondition t_1100;
+		effect
+			master_4.state = 0,
+			sem = 1;
+
+	process master_5 
+		guardBlock
+			t_1101 = master_5.state == 0,
+			t_1102 = sem == 1,
+			t_1103 = t_1101 and t_1102;
+
+		guardCondition t_1103;
+		effect
+			master_5.state = 1,
+			sem = 0;
+
+	process master_5 
+		guardBlock
+			t_1104 = master_5.state == 1,
+			t_1105 = b[0],
+			t_1106 = t_1105 == 3,
+			t_1107 = t_1104 and t_1106;
+
+		guardCondition t_1107;
+		effect
+			master_5.state = 3;
+
+	process master_5 
+		guardBlock
+			t_1108 = master_5.state == 1,
+			t_1109 = b[1],
+			t_1110 = t_1109 == 3,
+			t_1111 = t_1108 and t_1110;
+
+		guardCondition t_1111;
+		effect
+			master_5.state = 3;
+
+	process master_5 
+		guardBlock
+			t_1112 = master_5.state == 1,
+			t_1113 = b[2],
+			t_1114 = t_1113 == 3,
+			t_1115 = t_1112 and t_1114;
+
+		guardCondition t_1115;
+		effect
+			master_5.state = 3;
+
+	process master_5 
+		guardBlock
+			t_1116 = master_5.state == 1,
+			t_1117 = b[3],
+			t_1118 = t_1117 == 3,
+			t_1119 = t_1116 and t_1118;
+
+		guardCondition t_1119;
+		effect
+			master_5.state = 3;
+
+	process master_5 
+		guardBlock
+			t_1120 = master_5.state == 1,
+			t_1121 = b[0],
+			t_1122 = t_1121 != 3,
+			t_1123 = b[1],
+			t_1124 = t_1123 != 3,
+			t_1125 = t_1122 and t_1124,
+			t_1126 = b[2],
+			t_1127 = t_1126 != 3,
+			t_1128 = t_1125 and t_1127,
+			t_1129 = b[3],
+			t_1130 = t_1129 != 3,
+			t_1131 = t_1128 and t_1130,
+			t_1132 = t_1120 and t_1131;
+
+		guardCondition t_1132;
+		effect
+			master_5.state = 2;
+
+	process master_5 
+		guardBlock
+			t_1133 = master_5.state == 2,
+			t_1134 = b[0],
+			t_1135 = t_1134 == 1,
+			t_1136 = t_1133 and t_1135;
+
+		guardCondition t_1136;
+		effect
+			master_5.state = 3,
+			b[0] = 3;
+
+	process master_5 
+		guardBlock
+			t_1137 = master_5.state == 2,
+			t_1138 = b[1],
+			t_1139 = t_1138 == 1,
+			t_1140 = t_1137 and t_1139;
+
+		guardCondition t_1140;
+		effect
+			master_5.state = 3,
+			b[1] = 3;
+
+	process master_5 
+		guardBlock
+			t_1141 = master_5.state == 2,
+			t_1142 = b[2],
+			t_1143 = t_1142 == 1,
+			t_1144 = t_1141 and t_1143;
+
+		guardCondition t_1144;
+		effect
+			master_5.state = 3,
+			b[2] = 3;
+
+	process master_5 
+		guardBlock
+			t_1145 = master_5.state == 2,
+			t_1146 = b[3],
+			t_1147 = t_1146 == 1,
+			t_1148 = t_1145 and t_1147;
+
+		guardCondition t_1148;
+		effect
+			master_5.state = 3,
+			b[3] = 3;
+
+	process master_5 
+		guardBlock
+			t_1149 = master_5.state == 2,
+			t_1150 = b[0],
+			t_1151 = t_1150 != 1,
+			t_1152 = b[1],
+			t_1153 = t_1152 != 1,
+			t_1154 = t_1151 and t_1153,
+			t_1155 = b[2],
+			t_1156 = t_1155 != 1,
+			t_1157 = t_1154 and t_1156,
+			t_1158 = b[3],
+			t_1159 = t_1158 != 1,
+			t_1160 = t_1157 and t_1159,
+			t_1161 = t_1149 and t_1160;
+
+		guardCondition t_1161;
+		effect
+			master_5.state = 0,
+			sem = 1;
+
+	process master_5 
+		guardBlock
+			t_1162 = master_5.state == 3;
+
+		guardCondition t_1162;
+		effect
+			master_5.state = 4,
+			t_1163 = readers + 1,
+			readers = t_1163,
+			sem = 1;
+
+	process master_5 
+		guardBlock
+			t_1164 = master_5.state == 4,
+			t_1165 = sem == 1,
+			t_1166 = t_1164 and t_1165;
+
+		guardCondition t_1166;
+		effect
+			master_5.state = 5,
+			sem = 0,
+			t_1167 = readers - 1,
+			readers = t_1167;
+
+	process master_5 
+		guardBlock
+			t_1168 = master_5.state == 5,
+			t_1169 = readers == 0,
+			t_1170 = t_1168 and t_1169;
+
+		guardCondition t_1170;
+		effect
+			master_5.state = 6;
+
+	process master_5 
+		guardBlock
+			t_1171 = master_5.state == 5,
+			t_1172 = readers > 0,
+			t_1173 = t_1171 and t_1172;
+
+		guardCondition t_1173;
+		effect
+			master_5.state = 8;
+
+	process master_5 
+		guardBlock
+			t_1174 = master_5.state == 6,
+			t_1175 = b[0],
+			t_1176 = t_1175 == 1,
+			t_1177 = b[0],
+			t_1178 = t_1177 == 1,
+			t_1179 = t_1176 or t_1178,
+			t_1180 = b[0],
+			t_1181 = t_1180 == 1,
+			t_1182 = t_1179 or t_1181,
+			t_1183 = b[0],
+			t_1184 = t_1183 == 1,
+			t_1185 = t_1182 or t_1184,
+			t_1186 = t_1174 and t_1185;
+
+		guardCondition t_1186;
+		effect
+			master_5.state = 7,
+			change_to = 0;
+
+	process master_5 
+		guardBlock
+			t_1187 = master_5.state == 6,
+			t_1188 = b[0],
+			t_1189 = t_1188 != 1,
+			t_1190 = b[0],
+			t_1191 = t_1190 != 1,
+			t_1192 = t_1189 and t_1191,
+			t_1193 = b[0],
+			t_1194 = t_1193 != 1,
+			t_1195 = t_1192 and t_1194,
+			t_1196 = b[0],
+			t_1197 = t_1196 != 1,
+			t_1198 = t_1195 and t_1197,
+			t_1199 = t_1187 and t_1198;
+
+		guardCondition t_1199;
+		effect
+			master_5.state = 7,
+			change_to = 1;
+
+	process master_5 
+		guardBlock
+			t_1200 = master_5.state == 7,
+			t_1201 = b[0],
+			t_1202 = t_1201 == 3,
+			t_1203 = t_1200 and t_1202;
+
+		guardCondition t_1203;
+		effect
+			master_5.state = 8,
+			b[0] = change_to;
+
+	process master_5 
+		guardBlock
+			t_1204 = master_5.state == 7,
+			t_1205 = b[0],
+			t_1206 = t_1205 == 3,
+			t_1207 = t_1204 and t_1206;
+
+		guardCondition t_1207;
+		effect
+			master_5.state = 8,
+			b[0] = change_to;
+
+	process master_5 
+		guardBlock
+			t_1208 = master_5.state == 7,
+			t_1209 = b[0],
+			t_1210 = t_1209 == 3,
+			t_1211 = t_1208 and t_1210;
+
+		guardCondition t_1211;
+		effect
+			master_5.state = 8,
+			b[0] = change_to;
+
+	process master_5 
+		guardBlock
+			t_1212 = master_5.state == 7,
+			t_1213 = b[0],
+			t_1214 = t_1213 == 3,
+			t_1215 = t_1212 and t_1214;
+
+		guardCondition t_1215;
+		effect
+			master_5.state = 8,
+			b[0] = change_to;
+
+	process master_5 
+		guardBlock
+			t_1216 = master_5.state == 8;
+
+		guardCondition t_1216;
+		effect
+			master_5.state = 0,
+			sem = 1;
+
+	process master_6 
+		guardBlock
+			t_1217 = master_6.state == 0,
+			t_1218 = sem == 1,
+			t_1219 = t_1217 and t_1218;
+
+		guardCondition t_1219;
+		effect
+			master_6.state = 1,
+			sem = 0;
+
+	process master_6 
+		guardBlock
+			t_1220 = master_6.state == 1,
+			t_1221 = b[0],
+			t_1222 = t_1221 == 3,
+			t_1223 = t_1220 and t_1222;
+
+		guardCondition t_1223;
+		effect
+			master_6.state = 3;
+
+	process master_6 
+		guardBlock
+			t_1224 = master_6.state == 1,
+			t_1225 = b[1],
+			t_1226 = t_1225 == 3,
+			t_1227 = t_1224 and t_1226;
+
+		guardCondition t_1227;
+		effect
+			master_6.state = 3;
+
+	process master_6 
+		guardBlock
+			t_1228 = master_6.state == 1,
+			t_1229 = b[2],
+			t_1230 = t_1229 == 3,
+			t_1231 = t_1228 and t_1230;
+
+		guardCondition t_1231;
+		effect
+			master_6.state = 3;
+
+	process master_6 
+		guardBlock
+			t_1232 = master_6.state == 1,
+			t_1233 = b[3],
+			t_1234 = t_1233 == 3,
+			t_1235 = t_1232 and t_1234;
+
+		guardCondition t_1235;
+		effect
+			master_6.state = 3;
+
+	process master_6 
+		guardBlock
+			t_1236 = master_6.state == 1,
+			t_1237 = b[0],
+			t_1238 = t_1237 != 3,
+			t_1239 = b[1],
+			t_1240 = t_1239 != 3,
+			t_1241 = t_1238 and t_1240,
+			t_1242 = b[2],
+			t_1243 = t_1242 != 3,
+			t_1244 = t_1241 and t_1243,
+			t_1245 = b[3],
+			t_1246 = t_1245 != 3,
+			t_1247 = t_1244 and t_1246,
+			t_1248 = t_1236 and t_1247;
+
+		guardCondition t_1248;
+		effect
+			master_6.state = 2;
+
+	process master_6 
+		guardBlock
+			t_1249 = master_6.state == 2,
+			t_1250 = b[0],
+			t_1251 = t_1250 == 1,
+			t_1252 = t_1249 and t_1251;
+
+		guardCondition t_1252;
+		effect
+			master_6.state = 3,
+			b[0] = 3;
+
+	process master_6 
+		guardBlock
+			t_1253 = master_6.state == 2,
+			t_1254 = b[1],
+			t_1255 = t_1254 == 1,
+			t_1256 = t_1253 and t_1255;
+
+		guardCondition t_1256;
+		effect
+			master_6.state = 3,
+			b[1] = 3;
+
+	process master_6 
+		guardBlock
+			t_1257 = master_6.state == 2,
+			t_1258 = b[2],
+			t_1259 = t_1258 == 1,
+			t_1260 = t_1257 and t_1259;
+
+		guardCondition t_1260;
+		effect
+			master_6.state = 3,
+			b[2] = 3;
+
+	process master_6 
+		guardBlock
+			t_1261 = master_6.state == 2,
+			t_1262 = b[3],
+			t_1263 = t_1262 == 1,
+			t_1264 = t_1261 and t_1263;
+
+		guardCondition t_1264;
+		effect
+			master_6.state = 3,
+			b[3] = 3;
+
+	process master_6 
+		guardBlock
+			t_1265 = master_6.state == 2,
+			t_1266 = b[0],
+			t_1267 = t_1266 != 1,
+			t_1268 = b[1],
+			t_1269 = t_1268 != 1,
+			t_1270 = t_1267 and t_1269,
+			t_1271 = b[2],
+			t_1272 = t_1271 != 1,
+			t_1273 = t_1270 and t_1272,
+			t_1274 = b[3],
+			t_1275 = t_1274 != 1,
+			t_1276 = t_1273 and t_1275,
+			t_1277 = t_1265 and t_1276;
+
+		guardCondition t_1277;
+		effect
+			master_6.state = 0,
+			sem = 1;
+
+	process master_6 
+		guardBlock
+			t_1278 = master_6.state == 3;
+
+		guardCondition t_1278;
+		effect
+			master_6.state = 4,
+			t_1279 = readers + 1,
+			readers = t_1279,
+			sem = 1;
+
+	process master_6 
+		guardBlock
+			t_1280 = master_6.state == 4,
+			t_1281 = sem == 1,
+			t_1282 = t_1280 and t_1281;
+
+		guardCondition t_1282;
+		effect
+			master_6.state = 5,
+			sem = 0,
+			t_1283 = readers - 1,
+			readers = t_1283;
+
+	process master_6 
+		guardBlock
+			t_1284 = master_6.state == 5,
+			t_1285 = readers == 0,
+			t_1286 = t_1284 and t_1285;
+
+		guardCondition t_1286;
+		effect
+			master_6.state = 6;
+
+	process master_6 
+		guardBlock
+			t_1287 = master_6.state == 5,
+			t_1288 = readers > 0,
+			t_1289 = t_1287 and t_1288;
+
+		guardCondition t_1289;
+		effect
+			master_6.state = 8;
+
+	process master_6 
+		guardBlock
+			t_1290 = master_6.state == 6,
+			t_1291 = b[0],
+			t_1292 = t_1291 == 1,
+			t_1293 = b[0],
+			t_1294 = t_1293 == 1,
+			t_1295 = t_1292 or t_1294,
+			t_1296 = b[0],
+			t_1297 = t_1296 == 1,
+			t_1298 = t_1295 or t_1297,
+			t_1299 = b[0],
+			t_1300 = t_1299 == 1,
+			t_1301 = t_1298 or t_1300,
+			t_1302 = t_1290 and t_1301;
+
+		guardCondition t_1302;
+		effect
+			master_6.state = 7,
+			change_to = 0;
+
+	process master_6 
+		guardBlock
+			t_1303 = master_6.state == 6,
+			t_1304 = b[0],
+			t_1305 = t_1304 != 1,
+			t_1306 = b[0],
+			t_1307 = t_1306 != 1,
+			t_1308 = t_1305 and t_1307,
+			t_1309 = b[0],
+			t_1310 = t_1309 != 1,
+			t_1311 = t_1308 and t_1310,
+			t_1312 = b[0],
+			t_1313 = t_1312 != 1,
+			t_1314 = t_1311 and t_1313,
+			t_1315 = t_1303 and t_1314;
+
+		guardCondition t_1315;
+		effect
+			master_6.state = 7,
+			change_to = 1;
+
+	process master_6 
+		guardBlock
+			t_1316 = master_6.state == 7,
+			t_1317 = b[0],
+			t_1318 = t_1317 == 3,
+			t_1319 = t_1316 and t_1318;
+
+		guardCondition t_1319;
+		effect
+			master_6.state = 8,
+			b[0] = change_to;
+
+	process master_6 
+		guardBlock
+			t_1320 = master_6.state == 7,
+			t_1321 = b[0],
+			t_1322 = t_1321 == 3,
+			t_1323 = t_1320 and t_1322;
+
+		guardCondition t_1323;
+		effect
+			master_6.state = 8,
+			b[0] = change_to;
+
+	process master_6 
+		guardBlock
+			t_1324 = master_6.state == 7,
+			t_1325 = b[0],
+			t_1326 = t_1325 == 3,
+			t_1327 = t_1324 and t_1326;
+
+		guardCondition t_1327;
+		effect
+			master_6.state = 8,
+			b[0] = change_to;
+
+	process master_6 
+		guardBlock
+			t_1328 = master_6.state == 7,
+			t_1329 = b[0],
+			t_1330 = t_1329 == 3,
+			t_1331 = t_1328 and t_1330;
+
+		guardCondition t_1331;
+		effect
+			master_6.state = 8,
+			b[0] = change_to;
+
+	process master_6 
+		guardBlock
+			t_1332 = master_6.state == 8;
+
+		guardCondition t_1332;
+		effect
+			master_6.state = 0,
+			sem = 1;
+
+
+system async;

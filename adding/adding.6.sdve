@@ -1,0 +1,79 @@
+int c = 1;
+int x1 = 0;
+int x2 = 0;
+state {Q(0), R(1), S(2)} a1.state = 0;
+state {Q(0), R(1), S(2)} a2.state = 0;
+transient bool t_0 = false;
+transient bool t_1 = false;
+transient bool t_2 = false;
+transient bool t_3 = false;
+transient int t_4 = 0;
+transient bool t_5 = false;
+transient bool t_6 = false;
+transient bool t_7 = false;
+transient bool t_8 = false;
+transient bool t_9 = false;
+transient int t_10 = 0;
+transient bool t_11 = false;
+	process a1 
+		guardBlock
+			t_0 = a1.state == 0,
+			t_1 = c < 600,
+			t_2 = t_0 and t_1;
+
+		guardCondition t_2;
+		effect
+			a1.state = 1,
+			x1 = c;
+
+	process a1 
+		guardBlock
+			t_3 = a1.state == 1;
+
+		guardCondition t_3;
+		effect
+			a1.state = 2,
+			t_4 = x1 + c,
+			x1 = t_4;
+
+	process a1 
+		guardBlock
+			t_5 = a1.state == 2;
+
+		guardCondition t_5;
+		effect
+			a1.state = 0,
+			c = x1;
+
+	process a2 
+		guardBlock
+			t_6 = a2.state == 0,
+			t_7 = c < 600,
+			t_8 = t_6 and t_7;
+
+		guardCondition t_8;
+		effect
+			a2.state = 1,
+			x2 = c;
+
+	process a2 
+		guardBlock
+			t_9 = a2.state == 1;
+
+		guardCondition t_9;
+		effect
+			a2.state = 2,
+			t_10 = x2 + c,
+			x2 = t_10;
+
+	process a2 
+		guardBlock
+			t_11 = a2.state == 2;
+
+		guardCondition t_11;
+		effect
+			a2.state = 0,
+			c = x2;
+
+
+system async;

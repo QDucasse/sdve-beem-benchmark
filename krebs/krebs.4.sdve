@@ -1,0 +1,509 @@
+byte glukosa = 15;
+byte ATP = 4;
+byte ADP = 4;
+byte NADp = 12;
+byte NADH = 2;
+byte puryvat = 0;
+byte acetyl_co_a = 0;
+byte O2 = 15;
+byte CO2 = 0;
+byte Hp = 10;
+byte H20 = 10;
+byte energy = 0;
+state {q(0)} glykoza.state = 0;
+state {q(0)} puryvat_oxyd.state = 0;
+state {oxalacetrat(0), citrat(1), isocitrat(2), oxoglutarat2(3), sukcynyl_coa(4), sukcynyl(5), fumarat(6), malat(7)} krebs_0.state = 0;
+state {oxalacetrat(0), citrat(1), isocitrat(2), oxoglutarat2(3), sukcynyl_coa(4), sukcynyl(5), fumarat(6), malat(7)} krebs_1.state = 0;
+state {oxalacetrat(0), citrat(1), isocitrat(2), oxoglutarat2(3), sukcynyl_coa(4), sukcynyl(5), fumarat(6), malat(7)} krebs_2.state = 0;
+state {q(0)} glykolyza.state = 0;
+state {q(0)} ETS.state = 0;
+state {q(0)} rest_of_cell.state = 0;
+transient bool t_0 = false;
+transient bool t_1 = false;
+transient bool t_2 = false;
+transient bool t_3 = false;
+transient bool t_4 = false;
+transient bool t_5 = false;
+transient bool t_6 = false;
+transient bool t_7 = false;
+transient bool t_8 = false;
+transient int t_9 = 0;
+transient int t_10 = 0;
+transient int t_11 = 0;
+transient int t_12 = 0;
+transient int t_13 = 0;
+transient int t_14 = 0;
+transient int t_15 = 0;
+transient int t_16 = 0;
+transient bool t_17 = false;
+transient bool t_18 = false;
+transient bool t_19 = false;
+transient bool t_20 = false;
+transient bool t_21 = false;
+transient int t_22 = 0;
+transient int t_23 = 0;
+transient int t_24 = 0;
+transient int t_25 = 0;
+transient int t_26 = 0;
+transient bool t_27 = false;
+transient bool t_28 = false;
+transient bool t_29 = false;
+transient bool t_30 = false;
+transient bool t_31 = false;
+transient int t_32 = 0;
+transient int t_33 = 0;
+transient bool t_34 = false;
+transient bool t_35 = false;
+transient bool t_36 = false;
+transient bool t_37 = false;
+transient int t_38 = 0;
+transient int t_39 = 0;
+transient int t_40 = 0;
+transient int t_41 = 0;
+transient bool t_42 = false;
+transient bool t_43 = false;
+transient bool t_44 = false;
+transient int t_45 = 0;
+transient int t_46 = 0;
+transient bool t_47 = false;
+transient bool t_48 = false;
+transient bool t_49 = false;
+transient int t_50 = 0;
+transient bool t_51 = false;
+transient bool t_52 = false;
+transient bool t_53 = false;
+transient int t_54 = 0;
+transient int t_55 = 0;
+transient bool t_56 = false;
+transient bool t_57 = false;
+transient bool t_58 = false;
+transient bool t_59 = false;
+transient bool t_60 = false;
+transient int t_61 = 0;
+transient int t_62 = 0;
+transient bool t_63 = false;
+transient bool t_64 = false;
+transient bool t_65 = false;
+transient bool t_66 = false;
+transient int t_67 = 0;
+transient int t_68 = 0;
+transient int t_69 = 0;
+transient int t_70 = 0;
+transient bool t_71 = false;
+transient bool t_72 = false;
+transient bool t_73 = false;
+transient int t_74 = 0;
+transient int t_75 = 0;
+transient bool t_76 = false;
+transient bool t_77 = false;
+transient bool t_78 = false;
+transient int t_79 = 0;
+transient bool t_80 = false;
+transient bool t_81 = false;
+transient bool t_82 = false;
+transient int t_83 = 0;
+transient int t_84 = 0;
+transient bool t_85 = false;
+transient bool t_86 = false;
+transient bool t_87 = false;
+transient bool t_88 = false;
+transient bool t_89 = false;
+transient int t_90 = 0;
+transient int t_91 = 0;
+transient bool t_92 = false;
+transient bool t_93 = false;
+transient bool t_94 = false;
+transient bool t_95 = false;
+transient int t_96 = 0;
+transient int t_97 = 0;
+transient int t_98 = 0;
+transient int t_99 = 0;
+transient bool t_100 = false;
+transient bool t_101 = false;
+transient bool t_102 = false;
+transient int t_103 = 0;
+transient int t_104 = 0;
+transient bool t_105 = false;
+transient bool t_106 = false;
+transient bool t_107 = false;
+transient int t_108 = 0;
+transient bool t_109 = false;
+transient bool t_110 = false;
+transient bool t_111 = false;
+transient int t_112 = 0;
+transient int t_113 = 0;
+transient bool t_114 = false;
+transient bool t_115 = false;
+transient bool t_116 = false;
+transient int t_117 = 0;
+transient int t_118 = 0;
+transient int t_119 = 0;
+transient bool t_120 = false;
+transient bool t_121 = false;
+transient bool t_122 = false;
+transient bool t_123 = false;
+transient bool t_124 = false;
+transient bool t_125 = false;
+transient bool t_126 = false;
+transient bool t_127 = false;
+transient bool t_128 = false;
+transient bool t_129 = false;
+transient bool t_130 = false;
+transient int t_131 = 0;
+transient int t_132 = 0;
+transient int t_133 = 0;
+transient int t_134 = 0;
+transient int t_135 = 0;
+transient int t_136 = 0;
+transient int t_137 = 0;
+	process glykoza 
+		guardBlock
+			t_0 = glykoza.state == 0,
+			t_1 = glukosa >= 1,
+			t_2 = ATP >= 2,
+			t_3 = t_1 and t_2,
+			t_4 = ADP >= 2,
+			t_5 = t_3 and t_4,
+			t_6 = NADp >= 2,
+			t_7 = t_5 and t_6,
+			t_8 = t_0 and t_7;
+
+		guardCondition t_8;
+		effect
+			glykoza.state = 0,
+			t_9 = glukosa - 1,
+			glukosa = t_9,
+			t_10 = ADP - 2,
+			ADP = t_10,
+			t_11 = ATP + 2,
+			ATP = t_11,
+			t_12 = NADp - 2,
+			NADp = t_12,
+			t_13 = NADH + 2,
+			NADH = t_13,
+			t_14 = puryvat + 2,
+			puryvat = t_14,
+			t_15 = Hp + 2,
+			Hp = t_15,
+			t_16 = H20 + 2,
+			H20 = t_16;
+
+	process puryvat_oxyd 
+		guardBlock
+			t_17 = puryvat_oxyd.state == 0,
+			t_18 = puryvat >= 1,
+			t_19 = NADp >= 1,
+			t_20 = t_18 and t_19,
+			t_21 = t_17 and t_20;
+
+		guardCondition t_21;
+		effect
+			puryvat_oxyd.state = 0,
+			t_22 = puryvat - 1,
+			puryvat = t_22,
+			t_23 = NADp - 1,
+			NADp = t_23,
+			t_24 = acetyl_co_a + 1,
+			acetyl_co_a = t_24,
+			t_25 = NADH + 1,
+			NADH = t_25,
+			t_26 = CO2 + 1,
+			CO2 = t_26;
+
+	process krebs_0 
+		guardBlock
+			t_27 = krebs_0.state == 0,
+			t_28 = acetyl_co_a >= 1,
+			t_29 = H20 >= 1,
+			t_30 = t_28 and t_29,
+			t_31 = t_27 and t_30;
+
+		guardCondition t_31;
+		effect
+			krebs_0.state = 1,
+			t_32 = acetyl_co_a - 1,
+			acetyl_co_a = t_32,
+			t_33 = H20 - 1,
+			H20 = t_33;
+
+	process krebs_0 
+		guardBlock
+			t_34 = krebs_0.state == 1;
+
+		guardCondition t_34;
+		effect
+			krebs_0.state = 2;
+
+	process krebs_0 
+		guardBlock
+			t_35 = krebs_0.state == 2,
+			t_36 = NADp >= 1,
+			t_37 = t_35 and t_36;
+
+		guardCondition t_37;
+		effect
+			krebs_0.state = 3,
+			t_38 = NADp - 1,
+			NADp = t_38,
+			t_39 = NADH + 1,
+			NADH = t_39,
+			t_40 = Hp + 1,
+			Hp = t_40,
+			t_41 = CO2 + 1,
+			CO2 = t_41;
+
+	process krebs_0 
+		guardBlock
+			t_42 = krebs_0.state == 3,
+			t_43 = NADp >= 1,
+			t_44 = t_42 and t_43;
+
+		guardCondition t_44;
+		effect
+			krebs_0.state = 6,
+			t_45 = NADH + 1,
+			NADH = t_45,
+			t_46 = CO2 + 1,
+			CO2 = t_46;
+
+	process krebs_0 
+		guardBlock
+			t_47 = krebs_0.state == 6,
+			t_48 = H20 >= 1,
+			t_49 = t_47 and t_48;
+
+		guardCondition t_49;
+		effect
+			krebs_0.state = 7,
+			t_50 = H20 - 1,
+			H20 = t_50;
+
+	process krebs_0 
+		guardBlock
+			t_51 = krebs_0.state == 7,
+			t_52 = NADp >= 1,
+			t_53 = t_51 and t_52;
+
+		guardCondition t_53;
+		effect
+			krebs_0.state = 0,
+			t_54 = NADp - 1,
+			NADp = t_54,
+			t_55 = NADH + 1,
+			NADH = t_55;
+
+	process krebs_1 
+		guardBlock
+			t_56 = krebs_1.state == 0,
+			t_57 = acetyl_co_a >= 1,
+			t_58 = H20 >= 1,
+			t_59 = t_57 and t_58,
+			t_60 = t_56 and t_59;
+
+		guardCondition t_60;
+		effect
+			krebs_1.state = 1,
+			t_61 = acetyl_co_a - 1,
+			acetyl_co_a = t_61,
+			t_62 = H20 - 1,
+			H20 = t_62;
+
+	process krebs_1 
+		guardBlock
+			t_63 = krebs_1.state == 1;
+
+		guardCondition t_63;
+		effect
+			krebs_1.state = 2;
+
+	process krebs_1 
+		guardBlock
+			t_64 = krebs_1.state == 2,
+			t_65 = NADp >= 1,
+			t_66 = t_64 and t_65;
+
+		guardCondition t_66;
+		effect
+			krebs_1.state = 3,
+			t_67 = NADp - 1,
+			NADp = t_67,
+			t_68 = NADH + 1,
+			NADH = t_68,
+			t_69 = Hp + 1,
+			Hp = t_69,
+			t_70 = CO2 + 1,
+			CO2 = t_70;
+
+	process krebs_1 
+		guardBlock
+			t_71 = krebs_1.state == 3,
+			t_72 = NADp >= 1,
+			t_73 = t_71 and t_72;
+
+		guardCondition t_73;
+		effect
+			krebs_1.state = 6,
+			t_74 = NADH + 1,
+			NADH = t_74,
+			t_75 = CO2 + 1,
+			CO2 = t_75;
+
+	process krebs_1 
+		guardBlock
+			t_76 = krebs_1.state == 6,
+			t_77 = H20 >= 1,
+			t_78 = t_76 and t_77;
+
+		guardCondition t_78;
+		effect
+			krebs_1.state = 7,
+			t_79 = H20 - 1,
+			H20 = t_79;
+
+	process krebs_1 
+		guardBlock
+			t_80 = krebs_1.state == 7,
+			t_81 = NADp >= 1,
+			t_82 = t_80 and t_81;
+
+		guardCondition t_82;
+		effect
+			krebs_1.state = 0,
+			t_83 = NADp - 1,
+			NADp = t_83,
+			t_84 = NADH + 1,
+			NADH = t_84;
+
+	process krebs_2 
+		guardBlock
+			t_85 = krebs_2.state == 0,
+			t_86 = acetyl_co_a >= 1,
+			t_87 = H20 >= 1,
+			t_88 = t_86 and t_87,
+			t_89 = t_85 and t_88;
+
+		guardCondition t_89;
+		effect
+			krebs_2.state = 1,
+			t_90 = acetyl_co_a - 1,
+			acetyl_co_a = t_90,
+			t_91 = H20 - 1,
+			H20 = t_91;
+
+	process krebs_2 
+		guardBlock
+			t_92 = krebs_2.state == 1;
+
+		guardCondition t_92;
+		effect
+			krebs_2.state = 2;
+
+	process krebs_2 
+		guardBlock
+			t_93 = krebs_2.state == 2,
+			t_94 = NADp >= 1,
+			t_95 = t_93 and t_94;
+
+		guardCondition t_95;
+		effect
+			krebs_2.state = 3,
+			t_96 = NADp - 1,
+			NADp = t_96,
+			t_97 = NADH + 1,
+			NADH = t_97,
+			t_98 = Hp + 1,
+			Hp = t_98,
+			t_99 = CO2 + 1,
+			CO2 = t_99;
+
+	process krebs_2 
+		guardBlock
+			t_100 = krebs_2.state == 3,
+			t_101 = NADp >= 1,
+			t_102 = t_100 and t_101;
+
+		guardCondition t_102;
+		effect
+			krebs_2.state = 6,
+			t_103 = NADH + 1,
+			NADH = t_103,
+			t_104 = CO2 + 1,
+			CO2 = t_104;
+
+	process krebs_2 
+		guardBlock
+			t_105 = krebs_2.state == 6,
+			t_106 = H20 >= 1,
+			t_107 = t_105 and t_106;
+
+		guardCondition t_107;
+		effect
+			krebs_2.state = 7,
+			t_108 = H20 - 1,
+			H20 = t_108;
+
+	process krebs_2 
+		guardBlock
+			t_109 = krebs_2.state == 7,
+			t_110 = NADp >= 1,
+			t_111 = t_109 and t_110;
+
+		guardCondition t_111;
+		effect
+			krebs_2.state = 0,
+			t_112 = NADp - 1,
+			NADp = t_112,
+			t_113 = NADH + 1,
+			NADH = t_113;
+
+	process rest_of_cell 
+		guardBlock
+			t_114 = rest_of_cell.state == 0,
+			t_115 = ATP >= 1,
+			t_116 = t_114 and t_115;
+
+		guardCondition t_116;
+		effect
+			rest_of_cell.state = 0,
+			t_117 = ATP - 1,
+			ATP = t_117,
+			t_118 = ADP + 1,
+			ADP = t_118,
+			t_119 = energy + 1,
+			energy = t_119;
+
+	process glykolyza_ETS 
+		guardBlock
+			t_120 = glykolyza.state == 0,
+			t_121 = NADH >= 1,
+			t_122 = O2 >= 1,
+			t_123 = t_121 and t_122,
+			t_124 = Hp >= 2,
+			t_125 = t_123 and t_124,
+			t_126 = t_120 and t_125,
+			t_127 = ETS.state == 0,
+			t_128 = ADP >= 2,
+			t_129 = t_127 and t_128,
+			t_130 = t_126 and t_129;
+
+		guardCondition t_130;
+		effect
+			glykolyza.state = 0,
+			t_131 = NADH - 1,
+			NADH = t_131,
+			t_132 = NADp + 1,
+			NADp = t_132,
+			t_133 = O2 - 1,
+			O2 = t_133,
+			t_134 = Hp - 2,
+			Hp = t_134,
+			t_135 = H20 + 1,
+			H20 = t_135,
+			ETS.state = 0,
+			t_136 = ADP - 2,
+			ADP = t_136,
+			t_137 = ATP + 2,
+			ATP = t_137;
+
+
+system async;

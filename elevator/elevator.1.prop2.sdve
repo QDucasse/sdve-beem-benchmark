@@ -1,0 +1,1021 @@
+byte[2] floor_queue_0 = {0, 0};
+byte floor_queue_0_act = 0;
+byte[2] floor_queue_1 = {0, 0};
+byte floor_queue_1_act = 0;
+byte[2] floor_queue_2 = {0, 0};
+byte floor_queue_2_act = 0;
+byte[2] floor_queue_3 = {0, 0};
+byte floor_queue_3_act = 0;
+byte[2] floor_queue_4 = {0, 0};
+byte floor_queue_4_act = 0;
+byte current = 0;
+state {out(0), waiting(1), in_elevator(2)} Person_0.state = 0;
+byte Person_0.at_floor = 0;
+state {out(0), waiting(1), in_elevator(2)} Person_1.state = 0;
+byte Person_1.at_floor = 0;
+state {q(0), r(1)} Servis.state = 0;
+byte Servis.floor = 0;
+byte Servis.caller = 0;
+state {choose_next(0), move_next(1), q(2), transporting(3)} Elevator.state = 0;
+byte Elevator.going_to = 0;
+byte Elevator.serving = 0;
+byte Elevator.who = 0;
+state {q1(0), q2(1)} LTL_property.state = 0;
+transient bool t_0 = false;
+transient bool t_1 = false;
+transient bool t_2 = false;
+transient int t_3 = 0;
+transient bool t_4 = false;
+transient bool t_5 = false;
+transient bool t_6 = false;
+transient int t_7 = 0;
+transient bool t_8 = false;
+transient bool t_9 = false;
+transient bool t_10 = false;
+transient int t_11 = 0;
+transient bool t_12 = false;
+transient bool t_13 = false;
+transient bool t_14 = false;
+transient int t_15 = 0;
+transient bool t_16 = false;
+transient bool t_17 = false;
+transient bool t_18 = false;
+transient int t_19 = 0;
+transient bool t_20 = false;
+transient bool t_21 = false;
+transient bool t_22 = false;
+transient bool t_23 = false;
+transient bool t_24 = false;
+transient bool t_25 = false;
+transient bool t_26 = false;
+transient bool t_27 = false;
+transient bool t_28 = false;
+transient bool t_29 = false;
+transient bool t_30 = false;
+transient bool t_31 = false;
+transient bool t_32 = false;
+transient bool t_33 = false;
+transient bool t_34 = false;
+transient bool t_35 = false;
+transient bool t_36 = false;
+transient bool t_37 = false;
+transient bool t_38 = false;
+transient bool t_39 = false;
+transient int t_40 = 0;
+transient int t_41 = 0;
+transient bool t_42 = false;
+transient bool t_43 = false;
+transient bool t_44 = false;
+transient bool t_45 = false;
+transient bool t_46 = false;
+transient bool t_47 = false;
+transient bool t_48 = false;
+transient bool t_49 = false;
+transient bool t_50 = false;
+transient bool t_51 = false;
+transient bool t_52 = false;
+transient bool t_53 = false;
+transient bool t_54 = false;
+transient bool t_55 = false;
+transient bool t_56 = false;
+transient bool t_57 = false;
+transient bool t_58 = false;
+transient bool t_59 = false;
+transient bool t_60 = false;
+transient bool t_61 = false;
+transient int t_62 = 0;
+transient int t_63 = 0;
+transient bool t_64 = false;
+transient bool t_65 = false;
+transient bool t_66 = false;
+transient bool t_67 = false;
+transient bool t_68 = false;
+transient bool t_69 = false;
+transient bool t_70 = false;
+transient bool t_71 = false;
+transient bool t_72 = false;
+transient bool t_73 = false;
+transient bool t_74 = false;
+transient bool t_75 = false;
+transient bool t_76 = false;
+transient bool t_77 = false;
+transient bool t_78 = false;
+transient bool t_79 = false;
+transient bool t_80 = false;
+transient bool t_81 = false;
+transient bool t_82 = false;
+transient bool t_83 = false;
+transient int t_84 = 0;
+transient int t_85 = 0;
+transient bool t_86 = false;
+transient bool t_87 = false;
+transient bool t_88 = false;
+transient bool t_89 = false;
+transient bool t_90 = false;
+transient bool t_91 = false;
+transient bool t_92 = false;
+transient bool t_93 = false;
+transient bool t_94 = false;
+transient bool t_95 = false;
+transient bool t_96 = false;
+transient bool t_97 = false;
+transient bool t_98 = false;
+transient bool t_99 = false;
+transient bool t_100 = false;
+transient bool t_101 = false;
+transient bool t_102 = false;
+transient bool t_103 = false;
+transient bool t_104 = false;
+transient bool t_105 = false;
+transient int t_106 = 0;
+transient int t_107 = 0;
+transient bool t_108 = false;
+transient bool t_109 = false;
+transient bool t_110 = false;
+transient bool t_111 = false;
+transient bool t_112 = false;
+transient bool t_113 = false;
+transient bool t_114 = false;
+transient bool t_115 = false;
+transient bool t_116 = false;
+transient bool t_117 = false;
+transient bool t_118 = false;
+transient bool t_119 = false;
+transient bool t_120 = false;
+transient bool t_121 = false;
+transient bool t_122 = false;
+transient bool t_123 = false;
+transient bool t_124 = false;
+transient bool t_125 = false;
+transient bool t_126 = false;
+transient bool t_127 = false;
+transient int t_128 = 0;
+transient int t_129 = 0;
+transient bool t_130 = false;
+transient bool t_131 = false;
+transient bool t_132 = false;
+transient bool t_133 = false;
+transient bool t_134 = false;
+transient bool t_135 = false;
+transient bool t_136 = false;
+transient bool t_137 = false;
+transient bool t_138 = false;
+transient bool t_139 = false;
+transient bool t_140 = false;
+transient bool t_141 = false;
+transient bool t_142 = false;
+transient bool t_143 = false;
+transient bool t_144 = false;
+transient bool t_145 = false;
+transient bool t_146 = false;
+transient bool t_147 = false;
+transient bool t_148 = false;
+transient bool t_149 = false;
+transient bool t_150 = false;
+transient bool t_151 = false;
+transient bool t_152 = false;
+transient bool t_153 = false;
+transient bool t_154 = false;
+transient bool t_155 = false;
+transient bool t_156 = false;
+transient bool t_157 = false;
+transient bool t_158 = false;
+transient bool t_159 = false;
+transient bool t_160 = false;
+transient bool t_161 = false;
+transient bool t_162 = false;
+transient int t_163 = 0;
+transient bool t_164 = false;
+transient bool t_165 = false;
+transient bool t_166 = false;
+transient int t_167 = 0;
+transient bool t_168 = false;
+transient bool t_169 = false;
+transient bool t_170 = false;
+transient bool t_171 = false;
+transient bool t_172 = false;
+transient byte t_173 = 0;
+transient byte t_174 = 0;
+transient int t_175 = 0;
+transient bool t_176 = false;
+transient bool t_177 = false;
+transient bool t_178 = false;
+transient bool t_179 = false;
+transient bool t_180 = false;
+transient byte t_181 = 0;
+transient byte t_182 = 0;
+transient int t_183 = 0;
+transient bool t_184 = false;
+transient bool t_185 = false;
+transient bool t_186 = false;
+transient bool t_187 = false;
+transient bool t_188 = false;
+transient byte t_189 = 0;
+transient byte t_190 = 0;
+transient int t_191 = 0;
+transient bool t_192 = false;
+transient bool t_193 = false;
+transient bool t_194 = false;
+transient bool t_195 = false;
+transient bool t_196 = false;
+transient byte t_197 = 0;
+transient byte t_198 = 0;
+transient int t_199 = 0;
+transient bool t_200 = false;
+transient bool t_201 = false;
+transient bool t_202 = false;
+transient bool t_203 = false;
+transient bool t_204 = false;
+transient byte t_205 = 0;
+transient byte t_206 = 0;
+transient int t_207 = 0;
+transient bool t_208 = false;
+transient bool t_209 = false;
+transient bool t_210 = false;
+transient int t_211 = 0;
+transient bool t_212 = false;
+transient bool t_213 = false;
+transient bool t_214 = false;
+transient int t_215 = 0;
+transient bool t_216 = false;
+transient bool t_217 = false;
+transient bool t_218 = false;
+transient bool t_219 = false;
+transient bool t_220 = false;
+transient bool t_221 = false;
+transient bool t_222 = false;
+transient bool t_223 = false;
+transient bool t_224 = false;
+transient bool t_225 = false;
+transient bool t_226 = false;
+transient bool t_227 = false;
+transient bool t_228 = false;
+transient bool t_229 = false;
+transient bool t_230 = false;
+transient bool t_231 = false;
+transient bool t_232 = false;
+transient bool t_233 = false;
+transient bool t_234 = false;
+transient bool t_235 = false;
+transient bool t_236 = false;
+transient bool t_237 = false;
+transient bool t_238 = false;
+transient bool t_239 = false;
+transient bool t_240 = false;
+transient bool t_241 = false;
+transient bool t_242 = false;
+transient bool t_243 = false;
+transient bool t_244 = false;
+transient bool t_245 = false;
+transient bool t_246 = false;
+transient bool t_247 = false;
+transient bool t_248 = false;
+transient bool t_249 = false;
+transient bool t_250 = false;
+transient bool t_251 = false;
+transient bool t_252 = false;
+transient bool t_253 = false;
+transient bool t_254 = false;
+transient bool t_255 = false;
+transient bool t_256 = false;
+transient bool t_257 = false;
+transient bool t_258 = false;
+transient bool t_259 = false;
+transient bool t_260 = false;
+transient bool t_261 = false;
+transient bool t_262 = false;
+transient bool t_263 = false;
+transient bool t_264 = false;
+transient bool t_265 = false;
+transient bool t_266 = false;
+transient bool t_267 = false;
+transient bool t_268 = false;
+transient bool t_269 = false;
+transient bool t_270 = false;
+transient bool t_271 = false;
+transient bool t_272 = false;
+transient bool t_273 = false;
+transient bool t_274 = false;
+transient bool t_275 = false;
+transient bool t_276 = false;
+transient bool t_277 = false;
+transient bool t_278 = false;
+transient bool t_279 = false;
+transient bool t_280 = false;
+transient bool t_281 = false;
+transient bool t_282 = false;
+transient bool t_283 = false;
+transient bool t_284 = false;
+transient bool t_285 = false;
+transient bool t_286 = false;
+transient bool t_287 = false;
+transient bool t_288 = false;
+transient bool t_289 = false;
+transient bool t_290 = false;
+transient bool t_291 = false;
+transient bool t_292 = false;
+transient bool t_293 = false;
+transient bool t_294 = false;
+transient bool t_295 = false;
+transient bool t_296 = false;
+transient bool t_297 = false;
+transient bool t_298 = false;
+transient bool t_299 = false;
+transient bool t_300 = false;
+transient bool t_301 = false;
+transient bool t_302 = false;
+transient bool t_303 = false;
+transient bool t_304 = false;
+transient bool t_305 = false;
+transient bool t_306 = false;
+transient bool t_307 = false;
+transient bool t_308 = false;
+transient bool t_309 = false;
+transient bool t_310 = false;
+transient bool t_311 = false;
+transient bool t_312 = false;
+transient bool t_313 = false;
+transient bool t_314 = false;
+transient bool t_315 = false;
+transient bool t_316 = false;
+	process Servis 
+		guardBlock
+			t_0 = Servis.state == 1,
+			t_1 = 0 == Servis.floor,
+			t_2 = t_0 and t_1;
+
+		guardCondition t_2;
+		effect
+			Servis.state = 0,
+			floor_queue_0[floor_queue_0_act] = Servis.caller,
+			t_3 = floor_queue_0_act + 1,
+			floor_queue_0_act = t_3;
+
+	process Servis 
+		guardBlock
+			t_4 = Servis.state == 1,
+			t_5 = 1 == Servis.floor,
+			t_6 = t_4 and t_5;
+
+		guardCondition t_6;
+		effect
+			Servis.state = 0,
+			floor_queue_1[floor_queue_1_act] = Servis.caller,
+			t_7 = floor_queue_1_act + 1,
+			floor_queue_1_act = t_7;
+
+	process Servis 
+		guardBlock
+			t_8 = Servis.state == 1,
+			t_9 = 2 == Servis.floor,
+			t_10 = t_8 and t_9;
+
+		guardCondition t_10;
+		effect
+			Servis.state = 0,
+			floor_queue_2[floor_queue_2_act] = Servis.caller,
+			t_11 = floor_queue_2_act + 1,
+			floor_queue_2_act = t_11;
+
+	process Servis 
+		guardBlock
+			t_12 = Servis.state == 1,
+			t_13 = 3 == Servis.floor,
+			t_14 = t_12 and t_13;
+
+		guardCondition t_14;
+		effect
+			Servis.state = 0,
+			floor_queue_3[floor_queue_3_act] = Servis.caller,
+			t_15 = floor_queue_3_act + 1,
+			floor_queue_3_act = t_15;
+
+	process Servis 
+		guardBlock
+			t_16 = Servis.state == 1,
+			t_17 = 4 == Servis.floor,
+			t_18 = t_16 and t_17;
+
+		guardCondition t_18;
+		effect
+			Servis.state = 0,
+			floor_queue_4[floor_queue_4_act] = Servis.caller,
+			t_19 = floor_queue_4_act + 1,
+			floor_queue_4_act = t_19;
+
+	process Elevator 
+		guardBlock
+			t_20 = Elevator.state == 0,
+			t_21 = 0 == Elevator.serving,
+			t_22 = floor_queue_0_act == 0,
+			t_23 = t_21 and t_22,
+			t_24 = floor_queue_0_act == 0,
+			t_25 = not t_24,
+			t_26 = floor_queue_1_act == 0,
+			t_27 = not t_26,
+			t_28 = t_25 or t_27,
+			t_29 = floor_queue_2_act == 0,
+			t_30 = not t_29,
+			t_31 = t_28 or t_30,
+			t_32 = floor_queue_3_act == 0,
+			t_33 = not t_32,
+			t_34 = t_31 or t_33,
+			t_35 = floor_queue_4_act == 0,
+			t_36 = not t_35,
+			t_37 = t_34 or t_36,
+			t_38 = t_23 and t_37,
+			t_39 = t_20 and t_38;
+
+		guardCondition t_39;
+		effect
+			Elevator.state = 0,
+			t_40 = Elevator.serving + 1,
+			t_41 = t_40 % 5,
+			Elevator.serving = t_41;
+
+	process Elevator 
+		guardBlock
+			t_42 = Elevator.state == 0,
+			t_43 = 1 == Elevator.serving,
+			t_44 = floor_queue_1_act == 0,
+			t_45 = t_43 and t_44,
+			t_46 = floor_queue_0_act == 0,
+			t_47 = not t_46,
+			t_48 = floor_queue_1_act == 0,
+			t_49 = not t_48,
+			t_50 = t_47 or t_49,
+			t_51 = floor_queue_2_act == 0,
+			t_52 = not t_51,
+			t_53 = t_50 or t_52,
+			t_54 = floor_queue_3_act == 0,
+			t_55 = not t_54,
+			t_56 = t_53 or t_55,
+			t_57 = floor_queue_4_act == 0,
+			t_58 = not t_57,
+			t_59 = t_56 or t_58,
+			t_60 = t_45 and t_59,
+			t_61 = t_42 and t_60;
+
+		guardCondition t_61;
+		effect
+			Elevator.state = 0,
+			t_62 = Elevator.serving + 1,
+			t_63 = t_62 % 5,
+			Elevator.serving = t_63;
+
+	process Elevator 
+		guardBlock
+			t_64 = Elevator.state == 0,
+			t_65 = 2 == Elevator.serving,
+			t_66 = floor_queue_2_act == 0,
+			t_67 = t_65 and t_66,
+			t_68 = floor_queue_0_act == 0,
+			t_69 = not t_68,
+			t_70 = floor_queue_1_act == 0,
+			t_71 = not t_70,
+			t_72 = t_69 or t_71,
+			t_73 = floor_queue_2_act == 0,
+			t_74 = not t_73,
+			t_75 = t_72 or t_74,
+			t_76 = floor_queue_3_act == 0,
+			t_77 = not t_76,
+			t_78 = t_75 or t_77,
+			t_79 = floor_queue_4_act == 0,
+			t_80 = not t_79,
+			t_81 = t_78 or t_80,
+			t_82 = t_67 and t_81,
+			t_83 = t_64 and t_82;
+
+		guardCondition t_83;
+		effect
+			Elevator.state = 0,
+			t_84 = Elevator.serving + 1,
+			t_85 = t_84 % 5,
+			Elevator.serving = t_85;
+
+	process Elevator 
+		guardBlock
+			t_86 = Elevator.state == 0,
+			t_87 = 3 == Elevator.serving,
+			t_88 = floor_queue_3_act == 0,
+			t_89 = t_87 and t_88,
+			t_90 = floor_queue_0_act == 0,
+			t_91 = not t_90,
+			t_92 = floor_queue_1_act == 0,
+			t_93 = not t_92,
+			t_94 = t_91 or t_93,
+			t_95 = floor_queue_2_act == 0,
+			t_96 = not t_95,
+			t_97 = t_94 or t_96,
+			t_98 = floor_queue_3_act == 0,
+			t_99 = not t_98,
+			t_100 = t_97 or t_99,
+			t_101 = floor_queue_4_act == 0,
+			t_102 = not t_101,
+			t_103 = t_100 or t_102,
+			t_104 = t_89 and t_103,
+			t_105 = t_86 and t_104;
+
+		guardCondition t_105;
+		effect
+			Elevator.state = 0,
+			t_106 = Elevator.serving + 1,
+			t_107 = t_106 % 5,
+			Elevator.serving = t_107;
+
+	process Elevator 
+		guardBlock
+			t_108 = Elevator.state == 0,
+			t_109 = 4 == Elevator.serving,
+			t_110 = floor_queue_4_act == 0,
+			t_111 = t_109 and t_110,
+			t_112 = floor_queue_0_act == 0,
+			t_113 = not t_112,
+			t_114 = floor_queue_1_act == 0,
+			t_115 = not t_114,
+			t_116 = t_113 or t_115,
+			t_117 = floor_queue_2_act == 0,
+			t_118 = not t_117,
+			t_119 = t_116 or t_118,
+			t_120 = floor_queue_3_act == 0,
+			t_121 = not t_120,
+			t_122 = t_119 or t_121,
+			t_123 = floor_queue_4_act == 0,
+			t_124 = not t_123,
+			t_125 = t_122 or t_124,
+			t_126 = t_111 and t_125,
+			t_127 = t_108 and t_126;
+
+		guardCondition t_127;
+		effect
+			Elevator.state = 0,
+			t_128 = Elevator.serving + 1,
+			t_129 = t_128 % 5,
+			Elevator.serving = t_129;
+
+	process Elevator 
+		guardBlock
+			t_130 = Elevator.state == 0,
+			t_131 = 0 == Elevator.serving,
+			t_132 = floor_queue_0_act == 0,
+			t_133 = not t_132,
+			t_134 = t_131 and t_133,
+			t_135 = t_130 and t_134;
+
+		guardCondition t_135;
+		effect
+			Elevator.state = 1;
+
+	process Elevator 
+		guardBlock
+			t_136 = Elevator.state == 0,
+			t_137 = 1 == Elevator.serving,
+			t_138 = floor_queue_1_act == 0,
+			t_139 = not t_138,
+			t_140 = t_137 and t_139,
+			t_141 = t_136 and t_140;
+
+		guardCondition t_141;
+		effect
+			Elevator.state = 1;
+
+	process Elevator 
+		guardBlock
+			t_142 = Elevator.state == 0,
+			t_143 = 2 == Elevator.serving,
+			t_144 = floor_queue_2_act == 0,
+			t_145 = not t_144,
+			t_146 = t_143 and t_145,
+			t_147 = t_142 and t_146;
+
+		guardCondition t_147;
+		effect
+			Elevator.state = 1;
+
+	process Elevator 
+		guardBlock
+			t_148 = Elevator.state == 0,
+			t_149 = 3 == Elevator.serving,
+			t_150 = floor_queue_3_act == 0,
+			t_151 = not t_150,
+			t_152 = t_149 and t_151,
+			t_153 = t_148 and t_152;
+
+		guardCondition t_153;
+		effect
+			Elevator.state = 1;
+
+	process Elevator 
+		guardBlock
+			t_154 = Elevator.state == 0,
+			t_155 = 4 == Elevator.serving,
+			t_156 = floor_queue_4_act == 0,
+			t_157 = not t_156,
+			t_158 = t_155 and t_157,
+			t_159 = t_154 and t_158;
+
+		guardCondition t_159;
+		effect
+			Elevator.state = 1;
+
+	process Elevator 
+		guardBlock
+			t_160 = Elevator.state == 1,
+			t_161 = Elevator.serving < current,
+			t_162 = t_160 and t_161;
+
+		guardCondition t_162;
+		effect
+			Elevator.state = 1,
+			t_163 = current - 1,
+			current = t_163;
+
+	process Elevator 
+		guardBlock
+			t_164 = Elevator.state == 1,
+			t_165 = Elevator.serving > current,
+			t_166 = t_164 and t_165;
+
+		guardCondition t_166;
+		effect
+			Elevator.state = 1,
+			t_167 = current + 1,
+			current = t_167;
+
+	process Elevator 
+		guardBlock
+			t_168 = Elevator.state == 1,
+			t_169 = Elevator.serving == current,
+			t_170 = 0 == current,
+			t_171 = t_169 and t_170,
+			t_172 = t_168 and t_171;
+
+		guardCondition t_172;
+		effect
+			Elevator.state = 2,
+			t_173 = floor_queue_0[0],
+			Elevator.who = t_173,
+			t_174 = floor_queue_0[1],
+			floor_queue_0[0] = t_174,
+			floor_queue_0[1] = 0,
+			t_175 = floor_queue_0_act - 1,
+			floor_queue_0_act = t_175;
+
+	process Elevator 
+		guardBlock
+			t_176 = Elevator.state == 1,
+			t_177 = Elevator.serving == current,
+			t_178 = 1 == current,
+			t_179 = t_177 and t_178,
+			t_180 = t_176 and t_179;
+
+		guardCondition t_180;
+		effect
+			Elevator.state = 2,
+			t_181 = floor_queue_1[0],
+			Elevator.who = t_181,
+			t_182 = floor_queue_1[1],
+			floor_queue_1[0] = t_182,
+			floor_queue_1[1] = 0,
+			t_183 = floor_queue_1_act - 1,
+			floor_queue_1_act = t_183;
+
+	process Elevator 
+		guardBlock
+			t_184 = Elevator.state == 1,
+			t_185 = Elevator.serving == current,
+			t_186 = 2 == current,
+			t_187 = t_185 and t_186,
+			t_188 = t_184 and t_187;
+
+		guardCondition t_188;
+		effect
+			Elevator.state = 2,
+			t_189 = floor_queue_2[0],
+			Elevator.who = t_189,
+			t_190 = floor_queue_2[1],
+			floor_queue_2[0] = t_190,
+			floor_queue_2[1] = 0,
+			t_191 = floor_queue_2_act - 1,
+			floor_queue_2_act = t_191;
+
+	process Elevator 
+		guardBlock
+			t_192 = Elevator.state == 1,
+			t_193 = Elevator.serving == current,
+			t_194 = 3 == current,
+			t_195 = t_193 and t_194,
+			t_196 = t_192 and t_195;
+
+		guardCondition t_196;
+		effect
+			Elevator.state = 2,
+			t_197 = floor_queue_3[0],
+			Elevator.who = t_197,
+			t_198 = floor_queue_3[1],
+			floor_queue_3[0] = t_198,
+			floor_queue_3[1] = 0,
+			t_199 = floor_queue_3_act - 1,
+			floor_queue_3_act = t_199;
+
+	process Elevator 
+		guardBlock
+			t_200 = Elevator.state == 1,
+			t_201 = Elevator.serving == current,
+			t_202 = 4 == current,
+			t_203 = t_201 and t_202,
+			t_204 = t_200 and t_203;
+
+		guardCondition t_204;
+		effect
+			Elevator.state = 2,
+			t_205 = floor_queue_4[0],
+			Elevator.who = t_205,
+			t_206 = floor_queue_4[1],
+			floor_queue_4[0] = t_206,
+			floor_queue_4[1] = 0,
+			t_207 = floor_queue_4_act - 1,
+			floor_queue_4_act = t_207;
+
+	process Elevator 
+		guardBlock
+			t_208 = Elevator.state == 3,
+			t_209 = Elevator.going_to < current,
+			t_210 = t_208 and t_209;
+
+		guardCondition t_210;
+		effect
+			Elevator.state = 3,
+			t_211 = current - 1,
+			current = t_211;
+
+	process Elevator 
+		guardBlock
+			t_212 = Elevator.state == 3,
+			t_213 = Elevator.going_to > current,
+			t_214 = t_212 and t_213;
+
+		guardCondition t_214;
+		effect
+			Elevator.state = 3,
+			t_215 = current + 1,
+			current = t_215;
+
+	process LTL_property 
+		guardBlock
+			t_216 = LTL_property.state == 0;
+
+		guardCondition t_216;
+		effect
+			LTL_property.state = 0;
+
+	process LTL_property 
+		guardBlock
+			t_217 = LTL_property.state == 0,
+			t_218 = Person_0.state == 1,
+			t_219 = Person_0.state == 2,
+			t_220 = not t_219,
+			t_221 = t_218 and t_220,
+			t_222 = t_217 and t_221;
+
+		guardCondition t_222;
+		effect
+			LTL_property.state = 1;
+
+	process LTL_property 
+		guardBlock
+			t_223 = LTL_property.state == 1,
+			t_224 = Person_0.state == 2,
+			t_225 = not t_224,
+			t_226 = t_223 and t_225;
+
+		guardCondition t_226;
+		effect
+			LTL_property.state = 1;
+
+	process Person_0_Servis 
+		guardBlock
+			t_227 = Person_0.state == 0,
+			t_228 = Servis.state == 0,
+			t_229 = t_227 and t_228;
+
+		guardCondition t_229;
+		effect
+			Person_0.state = 1,
+			Servis.floor = Person_0.at_floor,
+			Servis.state = 1,
+			Servis.caller = 0;
+
+	process Person_1_Servis 
+		guardBlock
+			t_230 = Person_1.state == 0,
+			t_231 = Servis.state == 0,
+			t_232 = t_230 and t_231;
+
+		guardCondition t_232;
+		effect
+			Person_1.state = 1,
+			Servis.floor = Person_1.at_floor,
+			Servis.state = 1,
+			Servis.caller = 1;
+
+	process Elevator_Person_1 
+		guardBlock
+			t_233 = Elevator.state == 3,
+			t_234 = 1 == Elevator.who,
+			t_235 = Elevator.going_to == current,
+			t_236 = t_234 and t_235,
+			t_237 = t_233 and t_236,
+			t_238 = Person_1.state == 2,
+			t_239 = t_237 and t_238;
+
+		guardCondition t_239;
+		effect
+			Elevator.state = 0,
+			Elevator.going_to = 0,
+			Elevator.who = 0,
+			Person_1.at_floor = current,
+			Person_1.state = 0;
+
+	process Person_1_Elevator 
+		guardBlock
+			t_240 = Person_1.state == 1,
+			t_241 = 0 != Person_1.at_floor,
+			t_242 = t_240 and t_241,
+			t_243 = Elevator.state == 2,
+			t_244 = 1 == Elevator.who,
+			t_245 = t_243 and t_244,
+			t_246 = t_242 and t_245;
+
+		guardCondition t_246;
+		effect
+			Person_1.state = 2,
+			Elevator.going_to = 0,
+			Elevator.state = 3;
+
+	process Person_1_Elevator 
+		guardBlock
+			t_247 = Person_1.state == 1,
+			t_248 = 1 != Person_1.at_floor,
+			t_249 = t_247 and t_248,
+			t_250 = Elevator.state == 2,
+			t_251 = 1 == Elevator.who,
+			t_252 = t_250 and t_251,
+			t_253 = t_249 and t_252;
+
+		guardCondition t_253;
+		effect
+			Person_1.state = 2,
+			Elevator.going_to = 1,
+			Elevator.state = 3;
+
+	process Person_1_Elevator 
+		guardBlock
+			t_254 = Person_1.state == 1,
+			t_255 = 2 != Person_1.at_floor,
+			t_256 = t_254 and t_255,
+			t_257 = Elevator.state == 2,
+			t_258 = 1 == Elevator.who,
+			t_259 = t_257 and t_258,
+			t_260 = t_256 and t_259;
+
+		guardCondition t_260;
+		effect
+			Person_1.state = 2,
+			Elevator.going_to = 2,
+			Elevator.state = 3;
+
+	process Person_1_Elevator 
+		guardBlock
+			t_261 = Person_1.state == 1,
+			t_262 = 3 != Person_1.at_floor,
+			t_263 = t_261 and t_262,
+			t_264 = Elevator.state == 2,
+			t_265 = 1 == Elevator.who,
+			t_266 = t_264 and t_265,
+			t_267 = t_263 and t_266;
+
+		guardCondition t_267;
+		effect
+			Person_1.state = 2,
+			Elevator.going_to = 3,
+			Elevator.state = 3;
+
+	process Person_1_Elevator 
+		guardBlock
+			t_268 = Person_1.state == 1,
+			t_269 = 4 != Person_1.at_floor,
+			t_270 = t_268 and t_269,
+			t_271 = Elevator.state == 2,
+			t_272 = 1 == Elevator.who,
+			t_273 = t_271 and t_272,
+			t_274 = t_270 and t_273;
+
+		guardCondition t_274;
+		effect
+			Person_1.state = 2,
+			Elevator.going_to = 4,
+			Elevator.state = 3;
+
+	process Elevator_Person_0 
+		guardBlock
+			t_275 = Elevator.state == 3,
+			t_276 = 0 == Elevator.who,
+			t_277 = Elevator.going_to == current,
+			t_278 = t_276 and t_277,
+			t_279 = t_275 and t_278,
+			t_280 = Person_0.state == 2,
+			t_281 = t_279 and t_280;
+
+		guardCondition t_281;
+		effect
+			Elevator.state = 0,
+			Elevator.going_to = 0,
+			Elevator.who = 0,
+			Person_0.at_floor = current,
+			Person_0.state = 0;
+
+	process Person_0_Elevator 
+		guardBlock
+			t_282 = Person_0.state == 1,
+			t_283 = 0 != Person_0.at_floor,
+			t_284 = t_282 and t_283,
+			t_285 = Elevator.state == 2,
+			t_286 = 0 == Elevator.who,
+			t_287 = t_285 and t_286,
+			t_288 = t_284 and t_287;
+
+		guardCondition t_288;
+		effect
+			Person_0.state = 2,
+			Elevator.going_to = 0,
+			Elevator.state = 3;
+
+	process Person_0_Elevator 
+		guardBlock
+			t_289 = Person_0.state == 1,
+			t_290 = 1 != Person_0.at_floor,
+			t_291 = t_289 and t_290,
+			t_292 = Elevator.state == 2,
+			t_293 = 0 == Elevator.who,
+			t_294 = t_292 and t_293,
+			t_295 = t_291 and t_294;
+
+		guardCondition t_295;
+		effect
+			Person_0.state = 2,
+			Elevator.going_to = 1,
+			Elevator.state = 3;
+
+	process Person_0_Elevator 
+		guardBlock
+			t_296 = Person_0.state == 1,
+			t_297 = 2 != Person_0.at_floor,
+			t_298 = t_296 and t_297,
+			t_299 = Elevator.state == 2,
+			t_300 = 0 == Elevator.who,
+			t_301 = t_299 and t_300,
+			t_302 = t_298 and t_301;
+
+		guardCondition t_302;
+		effect
+			Person_0.state = 2,
+			Elevator.going_to = 2,
+			Elevator.state = 3;
+
+	process Person_0_Elevator 
+		guardBlock
+			t_303 = Person_0.state == 1,
+			t_304 = 3 != Person_0.at_floor,
+			t_305 = t_303 and t_304,
+			t_306 = Elevator.state == 2,
+			t_307 = 0 == Elevator.who,
+			t_308 = t_306 and t_307,
+			t_309 = t_305 and t_308;
+
+		guardCondition t_309;
+		effect
+			Person_0.state = 2,
+			Elevator.going_to = 3,
+			Elevator.state = 3;
+
+	process Person_0_Elevator 
+		guardBlock
+			t_310 = Person_0.state == 1,
+			t_311 = 4 != Person_0.at_floor,
+			t_312 = t_310 and t_311,
+			t_313 = Elevator.state == 2,
+			t_314 = 0 == Elevator.who,
+			t_315 = t_313 and t_314,
+			t_316 = t_312 and t_315;
+
+		guardCondition t_316;
+		effect
+			Person_0.state = 2,
+			Elevator.going_to = 4,
+			Elevator.state = 3;
+
+accepting conditions
+	LTL_property.state == 1
+
+system async property LTL_property;

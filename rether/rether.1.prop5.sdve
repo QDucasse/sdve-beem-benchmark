@@ -1,0 +1,905 @@
+byte[3] in_RT = {0, 0, 0};
+byte RT_count = 0;
+state {idle(0), rel(1), res(2), error_st(3)} Bandwidth.state = 0;
+byte Bandwidth.i = 0;
+state {idle(0), start(1), RT_action(2), NRT_action(3), want_RT(4), reserved(5), finish(6), error_st(7), wait_ok(8)} Node_0.state = 0;
+byte Node_0.rt = 0;
+byte Node_0.granted = 0;
+state {idle(0), start(1), RT_action(2), NRT_action(3), want_RT(4), reserved(5), finish(6), error_st(7), wait_ok(8)} Node_1.state = 0;
+byte Node_1.rt = 0;
+byte Node_1.granted = 0;
+state {idle(0), start(1), RT_action(2), NRT_action(3), want_RT(4), reserved(5), finish(6), error_st(7), wait_ok(8)} Node_2.state = 0;
+byte Node_2.rt = 0;
+byte Node_2.granted = 0;
+state {start(0), RT_phase(1), RT_wait(2), NRT_phase(3), NRT_wait(4), cycle_end(5)} Token.state = 0;
+byte Token.i = 0;
+byte Token.NRT_count = 5;
+byte Token.next = 0;
+state {q1(0), q2(1)} LTL_property.state = 0;
+transient bool t_0 = false;
+transient byte t_1 = 0;
+transient bool t_2 = false;
+transient bool t_3 = false;
+transient bool t_4 = false;
+transient bool t_5 = false;
+transient bool t_6 = false;
+transient bool t_7 = false;
+transient bool t_8 = false;
+transient bool t_9 = false;
+transient bool t_10 = false;
+transient bool t_11 = false;
+transient bool t_12 = false;
+transient bool t_13 = false;
+transient bool t_14 = false;
+transient bool t_15 = false;
+transient bool t_16 = false;
+transient bool t_17 = false;
+transient bool t_18 = false;
+transient bool t_19 = false;
+transient bool t_20 = false;
+transient bool t_21 = false;
+transient bool t_22 = false;
+transient bool t_23 = false;
+transient bool t_24 = false;
+transient bool t_25 = false;
+transient bool t_26 = false;
+transient bool t_27 = false;
+transient bool t_28 = false;
+transient bool t_29 = false;
+transient bool t_30 = false;
+transient bool t_31 = false;
+transient bool t_32 = false;
+transient bool t_33 = false;
+transient bool t_34 = false;
+transient bool t_35 = false;
+transient bool t_36 = false;
+transient bool t_37 = false;
+transient bool t_38 = false;
+transient bool t_39 = false;
+transient bool t_40 = false;
+transient bool t_41 = false;
+transient bool t_42 = false;
+transient byte t_43 = 0;
+transient bool t_44 = false;
+transient bool t_45 = false;
+transient bool t_46 = false;
+transient int t_47 = 0;
+transient bool t_48 = false;
+transient bool t_49 = false;
+transient bool t_50 = false;
+transient bool t_51 = false;
+transient bool t_52 = false;
+transient bool t_53 = false;
+transient bool t_54 = false;
+transient int t_55 = 0;
+transient bool t_56 = false;
+transient bool t_57 = false;
+transient bool t_58 = false;
+transient bool t_59 = false;
+transient bool t_60 = false;
+transient bool t_61 = false;
+transient bool t_62 = false;
+transient bool t_63 = false;
+transient bool t_64 = false;
+transient bool t_65 = false;
+transient bool t_66 = false;
+transient bool t_67 = false;
+transient bool t_68 = false;
+transient bool t_69 = false;
+transient bool t_70 = false;
+transient bool t_71 = false;
+transient bool t_72 = false;
+transient bool t_73 = false;
+transient bool t_74 = false;
+transient bool t_75 = false;
+transient bool t_76 = false;
+transient bool t_77 = false;
+transient bool t_78 = false;
+transient bool t_79 = false;
+transient bool t_80 = false;
+transient bool t_81 = false;
+transient bool t_82 = false;
+transient bool t_83 = false;
+transient bool t_84 = false;
+transient bool t_85 = false;
+transient bool t_86 = false;
+transient bool t_87 = false;
+transient bool t_88 = false;
+transient bool t_89 = false;
+transient bool t_90 = false;
+transient bool t_91 = false;
+transient int t_92 = 0;
+transient bool t_93 = false;
+transient bool t_94 = false;
+transient bool t_95 = false;
+transient int t_96 = 0;
+transient int t_97 = 0;
+transient int t_98 = 0;
+transient bool t_99 = false;
+transient bool t_100 = false;
+transient bool t_101 = false;
+transient int t_102 = 0;
+transient bool t_103 = false;
+transient bool t_104 = false;
+transient bool t_105 = false;
+transient int t_106 = 0;
+transient int t_107 = 0;
+transient int t_108 = 0;
+transient bool t_109 = false;
+transient bool t_110 = false;
+transient bool t_111 = false;
+transient int t_112 = 0;
+transient bool t_113 = false;
+transient bool t_114 = false;
+transient bool t_115 = false;
+transient int t_116 = 0;
+transient int t_117 = 0;
+transient int t_118 = 0;
+transient bool t_119 = false;
+transient bool t_120 = false;
+transient byte t_121 = 0;
+transient bool t_122 = false;
+transient bool t_123 = false;
+transient bool t_124 = false;
+transient bool t_125 = false;
+transient bool t_126 = false;
+transient bool t_127 = false;
+transient bool t_128 = false;
+transient bool t_129 = false;
+transient bool t_130 = false;
+transient bool t_131 = false;
+transient bool t_132 = false;
+transient bool t_133 = false;
+transient bool t_134 = false;
+transient bool t_135 = false;
+transient bool t_136 = false;
+transient bool t_137 = false;
+transient bool t_138 = false;
+transient bool t_139 = false;
+transient bool t_140 = false;
+transient bool t_141 = false;
+transient bool t_142 = false;
+transient bool t_143 = false;
+transient bool t_144 = false;
+transient bool t_145 = false;
+transient bool t_146 = false;
+transient bool t_147 = false;
+transient bool t_148 = false;
+transient bool t_149 = false;
+transient byte t_150 = 0;
+transient bool t_151 = false;
+transient bool t_152 = false;
+transient bool t_153 = false;
+transient bool t_154 = false;
+transient int t_155 = 0;
+transient bool t_156 = false;
+transient byte t_157 = 0;
+transient bool t_158 = false;
+transient bool t_159 = false;
+transient bool t_160 = false;
+transient bool t_161 = false;
+transient int t_162 = 0;
+transient bool t_163 = false;
+transient byte t_164 = 0;
+transient bool t_165 = false;
+transient bool t_166 = false;
+transient bool t_167 = false;
+transient bool t_168 = false;
+transient int t_169 = 0;
+transient bool t_170 = false;
+transient bool t_171 = false;
+transient byte t_172 = 0;
+transient bool t_173 = false;
+transient bool t_174 = false;
+transient bool t_175 = false;
+transient bool t_176 = false;
+transient bool t_177 = false;
+transient bool t_178 = false;
+transient bool t_179 = false;
+transient bool t_180 = false;
+transient bool t_181 = false;
+transient bool t_182 = false;
+transient bool t_183 = false;
+transient bool t_184 = false;
+transient bool t_185 = false;
+transient bool t_186 = false;
+transient bool t_187 = false;
+transient bool t_188 = false;
+transient bool t_189 = false;
+transient int t_190 = 0;
+transient bool t_191 = false;
+transient bool t_192 = false;
+transient bool t_193 = false;
+transient bool t_194 = false;
+transient bool t_195 = false;
+transient int t_196 = 0;
+transient bool t_197 = false;
+transient bool t_198 = false;
+transient bool t_199 = false;
+transient bool t_200 = false;
+transient bool t_201 = false;
+transient int t_202 = 0;
+transient bool t_203 = false;
+transient bool t_204 = false;
+transient byte t_205 = 0;
+transient bool t_206 = false;
+transient bool t_207 = false;
+transient bool t_208 = false;
+transient bool t_209 = false;
+transient bool t_210 = false;
+transient bool t_211 = false;
+transient bool t_212 = false;
+transient bool t_213 = false;
+transient bool t_214 = false;
+transient bool t_215 = false;
+transient bool t_216 = false;
+transient bool t_217 = false;
+	process Bandwidth 
+		guardBlock
+			t_0 = Bandwidth.state == 1,
+			t_1 = in_RT[Bandwidth.i],
+			t_2 = t_1 == 0,
+			t_3 = t_0 and t_2;
+
+		guardCondition t_3;
+		effect
+			Bandwidth.state = 3;
+
+	process Node_0 
+		guardBlock
+			t_4 = Node_0.state == 1,
+			t_5 = Node_0.rt == 1,
+			t_6 = t_4 and t_5;
+
+		guardCondition t_6;
+		effect
+			Node_0.state = 2;
+
+	process Node_0 
+		guardBlock
+			t_7 = Node_0.state == 1,
+			t_8 = Node_0.rt == 0,
+			t_9 = t_7 and t_8;
+
+		guardCondition t_9;
+		effect
+			Node_0.state = 3;
+
+	process Node_0 
+		guardBlock
+			t_10 = Node_0.state == 2,
+			t_11 = Node_0.granted == 0,
+			t_12 = t_10 and t_11;
+
+		guardCondition t_12;
+		effect
+			Node_0.state = 7;
+
+	process Node_0 
+		guardBlock
+			t_13 = Node_0.state == 2;
+
+		guardCondition t_13;
+		effect
+			Node_0.state = 6;
+
+	process Node_0 
+		guardBlock
+			t_14 = Node_0.state == 3;
+
+		guardCondition t_14;
+		effect
+			Node_0.state = 6;
+
+	process Node_0 
+		guardBlock
+			t_15 = Node_0.state == 5;
+
+		guardCondition t_15;
+		effect
+			Node_0.state = 6,
+			Node_0.granted = 1;
+
+	process Node_1 
+		guardBlock
+			t_16 = Node_1.state == 1,
+			t_17 = Node_1.rt == 1,
+			t_18 = t_16 and t_17;
+
+		guardCondition t_18;
+		effect
+			Node_1.state = 2;
+
+	process Node_1 
+		guardBlock
+			t_19 = Node_1.state == 1,
+			t_20 = Node_1.rt == 0,
+			t_21 = t_19 and t_20;
+
+		guardCondition t_21;
+		effect
+			Node_1.state = 3;
+
+	process Node_1 
+		guardBlock
+			t_22 = Node_1.state == 2,
+			t_23 = Node_1.granted == 0,
+			t_24 = t_22 and t_23;
+
+		guardCondition t_24;
+		effect
+			Node_1.state = 7;
+
+	process Node_1 
+		guardBlock
+			t_25 = Node_1.state == 2;
+
+		guardCondition t_25;
+		effect
+			Node_1.state = 6;
+
+	process Node_1 
+		guardBlock
+			t_26 = Node_1.state == 3;
+
+		guardCondition t_26;
+		effect
+			Node_1.state = 6;
+
+	process Node_1 
+		guardBlock
+			t_27 = Node_1.state == 5;
+
+		guardCondition t_27;
+		effect
+			Node_1.state = 6,
+			Node_1.granted = 1;
+
+	process Node_2 
+		guardBlock
+			t_28 = Node_2.state == 1,
+			t_29 = Node_2.rt == 1,
+			t_30 = t_28 and t_29;
+
+		guardCondition t_30;
+		effect
+			Node_2.state = 2;
+
+	process Node_2 
+		guardBlock
+			t_31 = Node_2.state == 1,
+			t_32 = Node_2.rt == 0,
+			t_33 = t_31 and t_32;
+
+		guardCondition t_33;
+		effect
+			Node_2.state = 3;
+
+	process Node_2 
+		guardBlock
+			t_34 = Node_2.state == 2,
+			t_35 = Node_2.granted == 0,
+			t_36 = t_34 and t_35;
+
+		guardCondition t_36;
+		effect
+			Node_2.state = 7;
+
+	process Node_2 
+		guardBlock
+			t_37 = Node_2.state == 2;
+
+		guardCondition t_37;
+		effect
+			Node_2.state = 6;
+
+	process Node_2 
+		guardBlock
+			t_38 = Node_2.state == 3;
+
+		guardCondition t_38;
+		effect
+			Node_2.state = 6;
+
+	process Node_2 
+		guardBlock
+			t_39 = Node_2.state == 5;
+
+		guardCondition t_39;
+		effect
+			Node_2.state = 6,
+			Node_2.granted = 1;
+
+	process Token 
+		guardBlock
+			t_40 = Token.state == 0;
+
+		guardCondition t_40;
+		effect
+			Token.state = 1,
+			Token.i = 0;
+
+	process Token 
+		guardBlock
+			t_41 = Token.state == 1,
+			t_42 = Token.i < 3,
+			t_43 = in_RT[Token.i],
+			t_44 = t_43 == 0,
+			t_45 = t_42 and t_44,
+			t_46 = t_41 and t_45;
+
+		guardCondition t_46;
+		effect
+			Token.state = 1,
+			t_47 = Token.i + 1,
+			Token.i = t_47;
+
+	process Token 
+		guardBlock
+			t_48 = Token.state == 1,
+			t_49 = Token.i == 3,
+			t_50 = t_48 and t_49;
+
+		guardCondition t_50;
+		effect
+			Token.state = 3;
+
+	process Token 
+		guardBlock
+			t_51 = Token.state == 3,
+			t_52 = Token.NRT_count == 0,
+			t_53 = t_51 and t_52;
+
+		guardCondition t_53;
+		effect
+			Token.state = 5;
+
+	process Token 
+		guardBlock
+			t_54 = Token.state == 5;
+
+		guardCondition t_54;
+		effect
+			Token.state = 0,
+			t_55 = 5 - RT_count,
+			Token.NRT_count = t_55;
+
+	process LTL_property 
+		guardBlock
+			t_56 = LTL_property.state == 0;
+
+		guardCondition t_56;
+		effect
+			LTL_property.state = 0;
+
+	process LTL_property 
+		guardBlock
+			t_57 = LTL_property.state == 0,
+			t_58 = Node_0.state == 3,
+			t_59 = not t_58,
+			t_60 = t_57 and t_59;
+
+		guardCondition t_60;
+		effect
+			LTL_property.state = 1;
+
+	process LTL_property 
+		guardBlock
+			t_61 = LTL_property.state == 1,
+			t_62 = Node_0.state == 3,
+			t_63 = not t_62,
+			t_64 = t_61 and t_63;
+
+		guardCondition t_64;
+		effect
+			LTL_property.state = 1;
+
+	process Bandwidth_Node_0 
+		guardBlock
+			t_65 = Bandwidth.state == 2,
+			t_66 = RT_count >= 2,
+			t_67 = t_65 and t_66,
+			t_68 = Node_0.state == 4,
+			t_69 = t_67 and t_68;
+
+		guardCondition t_69;
+		effect
+			Bandwidth.state = 0,
+			Node_0.state = 6;
+
+	process Bandwidth_Node_1 
+		guardBlock
+			t_70 = Bandwidth.state == 2,
+			t_71 = RT_count >= 2,
+			t_72 = t_70 and t_71,
+			t_73 = Node_1.state == 4,
+			t_74 = t_72 and t_73;
+
+		guardCondition t_74;
+		effect
+			Bandwidth.state = 0,
+			Node_1.state = 6;
+
+	process Bandwidth_Node_2 
+		guardBlock
+			t_75 = Bandwidth.state == 2,
+			t_76 = RT_count >= 2,
+			t_77 = t_75 and t_76,
+			t_78 = Node_2.state == 4,
+			t_79 = t_77 and t_78;
+
+		guardCondition t_79;
+		effect
+			Bandwidth.state = 0,
+			Node_2.state = 6;
+
+	process Node_0_Bandwidth 
+		guardBlock
+			t_80 = Node_0.state == 2,
+			t_81 = Bandwidth.state == 0,
+			t_82 = t_80 and t_81;
+
+		guardCondition t_82;
+		effect
+			Node_0.state = 8,
+			Node_0.granted = 0,
+			Bandwidth.i = 0,
+			Bandwidth.state = 1;
+
+	process Node_1_Bandwidth 
+		guardBlock
+			t_83 = Node_1.state == 2,
+			t_84 = Bandwidth.state == 0,
+			t_85 = t_83 and t_84;
+
+		guardCondition t_85;
+		effect
+			Node_1.state = 8,
+			Node_1.granted = 0,
+			Bandwidth.i = 1,
+			Bandwidth.state = 1;
+
+	process Node_2_Bandwidth 
+		guardBlock
+			t_86 = Node_2.state == 2,
+			t_87 = Bandwidth.state == 0,
+			t_88 = t_86 and t_87;
+
+		guardCondition t_88;
+		effect
+			Node_2.state = 8,
+			Node_2.granted = 0,
+			Bandwidth.i = 2,
+			Bandwidth.state = 1;
+
+	process Node_0_Token 
+		guardBlock
+			t_89 = Node_0.state == 6,
+			t_90 = Token.state == 2,
+			t_91 = t_89 and t_90;
+
+		guardCondition t_91;
+		effect
+			Node_0.state = 0,
+			Token.state = 1,
+			t_92 = Token.i + 1,
+			Token.i = t_92;
+
+	process Node_0_Token 
+		guardBlock
+			t_93 = Node_0.state == 6,
+			t_94 = Token.state == 4,
+			t_95 = t_93 and t_94;
+
+		guardCondition t_95;
+		effect
+			Node_0.state = 0,
+			Token.state = 3,
+			t_96 = Token.next + 1,
+			t_97 = t_96 % 3,
+			Token.next = t_97,
+			t_98 = Token.NRT_count - 1,
+			Token.NRT_count = t_98;
+
+	process Node_1_Token 
+		guardBlock
+			t_99 = Node_1.state == 6,
+			t_100 = Token.state == 2,
+			t_101 = t_99 and t_100;
+
+		guardCondition t_101;
+		effect
+			Node_1.state = 0,
+			Token.state = 1,
+			t_102 = Token.i + 1,
+			Token.i = t_102;
+
+	process Node_1_Token 
+		guardBlock
+			t_103 = Node_1.state == 6,
+			t_104 = Token.state == 4,
+			t_105 = t_103 and t_104;
+
+		guardCondition t_105;
+		effect
+			Node_1.state = 0,
+			Token.state = 3,
+			t_106 = Token.next + 1,
+			t_107 = t_106 % 3,
+			Token.next = t_107,
+			t_108 = Token.NRT_count - 1,
+			Token.NRT_count = t_108;
+
+	process Node_2_Token 
+		guardBlock
+			t_109 = Node_2.state == 6,
+			t_110 = Token.state == 2,
+			t_111 = t_109 and t_110;
+
+		guardCondition t_111;
+		effect
+			Node_2.state = 0,
+			Token.state = 1,
+			t_112 = Token.i + 1,
+			Token.i = t_112;
+
+	process Node_2_Token 
+		guardBlock
+			t_113 = Node_2.state == 6,
+			t_114 = Token.state == 4,
+			t_115 = t_113 and t_114;
+
+		guardCondition t_115;
+		effect
+			Node_2.state = 0,
+			Token.state = 3,
+			t_116 = Token.next + 1,
+			t_117 = t_116 % 3,
+			Token.next = t_117,
+			t_118 = Token.NRT_count - 1,
+			Token.NRT_count = t_118;
+
+	process Token_Node_1 
+		guardBlock
+			t_119 = Token.state == 1,
+			t_120 = Token.i == 1,
+			t_121 = in_RT[Token.i],
+			t_122 = t_121 == 1,
+			t_123 = t_120 and t_122,
+			t_124 = t_119 and t_123,
+			t_125 = Node_1.state == 0,
+			t_126 = t_124 and t_125;
+
+		guardCondition t_126;
+		effect
+			Token.state = 2,
+			Node_1.rt = 1,
+			Node_1.state = 1;
+
+	process Token_Node_1 
+		guardBlock
+			t_127 = Token.state == 3,
+			t_128 = Token.NRT_count > 0,
+			t_129 = Token.next == 1,
+			t_130 = t_128 and t_129,
+			t_131 = t_127 and t_130,
+			t_132 = Node_1.state == 0,
+			t_133 = t_131 and t_132;
+
+		guardCondition t_133;
+		effect
+			Token.state = 4,
+			Node_1.rt = 0,
+			Node_1.state = 1;
+
+	process Node_0_Bandwidth 
+		guardBlock
+			t_134 = Node_0.state == 3,
+			t_135 = Node_0.granted == 0,
+			t_136 = t_134 and t_135,
+			t_137 = Bandwidth.state == 0,
+			t_138 = t_136 and t_137;
+
+		guardCondition t_138;
+		effect
+			Node_0.state = 4,
+			Bandwidth.i = 0,
+			Bandwidth.state = 2;
+
+	process Node_1_Bandwidth 
+		guardBlock
+			t_139 = Node_1.state == 3,
+			t_140 = Node_1.granted == 0,
+			t_141 = t_139 and t_140,
+			t_142 = Bandwidth.state == 0,
+			t_143 = t_141 and t_142;
+
+		guardCondition t_143;
+		effect
+			Node_1.state = 4,
+			Bandwidth.i = 1,
+			Bandwidth.state = 2;
+
+	process Node_2_Bandwidth 
+		guardBlock
+			t_144 = Node_2.state == 3,
+			t_145 = Node_2.granted == 0,
+			t_146 = t_144 and t_145,
+			t_147 = Bandwidth.state == 0,
+			t_148 = t_146 and t_147;
+
+		guardCondition t_148;
+		effect
+			Node_2.state = 4,
+			Bandwidth.i = 2,
+			Bandwidth.state = 2;
+
+	process Bandwidth_Node_0 
+		guardBlock
+			t_149 = Bandwidth.state == 1,
+			t_150 = in_RT[Bandwidth.i],
+			t_151 = t_150 == 1,
+			t_152 = t_149 and t_151,
+			t_153 = Node_0.state == 8,
+			t_154 = t_152 and t_153;
+
+		guardCondition t_154;
+		effect
+			Bandwidth.state = 0,
+			in_RT[Bandwidth.i] = 0,
+			t_155 = RT_count - 1,
+			RT_count = t_155,
+			Node_0.state = 6;
+
+	process Bandwidth_Node_1 
+		guardBlock
+			t_156 = Bandwidth.state == 1,
+			t_157 = in_RT[Bandwidth.i],
+			t_158 = t_157 == 1,
+			t_159 = t_156 and t_158,
+			t_160 = Node_1.state == 8,
+			t_161 = t_159 and t_160;
+
+		guardCondition t_161;
+		effect
+			Bandwidth.state = 0,
+			in_RT[Bandwidth.i] = 0,
+			t_162 = RT_count - 1,
+			RT_count = t_162,
+			Node_1.state = 6;
+
+	process Bandwidth_Node_2 
+		guardBlock
+			t_163 = Bandwidth.state == 1,
+			t_164 = in_RT[Bandwidth.i],
+			t_165 = t_164 == 1,
+			t_166 = t_163 and t_165,
+			t_167 = Node_2.state == 8,
+			t_168 = t_166 and t_167;
+
+		guardCondition t_168;
+		effect
+			Bandwidth.state = 0,
+			in_RT[Bandwidth.i] = 0,
+			t_169 = RT_count - 1,
+			RT_count = t_169,
+			Node_2.state = 6;
+
+	process Token_Node_0 
+		guardBlock
+			t_170 = Token.state == 1,
+			t_171 = Token.i == 0,
+			t_172 = in_RT[Token.i],
+			t_173 = t_172 == 1,
+			t_174 = t_171 and t_173,
+			t_175 = t_170 and t_174,
+			t_176 = Node_0.state == 0,
+			t_177 = t_175 and t_176;
+
+		guardCondition t_177;
+		effect
+			Token.state = 2,
+			Node_0.rt = 1,
+			Node_0.state = 1;
+
+	process Token_Node_0 
+		guardBlock
+			t_178 = Token.state == 3,
+			t_179 = Token.NRT_count > 0,
+			t_180 = Token.next == 0,
+			t_181 = t_179 and t_180,
+			t_182 = t_178 and t_181,
+			t_183 = Node_0.state == 0,
+			t_184 = t_182 and t_183;
+
+		guardCondition t_184;
+		effect
+			Token.state = 4,
+			Node_0.rt = 0,
+			Node_0.state = 1;
+
+	process Bandwidth_Node_0 
+		guardBlock
+			t_185 = Bandwidth.state == 2,
+			t_186 = RT_count < 2,
+			t_187 = t_185 and t_186,
+			t_188 = Node_0.state == 4,
+			t_189 = t_187 and t_188;
+
+		guardCondition t_189;
+		effect
+			Bandwidth.state = 0,
+			t_190 = RT_count + 1,
+			RT_count = t_190,
+			in_RT[Bandwidth.i] = 1,
+			Node_0.state = 5;
+
+	process Bandwidth_Node_1 
+		guardBlock
+			t_191 = Bandwidth.state == 2,
+			t_192 = RT_count < 2,
+			t_193 = t_191 and t_192,
+			t_194 = Node_1.state == 4,
+			t_195 = t_193 and t_194;
+
+		guardCondition t_195;
+		effect
+			Bandwidth.state = 0,
+			t_196 = RT_count + 1,
+			RT_count = t_196,
+			in_RT[Bandwidth.i] = 1,
+			Node_1.state = 5;
+
+	process Bandwidth_Node_2 
+		guardBlock
+			t_197 = Bandwidth.state == 2,
+			t_198 = RT_count < 2,
+			t_199 = t_197 and t_198,
+			t_200 = Node_2.state == 4,
+			t_201 = t_199 and t_200;
+
+		guardCondition t_201;
+		effect
+			Bandwidth.state = 0,
+			t_202 = RT_count + 1,
+			RT_count = t_202,
+			in_RT[Bandwidth.i] = 1,
+			Node_2.state = 5;
+
+	process Token_Node_2 
+		guardBlock
+			t_203 = Token.state == 1,
+			t_204 = Token.i == 2,
+			t_205 = in_RT[Token.i],
+			t_206 = t_205 == 1,
+			t_207 = t_204 and t_206,
+			t_208 = t_203 and t_207,
+			t_209 = Node_2.state == 0,
+			t_210 = t_208 and t_209;
+
+		guardCondition t_210;
+		effect
+			Token.state = 2,
+			Node_2.rt = 1,
+			Node_2.state = 1;
+
+	process Token_Node_2 
+		guardBlock
+			t_211 = Token.state == 3,
+			t_212 = Token.NRT_count > 0,
+			t_213 = Token.next == 2,
+			t_214 = t_212 and t_213,
+			t_215 = t_211 and t_214,
+			t_216 = Node_2.state == 0,
+			t_217 = t_215 and t_216;
+
+		guardCondition t_217;
+		effect
+			Token.state = 4,
+			Node_2.rt = 0,
+			Node_2.state = 1;
+
+accepting conditions
+	LTL_property.state == 1
+
+system async property LTL_property;
