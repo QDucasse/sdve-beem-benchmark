@@ -23,8 +23,10 @@ def process_files():
               "# Processes",
               "Max # op in Guard",
               "Mean # op in Guard",
+              "Max # simultaneous alive vars in Guard",
               "Max # op in Effect",
-              "Mean # op in Effect"
+              "Mean # op in Effect",
+              "Max # simultaneous alive vars in Effect"
     ]
     with open("stats.csv", 'w') as csvFile:
         wr = csv.DictWriter(csvFile, fieldnames=col_name)
@@ -51,7 +53,7 @@ def process_file(sdve_filepath):
     # Get the number of processes
     process_number = len(processes)
     # Get stats on guards and effects
-    guard_max, guard_mean, effect_max, effect_mean = process_guards_effects(processes)
+    guard_max, guard_mean, guard_max_alive, effect_max, effect_mean, effect_max_alive = process_guards_effects(processes)
     # Structure the results in a dict
     res_dict = {
         "Name":                file_name,
@@ -60,8 +62,10 @@ def process_file(sdve_filepath):
         "# Processes": process_number,
         "Max # op in Guard":   guard_max,
         "Mean # op in Guard":  round(guard_mean,2),
+        "Max # simultaneous alive vars in Guard": guard_max_alive,
         "Max # op in Effect":  effect_max,
-        "Mean # op in Effect": round(effect_mean,2)
+        "Mean # op in Effect": round(effect_mean,2),
+        "Max # simultaneous alive vars in Effect": effect_max_alive,
     }
     return res_dict
 
@@ -113,28 +117,63 @@ def process_guards_effects(processes):
     '''
     Outputs stats from the guards and effects
     '''
-    guard_max   = 0
-    guard_mean  = 0
-    effect_max  = 0
-    effect_mean = 0
+    guard_max        = 0
+    guard_mean       = 0
+    guard_max_alive  = 0
+    effect_max       = 0
+    effect_mean      = 0
+    effect_max_alive = 0
     for i,process in enumerate(processes):
-        op_guard, op_effect = process_guard_effect(process)
+        op_guard, op_effect, alive_guard, alive_effect = process_guard_effect(process)
         # Guard stats
         guard_max  = max(guard_max, op_guard)
         guard_mean += ((op_guard - guard_mean) / (i + 1))
+        guard_max_alive = max(guard_max_alive, alive_guard)
         # Effect stats
         effect_max = max(effect_max, op_effect)
         effect_mean += ((op_effect - effect_mean) / (i + 1))
-    return guard_max, guard_mean, effect_max, effect_mean
+        effect_max_alive = max(effect_max_alive, alive_effect)
+    return guard_max, guard_mean, guard_max_alive, effect_max, effect_mean, effect_max_alive
 
 def process_guard_effect(process):
     '''
     Get the number of operation in the guard and effect of a given process
     '''
     guard_cond_index = next(i for i,v in enumerate(process) if "guardCondition" in v)
-    return len(process[2:guard_cond_index]), len(process[guard_cond_index+2:])
+    guard_block = process[2:guard_cond_index]
+    effect_block = process[guard_cond_index+2:]
+    # Compute lengths
+    len_guard_cond = len(guard_block)
+    len_effect = len(effect_block)
+    # Find max number of simultaneous alive variables
+    # print("\n\n----\nGuard\n----\n\n")
+    max_alive_vars_guard = determine_alive_vars(guard_block)
+    # print("\n\n----\nEffect\n----\n\n")
+    max_alive_vars_effect = determine_alive_vars(effect_block)
+    return len_guard_cond, len_effect, max_alive_vars_guard, max_alive_vars_effect
 
+def determine_alive_vars(block):
+    '''
+    Determine the number of simultaneous alive variables in a block.
+    '''
+    # print(block)
+    max_alive_vars = 0
+    alive_vars = []
+    for line in block:
+        # print("Alive vars: " + str(alive_vars))
+        var, expr = line.split(" = ")
+        # Process left hand
+        if var.startswith("t_") and not(var in alive_vars):
+            # print("Left hand: " + var)
+            alive_vars.append(var)
+            max_alive_vars = max(max_alive_vars, len(alive_vars))
+        # Process right hand
+        # Remove the variables in the right side (dead)
+        # print("Right hand: " + expr)
+        alive_vars = [var for var in alive_vars if not(var in expr)]
+        max_alive_vars = max(max_alive_vars, len(alive_vars))
+    return max_alive_vars
 
 if __name__ == "__main__":
-
+    # process_file("anderson/anderson.1.prop2.sdve")
     process_files()
