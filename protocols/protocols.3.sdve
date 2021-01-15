@@ -14,69 +14,69 @@ byte Sender.retry = 0;
 state {waiting(0), got_msg(1), send_ack(2)} Receiver.state = 0;
 byte Receiver.value = 0;
 byte Receiver.rab = 1;
-transient bool t_0 = false;
-transient bool t_1 = false;
-transient bool t_2 = false;
-transient int t_3 = 0;
-transient bool t_4 = false;
-transient bool t_5 = false;
-transient bool t_6 = false;
-transient int t_7 = 0;
-transient bool t_8 = false;
-transient bool t_9 = false;
-transient bool t_10 = false;
-transient bool t_11 = false;
-transient bool t_12 = false;
-transient bool t_13 = false;
-transient bool t_14 = false;
-transient bool t_15 = false;
-transient bool t_16 = false;
-transient bool t_17 = false;
-transient bool t_18 = false;
-transient bool t_19 = false;
-transient bool t_20 = false;
-transient bool t_21 = false;
-transient int t_22 = 0;
-transient bool t_23 = false;
-transient bool t_24 = false;
-transient bool t_25 = false;
-transient bool t_26 = false;
-transient bool t_27 = false;
-transient bool t_28 = false;
-transient bool t_29 = false;
-transient bool t_30 = false;
-transient int t_31 = 0;
-transient int t_32 = 0;
-transient bool t_33 = false;
-transient bool t_34 = false;
-transient bool t_35 = false;
-transient bool t_36 = false;
-transient bool t_37 = false;
-transient int t_38 = 0;
-transient int t_39 = 0;
-transient int t_40 = 0;
-transient bool t_41 = false;
-transient bool t_42 = false;
-transient bool t_43 = false;
-transient int t_44 = 0;
-transient bool t_45 = false;
-transient bool t_46 = false;
-transient bool t_47 = false;
-transient int t_48 = 0;
-transient bool t_49 = false;
-transient bool t_50 = false;
-transient bool t_51 = false;
-transient int t_52 = 0;
-transient bool t_53 = false;
-transient bool t_54 = false;
-transient bool t_55 = false;
-transient bool t_56 = false;
-transient int t_57 = 0;
-transient bool t_58 = false;
-transient bool t_59 = false;
-transient bool t_60 = false;
-transient bool t_61 = false;
-transient int t_62 = 0;
+temp bool t_0 = false;
+temp bool t_1 = false;
+temp bool t_2 = false;
+temp int t_3 = 0;
+temp bool t_4 = false;
+temp bool t_5 = false;
+temp bool t_6 = false;
+temp int t_7 = 0;
+temp bool t_8 = false;
+temp bool t_9 = false;
+temp bool t_10 = false;
+temp bool t_11 = false;
+temp bool t_12 = false;
+temp bool t_13 = false;
+temp bool t_14 = false;
+temp bool t_15 = false;
+temp bool t_16 = false;
+temp bool t_17 = false;
+temp bool t_18 = false;
+temp bool t_19 = false;
+temp bool t_20 = false;
+temp bool t_21 = false;
+temp int t_22 = 0;
+temp bool t_23 = false;
+temp bool t_24 = false;
+temp bool t_25 = false;
+temp int t_26 = 0;
+temp bool t_27 = false;
+temp bool t_28 = false;
+temp bool t_29 = false;
+temp bool t_30 = false;
+temp int t_31 = 0;
+temp bool t_32 = false;
+temp bool t_33 = false;
+temp bool t_34 = false;
+temp int t_35 = 0;
+temp bool t_36 = false;
+temp bool t_37 = false;
+temp bool t_38 = false;
+temp int t_39 = 0;
+temp bool t_40 = false;
+temp bool t_41 = false;
+temp bool t_42 = false;
+temp int t_43 = 0;
+temp bool t_44 = false;
+temp bool t_45 = false;
+temp bool t_46 = false;
+temp bool t_47 = false;
+temp bool t_48 = false;
+temp bool t_49 = false;
+temp int t_50 = 0;
+temp int t_51 = 0;
+temp bool t_52 = false;
+temp bool t_53 = false;
+temp bool t_54 = false;
+temp bool t_55 = false;
+temp bool t_56 = false;
+temp int t_57 = 0;
+temp int t_58 = 0;
+temp int t_59 = 0;
+temp bool t_60 = false;
+temp bool t_61 = false;
+temp bool t_62 = false;
 	process channel_K 
 		guardBlock
 			t_0 = channel_K.state == 1,
@@ -174,122 +174,122 @@ transient int t_62 = 0;
 		effect
 			Receiver.state = 0;
 
-	process channel_K_Receiver 
+	process Receiver_Consumer 
 		guardBlock
-			t_25 = channel_K.state == 1,
-			t_26 = Receiver.state == 0,
-			t_27 = t_25 and t_26;
-
-		guardCondition t_27;
-		effect
-			channel_K.state = 0,
-			channel_K.lost = 0,
-			Receiver.value = channel_K.v,
-			Receiver.state = 1;
-
-	process Sender_channel_K 
-		guardBlock
-			t_28 = Sender.state == 1,
-			t_29 = channel_K.state == 0,
+			t_25 = Receiver.state == 1,
+			t_26 = Receiver.value % 2,
+			t_27 = t_26 == Receiver.rab,
+			t_28 = t_25 and t_27,
+			t_29 = Consumer.state == 0,
 			t_30 = t_28 and t_29;
 
 		guardCondition t_30;
 		effect
-			Sender.state = 2,
-			Sender.retry = 1,
-			t_31 = Sender.value * 2,
-			t_32 = t_31 + Sender.sab,
-			channel_K.v = t_32,
-			channel_K.state = 1;
-
-	process Sender_channel_K 
-		guardBlock
-			t_33 = Sender.state == 2,
-			t_34 = Sender.retry < 5,
-			t_35 = t_33 and t_34,
-			t_36 = channel_K.state == 0,
-			t_37 = t_35 and t_36;
-
-		guardCondition t_37;
-		effect
-			Sender.state = 2,
-			t_38 = Sender.retry + 1,
-			Sender.retry = t_38,
-			t_39 = Sender.value * 2,
-			t_40 = t_39 + Sender.sab,
-			channel_K.v = t_40,
-			channel_K.state = 1;
-
-	process Receiver_channel_L 
-		guardBlock
-			t_41 = Receiver.state == 2,
-			t_42 = channel_L.state == 0,
-			t_43 = t_41 and t_42;
-
-		guardCondition t_43;
-		effect
-			Receiver.state = 0,
-			t_44 = 1 - Receiver.rab,
-			Receiver.rab = t_44,
-			channel_L.v = 0,
-			channel_L.state = 1;
+			Receiver.state = 2,
+			t_31 = Receiver.value / 2,
+			Consumer.value = t_31,
+			Consumer.state = 1;
 
 	process Producer_Sender 
 		guardBlock
-			t_45 = Producer.state == 1,
-			t_46 = Sender.state == 0,
-			t_47 = t_45 and t_46;
+			t_32 = Producer.state == 1,
+			t_33 = Sender.state == 0,
+			t_34 = t_32 and t_33;
 
-		guardCondition t_47;
+		guardCondition t_34;
 		effect
 			Producer.state = 0,
 			Sender.value = 0,
 			Sender.state = 1,
-			t_48 = 1 - Sender.sab,
-			Sender.sab = t_48;
+			t_35 = 1 - Sender.sab,
+			Sender.sab = t_35;
 
 	process Producer_Sender 
 		guardBlock
-			t_49 = Producer.state == 2,
-			t_50 = Sender.state == 0,
-			t_51 = t_49 and t_50;
+			t_36 = Producer.state == 2,
+			t_37 = Sender.state == 0,
+			t_38 = t_36 and t_37;
 
-		guardCondition t_51;
+		guardCondition t_38;
 		effect
 			Producer.state = 0,
 			Sender.value = 1,
 			Sender.state = 1,
-			t_52 = 1 - Sender.sab,
-			Sender.sab = t_52;
+			t_39 = 1 - Sender.sab,
+			Sender.sab = t_39;
+
+	process Receiver_channel_L 
+		guardBlock
+			t_40 = Receiver.state == 2,
+			t_41 = channel_L.state == 0,
+			t_42 = t_40 and t_41;
+
+		guardCondition t_42;
+		effect
+			Receiver.state = 0,
+			t_43 = 1 - Receiver.rab,
+			Receiver.rab = t_43,
+			channel_L.v = 0,
+			channel_L.state = 1;
 
 	process channel_L_Sender 
 		guardBlock
-			t_53 = channel_L.state == 1,
-			t_54 = Sender.state == 2,
-			t_55 = t_53 and t_54;
+			t_44 = channel_L.state == 1,
+			t_45 = Sender.state == 2,
+			t_46 = t_44 and t_45;
 
-		guardCondition t_55;
+		guardCondition t_46;
 		effect
 			channel_L.state = 0,
 			channel_L.lost = 0,
 			Sender.value = channel_L.v,
 			Sender.state = 0;
 
-	process Receiver_Consumer 
+	process Sender_channel_K 
 		guardBlock
-			t_56 = Receiver.state == 1,
-			t_57 = Receiver.value % 2,
-			t_58 = t_57 == Receiver.rab,
-			t_59 = t_56 and t_58,
-			t_60 = Consumer.state == 0,
-			t_61 = t_59 and t_60;
+			t_47 = Sender.state == 1,
+			t_48 = channel_K.state == 0,
+			t_49 = t_47 and t_48;
 
-		guardCondition t_61;
+		guardCondition t_49;
 		effect
-			Receiver.state = 2,
-			t_62 = Receiver.value / 2,
-			Consumer.value = t_62,
-			Consumer.state = 1;
+			Sender.state = 2,
+			Sender.retry = 1,
+			t_50 = Sender.value * 2,
+			t_51 = t_50 + Sender.sab,
+			channel_K.v = t_51,
+			channel_K.state = 1;
+
+	process Sender_channel_K 
+		guardBlock
+			t_52 = Sender.state == 2,
+			t_53 = Sender.retry < 5,
+			t_54 = t_52 and t_53,
+			t_55 = channel_K.state == 0,
+			t_56 = t_54 and t_55;
+
+		guardCondition t_56;
+		effect
+			Sender.state = 2,
+			t_57 = Sender.retry + 1,
+			Sender.retry = t_57,
+			t_58 = Sender.value * 2,
+			t_59 = t_58 + Sender.sab,
+			channel_K.v = t_59,
+			channel_K.state = 1;
+
+	process channel_K_Receiver 
+		guardBlock
+			t_60 = channel_K.state == 1,
+			t_61 = Receiver.state == 0,
+			t_62 = t_60 and t_61;
+
+		guardCondition t_62;
+		effect
+			channel_K.state = 0,
+			channel_K.lost = 0,
+			Receiver.value = channel_K.v,
+			Receiver.state = 1;
 
 
 system async;
