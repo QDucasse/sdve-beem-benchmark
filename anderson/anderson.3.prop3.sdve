@@ -7,316 +7,222 @@ byte P_1.my_place = 0;
 state {NCS(0), p1(1), p2(2), p3(3), CS(4)} P_2.state = 0;
 byte P_2.my_place = 0;
 state {q1(0), q2(1)} LTL_property.state = 0;
-temp bool t_0 = false;
-temp int t_1 = 0;
-temp bool t_2 = false;
-temp bool t_3 = false;
-temp bool t_4 = false;
-temp int t_5 = 0;
-temp bool t_6 = false;
-temp bool t_7 = false;
-temp bool t_8 = false;
-temp int t_9 = 0;
-temp bool t_10 = false;
-temp byte t_11 = 0;
-temp bool t_12 = false;
-temp bool t_13 = false;
-temp bool t_14 = false;
-temp int t_15 = 0;
-temp int t_16 = 0;
-temp int t_17 = 0;
-temp bool t_18 = false;
-temp int t_19 = 0;
-temp int t_20 = 0;
-temp bool t_21 = false;
-temp int t_22 = 0;
-temp bool t_23 = false;
-temp bool t_24 = false;
-temp bool t_25 = false;
-temp int t_26 = 0;
-temp bool t_27 = false;
-temp bool t_28 = false;
-temp bool t_29 = false;
-temp int t_30 = 0;
-temp bool t_31 = false;
-temp byte t_32 = 0;
-temp bool t_33 = false;
-temp bool t_34 = false;
-temp bool t_35 = false;
-temp int t_36 = 0;
-temp int t_37 = 0;
-temp int t_38 = 0;
-temp bool t_39 = false;
-temp int t_40 = 0;
-temp int t_41 = 0;
-temp bool t_42 = false;
-temp int t_43 = 0;
-temp bool t_44 = false;
-temp bool t_45 = false;
-temp bool t_46 = false;
-temp int t_47 = 0;
-temp bool t_48 = false;
-temp bool t_49 = false;
-temp bool t_50 = false;
-temp int t_51 = 0;
-temp bool t_52 = false;
-temp byte t_53 = 0;
-temp bool t_54 = false;
-temp bool t_55 = false;
-temp bool t_56 = false;
-temp int t_57 = 0;
-temp int t_58 = 0;
-temp int t_59 = 0;
-temp bool t_60 = false;
-temp int t_61 = 0;
-temp int t_62 = 0;
-temp bool t_63 = false;
-temp bool t_64 = false;
-temp bool t_65 = false;
-temp bool t_66 = false;
-temp bool t_67 = false;
-temp bool t_68 = false;
-temp bool t_69 = false;
-temp bool t_70 = false;
-temp bool t_71 = false;
-	process P_0 
-		guardBlock
-			t_0 = P_0.state == 0;
 
-		guardCondition t_0;
-		effect
-			P_0.state = 1,
-			P_0.my_place = next,
-			t_1 = next + 1,
-			next = t_1;
+  process P_0
+    guardBlock
+      temp bool t_0 = P_0.state == 0;
+    guardCondition t_0;
+    effect
+      P_0.state = 1,
+      P_0.my_place = next,
+      temp int t_1 = next + 1,
+      next = t_1;
 
-	process P_0 
-		guardBlock
-			t_2 = P_0.state == 1,
-			t_3 = P_0.my_place == 2,
-			t_4 = t_2 and t_3;
+  process P_0
+    guardBlock
+      temp bool t_2 = P_0.state == 1,
+      temp bool t_3 = P_0.my_place == 2,
+      temp bool t_4 = t_2 and t_3;
+    guardCondition t_4;
+    effect
+      P_0.state = 2,
+      temp int t_5 = next - 3,
+      next = t_5;
 
-		guardCondition t_4;
-		effect
-			P_0.state = 2,
-			t_5 = next - 3,
-			next = t_5;
+  process P_0
+    guardBlock
+      temp bool t_6 = P_0.state == 1,
+      temp bool t_7 = P_0.my_place != 2,
+      temp bool t_8 = t_6 and t_7;
+    guardCondition t_8;
+    effect
+      P_0.state = 2,
+      temp int t_9 = P_0.my_place % 3,
+      P_0.my_place = t_9;
 
-	process P_0 
-		guardBlock
-			t_6 = P_0.state == 1,
-			t_7 = P_0.my_place != 2,
-			t_8 = t_6 and t_7;
+  process P_0
+    guardBlock
+      temp bool t_10 = P_0.state == 2,
+      temp byte t_11 = Slot[P_0.my_place],
+      temp bool t_12 = t_11 == 1,
+      temp bool t_13 = t_10 and t_12;
+    guardCondition t_13;
+    effect
+      P_0.state = 3;
 
-		guardCondition t_8;
-		effect
-			P_0.state = 2,
-			t_9 = P_0.my_place % 3,
-			P_0.my_place = t_9;
+  process P_0
+    guardBlock
+      temp bool t_14 = P_0.state == 3;
+    guardCondition t_14;
+    effect
+      P_0.state = 4,
+      temp int t_15 = P_0.my_place + 3,
+      temp int t_16 = t_15 - 1,
+      temp int t_17 = t_16 % 3,
+      Slot[t_17] = 0;
 
-	process P_0 
-		guardBlock
-			t_10 = P_0.state == 2,
-			t_11 = Slot[P_0.my_place],
-			t_12 = t_11 == 1,
-			t_13 = t_10 and t_12;
+  process P_0
+    guardBlock
+      temp bool t_18 = P_0.state == 4;
+    guardCondition t_18;
+    effect
+      P_0.state = 0,
+      temp int t_19 = P_0.my_place + 1,
+      temp int t_20 = t_19 % 3,
+      Slot[t_20] = 1;
 
-		guardCondition t_13;
-		effect
-			P_0.state = 3;
+  process P_1
+    guardBlock
+      temp bool t_21 = P_1.state == 0;
+    guardCondition t_21;
+    effect
+      P_1.state = 1,
+      P_1.my_place = next,
+      temp int t_22 = next + 1,
+      next = t_22;
 
-	process P_0 
-		guardBlock
-			t_14 = P_0.state == 3;
+  process P_1
+    guardBlock
+      temp bool t_23 = P_1.state == 1,
+      temp bool t_24 = P_1.my_place == 2,
+      temp bool t_25 = t_23 and t_24;
+    guardCondition t_25;
+    effect
+      P_1.state = 2,
+      temp int t_26 = next - 3,
+      next = t_26;
 
-		guardCondition t_14;
-		effect
-			P_0.state = 4,
-			t_15 = P_0.my_place + 3,
-			t_16 = t_15 - 1,
-			t_17 = t_16 % 3,
-			Slot[t_17] = 0;
+  process P_1
+    guardBlock
+      temp bool t_27 = P_1.state == 1,
+      temp bool t_28 = P_1.my_place != 2,
+      temp bool t_29 = t_27 and t_28;
+    guardCondition t_29;
+    effect
+      P_1.state = 2,
+      temp int t_30 = P_1.my_place % 3,
+      P_1.my_place = t_30;
 
-	process P_0 
-		guardBlock
-			t_18 = P_0.state == 4;
+  process P_1
+    guardBlock
+      temp bool t_31 = P_1.state == 2,
+      temp byte t_32 = Slot[P_1.my_place],
+      temp bool t_33 = t_32 == 1,
+      temp bool t_34 = t_31 and t_33;
+    guardCondition t_34;
+    effect
+      P_1.state = 3;
 
-		guardCondition t_18;
-		effect
-			P_0.state = 0,
-			t_19 = P_0.my_place + 1,
-			t_20 = t_19 % 3,
-			Slot[t_20] = 1;
+  process P_1
+    guardBlock
+      temp bool t_35 = P_1.state == 3;
+    guardCondition t_35;
+    effect
+      P_1.state = 4,
+      temp int t_36 = P_1.my_place + 3,
+      temp int t_37 = t_36 - 1,
+      temp int t_38 = t_37 % 3,
+      Slot[t_38] = 0;
 
-	process P_1 
-		guardBlock
-			t_21 = P_1.state == 0;
+  process P_1
+    guardBlock
+      temp bool t_39 = P_1.state == 4;
+    guardCondition t_39;
+    effect
+      P_1.state = 0,
+      temp int t_40 = P_1.my_place + 1,
+      temp int t_41 = t_40 % 3,
+      Slot[t_41] = 1;
 
-		guardCondition t_21;
-		effect
-			P_1.state = 1,
-			P_1.my_place = next,
-			t_22 = next + 1,
-			next = t_22;
+  process P_2
+    guardBlock
+      temp bool t_42 = P_2.state == 0;
+    guardCondition t_42;
+    effect
+      P_2.state = 1,
+      P_2.my_place = next,
+      temp int t_43 = next + 1,
+      next = t_43;
 
-	process P_1 
-		guardBlock
-			t_23 = P_1.state == 1,
-			t_24 = P_1.my_place == 2,
-			t_25 = t_23 and t_24;
+  process P_2
+    guardBlock
+      temp bool t_44 = P_2.state == 1,
+      temp bool t_45 = P_2.my_place == 2,
+      temp bool t_46 = t_44 and t_45;
+    guardCondition t_46;
+    effect
+      P_2.state = 2,
+      temp int t_47 = next - 3,
+      next = t_47;
 
-		guardCondition t_25;
-		effect
-			P_1.state = 2,
-			t_26 = next - 3,
-			next = t_26;
+  process P_2
+    guardBlock
+      temp bool t_48 = P_2.state == 1,
+      temp bool t_49 = P_2.my_place != 2,
+      temp bool t_50 = t_48 and t_49;
+    guardCondition t_50;
+    effect
+      P_2.state = 2,
+      temp int t_51 = P_2.my_place % 3,
+      P_2.my_place = t_51;
 
-	process P_1 
-		guardBlock
-			t_27 = P_1.state == 1,
-			t_28 = P_1.my_place != 2,
-			t_29 = t_27 and t_28;
+  process P_2
+    guardBlock
+      temp bool t_52 = P_2.state == 2,
+      temp byte t_53 = Slot[P_2.my_place],
+      temp bool t_54 = t_53 == 1,
+      temp bool t_55 = t_52 and t_54;
+    guardCondition t_55;
+    effect
+      P_2.state = 3;
 
-		guardCondition t_29;
-		effect
-			P_1.state = 2,
-			t_30 = P_1.my_place % 3,
-			P_1.my_place = t_30;
+  process P_2
+    guardBlock
+      temp bool t_56 = P_2.state == 3;
+    guardCondition t_56;
+    effect
+      P_2.state = 4,
+      temp int t_57 = P_2.my_place + 3,
+      temp int t_58 = t_57 - 1,
+      temp int t_59 = t_58 % 3,
+      Slot[t_59] = 0;
 
-	process P_1 
-		guardBlock
-			t_31 = P_1.state == 2,
-			t_32 = Slot[P_1.my_place],
-			t_33 = t_32 == 1,
-			t_34 = t_31 and t_33;
+  process P_2
+    guardBlock
+      temp bool t_60 = P_2.state == 4;
+    guardCondition t_60;
+    effect
+      P_2.state = 0,
+      temp int t_61 = P_2.my_place + 1,
+      temp int t_62 = t_61 % 3,
+      Slot[t_62] = 1;
 
-		guardCondition t_34;
-		effect
-			P_1.state = 3;
+  process LTL_property
+    guardBlock
+      temp bool t_63 = LTL_property.state == 0;
+    guardCondition t_63;
+    effect
+      LTL_property.state = 0;
 
-	process P_1 
-		guardBlock
-			t_35 = P_1.state == 3;
+  process LTL_property
+    guardBlock
+      temp bool t_64 = LTL_property.state == 0,
+      temp bool t_65 = P_0.state == 4,
+      temp bool t_66 = not t_65,
+      temp bool t_67 = t_64 and t_66;
+    guardCondition t_67;
+    effect
+      LTL_property.state = 1;
 
-		guardCondition t_35;
-		effect
-			P_1.state = 4,
-			t_36 = P_1.my_place + 3,
-			t_37 = t_36 - 1,
-			t_38 = t_37 % 3,
-			Slot[t_38] = 0;
-
-	process P_1 
-		guardBlock
-			t_39 = P_1.state == 4;
-
-		guardCondition t_39;
-		effect
-			P_1.state = 0,
-			t_40 = P_1.my_place + 1,
-			t_41 = t_40 % 3,
-			Slot[t_41] = 1;
-
-	process P_2 
-		guardBlock
-			t_42 = P_2.state == 0;
-
-		guardCondition t_42;
-		effect
-			P_2.state = 1,
-			P_2.my_place = next,
-			t_43 = next + 1,
-			next = t_43;
-
-	process P_2 
-		guardBlock
-			t_44 = P_2.state == 1,
-			t_45 = P_2.my_place == 2,
-			t_46 = t_44 and t_45;
-
-		guardCondition t_46;
-		effect
-			P_2.state = 2,
-			t_47 = next - 3,
-			next = t_47;
-
-	process P_2 
-		guardBlock
-			t_48 = P_2.state == 1,
-			t_49 = P_2.my_place != 2,
-			t_50 = t_48 and t_49;
-
-		guardCondition t_50;
-		effect
-			P_2.state = 2,
-			t_51 = P_2.my_place % 3,
-			P_2.my_place = t_51;
-
-	process P_2 
-		guardBlock
-			t_52 = P_2.state == 2,
-			t_53 = Slot[P_2.my_place],
-			t_54 = t_53 == 1,
-			t_55 = t_52 and t_54;
-
-		guardCondition t_55;
-		effect
-			P_2.state = 3;
-
-	process P_2 
-		guardBlock
-			t_56 = P_2.state == 3;
-
-		guardCondition t_56;
-		effect
-			P_2.state = 4,
-			t_57 = P_2.my_place + 3,
-			t_58 = t_57 - 1,
-			t_59 = t_58 % 3,
-			Slot[t_59] = 0;
-
-	process P_2 
-		guardBlock
-			t_60 = P_2.state == 4;
-
-		guardCondition t_60;
-		effect
-			P_2.state = 0,
-			t_61 = P_2.my_place + 1,
-			t_62 = t_61 % 3,
-			Slot[t_62] = 1;
-
-	process LTL_property 
-		guardBlock
-			t_63 = LTL_property.state == 0;
-
-		guardCondition t_63;
-		effect
-			LTL_property.state = 0;
-
-	process LTL_property 
-		guardBlock
-			t_64 = LTL_property.state == 0,
-			t_65 = P_0.state == 4,
-			t_66 = not t_65,
-			t_67 = t_64 and t_66;
-
-		guardCondition t_67;
-		effect
-			LTL_property.state = 1;
-
-	process LTL_property 
-		guardBlock
-			t_68 = LTL_property.state == 1,
-			t_69 = P_0.state == 4,
-			t_70 = not t_69,
-			t_71 = t_68 and t_70;
-
-		guardCondition t_71;
-		effect
-			LTL_property.state = 1;
-
-accepting conditions
-	LTL_property.state == 1
-
-system async property LTL_property;
+  process LTL_property
+    guardBlock
+      temp bool t_68 = LTL_property.state == 1,
+      temp bool t_69 = P_0.state == 4,
+      temp bool t_70 = not t_69,
+      temp bool t_71 = t_68 and t_70;
+    guardCondition t_71;
+    effect
+      LTL_property.state = 1;
+      accepting conditions
+      LTL_property.state == 1
+      system async property LTL_property;

@@ -7,490 +7,328 @@ state {read(0)} environment.state = 0;
 state {wait(0), work(1), done(2)} controller.state = 0;
 byte controller.ldir = 0;
 state {q1(0), q2(1), q3(2), q4(3), q5(4), q6(5)} LTL_property.state = 0;
-temp bool t_0 = false;
-temp bool t_1 = false;
-temp bool t_2 = false;
-temp bool t_3 = false;
-temp bool t_4 = false;
-temp bool t_5 = false;
-temp bool t_6 = false;
-temp bool t_7 = false;
-temp bool t_8 = false;
-temp int t_9 = 0;
-temp bool t_10 = false;
-temp bool t_11 = false;
-temp bool t_12 = false;
-temp int t_13 = 0;
-temp bool t_14 = false;
-temp bool t_15 = false;
-temp byte t_16 = 0;
-temp bool t_17 = false;
-temp bool t_18 = false;
-temp bool t_19 = false;
-temp byte t_20 = 0;
-temp bool t_21 = false;
-temp bool t_22 = false;
-temp bool t_23 = false;
-temp byte t_24 = 0;
-temp bool t_25 = false;
-temp bool t_26 = false;
-temp bool t_27 = false;
-temp byte t_28 = 0;
-temp bool t_29 = false;
-temp bool t_30 = false;
-temp bool t_31 = false;
-temp bool t_32 = false;
-temp bool t_33 = false;
-temp int t_34 = 0;
-temp int t_35 = 0;
-temp int t_36 = 0;
-temp bool t_37 = false;
-temp bool t_38 = false;
-temp bool t_39 = false;
-temp bool t_40 = false;
-temp bool t_41 = false;
-temp int t_42 = 0;
-temp bool t_43 = false;
-temp bool t_44 = false;
-temp bool t_45 = false;
-temp bool t_46 = false;
-temp byte t_47 = 0;
-temp bool t_48 = false;
-temp bool t_49 = false;
-temp bool t_50 = false;
-temp bool t_51 = false;
-temp bool t_52 = false;
-temp bool t_53 = false;
-temp bool t_54 = false;
-temp byte t_55 = 0;
-temp bool t_56 = false;
-temp bool t_57 = false;
-temp bool t_58 = false;
-temp int t_59 = 0;
-temp int t_60 = 0;
-temp int t_61 = 0;
-temp bool t_62 = false;
-temp bool t_63 = false;
-temp bool t_64 = false;
-temp byte t_65 = 0;
-temp bool t_66 = false;
-temp bool t_67 = false;
-temp bool t_68 = false;
-temp bool t_69 = false;
-temp bool t_70 = false;
-temp bool t_71 = false;
-temp byte t_72 = 0;
-temp bool t_73 = false;
-temp bool t_74 = false;
-temp bool t_75 = false;
-temp bool t_76 = false;
-temp bool t_77 = false;
-temp bool t_78 = false;
-temp byte t_79 = 0;
-temp bool t_80 = false;
-temp bool t_81 = false;
-temp bool t_82 = false;
-temp bool t_83 = false;
-temp bool t_84 = false;
-temp bool t_85 = false;
-temp bool t_86 = false;
-temp bool t_87 = false;
-temp bool t_88 = false;
-temp bool t_89 = false;
-temp bool t_90 = false;
-temp bool t_91 = false;
-temp bool t_92 = false;
-temp bool t_93 = false;
-temp bool t_94 = false;
-temp bool t_95 = false;
-temp bool t_96 = false;
-temp bool t_97 = false;
-temp bool t_98 = false;
-temp bool t_99 = false;
-temp bool t_100 = false;
-temp bool t_101 = false;
-temp bool t_102 = false;
-temp bool t_103 = false;
-temp bool t_104 = false;
-temp bool t_105 = false;
-temp bool t_106 = false;
-temp bool t_107 = false;
-temp bool t_108 = false;
-temp bool t_109 = false;
-temp bool t_110 = false;
-temp bool t_111 = false;
-temp bool t_112 = false;
-temp bool t_113 = false;
-temp bool t_114 = false;
-temp bool t_115 = false;
-temp bool t_116 = false;
-temp bool t_117 = false;
-temp bool t_118 = false;
-temp bool t_119 = false;
-temp bool t_120 = false;
-temp bool t_121 = false;
-temp bool t_122 = false;
-temp bool t_123 = false;
-temp bool t_124 = false;
-temp bool t_125 = false;
-temp bool t_126 = false;
-temp bool t_127 = false;
-temp bool t_128 = false;
-temp bool t_129 = false;
-temp bool t_130 = false;
-temp bool t_131 = false;
-	process cabin 
-		guardBlock
-			t_0 = cabin.state == 0,
-			t_1 = v > 0,
-			t_2 = t_0 and t_1;
 
-		guardCondition t_2;
-		effect
-			cabin.state = 1;
+  process cabin
+    guardBlock
+      temp bool t_0 = cabin.state == 0,
+      temp bool t_1 = v > 0,
+      temp bool t_2 = t_0 and t_1;
+    guardCondition t_2;
+    effect
+      cabin.state = 1;
 
-	process cabin 
-		guardBlock
-			t_3 = cabin.state == 1,
-			t_4 = t == p,
-			t_5 = t_3 and t_4;
+  process cabin
+    guardBlock
+      temp bool t_3 = cabin.state == 1,
+      temp bool t_4 = t == p,
+      temp bool t_5 = t_3 and t_4;
+    guardCondition t_5;
+    effect
+      cabin.state = 2;
 
-		guardCondition t_5;
-		effect
-			cabin.state = 2;
+  process cabin
+    guardBlock
+      temp bool t_6 = cabin.state == 1,
+      temp bool t_7 = t < p,
+      temp bool t_8 = t_6 and t_7;
+    guardCondition t_8;
+    effect
+      cabin.state = 1,
+      temp int t_9 = p - 1,
+      p = t_9;
 
-	process cabin 
-		guardBlock
-			t_6 = cabin.state == 1,
-			t_7 = t < p,
-			t_8 = t_6 and t_7;
+  process cabin
+    guardBlock
+      temp bool t_10 = cabin.state == 1,
+      temp bool t_11 = t > p,
+      temp bool t_12 = t_10 and t_11;
+    guardCondition t_12;
+    effect
+      cabin.state = 1,
+      temp int t_13 = p + 1,
+      p = t_13;
 
-		guardCondition t_8;
-		effect
-			cabin.state = 1,
-			t_9 = p - 1,
-			p = t_9;
+  process cabin
+    guardBlock
+      temp bool t_14 = cabin.state == 2;
+    guardCondition t_14;
+    effect
+      cabin.state = 0,
+      req[p] = 0,
+      v = 0;
 
-	process cabin 
-		guardBlock
-			t_10 = cabin.state == 1,
-			t_11 = t > p,
-			t_12 = t_10 and t_11;
+  process environment
+    guardBlock
+      temp bool t_15 = environment.state == 0,
+      temp byte t_16 = req[0],
+      temp bool t_17 = t_16 == 0,
+      temp bool t_18 = t_15 and t_17;
+    guardCondition t_18;
+    effect
+      environment.state = 0,
+      req[0] = 1;
 
-		guardCondition t_12;
-		effect
-			cabin.state = 1,
-			t_13 = p + 1,
-			p = t_13;
+  process environment
+    guardBlock
+      temp bool t_19 = environment.state == 0,
+      temp byte t_20 = req[1],
+      temp bool t_21 = t_20 == 0,
+      temp bool t_22 = t_19 and t_21;
+    guardCondition t_22;
+    effect
+      environment.state = 0,
+      req[1] = 1;
 
-	process cabin 
-		guardBlock
-			t_14 = cabin.state == 2;
+  process environment
+    guardBlock
+      temp bool t_23 = environment.state == 0,
+      temp byte t_24 = req[2],
+      temp bool t_25 = t_24 == 0,
+      temp bool t_26 = t_23 and t_25;
+    guardCondition t_26;
+    effect
+      environment.state = 0,
+      req[2] = 1;
 
-		guardCondition t_14;
-		effect
-			cabin.state = 0,
-			req[p] = 0,
-			v = 0;
+  process environment
+    guardBlock
+      temp bool t_27 = environment.state == 0,
+      temp byte t_28 = req[3],
+      temp bool t_29 = t_28 == 0,
+      temp bool t_30 = t_27 and t_29;
+    guardCondition t_30;
+    effect
+      environment.state = 0,
+      req[3] = 1;
 
-	process environment 
-		guardBlock
-			t_15 = environment.state == 0,
-			t_16 = req[0],
-			t_17 = t_16 == 0,
-			t_18 = t_15 and t_17;
+  process controller
+    guardBlock
+      temp bool t_31 = controller.state == 0,
+      temp bool t_32 = v == 0,
+      temp bool t_33 = t_31 and t_32;
+    guardCondition t_33;
+    effect
+      controller.state = 1,
+      temp int t_34 = 2 * controller.ldir,
+      temp int t_35 = t + t_34,
+      temp int t_36 = t_35 - 1,
+      t = t_36;
 
-		guardCondition t_18;
-		effect
-			environment.state = 0,
-			req[0] = 1;
+  process controller
+    guardBlock
+      temp bool t_37 = controller.state == 1,
+      temp bool t_38 = t < 0,
+      temp bool t_39 = t == 4,
+      temp bool t_40 = t_38 or t_39,
+      temp bool t_41 = t_37 and t_40;
+    guardCondition t_41;
+    effect
+      controller.state = 0,
+      temp int t_42 = 1 - controller.ldir,
+      controller.ldir = t_42;
 
-	process environment 
-		guardBlock
-			t_19 = environment.state == 0,
-			t_20 = req[1],
-			t_21 = t_20 == 0,
-			t_22 = t_19 and t_21;
+  process controller
+    guardBlock
+      temp bool t_43 = controller.state == 1,
+      temp bool t_44 = t >= 0,
+      temp bool t_45 = t < 4,
+      temp bool t_46 = t_44 and t_45,
+      temp byte t_47 = req[t],
+      temp bool t_48 = t_47 == 1,
+      temp bool t_49 = t_46 and t_48,
+      temp bool t_50 = t_43 and t_49;
+    guardCondition t_50;
+    effect
+      controller.state = 2;
 
-		guardCondition t_22;
-		effect
-			environment.state = 0,
-			req[1] = 1;
+  process controller
+    guardBlock
+      temp bool t_51 = controller.state == 1,
+      temp bool t_52 = t >= 0,
+      temp bool t_53 = t < 4,
+      temp bool t_54 = t_52 and t_53,
+      temp byte t_55 = req[t],
+      temp bool t_56 = t_55 == 0,
+      temp bool t_57 = t_54 and t_56,
+      temp bool t_58 = t_51 and t_57;
+    guardCondition t_58;
+    effect
+      controller.state = 1,
+      temp int t_59 = 2 * controller.ldir,
+      temp int t_60 = t + t_59,
+      temp int t_61 = t_60 - 1,
+      t = t_61;
 
-	process environment 
-		guardBlock
-			t_23 = environment.state == 0,
-			t_24 = req[2],
-			t_25 = t_24 == 0,
-			t_26 = t_23 and t_25;
+  process controller
+    guardBlock
+      temp bool t_62 = controller.state == 2;
+    guardCondition t_62;
+    effect
+      controller.state = 0,
+      v = 1;
 
-		guardCondition t_26;
-		effect
-			environment.state = 0,
-			req[2] = 1;
+  process LTL_property
+    guardBlock
+      temp bool t_63 = LTL_property.state == 0;
+    guardCondition t_63;
+    effect
+      LTL_property.state = 0;
 
-	process environment 
-		guardBlock
-			t_27 = environment.state == 0,
-			t_28 = req[3],
-			t_29 = t_28 == 0,
-			t_30 = t_27 and t_29;
+  process LTL_property
+    guardBlock
+      temp bool t_64 = LTL_property.state == 0,
+      temp byte t_65 = req[0],
+      temp bool t_66 = t_65 == 1,
+      temp bool t_67 = p == 1,
+      temp bool t_68 = not t_67,
+      temp bool t_69 = t_66 and t_68,
+      temp bool t_70 = t_64 and t_69;
+    guardCondition t_70;
+    effect
+      LTL_property.state = 1;
 
-		guardCondition t_30;
-		effect
-			environment.state = 0,
-			req[3] = 1;
+  process LTL_property
+    guardBlock
+      temp bool t_71 = LTL_property.state == 0,
+      temp byte t_72 = req[0],
+      temp bool t_73 = t_72 == 1,
+      temp bool t_74 = cabin.state == 2,
+      temp bool t_75 = not t_74,
+      temp bool t_76 = t_73 and t_75,
+      temp bool t_77 = t_71 and t_76;
+    guardCondition t_77;
+    effect
+      LTL_property.state = 1;
 
-	process controller 
-		guardBlock
-			t_31 = controller.state == 0,
-			t_32 = v == 0,
-			t_33 = t_31 and t_32;
+  process LTL_property
+    guardBlock
+      temp bool t_78 = LTL_property.state == 0,
+      temp byte t_79 = req[0],
+      temp bool t_80 = t_79 == 1,
+      temp bool t_81 = p == 1,
+      temp bool t_82 = t_80 and t_81,
+      temp bool t_83 = cabin.state == 2,
+      temp bool t_84 = not t_83,
+      temp bool t_85 = t_82 and t_84,
+      temp bool t_86 = t_78 and t_85;
+    guardCondition t_86;
+    effect
+      LTL_property.state = 2;
 
-		guardCondition t_33;
-		effect
-			controller.state = 1,
-			t_34 = 2 * controller.ldir,
-			t_35 = t + t_34,
-			t_36 = t_35 - 1,
-			t = t_36;
+  process LTL_property
+    guardBlock
+      temp bool t_87 = LTL_property.state == 1,
+      temp bool t_88 = p == 1,
+      temp bool t_89 = not t_88,
+      temp bool t_90 = t_87 and t_89;
+    guardCondition t_90;
+    effect
+      LTL_property.state = 1;
 
-	process controller 
-		guardBlock
-			t_37 = controller.state == 1,
-			t_38 = t < 0,
-			t_39 = t == 4,
-			t_40 = t_38 or t_39,
-			t_41 = t_37 and t_40;
+  process LTL_property
+    guardBlock
+      temp bool t_91 = LTL_property.state == 1,
+      temp bool t_92 = cabin.state == 2,
+      temp bool t_93 = not t_92,
+      temp bool t_94 = t_91 and t_93;
+    guardCondition t_94;
+    effect
+      LTL_property.state = 1;
 
-		guardCondition t_41;
-		effect
-			controller.state = 0,
-			t_42 = 1 - controller.ldir,
-			controller.ldir = t_42;
+  process LTL_property
+    guardBlock
+      temp bool t_95 = LTL_property.state == 1,
+      temp bool t_96 = cabin.state == 2,
+      temp bool t_97 = not t_96,
+      temp bool t_98 = p == 1,
+      temp bool t_99 = t_97 and t_98,
+      temp bool t_100 = t_95 and t_99;
+    guardCondition t_100;
+    effect
+      LTL_property.state = 2;
 
-	process controller 
-		guardBlock
-			t_43 = controller.state == 1,
-			t_44 = t >= 0,
-			t_45 = t < 4,
-			t_46 = t_44 and t_45,
-			t_47 = req[t],
-			t_48 = t_47 == 1,
-			t_49 = t_46 and t_48,
-			t_50 = t_43 and t_49;
+  process LTL_property
+    guardBlock
+      temp bool t_101 = LTL_property.state == 2,
+      temp bool t_102 = p == 1,
+      temp bool t_103 = not t_102,
+      temp bool t_104 = t_101 and t_103;
+    guardCondition t_104;
+    effect
+      LTL_property.state = 3;
 
-		guardCondition t_50;
-		effect
-			controller.state = 2;
+  process LTL_property
+    guardBlock
+      temp bool t_105 = LTL_property.state == 2,
+      temp bool t_106 = cabin.state == 2,
+      temp bool t_107 = not t_106,
+      temp bool t_108 = t_105 and t_107;
+    guardCondition t_108;
+    effect
+      LTL_property.state = 2;
 
-	process controller 
-		guardBlock
-			t_51 = controller.state == 1,
-			t_52 = t >= 0,
-			t_53 = t < 4,
-			t_54 = t_52 and t_53,
-			t_55 = req[t],
-			t_56 = t_55 == 0,
-			t_57 = t_54 and t_56,
-			t_58 = t_51 and t_57;
+  process LTL_property
+    guardBlock
+      temp bool t_109 = LTL_property.state == 3,
+      temp bool t_110 = p == 1,
+      temp bool t_111 = not t_110,
+      temp bool t_112 = t_109 and t_111;
+    guardCondition t_112;
+    effect
+      LTL_property.state = 3;
 
-		guardCondition t_58;
-		effect
-			controller.state = 1,
-			t_59 = 2 * controller.ldir,
-			t_60 = t + t_59,
-			t_61 = t_60 - 1,
-			t = t_61;
+  process LTL_property
+    guardBlock
+      temp bool t_113 = LTL_property.state == 3,
+      temp bool t_114 = cabin.state == 2,
+      temp bool t_115 = not t_114,
+      temp bool t_116 = t_113 and t_115;
+    guardCondition t_116;
+    effect
+      LTL_property.state = 3;
 
-	process controller 
-		guardBlock
-			t_62 = controller.state == 2;
+  process LTL_property
+    guardBlock
+      temp bool t_117 = LTL_property.state == 3,
+      temp bool t_118 = p == 1,
+      temp bool t_119 = cabin.state == 2,
+      temp bool t_120 = not t_119,
+      temp bool t_121 = t_118 and t_120,
+      temp bool t_122 = t_117 and t_121;
+    guardCondition t_122;
+    effect
+      LTL_property.state = 4;
 
-		guardCondition t_62;
-		effect
-			controller.state = 0,
-			v = 1;
+  process LTL_property
+    guardBlock
+      temp bool t_123 = LTL_property.state == 4,
+      temp bool t_124 = cabin.state == 2,
+      temp bool t_125 = not t_124,
+      temp bool t_126 = t_123 and t_125;
+    guardCondition t_126;
+    effect
+      LTL_property.state = 4;
 
-	process LTL_property 
-		guardBlock
-			t_63 = LTL_property.state == 0;
+  process LTL_property
+    guardBlock
+      temp bool t_127 = LTL_property.state == 4,
+      temp bool t_128 = p == 1,
+      temp bool t_129 = not t_128,
+      temp bool t_130 = t_127 and t_129;
+    guardCondition t_130;
+    effect
+      LTL_property.state = 5;
 
-		guardCondition t_63;
-		effect
-			LTL_property.state = 0;
-
-	process LTL_property 
-		guardBlock
-			t_64 = LTL_property.state == 0,
-			t_65 = req[0],
-			t_66 = t_65 == 1,
-			t_67 = p == 1,
-			t_68 = not t_67,
-			t_69 = t_66 and t_68,
-			t_70 = t_64 and t_69;
-
-		guardCondition t_70;
-		effect
-			LTL_property.state = 1;
-
-	process LTL_property 
-		guardBlock
-			t_71 = LTL_property.state == 0,
-			t_72 = req[0],
-			t_73 = t_72 == 1,
-			t_74 = cabin.state == 2,
-			t_75 = not t_74,
-			t_76 = t_73 and t_75,
-			t_77 = t_71 and t_76;
-
-		guardCondition t_77;
-		effect
-			LTL_property.state = 1;
-
-	process LTL_property 
-		guardBlock
-			t_78 = LTL_property.state == 0,
-			t_79 = req[0],
-			t_80 = t_79 == 1,
-			t_81 = p == 1,
-			t_82 = t_80 and t_81,
-			t_83 = cabin.state == 2,
-			t_84 = not t_83,
-			t_85 = t_82 and t_84,
-			t_86 = t_78 and t_85;
-
-		guardCondition t_86;
-		effect
-			LTL_property.state = 2;
-
-	process LTL_property 
-		guardBlock
-			t_87 = LTL_property.state == 1,
-			t_88 = p == 1,
-			t_89 = not t_88,
-			t_90 = t_87 and t_89;
-
-		guardCondition t_90;
-		effect
-			LTL_property.state = 1;
-
-	process LTL_property 
-		guardBlock
-			t_91 = LTL_property.state == 1,
-			t_92 = cabin.state == 2,
-			t_93 = not t_92,
-			t_94 = t_91 and t_93;
-
-		guardCondition t_94;
-		effect
-			LTL_property.state = 1;
-
-	process LTL_property 
-		guardBlock
-			t_95 = LTL_property.state == 1,
-			t_96 = cabin.state == 2,
-			t_97 = not t_96,
-			t_98 = p == 1,
-			t_99 = t_97 and t_98,
-			t_100 = t_95 and t_99;
-
-		guardCondition t_100;
-		effect
-			LTL_property.state = 2;
-
-	process LTL_property 
-		guardBlock
-			t_101 = LTL_property.state == 2,
-			t_102 = p == 1,
-			t_103 = not t_102,
-			t_104 = t_101 and t_103;
-
-		guardCondition t_104;
-		effect
-			LTL_property.state = 3;
-
-	process LTL_property 
-		guardBlock
-			t_105 = LTL_property.state == 2,
-			t_106 = cabin.state == 2,
-			t_107 = not t_106,
-			t_108 = t_105 and t_107;
-
-		guardCondition t_108;
-		effect
-			LTL_property.state = 2;
-
-	process LTL_property 
-		guardBlock
-			t_109 = LTL_property.state == 3,
-			t_110 = p == 1,
-			t_111 = not t_110,
-			t_112 = t_109 and t_111;
-
-		guardCondition t_112;
-		effect
-			LTL_property.state = 3;
-
-	process LTL_property 
-		guardBlock
-			t_113 = LTL_property.state == 3,
-			t_114 = cabin.state == 2,
-			t_115 = not t_114,
-			t_116 = t_113 and t_115;
-
-		guardCondition t_116;
-		effect
-			LTL_property.state = 3;
-
-	process LTL_property 
-		guardBlock
-			t_117 = LTL_property.state == 3,
-			t_118 = p == 1,
-			t_119 = cabin.state == 2,
-			t_120 = not t_119,
-			t_121 = t_118 and t_120,
-			t_122 = t_117 and t_121;
-
-		guardCondition t_122;
-		effect
-			LTL_property.state = 4;
-
-	process LTL_property 
-		guardBlock
-			t_123 = LTL_property.state == 4,
-			t_124 = cabin.state == 2,
-			t_125 = not t_124,
-			t_126 = t_123 and t_125;
-
-		guardCondition t_126;
-		effect
-			LTL_property.state = 4;
-
-	process LTL_property 
-		guardBlock
-			t_127 = LTL_property.state == 4,
-			t_128 = p == 1,
-			t_129 = not t_128,
-			t_130 = t_127 and t_129;
-
-		guardCondition t_130;
-		effect
-			LTL_property.state = 5;
-
-	process LTL_property 
-		guardBlock
-			t_131 = LTL_property.state == 5;
-
-		guardCondition t_131;
-		effect
-			LTL_property.state = 5;
-
-accepting conditions
-	LTL_property.state == 1
-	LTL_property.state == 2
-	LTL_property.state == 3
-	LTL_property.state == 4
-	LTL_property.state == 5
-
-system async property LTL_property;
+  process LTL_property
+    guardBlock
+      temp bool t_131 = LTL_property.state == 5;
+    guardCondition t_131;
+    effect
+      LTL_property.state = 5;
+      accepting conditions
+      LTL_property.state == 1
+      LTL_property.state == 2
+      LTL_property.state == 3
+      LTL_property.state == 4
+      LTL_property.state == 5
+      system async property LTL_property;

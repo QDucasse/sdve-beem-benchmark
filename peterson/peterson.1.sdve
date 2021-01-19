@@ -9,335 +9,233 @@ byte P_1.k = 0;
 state {NCS(0), CS(1), wait(2), q2(3), q3(4)} P_2.state = 0;
 byte P_2.j = 0;
 byte P_2.k = 0;
-temp bool t_0 = false;
-temp bool t_1 = false;
-temp bool t_2 = false;
-temp bool t_3 = false;
-temp bool t_4 = false;
-temp int t_5 = 0;
-temp bool t_6 = false;
-temp bool t_7 = false;
-temp bool t_8 = false;
-temp byte t_9 = 0;
-temp bool t_10 = false;
-temp bool t_11 = false;
-temp bool t_12 = false;
-temp bool t_13 = false;
-temp int t_14 = 0;
-temp bool t_15 = false;
-temp int t_16 = 0;
-temp byte t_17 = 0;
-temp bool t_18 = false;
-temp bool t_19 = false;
-temp bool t_20 = false;
-temp bool t_21 = false;
-temp int t_22 = 0;
-temp bool t_23 = false;
-temp bool t_24 = false;
-temp bool t_25 = false;
-temp bool t_26 = false;
-temp bool t_27 = false;
-temp bool t_28 = false;
-temp bool t_29 = false;
-temp bool t_30 = false;
-temp bool t_31 = false;
-temp int t_32 = 0;
-temp bool t_33 = false;
-temp bool t_34 = false;
-temp bool t_35 = false;
-temp byte t_36 = 0;
-temp bool t_37 = false;
-temp bool t_38 = false;
-temp bool t_39 = false;
-temp bool t_40 = false;
-temp int t_41 = 0;
-temp bool t_42 = false;
-temp int t_43 = 0;
-temp byte t_44 = 0;
-temp bool t_45 = false;
-temp bool t_46 = false;
-temp bool t_47 = false;
-temp bool t_48 = false;
-temp int t_49 = 0;
-temp bool t_50 = false;
-temp bool t_51 = false;
-temp bool t_52 = false;
-temp bool t_53 = false;
-temp bool t_54 = false;
-temp bool t_55 = false;
-temp bool t_56 = false;
-temp bool t_57 = false;
-temp bool t_58 = false;
-temp int t_59 = 0;
-temp bool t_60 = false;
-temp bool t_61 = false;
-temp bool t_62 = false;
-temp byte t_63 = 0;
-temp bool t_64 = false;
-temp bool t_65 = false;
-temp bool t_66 = false;
-temp bool t_67 = false;
-temp int t_68 = 0;
-temp bool t_69 = false;
-temp int t_70 = 0;
-temp byte t_71 = 0;
-temp bool t_72 = false;
-temp bool t_73 = false;
-temp bool t_74 = false;
-temp bool t_75 = false;
-temp int t_76 = 0;
-temp bool t_77 = false;
-temp bool t_78 = false;
-temp bool t_79 = false;
-temp bool t_80 = false;
-	process P_0 
-		guardBlock
-			t_0 = P_0.state == 0;
 
-		guardCondition t_0;
-		effect
-			P_0.state = 2,
-			P_0.j = 1;
+  process P_0
+    guardBlock
+      temp bool t_0 = P_0.state == 0;
+    guardCondition t_0;
+    effect
+      P_0.state = 2,
+      P_0.j = 1;
 
-	process P_0 
-		guardBlock
-			t_1 = P_0.state == 2,
-			t_2 = P_0.j < 3,
-			t_3 = t_1 and t_2;
+  process P_0
+    guardBlock
+      temp bool t_1 = P_0.state == 2,
+      temp bool t_2 = P_0.j < 3,
+      temp bool t_3 = t_1 and t_2;
+    guardCondition t_3;
+    effect
+      P_0.state = 3,
+      pos[0] = P_0.j;
 
-		guardCondition t_3;
-		effect
-			P_0.state = 3,
-			pos[0] = P_0.j;
+  process P_0
+    guardBlock
+      temp bool t_4 = P_0.state == 3;
+    guardCondition t_4;
+    effect
+      P_0.state = 4,
+      temp int t_5 = P_0.j - 1,
+      step[t_5] = 0,
+      P_0.k = 0;
 
-	process P_0 
-		guardBlock
-			t_4 = P_0.state == 3;
+  process P_0
+    guardBlock
+      temp bool t_6 = P_0.state == 4,
+      temp bool t_7 = P_0.k < 3,
+      temp bool t_8 = P_0.k == 0,
+      temp byte t_9 = pos[P_0.k],
+      temp bool t_10 = t_9 < P_0.j,
+      temp bool t_11 = t_8 or t_10,
+      temp bool t_12 = t_7 and t_11,
+      temp bool t_13 = t_6 and t_12;
+    guardCondition t_13;
+    effect
+      P_0.state = 4,
+      temp int t_14 = P_0.k + 1,
+      P_0.k = t_14;
 
-		guardCondition t_4;
-		effect
-			P_0.state = 4,
-			t_5 = P_0.j - 1,
-			step[t_5] = 0,
-			P_0.k = 0;
+  process P_0
+    guardBlock
+      temp bool t_15 = P_0.state == 4,
+      temp int t_16 = P_0.j - 1,
+      temp byte t_17 = step[t_16],
+      temp bool t_18 = t_17 != 0,
+      temp bool t_19 = P_0.k == 3,
+      temp bool t_20 = t_18 or t_19,
+      temp bool t_21 = t_15 and t_20;
+    guardCondition t_21;
+    effect
+      P_0.state = 2,
+      temp int t_22 = P_0.j + 1,
+      P_0.j = t_22;
 
-	process P_0 
-		guardBlock
-			t_6 = P_0.state == 4,
-			t_7 = P_0.k < 3,
-			t_8 = P_0.k == 0,
-			t_9 = pos[P_0.k],
-			t_10 = t_9 < P_0.j,
-			t_11 = t_8 or t_10,
-			t_12 = t_7 and t_11,
-			t_13 = t_6 and t_12;
+  process P_0
+    guardBlock
+      temp bool t_23 = P_0.state == 2,
+      temp bool t_24 = P_0.j == 3,
+      temp bool t_25 = t_23 and t_24;
+    guardCondition t_25;
+    effect
+      P_0.state = 1;
 
-		guardCondition t_13;
-		effect
-			P_0.state = 4,
-			t_14 = P_0.k + 1,
-			P_0.k = t_14;
+  process P_0
+    guardBlock
+      temp bool t_26 = P_0.state == 1;
+    guardCondition t_26;
+    effect
+      P_0.state = 0,
+      pos[0] = 0;
 
-	process P_0 
-		guardBlock
-			t_15 = P_0.state == 4,
-			t_16 = P_0.j - 1,
-			t_17 = step[t_16],
-			t_18 = t_17 != 0,
-			t_19 = P_0.k == 3,
-			t_20 = t_18 or t_19,
-			t_21 = t_15 and t_20;
+  process P_1
+    guardBlock
+      temp bool t_27 = P_1.state == 0;
+    guardCondition t_27;
+    effect
+      P_1.state = 2,
+      P_1.j = 1;
 
-		guardCondition t_21;
-		effect
-			P_0.state = 2,
-			t_22 = P_0.j + 1,
-			P_0.j = t_22;
+  process P_1
+    guardBlock
+      temp bool t_28 = P_1.state == 2,
+      temp bool t_29 = P_1.j < 3,
+      temp bool t_30 = t_28 and t_29;
+    guardCondition t_30;
+    effect
+      P_1.state = 3,
+      pos[1] = P_1.j;
 
-	process P_0 
-		guardBlock
-			t_23 = P_0.state == 2,
-			t_24 = P_0.j == 3,
-			t_25 = t_23 and t_24;
+  process P_1
+    guardBlock
+      temp bool t_31 = P_1.state == 3;
+    guardCondition t_31;
+    effect
+      P_1.state = 4,
+      temp int t_32 = P_1.j - 1,
+      step[t_32] = 1,
+      P_1.k = 0;
 
-		guardCondition t_25;
-		effect
-			P_0.state = 1;
+  process P_1
+    guardBlock
+      temp bool t_33 = P_1.state == 4,
+      temp bool t_34 = P_1.k < 3,
+      temp bool t_35 = P_1.k == 1,
+      temp byte t_36 = pos[P_1.k],
+      temp bool t_37 = t_36 < P_1.j,
+      temp bool t_38 = t_35 or t_37,
+      temp bool t_39 = t_34 and t_38,
+      temp bool t_40 = t_33 and t_39;
+    guardCondition t_40;
+    effect
+      P_1.state = 4,
+      temp int t_41 = P_1.k + 1,
+      P_1.k = t_41;
 
-	process P_0 
-		guardBlock
-			t_26 = P_0.state == 1;
+  process P_1
+    guardBlock
+      temp bool t_42 = P_1.state == 4,
+      temp int t_43 = P_1.j - 1,
+      temp byte t_44 = step[t_43],
+      temp bool t_45 = t_44 != 1,
+      temp bool t_46 = P_1.k == 3,
+      temp bool t_47 = t_45 or t_46,
+      temp bool t_48 = t_42 and t_47;
+    guardCondition t_48;
+    effect
+      P_1.state = 2,
+      temp int t_49 = P_1.j + 1,
+      P_1.j = t_49;
 
-		guardCondition t_26;
-		effect
-			P_0.state = 0,
-			pos[0] = 0;
+  process P_1
+    guardBlock
+      temp bool t_50 = P_1.state == 2,
+      temp bool t_51 = P_1.j == 3,
+      temp bool t_52 = t_50 and t_51;
+    guardCondition t_52;
+    effect
+      P_1.state = 1;
 
-	process P_1 
-		guardBlock
-			t_27 = P_1.state == 0;
+  process P_1
+    guardBlock
+      temp bool t_53 = P_1.state == 1;
+    guardCondition t_53;
+    effect
+      P_1.state = 0,
+      pos[1] = 0;
 
-		guardCondition t_27;
-		effect
-			P_1.state = 2,
-			P_1.j = 1;
+  process P_2
+    guardBlock
+      temp bool t_54 = P_2.state == 0;
+    guardCondition t_54;
+    effect
+      P_2.state = 2,
+      P_2.j = 1;
 
-	process P_1 
-		guardBlock
-			t_28 = P_1.state == 2,
-			t_29 = P_1.j < 3,
-			t_30 = t_28 and t_29;
+  process P_2
+    guardBlock
+      temp bool t_55 = P_2.state == 2,
+      temp bool t_56 = P_2.j < 3,
+      temp bool t_57 = t_55 and t_56;
+    guardCondition t_57;
+    effect
+      P_2.state = 3,
+      pos[2] = P_2.j;
 
-		guardCondition t_30;
-		effect
-			P_1.state = 3,
-			pos[1] = P_1.j;
+  process P_2
+    guardBlock
+      temp bool t_58 = P_2.state == 3;
+    guardCondition t_58;
+    effect
+      P_2.state = 4,
+      temp int t_59 = P_2.j - 1,
+      step[t_59] = 2,
+      P_2.k = 0;
 
-	process P_1 
-		guardBlock
-			t_31 = P_1.state == 3;
+  process P_2
+    guardBlock
+      temp bool t_60 = P_2.state == 4,
+      temp bool t_61 = P_2.k < 3,
+      temp bool t_62 = P_2.k == 2,
+      temp byte t_63 = pos[P_2.k],
+      temp bool t_64 = t_63 < P_2.j,
+      temp bool t_65 = t_62 or t_64,
+      temp bool t_66 = t_61 and t_65,
+      temp bool t_67 = t_60 and t_66;
+    guardCondition t_67;
+    effect
+      P_2.state = 4,
+      temp int t_68 = P_2.k + 1,
+      P_2.k = t_68;
 
-		guardCondition t_31;
-		effect
-			P_1.state = 4,
-			t_32 = P_1.j - 1,
-			step[t_32] = 1,
-			P_1.k = 0;
+  process P_2
+    guardBlock
+      temp bool t_69 = P_2.state == 4,
+      temp int t_70 = P_2.j - 1,
+      temp byte t_71 = step[t_70],
+      temp bool t_72 = t_71 != 2,
+      temp bool t_73 = P_2.k == 3,
+      temp bool t_74 = t_72 or t_73,
+      temp bool t_75 = t_69 and t_74;
+    guardCondition t_75;
+    effect
+      P_2.state = 2,
+      temp int t_76 = P_2.j + 1,
+      P_2.j = t_76;
 
-	process P_1 
-		guardBlock
-			t_33 = P_1.state == 4,
-			t_34 = P_1.k < 3,
-			t_35 = P_1.k == 1,
-			t_36 = pos[P_1.k],
-			t_37 = t_36 < P_1.j,
-			t_38 = t_35 or t_37,
-			t_39 = t_34 and t_38,
-			t_40 = t_33 and t_39;
+  process P_2
+    guardBlock
+      temp bool t_77 = P_2.state == 2,
+      temp bool t_78 = P_2.j == 3,
+      temp bool t_79 = t_77 and t_78;
+    guardCondition t_79;
+    effect
+      P_2.state = 1;
 
-		guardCondition t_40;
-		effect
-			P_1.state = 4,
-			t_41 = P_1.k + 1,
-			P_1.k = t_41;
-
-	process P_1 
-		guardBlock
-			t_42 = P_1.state == 4,
-			t_43 = P_1.j - 1,
-			t_44 = step[t_43],
-			t_45 = t_44 != 1,
-			t_46 = P_1.k == 3,
-			t_47 = t_45 or t_46,
-			t_48 = t_42 and t_47;
-
-		guardCondition t_48;
-		effect
-			P_1.state = 2,
-			t_49 = P_1.j + 1,
-			P_1.j = t_49;
-
-	process P_1 
-		guardBlock
-			t_50 = P_1.state == 2,
-			t_51 = P_1.j == 3,
-			t_52 = t_50 and t_51;
-
-		guardCondition t_52;
-		effect
-			P_1.state = 1;
-
-	process P_1 
-		guardBlock
-			t_53 = P_1.state == 1;
-
-		guardCondition t_53;
-		effect
-			P_1.state = 0,
-			pos[1] = 0;
-
-	process P_2 
-		guardBlock
-			t_54 = P_2.state == 0;
-
-		guardCondition t_54;
-		effect
-			P_2.state = 2,
-			P_2.j = 1;
-
-	process P_2 
-		guardBlock
-			t_55 = P_2.state == 2,
-			t_56 = P_2.j < 3,
-			t_57 = t_55 and t_56;
-
-		guardCondition t_57;
-		effect
-			P_2.state = 3,
-			pos[2] = P_2.j;
-
-	process P_2 
-		guardBlock
-			t_58 = P_2.state == 3;
-
-		guardCondition t_58;
-		effect
-			P_2.state = 4,
-			t_59 = P_2.j - 1,
-			step[t_59] = 2,
-			P_2.k = 0;
-
-	process P_2 
-		guardBlock
-			t_60 = P_2.state == 4,
-			t_61 = P_2.k < 3,
-			t_62 = P_2.k == 2,
-			t_63 = pos[P_2.k],
-			t_64 = t_63 < P_2.j,
-			t_65 = t_62 or t_64,
-			t_66 = t_61 and t_65,
-			t_67 = t_60 and t_66;
-
-		guardCondition t_67;
-		effect
-			P_2.state = 4,
-			t_68 = P_2.k + 1,
-			P_2.k = t_68;
-
-	process P_2 
-		guardBlock
-			t_69 = P_2.state == 4,
-			t_70 = P_2.j - 1,
-			t_71 = step[t_70],
-			t_72 = t_71 != 2,
-			t_73 = P_2.k == 3,
-			t_74 = t_72 or t_73,
-			t_75 = t_69 and t_74;
-
-		guardCondition t_75;
-		effect
-			P_2.state = 2,
-			t_76 = P_2.j + 1,
-			P_2.j = t_76;
-
-	process P_2 
-		guardBlock
-			t_77 = P_2.state == 2,
-			t_78 = P_2.j == 3,
-			t_79 = t_77 and t_78;
-
-		guardCondition t_79;
-		effect
-			P_2.state = 1;
-
-	process P_2 
-		guardBlock
-			t_80 = P_2.state == 1;
-
-		guardCondition t_80;
-		effect
-			P_2.state = 0,
-			pos[2] = 0;
-
+  process P_2
+    guardBlock
+      temp bool t_80 = P_2.state == 1;
+    guardCondition t_80;
+    effect
+      P_2.state = 0,
+      pos[2] = 0;
 
 system async;
