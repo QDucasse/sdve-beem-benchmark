@@ -1,6 +1,7 @@
 import os
 import csv
 import glob
+import subprocess
 
 # [X] Find the number of transient values
 # [X] Find the number of non transient values
@@ -8,25 +9,37 @@ import glob
 # [X] Find the number of ops in GuardBlock (mean and max)
 # [X] Find the number of ops in Effect (mean and max)
 
+def shouldBeProcessed(filename):
+    error_arr = ["blocks", "driving_phils", "telephony", "mcs"]
+    error_shl = ["synapse"]
+    error_biz = ["loyd"]
+    for word in error_arr + error_biz + error_shl:
+        if word in filename:
+            return False
+    return True
+
 def process_files():
     '''
     Run the process over all files and outputs a csv file
     '''
     sdve_files = glob.glob("**/*.sdve", recursive=True)
+    sdve_files = [sdve_file for sdve_file in sdve_files if shouldBeProcessed(sdve_file)]
     res_dicts = []
     for file in sdve_files:
         res_dicts.append(process_file(file))
     # Write to csv file
     col_name=["Name",
-              "# Temporary var",
-              "# Non-temporary var",
-              "# Processes",
-              "Max # op in Guard",
-              "Mean # op in Guard",
-              "Max # simultaneous alive vars in Guard",
-              "Max # op in Effect",
-              "Mean # op in Effect",
-              "Max # simultaneous alive vars in Effect"
+              "Number of Temporaries",
+              "Number of Globals",
+              "Number of Guard/Actions",
+              "Max number of assignments in Guard",
+              "Mean number of assignments in Guard",
+              "Max number simultaneous alive temporaries in Guard",
+              "Max number of assignments in Effect",
+              "Mean number of assignments in Effect",
+              "Max number simultaneous alive temporaries in Effect",
+              "Number of instructions",
+              "Binary size"
     ]
     with open("stats.csv", 'w') as csvFile:
         wr = csv.DictWriter(csvFile, fieldnames=col_name)
@@ -47,25 +60,29 @@ def process_file(sdve_filepath):
     file_name, content = preprocess_file(sdve_filepath)
     print("Getting stats for: " + file_name)
     # Separates regions: variable declarations and each process
-    var_declarations, processes = extract_decl_and_proc(content)
-    # Process the var declarations to get the number of transient and non-transient variables
-    transient_number, non_transient_number = process_variable_declarations(var_declarations)
+    globs, processes = extract_decl_and_proc(content)
+    # Process the var declarations to get the number of temporary and global variables
+    nb_temp, nb_glob = process_variables(globs, content)
     # Get the number of processes
-    process_number = len(processes)
+    nb_guard_action = len(processes)
     # Get stats on guards and effects
     guard_max, guard_mean, guard_max_alive, effect_max, effect_mean, effect_max_alive = process_guards_effects(processes)
+    # Compile the file
+    nb_instruction, binary_size = compile_file(sdve_filepath)
     # Structure the results in a dict
     res_dict = {
-        "Name":                file_name,
-        "# Transient var":     transient_number,
-        "# Non-transient var": non_transient_number,
-        "# Processes": process_number,
-        "Max # op in Guard":   guard_max,
-        "Mean # op in Guard":  round(guard_mean,2),
-        "Max # simultaneous alive vars in Guard": guard_max_alive,
-        "Max # op in Effect":  effect_max,
-        "Mean # op in Effect": round(effect_mean,2),
-        "Max # simultaneous alive vars in Effect": effect_max_alive,
+      "Name":                                                file_name,
+      "Number of Temporaries":                               nb_temp,
+      "Number of Globals":                                   nb_glob,
+      "Number of Guard/Actions":                             nb_guard_action,
+      "Max number of assignments in Guard":                  guard_max,
+      "Mean number of assignments in Guard":                 round(guard_mean,2),
+      "Max number simultaneous alive temporaries in Guard":  guard_max_alive,
+      "Max number of assignments in Effect":                 effect_max,
+      "Mean number of assignments in Effect":                round(effect_mean,2),
+      "Max number simultaneous alive temporaries in Effect": effect_max_alive,
+      "Number of instructions":                              nb_instruction,
+      "Binary size":                                         binary_size
     }
     return res_dict
 
@@ -90,8 +107,8 @@ def extract_decl_and_proc(content):
     old_proc_ind  = 0
     next_proc_ind = next(process_indexes, 0)
 
-    # Variable declarations
-    var_decl = content[:next_proc_ind]
+    # Global declarations
+    globs = content[:next_proc_ind]
 
     # Processes
     processes = []
@@ -103,15 +120,17 @@ def extract_decl_and_proc(content):
         processes.append(content[old_proc_ind:next_proc_ind])
         old_proc_ind = next_proc_ind
         next_proc_ind = next(process_indexes, 0)
-    return var_decl, processes
+    return globs, processes
 
-def process_variable_declarations(var_decl_list):
+def process_variables(globals, content):
     '''
     Outputs the number of transient variables declared as well as the number of
     non-transient variables declared.
     '''
-    transient_var = [var for var in var_decl_list if "transient" in var]
-    return len(transient_var), len(var_decl_list) - len(transient_var)
+    nb_glob = len(globals)
+    nb_temp = content.count("temp")
+    return nb_temp, nb_glob
+
 
 def process_guards_effects(processes):
     '''
@@ -146,34 +165,41 @@ def process_guard_effect(process):
     len_guard_cond = len(guard_block)
     len_effect = len(effect_block)
     # Find max number of simultaneous alive variables
-    # print("\n\n----\nGuard\n----\n\n")
-    max_alive_vars_guard = determine_alive_vars(guard_block)
-    # print("\n\n----\nEffect\n----\n\n")
-    max_alive_vars_effect = determine_alive_vars(effect_block)
+    max_alive_vars_guard  = determine_alive_vars(guard_block)  # in guard
+    max_alive_vars_effect = determine_alive_vars(effect_block) # in effect
     return len_guard_cond, len_effect, max_alive_vars_guard, max_alive_vars_effect
 
 def determine_alive_vars(block):
     '''
     Determine the number of simultaneous alive variables in a block.
     '''
-    # print(block)
     max_alive_vars = 0
     alive_vars = []
     for line in block:
-        # print("Alive vars: " + str(alive_vars))
         var, expr = line.split(" = ")
         # Process left hand
-        if var.startswith("t_") and not(var in alive_vars):
-            # print("Left hand: " + var)
-            alive_vars.append(var)
-            max_alive_vars = max(max_alive_vars, len(alive_vars))
+        if var.startswith("temp "):
+            var_name = var.split(" ")[2]
+            var_type = var.split(" ")[1]
+            if not(var_name in alive_vars):
+                alive_vars.append(var_name)
+                max_alive_vars = max(max_alive_vars, len(alive_vars))
         # Process right hand
         # Remove the variables in the right side (dead)
-        # print("Right hand: " + expr)
-        alive_vars = [var for var in alive_vars if not(var in expr)]
+        alive_vars = [temp_var for temp_var in alive_vars if not(temp_var in expr)]
         max_alive_vars = max(max_alive_vars, len(alive_vars))
     return max_alive_vars
 
+def compile_file(file_name):
+    '''
+    Compile a given file and gather stats.
+    '''
+    cropped_file_name = file_name.split("/")[1][:-5]
+    output_file = "bin/" + cropped_file_name + ".out"
+    output = subprocess.check_output(["./sdvc", "-v", "-c", file_name,"-o", output_file])
+    instruction_number = int(output.decode().split(" ")[-1].strip())
+    binary_size = os.stat(output_file).st_size
+    return instruction_number, binary_size
+
 if __name__ == "__main__":
-    # process_file("anderson/anderson.1.prop2.sdve")
     process_files()
