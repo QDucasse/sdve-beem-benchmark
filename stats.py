@@ -18,8 +18,8 @@ def process_files():
         res_dicts.append(process_file(file))
     # Write to csv file
     col_name=["Name",
-              "# Transient var",
-              "# Non-transient var",
+              "# Temporary var",
+              "# Non-temporary var",
               "# Processes",
               "Max # op in Guard",
               "Mean # op in Guard",
