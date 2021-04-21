@@ -2,6 +2,9 @@ import os
 import csv
 import glob
 import subprocess
+# ========================================= #
+#               STATIC STATS                #
+# ========================================= #
 
 # [X] Find the number of transient values
 # [X] Find the number of non transient values
@@ -201,36 +204,39 @@ def compile_file(file_name):
     binary_size = os.stat(output_file).st_size
     return instruction_number, binary_size
 
-
-################
-#  EXEC STATS  #
-################
-import os
-import glob
-import subprocess
+# ========================================= #
+#             SIMULATION STATS              #
+# ========================================= #
 
 error_arr = ["blocks", "driving_phils", "telephony", "mcs"]
 error_shl = ["synapse"]
 error_biz = ["loyd"]
-
-error_sim = ["bridge", "cambridge", "collision", "extinction",
-             "frogs", "hanoi", "lifts", "needham", "peterson",
-             "protocols", "rushhour", "sokoban"]
+error_neg = ["cambridge", "firewire_link"]
+error_sim = ["collision", "extinction", "lifts", "needham", "protocols"]
+error_mod = list(set(error_arr + error_shl + error_biz + error_sim + error_neg))
 
 def process_exec_stats():
     sdve_files = glob.glob("**/*.sdve", recursive=True)
-    sdve_files = [sdve_file for sdve_file in sdve_files if not("prop" in sdve_file) and "telephony." in sdve_file]
+    sdve_files = [sdve_file for sdve_file in sdve_files if not("prop" in sdve_file)]
+    sdve_files = [sdve_file for sdve_file in sdve_files if not(any(model_name in sdve_file for model_name in error_mod))]
 
     for sdve_file in sdve_files:
-        for ncores in [1,2,4,8,16]:
-            print(sdve_file)
-            subprocess.check_output(["python", "../sdvs/sdvs/sdvs.py",
-                                     "-s", sdve_file,
-                                      "--ncores", str(ncores),
-                                      "--cfgsize", str(determine_cfg_size(sdve_file)),
-                                      "--cfg", str(0),
-                                      "--outputfile", "exec_stats.csv"
-                              ])
+        exec_stat(sdve_file)
+
+def exec_stat(sdve_file):
+    for ncores in [1,2,4,8,16]:
+        print(sdve_file)
+        subprocess.check_output(["python", "../sdvs/sdvs/sdvs.py",
+                                 "-s", sdve_file,
+                                  "--ncores", str(ncores),
+                                  "--outputfile", "exec_stats.csv"
+                          ])
+
 
 if __name__ == "__main__":
-    pass
+    # sdve_files = glob.glob("**/*.sdve", recursive=True)
+    # sdve_files = [sdve_file for sdve_file in sdve_files if not("prop" in sdve_file)]
+    # sdve_files = [sdve_file for sdve_file in sdve_files if "/sokoban." in sdve_file]
+    # for file in sdve_files:
+    #     exec_stat(file)
+    process_exec_stats()
