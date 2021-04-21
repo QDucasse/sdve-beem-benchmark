@@ -12,40 +12,36 @@ error_sim = ["bridge", "cambridge", "collision", "extinction",
 
 def process_files():
     sdve_files = glob.glob("**/*.sdve", recursive=True)
-    sdve_files = [sdve_file for sdve_file in sdve_files if not("prop" in sdve_file) and "telephony." in sdve_file]
+    # sdve_files = [sdve_file for sdve_file in sdve_files if not("prop" in sdve_file) and "telephony." in sdve_file]
 
     for sdve_file in sdve_files:
-        for ncores in range(1,10):
-            print(sdve_file)
-            subprocess.check_output(["python", "../sdvs/sdvs/sdvs.py",
-                                     "-s", sdve_file,
-                                      "--ncores", str(ncores),
-                                      "--cfgsize", str(determine_cfg_size(sdve_file)),
-                                      "--cfg", str(0),
-                                      "--outputfile", "exec_stats.csv"
-                              ])
+        reorder_global_declarations(sdve_file)
 
-def determine_cfg_size(sdve_file):
+
+def reorder_global_declarations(sdve_file):
     with open(sdve_file) as f:
         content = f.readlines()
         content = [line.strip() for line in content] # Remove trailing and leading spaces
         content = [line for line in content if line] # Remove empty strings
+    # Split the content on every "process" encouter
+    process_indexes = (i for i,v in enumerate(content) if "process" in v)
+    next_proc_ind = next(process_indexes, 0)
+    # Global declarations
+    globs = content[:next_proc_ind]
+    ints   = [decl for decl in globs if decl.split(" ")[0] == "int"]
+    states = [decl for decl in globs if decl.split(" ")[0] == "state"]
+    bytes  = [decl for decl in globs if decl.split(" ")[0] == "byte"]
+    bools  = [decl for decl in globs if decl.split(" ")[0] == "bool"]
 
-    cfg_size = 0
-    i = 0
-    while not(content[i].startswith("process")):
-        if content[i].startswith("bool"):
-            cfg_size += 8
-        elif content[i].startswith("byte"):
-            cfg_size += 8
-        elif content[i].startswith("state"):
-            cfg_size += 16
-        elif content[i].startswith("int"):
-            cfg_size += 32
-        i+=1
-    return cfg_size
+    globs = ints + states + bytes + bools
 
+    with open(sdve_file, "r") as f:
+        content = f.readlines()
+
+    with open(sdve_file, "w") as f:
+        f.write("\n".join(globs) + "\n" + "".join(content[len(globs):]))
 
 if __name__ == "__main__":
     # print(determine_cfg_size("adding/adding.1.sdve"))
     process_files()
+    # reorder_global_declarations("anderson/anderson.1.sdve")

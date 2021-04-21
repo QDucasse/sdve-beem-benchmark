@@ -1,22 +1,22 @@
-byte prod_n = 0;
 state {ready(0), start_send(1), wait_result(2), check(3)} Producer.state = 0;
+state {ready(0), get_msg(1), check(2), st_error(3)} Consumer.state = 0;
+state {idle(0), next_frame(1), wait_ack(2), send(3), success(4), q_error(5), ret(6)} Sender.state = 0;
+state {idle(0), new_file(1), frame_received(2), frame_reported(3), first_safe(4), ret(5)} Receiver.state = 1;
+state {ready(0), got_msg(1)} K.state = 0;
+state {ready(0), got_msg(1)} L.state = 0;
+state {q1(0), q2(1)} LTL_property.state = 0;
+byte prod_n = 0;
 byte Producer.result = 0;
 byte Producer.n = 0;
-state {ready(0), get_msg(1), check(2), st_error(3)} Consumer.state = 0;
 byte Consumer.m = 0;
 byte Consumer.n = 0;
-state {idle(0), next_frame(1), wait_ack(2), send(3), success(4), q_error(5), ret(6)} Sender.state = 0;
 byte Sender.ab = 0;
 byte Sender.n = 0;
 byte Sender.i = 0;
 byte Sender.counter = 0;
-state {idle(0), new_file(1), frame_received(2), frame_reported(3), first_safe(4), ret(5)} Receiver.state = 1;
 byte Receiver.value = 0;
 byte Receiver.exp_ab = 0;
-state {ready(0), got_msg(1)} K.state = 0;
 byte K.value = 0;
-state {ready(0), got_msg(1)} L.state = 0;
-state {q1(0), q2(1)} LTL_property.state = 0;
 
   process Producer
     guardBlock

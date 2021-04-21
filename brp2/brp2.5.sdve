@@ -1,27 +1,27 @@
 int n = 3;
 int SYNC = 63;
 int maxtime = 64;
-byte SAME = 0;
-byte OTHER = 1;
 int X = 0;
 int U = 0;
 int V = 0;
 int W = 0;
 int Z = 0;
-byte File = 0;
 state {time(0)} clock.state = 0;
 state {new_file(0), first_safe_frame(1), frame_received(2), frame_reported(3), idle(4)} Receiver.state = 0;
-byte Receiver.exp_ab = 0;
-byte Receiver.triple = 0;
 state {init_state(0), idle(1), next_frame(2), wait_ack(3), success(4), error(5)} Sender.state = 0;
-byte Sender.ab = 0;
-byte Sender.i = 0;
-byte Sender.rc = 0;
 state {start(0), in_transit(1), BAD(2)} K.state = 0;
-byte K.triple = 0;
 state {start(0), in_transit(1), BAD(2)} L.state = 0;
 state {ok(0), dk(1), nok(2), send_req(3), file_req(4)} SClient.state = 0;
 state {ok(0), inc(1), nok(2)} RClient.state = 0;
+byte SAME = 0;
+byte OTHER = 1;
+byte File = 0;
+byte Receiver.exp_ab = 0;
+byte Receiver.triple = 0;
+byte Sender.ab = 0;
+byte Sender.i = 0;
+byte Sender.rc = 0;
+byte K.triple = 0;
 
   process clock
     guardBlock

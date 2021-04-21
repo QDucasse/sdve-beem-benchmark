@@ -1,15 +1,16 @@
 state {tick(0)} Timer.state = 0;
 state {wait(0), produce(1)} Producer.state = 0;
-byte Producer.message = 0;
 state {wait(0), consume(1)} Consumer.state = 0;
-byte Consumer.message = 0;
 state {wait(0), data(1), ack(2), nak(3), dataOk(4), ackOk(5), nakOk(6)} Medium.state = 0;
-byte Medium.value = 0;
 state {wait(0), data(1), ack(2), nak(3), timeout(4)} Sender.state = 0;
+state {wait(0), data(1), put_data(2), send_naks(3), corr_data(4), on_timeout(5), timeout_ack(6)} Receiver.state = 0;
+state {q1(0), q2(1), q3(2), q4(3), q5(4), q6(5)} LTL_property.state = 5;
+byte Producer.message = 0;
+byte Consumer.message = 0;
+byte Medium.value = 0;
 byte Sender.sendseq = 1;
 byte Sender.rack = 0;
 byte Sender.value = 0;
-state {wait(0), data(1), put_data(2), send_naks(3), corr_data(4), on_timeout(5), timeout_ack(6)} Receiver.state = 0;
 byte Receiver.i = 0;
 byte Receiver.value = 0;
 byte Receiver.sent = 0;
@@ -17,7 +18,6 @@ byte Receiver.recseq = 0;
 byte Receiver.lack = 0;
 byte Receiver.recbuf[13] =  {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 byte Receiver.nakd[13] =  {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-state {q1(0), q2(1), q3(2), q4(3), q5(4), q6(5)} LTL_property.state = 5;
 
   process Producer
     guardBlock

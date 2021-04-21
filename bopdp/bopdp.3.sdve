@@ -1,3 +1,10 @@
+state {active(0), prepare_ack(1), stand_by(2)} AP.state = 0;
+state {lsl_int_service(0), interrupt_received(1), awake(2), check_stand_by(3), insert_noop(4), clear_stand_by(5)} LSL_Interrupt_Handler.state = 0;
+state {ap_int_service(0), set_cur(1), interrupt_received(2), awake(3), check_stand_by(4), reset_cur(5), insert_noop(6), clear_stand_by(7)} AP_Interrupt_Handler.state = 0;
+state {generate(0)} Interrupt_Generator.state = 0;
+state {stand_by(0), up_down_received(1), react(2), call(3)} LSL_Driver.state = 0;
+state {idle(0), calc_data(1), calc_running(2)} Calc.state = 0;
+state {going_down(0), clear_interrupts(1), active(2), enable_lsl_interrupt(3), issue_down_lsl(4), wait_for_down(5), down_expected(6), disable_lsl_interrupt(7), down_verified(8), down_received(9), insert_noop(10), set_stand_by(11), check_interrupts(12), check_noop(13), w_stand_by(14), wake_up(15), stand_by(16), clear_int(17), issue_lsl_up(18), wait_init_response(19), data_expected(20), noise(21), s_active(22), now_wait(23), re_enable_lsl_interrupt(24), re_issue_lsl_down(25), wait_response(26), observe_status(27), clear_lsl_interrupt(28), send_active_command(29), back_to_active(30), issue_active_commands(31), send_nack(32), enter_active(33)} IOP.state = 2;
 byte cur = 0;
 byte sleeping = 0;
 byte sleep_op = 0;
@@ -14,16 +21,9 @@ byte generated_lsl_interrupt = 0;
 byte some_running = 0;
 byte some_data = 0;
 byte some_interrupt = 0;
-state {active(0), prepare_ack(1), stand_by(2)} AP.state = 0;
 byte AP.no_ap_ints = 0;
-state {lsl_int_service(0), interrupt_received(1), awake(2), check_stand_by(3), insert_noop(4), clear_stand_by(5)} LSL_Interrupt_Handler.state = 0;
-state {ap_int_service(0), set_cur(1), interrupt_received(2), awake(3), check_stand_by(4), reset_cur(5), insert_noop(6), clear_stand_by(7)} AP_Interrupt_Handler.state = 0;
 byte AP_Interrupt_Handler.old_cur = 0;
-state {generate(0)} Interrupt_Generator.state = 0;
 byte Interrupt_Generator.no_lsl_ints = 0;
-state {stand_by(0), up_down_received(1), react(2), call(3)} LSL_Driver.state = 0;
-state {idle(0), calc_data(1), calc_running(2)} Calc.state = 0;
-state {going_down(0), clear_interrupts(1), active(2), enable_lsl_interrupt(3), issue_down_lsl(4), wait_for_down(5), down_expected(6), disable_lsl_interrupt(7), down_verified(8), down_received(9), insert_noop(10), set_stand_by(11), check_interrupts(12), check_noop(13), w_stand_by(14), wake_up(15), stand_by(16), clear_int(17), issue_lsl_up(18), wait_init_response(19), data_expected(20), noise(21), s_active(22), now_wait(23), re_enable_lsl_interrupt(24), re_issue_lsl_down(25), wait_response(26), observe_status(27), clear_lsl_interrupt(28), send_active_command(29), back_to_active(30), issue_active_commands(31), send_nack(32), enter_active(33)} IOP.state = 2;
 
   process AP
     guardBlock

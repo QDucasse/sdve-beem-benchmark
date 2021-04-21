@@ -201,5 +201,75 @@ def compile_file(file_name):
     binary_size = os.stat(output_file).st_size
     return instruction_number, binary_size
 
+
+################
+#  EXEC STATS  #
+################
+import os
+import glob
+import subprocess
+
+error_arr = ["blocks", "driving_phils", "telephony", "mcs"]
+error_shl = ["synapse"]
+error_biz = ["loyd"]
+
+error_sim = ["bridge", "cambridge", "collision", "extinction",
+             "frogs", "hanoi", "lifts", "needham", "peterson",
+             "protocols", "rushhour", "sokoban"]
+
+def process_exec_stats():
+    sdve_files = glob.glob("**/*.sdve", recursive=True)
+    sdve_files = [sdve_file for sdve_file in sdve_files if not("prop" in sdve_file) and "telephony." in sdve_file]
+
+    for sdve_file in sdve_files:
+        for ncores in [1,2,4,8,16]:
+            print(sdve_file)
+            subprocess.check_output(["python", "../sdvs/sdvs/sdvs.py",
+                                     "-s", sdve_file,
+                                      "--ncores", str(ncores),
+                                      "--cfgsize", str(determine_cfg_size(sdve_file)),
+                                      "--cfg", str(0),
+                                      "--outputfile", "exec_stats.csv"
+                              ])
+
+
+def process_config_file(sdve_file):
+    with open(sdve_file) as f:
+        content = f.readlines()
+        content = [line.strip() for line in content] # Remove trailing and leading spaces
+        content = [line for line in content if line] # Remove empty strings
+
+    # Split the content on every "process" encouter
+    process_indexes = (i for i,v in enumerate(content) if "process" in v)
+    next_proc_ind = next(process_indexes, 0)
+    # Global declarations
+    globs = content[:next_proc_ind]
+
+    cfg_size = 0
+    i = 0
+    for glob_decl in globs:
+        type = glob_decl.split(" ")[0]
+        value = glob_decl.split("= ")[0][:-1]
+        name = glob_decl.split(" ")[1]
+        if glob_decl.startswith("bool"):
+            array_size =
+            cfg_size += 8
+        elif glob_decl.startswith("byte"):
+            cfg_size += 8
+        elif glob_decl.startswith("state"):
+            cfg_size += 16
+        elif glob_decl.startswith("int"):
+            cfg_size += 32
+        i+=1
+    return cfg_size
+
+TYPE_PROCESS = {
+    "bool"  : process_bool,
+    "byte"  : process_byte,
+    "state" : process_state,
+    "int"   : process_int
+}
+
+
 if __name__ == "__main__":
-    process_files()
+    pass
