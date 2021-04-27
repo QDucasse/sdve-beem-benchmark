@@ -226,7 +226,7 @@ def process_exec_stats():
 def exec_stat(sdve_file):
     for ncores in [1,2,4,8,16]:
         print(sdve_file)
-        subprocess.check_output(["python", "../sdvs/sdvs/sdvs.py",
+        subprocess.run(["python", "../sdvs/sdvs/sdvs.py",
                                  "-s", sdve_file,
                                   "--ncores", str(ncores),
                                   "--outputfile", "exec_stats.csv"
@@ -234,9 +234,9 @@ def exec_stat(sdve_file):
 
 
 if __name__ == "__main__":
-    # sdve_files = glob.glob("**/*.sdve", recursive=True)
-    # sdve_files = [sdve_file for sdve_file in sdve_files if not("prop" in sdve_file)]
-    # sdve_files = [sdve_file for sdve_file in sdve_files if "/sokoban." in sdve_file]
-    # for file in sdve_files:
-    #     exec_stat(file)
-    process_exec_stats()
+    sdve_files = glob.glob("**/*.sdve", recursive=True)
+    sdve_files = [sdve_file for sdve_file in sdve_files if not("prop" in sdve_file)]
+    sdve_files = [sdve_file for sdve_file in sdve_files if "/adding." in sdve_file]
+    for file in sdve_files:
+        exec_stat(file)
+    # process_exec_stats()
