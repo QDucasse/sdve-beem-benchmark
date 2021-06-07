@@ -219,7 +219,7 @@ def process_exec_stats():
     sdve_files = glob.glob("**/*.sdve", recursive=True)
     sdve_files = [sdve_file for sdve_file in sdve_files if not("prop" in sdve_file)]
     sdve_files = [sdve_file for sdve_file in sdve_files if not(any(model_name in sdve_file for model_name in error_mod))]
-
+    print(sdve_file)
     for sdve_file in sdve_files:
         exec_stat(sdve_file)
 
@@ -235,8 +235,8 @@ def exec_stat(sdve_file):
 
 if __name__ == "__main__":
     sdve_files = glob.glob("**/*.sdve", recursive=True)
-    sdve_files = [sdve_file for sdve_file in sdve_files if not("prop" in sdve_file)]
-    sdve_files = [sdve_file for sdve_file in sdve_files if "/adding." in sdve_file]
+    sdve_files = [sdve_file for sdve_file in sdve_files if "adding.1" in sdve_file]
+    print(sdve_files)
     for file in sdve_files:
         exec_stat(file)
     # process_exec_stats()
