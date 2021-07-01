@@ -7,1453 +7,1579 @@ state {ready(0), cmdReceived(1)} Vault.state = 0;
 state {ready(0), tr(1)} channel_ccToUser_0.state = 0;
 state {ready(0), tr(1)} channel_ccToUser_1.state = 0;
 byte User_0.cmd = 0;
-byte User_0.edit[2] =  {0};
-byte User_0.registered[2] =  {0};
+byte User_0.edit[1] = {0};
+byte User_0.registered[1] = {0};
 byte User_0.waitingForCheckedOut = 0;
 byte User_1.cmd = 0;
-byte User_1.edit[2] =  {0};
-byte User_1.registered[2] =  {0};
+byte User_1.edit[1] = {0};
+byte User_1.registered[1] = {0};
 byte User_1.waitingForCheckedOut = 0;
 byte UserAdmin_0.cmd = 0;
 byte UserAdmin_1.cmd = 0;
 byte CC.cmd = 0;
 byte CC.ID = 0;
-byte CC.registered[3] =  {0, 0};
+byte CC.registered[2] = {0, 0};
 byte CC.writeLock = 0;
 byte Vault.cmd = 0;
 byte channel_ccToUser_0.v = 0;
 byte channel_ccToUser_1.v = 0;
 
-  process User_0
+  process User_0 
     guardBlock
       temp bool t_0 = User_0.state == 2,
       temp bool t_1 = User_0.cmd == 1,
       temp bool t_2 = t_0 and t_1;
+
     guardCondition t_2;
     effect
       User_0.state = 0,
       User_0.registered[0] = 1;
 
-  process User_0
+  process User_0 
     guardBlock
       temp bool t_3 = User_0.state == 3;
+
     guardCondition t_3;
     effect
       User_0.state = 0;
 
-  process User_0
+  process User_0 
     guardBlock
       temp bool t_4 = User_0.state == 4;
+
     guardCondition t_4;
     effect
       User_0.state = 0;
 
-  process User_0
+  process User_0 
     guardBlock
       temp bool t_5 = User_0.state == 0,
       temp byte t_6 = User_0.edit[0],
       temp bool t_7 = t_6 == 1,
       temp bool t_8 = t_5 and t_7;
+
     guardCondition t_8;
     effect
       User_0.state = 5;
 
-  process User_0
+  process User_0 
     guardBlock
       temp bool t_9 = User_0.state == 6,
       temp bool t_10 = User_0.cmd == 3,
       temp bool t_11 = t_9 and t_10;
+
     guardCondition t_11;
     effect
       User_0.state = 0,
       User_0.edit[0] = 1,
       User_0.waitingForCheckedOut = 0;
 
-  process User_0
+  process User_0 
     guardBlock
       temp bool t_12 = User_0.state == 6,
       temp bool t_13 = User_0.cmd == 4,
       temp bool t_14 = t_12 and t_13;
+
     guardCondition t_14;
     effect
       User_0.state = 0,
       User_0.waitingForCheckedOut = 0;
 
-  process User_1
+  process User_1 
     guardBlock
       temp bool t_15 = User_1.state == 2,
       temp bool t_16 = User_1.cmd == 1,
       temp bool t_17 = t_15 and t_16;
+
     guardCondition t_17;
     effect
       User_1.state = 0,
       User_1.registered[0] = 1;
 
-  process User_1
+  process User_1 
     guardBlock
       temp bool t_18 = User_1.state == 3;
+
     guardCondition t_18;
     effect
       User_1.state = 0;
 
-  process User_1
+  process User_1 
     guardBlock
       temp bool t_19 = User_1.state == 4;
+
     guardCondition t_19;
     effect
       User_1.state = 0;
 
-  process User_1
+  process User_1 
     guardBlock
       temp bool t_20 = User_1.state == 0,
       temp byte t_21 = User_1.edit[0],
       temp bool t_22 = t_21 == 1,
       temp bool t_23 = t_20 and t_22;
+
     guardCondition t_23;
     effect
       User_1.state = 5;
 
-  process User_1
+  process User_1 
     guardBlock
       temp bool t_24 = User_1.state == 6,
       temp bool t_25 = User_1.cmd == 3,
       temp bool t_26 = t_24 and t_25;
+
     guardCondition t_26;
     effect
       User_1.state = 0,
       User_1.edit[0] = 1,
       User_1.waitingForCheckedOut = 0;
 
-  process User_1
+  process User_1 
     guardBlock
       temp bool t_27 = User_1.state == 6,
       temp bool t_28 = User_1.cmd == 4,
       temp bool t_29 = t_27 and t_28;
+
     guardCondition t_29;
     effect
       User_1.state = 0,
       User_1.waitingForCheckedOut = 0;
 
-  process UserAdmin_0
+  process UserAdmin_0 
     guardBlock
       temp bool t_30 = UserAdmin_0.state == 2;
+
     guardCondition t_30;
     effect
       UserAdmin_0.state = 0;
 
-  process UserAdmin_0
+  process UserAdmin_0 
     guardBlock
       temp bool t_31 = UserAdmin_0.state == 3;
+
     guardCondition t_31;
     effect
       UserAdmin_0.state = 0;
 
-  process UserAdmin_1
+  process UserAdmin_1 
     guardBlock
       temp bool t_32 = UserAdmin_1.state == 2;
+
     guardCondition t_32;
     effect
       UserAdmin_1.state = 0;
 
-  process UserAdmin_1
+  process UserAdmin_1 
     guardBlock
       temp bool t_33 = UserAdmin_1.state == 3;
+
     guardCondition t_33;
     effect
       UserAdmin_1.state = 0;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_34 = CC.state == 1,
-      temp int t_35 = CC.cmd / 16,
+      temp byte t_35 = CC.cmd / 16,
       temp bool t_36 = t_35 == 0,
-      temp int t_37 = CC.cmd % 16,
+      temp byte t_37 = CC.cmd % 16,
       temp bool t_38 = t_37 == 0,
       temp bool t_39 = t_36 and t_38,
       temp bool t_40 = t_34 and t_39;
+
     guardCondition t_40;
     effect
       CC.state = 2;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_41 = CC.state == 2;
+
     guardCondition t_41;
     effect
       CC.state = 24,
-      temp int t_42 = CC.cmd % 16,
+      temp byte t_42 = CC.cmd % 16,
       CC.registered[t_42] = 1;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_43 = CC.state == 1,
-      temp int t_44 = CC.cmd / 16,
+      temp byte t_44 = CC.cmd / 16,
       temp bool t_45 = t_44 == 0,
-      temp int t_46 = CC.cmd % 16,
+      temp byte t_46 = CC.cmd % 16,
       temp bool t_47 = t_46 == 1,
       temp bool t_48 = t_45 and t_47,
       temp bool t_49 = t_43 and t_48;
+
     guardCondition t_49;
     effect
       CC.state = 13;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_50 = CC.state == 13;
+
     guardCondition t_50;
     effect
       CC.state = 24,
-      temp int t_51 = CC.cmd % 16,
+      temp byte t_51 = CC.cmd % 16,
       CC.registered[t_51] = 1;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_52 = CC.state == 1,
-      temp int t_53 = CC.cmd / 16,
+      temp byte t_53 = CC.cmd / 16,
       temp bool t_54 = t_53 == 9,
-      temp int t_55 = CC.cmd % 16,
+      temp byte t_55 = CC.cmd % 16,
       temp bool t_56 = t_55 == 0,
       temp bool t_57 = t_54 and t_56,
       temp bool t_58 = t_52 and t_57;
+
     guardCondition t_58;
     effect
       CC.state = 3;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_59 = CC.state == 3;
+
     guardCondition t_59;
     effect
       CC.state = 0,
       CC.registered[0] = 1;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_60 = CC.state == 1,
-      temp int t_61 = CC.cmd / 16,
+      temp byte t_61 = CC.cmd / 16,
       temp bool t_62 = t_61 == 9,
-      temp int t_63 = CC.cmd % 16,
+      temp byte t_63 = CC.cmd % 16,
       temp bool t_64 = t_63 == 1,
       temp bool t_65 = t_62 and t_64,
       temp bool t_66 = t_60 and t_65;
+
     guardCondition t_66;
     effect
       CC.state = 14;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_67 = CC.state == 14;
+
     guardCondition t_67;
     effect
       CC.state = 0,
       CC.registered[1] = 1;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_68 = CC.state == 1,
-      temp int t_69 = CC.cmd / 16,
+      temp byte t_69 = CC.cmd / 16,
       temp bool t_70 = t_69 == 10,
-      temp int t_71 = CC.cmd % 16,
+      temp byte t_71 = CC.cmd % 16,
       temp bool t_72 = t_71 == 0,
       temp bool t_73 = t_70 and t_72,
       temp bool t_74 = t_68 and t_73;
+
     guardCondition t_74;
     effect
       CC.state = 4;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_75 = CC.state == 4;
+
     guardCondition t_75;
     effect
       CC.state = 0,
       CC.registered[0] = 0;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_76 = CC.state == 1,
-      temp int t_77 = CC.cmd / 16,
+      temp byte t_77 = CC.cmd / 16,
       temp bool t_78 = t_77 == 10,
-      temp int t_79 = CC.cmd % 16,
+      temp byte t_79 = CC.cmd % 16,
       temp bool t_80 = t_79 == 1,
       temp bool t_81 = t_78 and t_80,
       temp bool t_82 = t_76 and t_81;
+
     guardCondition t_82;
     effect
       CC.state = 15;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_83 = CC.state == 15;
+
     guardCondition t_83;
     effect
       CC.state = 0,
       CC.registered[1] = 0;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_84 = CC.state == 1,
-      temp int t_85 = CC.cmd / 16,
+      temp byte t_85 = CC.cmd / 16,
       temp bool t_86 = t_85 == 2,
       temp bool t_87 = t_84 and t_86;
+
     guardCondition t_87;
     effect
       CC.state = 27;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_88 = CC.state == 27,
       temp bool t_89 = CC.writeLock == 0,
       temp bool t_90 = t_88 and t_89;
+
     guardCondition t_90;
     effect
       CC.state = 28;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_91 = CC.state == 34,
-      temp int t_92 = CC.cmd % 16,
+      temp byte t_92 = CC.cmd % 16,
       temp bool t_93 = t_92 == 0,
       temp bool t_94 = t_91 and t_93;
+
     guardCondition t_94;
     effect
       CC.state = 5;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_95 = CC.state == 5;
+
     guardCondition t_95;
     effect
       CC.state = 31,
       CC.ID = 0;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_96 = CC.state == 34,
-      temp int t_97 = CC.cmd % 16,
+      temp byte t_97 = CC.cmd % 16,
       temp bool t_98 = t_97 == 1,
       temp bool t_99 = t_96 and t_98;
+
     guardCondition t_99;
     effect
       CC.state = 16;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_100 = CC.state == 16;
+
     guardCondition t_100;
     effect
       CC.state = 31,
       CC.ID = 0;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_101 = CC.state == 31,
       temp bool t_102 = CC.ID < 2,
       temp bool t_103 = t_101 and t_102;
+
     guardCondition t_103;
     effect
       CC.state = 32;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_104 = CC.state == 6;
+
     guardCondition t_104;
     effect
       CC.state = 31,
-      temp int t_105 = CC.ID + 1,
+      temp byte t_105 = CC.ID + 1,
       CC.ID = t_105;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_106 = CC.state == 17;
+
     guardCondition t_106;
     effect
       CC.state = 31,
-      temp int t_107 = CC.ID + 1,
+      temp byte t_107 = CC.ID + 1,
       CC.ID = t_107;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_108 = CC.state == 32,
-      temp int t_109 = CC.cmd % 16,
+      temp byte t_109 = CC.cmd % 16,
       temp bool t_110 = CC.ID == t_109,
       temp byte t_111 = CC.registered[CC.ID],
       temp bool t_112 = t_111 == 0,
       temp bool t_113 = t_110 or t_112,
       temp bool t_114 = t_108 and t_113;
+
     guardCondition t_114;
     effect
       CC.state = 31,
-      temp int t_115 = CC.ID + 1,
+      temp byte t_115 = CC.ID + 1,
       CC.ID = t_115;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_116 = CC.state == 31,
       temp bool t_117 = CC.ID >= 2,
       temp bool t_118 = t_116 and t_117;
+
     guardCondition t_118;
     effect
       CC.state = 0;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_119 = CC.state == 33;
+
     guardCondition t_119;
     effect
       CC.state = 0;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_120 = CC.state == 1,
-      temp int t_121 = CC.cmd / 16,
+      temp byte t_121 = CC.cmd / 16,
       temp bool t_122 = t_121 == 5,
       temp bool t_123 = t_120 and t_122;
+
     guardCondition t_123;
     effect
       CC.state = 35;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_124 = CC.state == 35,
-      temp int t_125 = CC.cmd % 16,
+      temp byte t_125 = CC.cmd % 16,
       temp bool t_126 = t_125 == 0,
       temp bool t_127 = t_124 and t_126;
+
     guardCondition t_127;
     effect
       CC.state = 9;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_128 = CC.state == 9;
+
     guardCondition t_128;
     effect
       CC.state = 42,
       CC.writeLock = 0;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_129 = CC.state == 35,
-      temp int t_130 = CC.cmd % 16,
+      temp byte t_130 = CC.cmd % 16,
       temp bool t_131 = t_130 == 1,
       temp bool t_132 = t_129 and t_131;
+
     guardCondition t_132;
     effect
       CC.state = 20;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_133 = CC.state == 20;
+
     guardCondition t_133;
     effect
       CC.state = 42,
       CC.writeLock = 0;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_134 = CC.state == 1,
-      temp int t_135 = CC.cmd / 16,
+      temp byte t_135 = CC.cmd / 16,
       temp bool t_136 = t_135 == 7,
       temp bool t_137 = t_134 and t_136;
+
     guardCondition t_137;
     effect
       CC.state = 36;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_138 = CC.state == 38,
-      temp int t_139 = CC.cmd % 16,
+      temp byte t_139 = CC.cmd % 16,
       temp bool t_140 = t_139 == 0,
       temp bool t_141 = t_138 and t_140;
+
     guardCondition t_141;
     effect
       CC.state = 9;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_142 = CC.state == 9;
+
     guardCondition t_142;
     effect
       CC.state = 42;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_143 = CC.state == 38,
-      temp int t_144 = CC.cmd % 16,
+      temp byte t_144 = CC.cmd % 16,
       temp bool t_145 = t_144 == 1,
       temp bool t_146 = t_143 and t_145;
+
     guardCondition t_146;
     effect
       CC.state = 20;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_147 = CC.state == 20;
+
     guardCondition t_147;
     effect
       CC.state = 42;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_148 = CC.state == 1,
-      temp int t_149 = CC.cmd / 16,
+      temp byte t_149 = CC.cmd / 16,
       temp bool t_150 = t_149 == 8,
       temp bool t_151 = t_148 and t_150;
+
     guardCondition t_151;
     effect
       CC.state = 39;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_152 = CC.state == 41,
-      temp int t_153 = CC.cmd / 16,
+      temp byte t_153 = CC.cmd / 16,
       temp bool t_154 = t_153 == 11,
-      temp int t_155 = CC.cmd % 16,
+      temp byte t_155 = CC.cmd % 16,
       temp bool t_156 = t_155 == 0,
       temp bool t_157 = t_154 and t_156,
       temp bool t_158 = t_152 and t_157;
+
     guardCondition t_158;
     effect
       CC.state = 11;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_159 = CC.state == 11,
       temp bool t_160 = CC.writeLock == 1,
       temp bool t_161 = t_159 and t_160;
+
     guardCondition t_161;
     effect
       CC.state = 43;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_162 = CC.state == 11,
       temp bool t_163 = CC.writeLock == 0,
       temp bool t_164 = t_162 and t_163;
+
     guardCondition t_164;
     effect
       CC.state = 44;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_165 = CC.state == 43;
+
     guardCondition t_165;
     effect
       CC.state = 42;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_166 = CC.state == 44;
+
     guardCondition t_166;
     effect
       CC.state = 42;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_167 = CC.state == 41,
-      temp int t_168 = CC.cmd / 16,
+      temp byte t_168 = CC.cmd / 16,
       temp bool t_169 = t_168 == 11,
-      temp int t_170 = CC.cmd % 16,
+      temp byte t_170 = CC.cmd % 16,
       temp bool t_171 = t_170 == 1,
       temp bool t_172 = t_169 and t_171,
       temp bool t_173 = t_167 and t_172;
+
     guardCondition t_173;
     effect
       CC.state = 22;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_174 = CC.state == 22,
       temp bool t_175 = CC.writeLock == 1,
       temp bool t_176 = t_174 and t_175;
+
     guardCondition t_176;
     effect
       CC.state = 43;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_177 = CC.state == 22,
       temp bool t_178 = CC.writeLock == 0,
       temp bool t_179 = t_177 and t_178;
+
     guardCondition t_179;
     effect
       CC.state = 44;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_180 = CC.state == 43;
+
     guardCondition t_180;
     effect
       CC.state = 42;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_181 = CC.state == 44;
+
     guardCondition t_181;
     effect
       CC.state = 42;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_182 = CC.state == 42;
+
     guardCondition t_182;
     effect
       CC.state = 45,
       CC.ID = 0;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_183 = CC.state == 45,
       temp bool t_184 = CC.ID < 2,
       temp bool t_185 = t_183 and t_184;
+
     guardCondition t_185;
     effect
       CC.state = 46;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_186 = CC.state == 12;
+
     guardCondition t_186;
     effect
       CC.state = 45,
-      temp int t_187 = CC.ID + 1,
+      temp byte t_187 = CC.ID + 1,
       CC.ID = t_187;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_188 = CC.state == 23;
+
     guardCondition t_188;
     effect
       CC.state = 45,
-      temp int t_189 = CC.ID + 1,
+      temp byte t_189 = CC.ID + 1,
       CC.ID = t_189;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_190 = CC.state == 46,
-      temp int t_191 = CC.cmd % 16,
+      temp byte t_191 = CC.cmd % 16,
       temp bool t_192 = CC.ID == t_191,
       temp byte t_193 = CC.registered[CC.ID],
       temp bool t_194 = t_193 == 0,
       temp bool t_195 = t_192 or t_194,
       temp bool t_196 = t_190 and t_195;
+
     guardCondition t_196;
     effect
       CC.state = 45,
-      temp int t_197 = CC.ID + 1,
+      temp byte t_197 = CC.ID + 1,
       CC.ID = t_197;
 
-  process CC
+  process CC 
     guardBlock
       temp bool t_198 = CC.state == 45,
       temp bool t_199 = CC.ID >= 2,
       temp bool t_200 = t_198 and t_199;
+
     guardCondition t_200;
     effect
       CC.state = 0;
 
-  process CC_channel_ccToUser_1
+  process CC_channel_ccToUser_1 
     guardBlock
       temp bool t_201 = CC.state == 26,
-      temp int t_202 = CC.cmd / 16,
+      temp byte t_202 = CC.cmd / 16,
       temp bool t_203 = t_202 == 1,
-      temp int t_204 = CC.cmd % 16,
+      temp byte t_204 = CC.cmd % 16,
       temp bool t_205 = t_204 == 1,
       temp bool t_206 = t_203 and t_205,
       temp bool t_207 = t_201 and t_206,
       temp bool t_208 = channel_ccToUser_1.state == 0,
       temp bool t_209 = t_207 and t_208;
+
     guardCondition t_209;
     effect
       CC.state = 0,
       channel_ccToUser_1.v = 1,
       channel_ccToUser_1.state = 1;
 
-  process CC_channel_ccToUser_1
+  process CC_channel_ccToUser_1 
     guardBlock
       temp bool t_210 = CC.state == 30,
-      temp int t_211 = CC.cmd / 16,
+      temp byte t_211 = CC.cmd / 16,
       temp bool t_212 = t_211 == 3,
-      temp int t_213 = CC.cmd % 16,
+      temp byte t_213 = CC.cmd % 16,
       temp bool t_214 = t_213 == 1,
       temp bool t_215 = t_212 and t_214,
       temp bool t_216 = t_210 and t_215,
       temp bool t_217 = channel_ccToUser_1.state == 0,
       temp bool t_218 = t_216 and t_217;
+
     guardCondition t_218;
     effect
       CC.state = 34,
       channel_ccToUser_1.v = 3,
       channel_ccToUser_1.state = 1;
 
-  process CC_channel_ccToUser_1
+  process CC_channel_ccToUser_1 
     guardBlock
       temp bool t_219 = CC.state == 27,
       temp bool t_220 = CC.writeLock == 1,
-      temp int t_221 = CC.cmd % 16,
+      temp byte t_221 = CC.cmd % 16,
       temp bool t_222 = t_221 == 1,
       temp bool t_223 = t_220 and t_222,
       temp bool t_224 = t_219 and t_223,
       temp bool t_225 = channel_ccToUser_1.state == 0,
       temp bool t_226 = t_224 and t_225;
+
     guardCondition t_226;
     effect
       CC.state = 33,
       channel_ccToUser_1.v = 4,
       channel_ccToUser_1.state = 1;
 
-  process CC_UserAdmin_1
+  process Vault_CC 
     guardBlock
-      temp bool t_227 = CC.state == 32,
-      temp bool t_228 = CC.ID == 1,
-      temp int t_229 = CC.cmd % 16,
-      temp bool t_230 = CC.ID != t_229,
-      temp bool t_231 = t_228 and t_230,
-      temp byte t_232 = CC.registered[CC.ID],
-      temp bool t_233 = t_232 == 1,
-      temp bool t_234 = t_231 and t_233,
-      temp bool t_235 = t_227 and t_234,
-      temp bool t_236 = UserAdmin_1.state == 0,
-      temp bool t_237 = t_235 and t_236;
-    guardCondition t_237;
-    effect
-      CC.state = 18,
-      UserAdmin_1.cmd = 12,
-      UserAdmin_1.state = 1;
+      temp bool t_227 = Vault.state == 1,
+      temp byte t_228 = Vault.cmd / 16,
+      temp bool t_229 = t_228 == 0,
+      temp bool t_230 = t_227 and t_229,
+      temp bool t_231 = CC.state == 25,
+      temp bool t_232 = t_230 and t_231;
 
-  process CC_UserAdmin_1
+    guardCondition t_232;
+    effect
+      Vault.state = 0,
+      temp byte t_233 = Vault.cmd % 16,
+      temp byte t_234 = 16 + t_233,
+      CC.cmd = t_234,
+      CC.state = 26;
+
+  process Vault_CC 
     guardBlock
-      temp bool t_238 = CC.state == 46,
-      temp bool t_239 = CC.ID == 1,
-      temp int t_240 = CC.cmd % 16,
-      temp bool t_241 = CC.ID != t_240,
-      temp bool t_242 = t_239 and t_241,
-      temp byte t_243 = CC.registered[CC.ID],
-      temp bool t_244 = t_243 == 1,
-      temp bool t_245 = t_242 and t_244,
-      temp bool t_246 = t_238 and t_245,
-      temp bool t_247 = UserAdmin_1.state == 0,
+      temp bool t_235 = Vault.state == 1,
+      temp byte t_236 = Vault.cmd / 16,
+      temp bool t_237 = t_236 == 0,
+      temp bool t_238 = t_235 and t_237,
+      temp bool t_239 = CC.state == 29,
+      temp bool t_240 = t_238 and t_239;
+
+    guardCondition t_240;
+    effect
+      Vault.state = 0,
+      temp byte t_241 = Vault.cmd % 16,
+      temp byte t_242 = 16 + t_241,
+      CC.cmd = t_242,
+      CC.state = 30;
+
+  process Vault_CC 
+    guardBlock
+      temp bool t_243 = Vault.state == 1,
+      temp byte t_244 = Vault.cmd / 16,
+      temp bool t_245 = t_244 == 0,
+      temp bool t_246 = t_243 and t_245,
+      temp bool t_247 = CC.state == 40,
       temp bool t_248 = t_246 and t_247;
+
     guardCondition t_248;
     effect
-      CC.state = 19,
-      UserAdmin_1.cmd = 11,
-      UserAdmin_1.state = 1;
+      Vault.state = 0,
+      temp byte t_249 = Vault.cmd % 16,
+      temp byte t_250 = 16 + t_249,
+      CC.cmd = t_250,
+      CC.state = 41;
 
-  process CC_Vault
+  process Vault_CC 
     guardBlock
-      temp bool t_249 = CC.state == 24,
-      temp bool t_250 = Vault.state == 0,
-      temp bool t_251 = t_249 and t_250;
-    guardCondition t_251;
+      temp bool t_251 = Vault.state == 1,
+      temp byte t_252 = Vault.cmd / 16,
+      temp bool t_253 = t_252 == 2,
+      temp bool t_254 = t_251 and t_253,
+      temp bool t_255 = CC.state == 25,
+      temp bool t_256 = t_254 and t_255;
+
+    guardCondition t_256;
     effect
-      CC.state = 25,
-      Vault.cmd = CC.cmd,
-      Vault.state = 1;
+      Vault.state = 0,
+      temp byte t_257 = Vault.cmd % 16,
+      temp byte t_258 = 48 + t_257,
+      CC.cmd = t_258,
+      CC.state = 26;
 
-  process CC_Vault
+  process Vault_CC 
     guardBlock
-      temp bool t_252 = CC.state == 28,
-      temp bool t_253 = Vault.state == 0,
-      temp bool t_254 = t_252 and t_253;
-    guardCondition t_254;
+      temp bool t_259 = Vault.state == 1,
+      temp byte t_260 = Vault.cmd / 16,
+      temp bool t_261 = t_260 == 2,
+      temp bool t_262 = t_259 and t_261,
+      temp bool t_263 = CC.state == 29,
+      temp bool t_264 = t_262 and t_263;
+
+    guardCondition t_264;
     effect
-      CC.state = 29,
-      CC.writeLock = 1,
-      Vault.cmd = CC.cmd,
-      Vault.state = 1;
+      Vault.state = 0,
+      temp byte t_265 = Vault.cmd % 16,
+      temp byte t_266 = 48 + t_265,
+      CC.cmd = t_266,
+      CC.state = 30;
 
-  process CC_Vault
+  process Vault_CC 
     guardBlock
-      temp bool t_255 = CC.state == 36,
-      temp bool t_256 = Vault.state == 0,
-      temp bool t_257 = t_255 and t_256;
-    guardCondition t_257;
-    effect
-      CC.state = 37,
-      CC.writeLock = 0,
-      Vault.cmd = CC.cmd,
-      Vault.state = 1;
-
-  process CC_Vault
-    guardBlock
-      temp bool t_258 = CC.state == 39,
-      temp bool t_259 = Vault.state == 0,
-      temp bool t_260 = t_258 and t_259;
-    guardCondition t_260;
-    effect
-      CC.state = 40,
-      temp int t_261 = CC.cmd % 16,
-      temp int t_262 = 112 + t_261,
-      Vault.cmd = t_262,
-      Vault.state = 1;
-
-  process UserAdmin_0_CC
-    guardBlock
-      temp bool t_263 = UserAdmin_0.state == 1,
-      temp bool t_264 = UserAdmin_0.cmd == 12,
-      temp bool t_265 = t_263 and t_264,
-      temp bool t_266 = CC.state == 7,
-      temp bool t_267 = t_265 and t_266;
-    guardCondition t_267;
-    effect
-      UserAdmin_0.state = 2,
-      CC.state = 6;
-
-  process UserAdmin_0_CC
-    guardBlock
-      temp bool t_268 = UserAdmin_0.state == 1,
-      temp bool t_269 = UserAdmin_0.cmd == 12,
-      temp bool t_270 = t_268 and t_269,
-      temp bool t_271 = CC.state == 18,
+      temp bool t_267 = Vault.state == 1,
+      temp byte t_268 = Vault.cmd / 16,
+      temp bool t_269 = t_268 == 2,
+      temp bool t_270 = t_267 and t_269,
+      temp bool t_271 = CC.state == 40,
       temp bool t_272 = t_270 and t_271;
+
     guardCondition t_272;
     effect
-      UserAdmin_0.state = 2,
-      CC.state = 17;
+      Vault.state = 0,
+      temp byte t_273 = Vault.cmd % 16,
+      temp byte t_274 = 48 + t_273,
+      CC.cmd = t_274,
+      CC.state = 41;
 
-  process UserAdmin_0_CC
+  process Vault_CC 
     guardBlock
-      temp bool t_273 = UserAdmin_0.state == 1,
-      temp bool t_274 = UserAdmin_0.cmd == 12,
-      temp bool t_275 = t_273 and t_274,
-      temp bool t_276 = CC.state == 8,
-      temp bool t_277 = t_275 and t_276;
-    guardCondition t_277;
+      temp bool t_275 = Vault.state == 1,
+      temp byte t_276 = Vault.cmd / 16,
+      temp bool t_277 = t_276 == 7,
+      temp bool t_278 = t_275 and t_277,
+      temp bool t_279 = CC.state == 25,
+      temp bool t_280 = t_278 and t_279;
+
+    guardCondition t_280;
     effect
-      UserAdmin_0.state = 2,
-      CC.state = 12;
+      Vault.state = 0,
+      temp byte t_281 = Vault.cmd % 16,
+      temp byte t_282 = 112 + t_281,
+      CC.cmd = t_282,
+      CC.state = 26;
 
-  process UserAdmin_0_CC
+  process Vault_CC 
     guardBlock
-      temp bool t_278 = UserAdmin_0.state == 1,
-      temp bool t_279 = UserAdmin_0.cmd == 12,
-      temp bool t_280 = t_278 and t_279,
-      temp bool t_281 = CC.state == 19,
-      temp bool t_282 = t_280 and t_281;
-    guardCondition t_282;
+      temp bool t_283 = Vault.state == 1,
+      temp byte t_284 = Vault.cmd / 16,
+      temp bool t_285 = t_284 == 7,
+      temp bool t_286 = t_283 and t_285,
+      temp bool t_287 = CC.state == 29,
+      temp bool t_288 = t_286 and t_287;
+
+    guardCondition t_288;
     effect
-      UserAdmin_0.state = 2,
-      CC.state = 23;
+      Vault.state = 0,
+      temp byte t_289 = Vault.cmd % 16,
+      temp byte t_290 = 112 + t_289,
+      CC.cmd = t_290,
+      CC.state = 30;
 
-  process UserAdmin_0_CC
+  process Vault_CC 
     guardBlock
-      temp bool t_283 = UserAdmin_0.state == 1,
-      temp bool t_284 = UserAdmin_0.cmd == 11,
-      temp bool t_285 = t_283 and t_284,
-      temp bool t_286 = CC.state == 7,
-      temp bool t_287 = t_285 and t_286;
-    guardCondition t_287;
+      temp bool t_291 = Vault.state == 1,
+      temp byte t_292 = Vault.cmd / 16,
+      temp bool t_293 = t_292 == 7,
+      temp bool t_294 = t_291 and t_293,
+      temp bool t_295 = CC.state == 40,
+      temp bool t_296 = t_294 and t_295;
+
+    guardCondition t_296;
     effect
-      UserAdmin_0.state = 3,
-      CC.state = 6;
+      Vault.state = 0,
+      temp byte t_297 = Vault.cmd % 16,
+      temp byte t_298 = 112 + t_297,
+      CC.cmd = t_298,
+      CC.state = 41;
 
-  process UserAdmin_0_CC
+  process channel_ccToUser_0_User_0 
     guardBlock
-      temp bool t_288 = UserAdmin_0.state == 1,
-      temp bool t_289 = UserAdmin_0.cmd == 11,
-      temp bool t_290 = t_288 and t_289,
-      temp bool t_291 = CC.state == 18,
-      temp bool t_292 = t_290 and t_291;
-    guardCondition t_292;
+      temp bool t_299 = channel_ccToUser_0.state == 1,
+      temp bool t_300 = User_0.state == 1,
+      temp bool t_301 = t_299 and t_300;
+
+    guardCondition t_301;
     effect
-      UserAdmin_0.state = 3,
-      CC.state = 17;
+      channel_ccToUser_0.state = 0,
+      User_0.cmd = channel_ccToUser_0.v,
+      User_0.state = 2;
 
-  process UserAdmin_0_CC
+  process channel_ccToUser_0_User_0 
     guardBlock
-      temp bool t_293 = UserAdmin_0.state == 1,
-      temp bool t_294 = UserAdmin_0.cmd == 11,
-      temp bool t_295 = t_293 and t_294,
-      temp bool t_296 = CC.state == 8,
-      temp bool t_297 = t_295 and t_296;
-    guardCondition t_297;
+      temp bool t_302 = channel_ccToUser_0.state == 1,
+      temp bool t_303 = User_0.state == 0,
+      temp bool t_304 = t_302 and t_303;
+
+    guardCondition t_304;
     effect
-      UserAdmin_0.state = 3,
-      CC.state = 12;
+      channel_ccToUser_0.state = 0,
+      User_0.cmd = channel_ccToUser_0.v,
+      User_0.state = 6;
 
-  process UserAdmin_0_CC
+  process CC_channel_ccToUser_0 
     guardBlock
-      temp bool t_298 = UserAdmin_0.state == 1,
-      temp bool t_299 = UserAdmin_0.cmd == 11,
-      temp bool t_300 = t_298 and t_299,
-      temp bool t_301 = CC.state == 19,
-      temp bool t_302 = t_300 and t_301;
-    guardCondition t_302;
+      temp bool t_305 = CC.state == 26,
+      temp byte t_306 = CC.cmd / 16,
+      temp bool t_307 = t_306 == 1,
+      temp byte t_308 = CC.cmd % 16,
+      temp bool t_309 = t_308 == 0,
+      temp bool t_310 = t_307 and t_309,
+      temp bool t_311 = t_305 and t_310,
+      temp bool t_312 = channel_ccToUser_0.state == 0,
+      temp bool t_313 = t_311 and t_312;
+
+    guardCondition t_313;
     effect
-      UserAdmin_0.state = 3,
-      CC.state = 23;
+      CC.state = 0,
+      channel_ccToUser_0.v = 1,
+      channel_ccToUser_0.state = 1;
 
-  process UserAdmin_1_CC
+  process CC_channel_ccToUser_0 
     guardBlock
-      temp bool t_303 = UserAdmin_1.state == 1,
-      temp bool t_304 = UserAdmin_1.cmd == 12,
-      temp bool t_305 = t_303 and t_304,
-      temp bool t_306 = CC.state == 7,
-      temp bool t_307 = t_305 and t_306;
-    guardCondition t_307;
-    effect
-      UserAdmin_1.state = 2,
-      CC.state = 6;
-
-  process UserAdmin_1_CC
-    guardBlock
-      temp bool t_308 = UserAdmin_1.state == 1,
-      temp bool t_309 = UserAdmin_1.cmd == 12,
-      temp bool t_310 = t_308 and t_309,
-      temp bool t_311 = CC.state == 18,
-      temp bool t_312 = t_310 and t_311;
-    guardCondition t_312;
-    effect
-      UserAdmin_1.state = 2,
-      CC.state = 17;
-
-  process UserAdmin_1_CC
-    guardBlock
-      temp bool t_313 = UserAdmin_1.state == 1,
-      temp bool t_314 = UserAdmin_1.cmd == 12,
-      temp bool t_315 = t_313 and t_314,
-      temp bool t_316 = CC.state == 8,
-      temp bool t_317 = t_315 and t_316;
-    guardCondition t_317;
-    effect
-      UserAdmin_1.state = 2,
-      CC.state = 12;
-
-  process UserAdmin_1_CC
-    guardBlock
-      temp bool t_318 = UserAdmin_1.state == 1,
-      temp bool t_319 = UserAdmin_1.cmd == 12,
-      temp bool t_320 = t_318 and t_319,
-      temp bool t_321 = CC.state == 19,
+      temp bool t_314 = CC.state == 30,
+      temp byte t_315 = CC.cmd / 16,
+      temp bool t_316 = t_315 == 3,
+      temp byte t_317 = CC.cmd % 16,
+      temp bool t_318 = t_317 == 0,
+      temp bool t_319 = t_316 and t_318,
+      temp bool t_320 = t_314 and t_319,
+      temp bool t_321 = channel_ccToUser_0.state == 0,
       temp bool t_322 = t_320 and t_321;
+
     guardCondition t_322;
     effect
-      UserAdmin_1.state = 2,
-      CC.state = 23;
+      CC.state = 34,
+      channel_ccToUser_0.v = 3,
+      channel_ccToUser_0.state = 1;
 
-  process UserAdmin_1_CC
+  process CC_channel_ccToUser_0 
     guardBlock
-      temp bool t_323 = UserAdmin_1.state == 1,
-      temp bool t_324 = UserAdmin_1.cmd == 11,
-      temp bool t_325 = t_323 and t_324,
-      temp bool t_326 = CC.state == 7,
-      temp bool t_327 = t_325 and t_326;
-    guardCondition t_327;
+      temp bool t_323 = CC.state == 27,
+      temp bool t_324 = CC.writeLock == 1,
+      temp byte t_325 = CC.cmd % 16,
+      temp bool t_326 = t_325 == 0,
+      temp bool t_327 = t_324 and t_326,
+      temp bool t_328 = t_323 and t_327,
+      temp bool t_329 = channel_ccToUser_0.state == 0,
+      temp bool t_330 = t_328 and t_329;
+
+    guardCondition t_330;
     effect
-      UserAdmin_1.state = 3,
-      CC.state = 6;
+      CC.state = 33,
+      channel_ccToUser_0.v = 4,
+      channel_ccToUser_0.state = 1;
 
-  process UserAdmin_1_CC
+  process User_0_CC 
     guardBlock
-      temp bool t_328 = UserAdmin_1.state == 1,
-      temp bool t_329 = UserAdmin_1.cmd == 11,
-      temp bool t_330 = t_328 and t_329,
-      temp bool t_331 = CC.state == 18,
-      temp bool t_332 = t_330 and t_331;
-    guardCondition t_332;
-    effect
-      UserAdmin_1.state = 3,
-      CC.state = 17;
+      temp bool t_331 = User_0.state == 0,
+      temp bool t_332 = User_0.waitingForCheckedOut == 0,
+      temp bool t_333 = t_331 and t_332,
+      temp bool t_334 = CC.state == 0,
+      temp bool t_335 = t_333 and t_334;
 
-  process UserAdmin_1_CC
-    guardBlock
-      temp bool t_333 = UserAdmin_1.state == 1,
-      temp bool t_334 = UserAdmin_1.cmd == 11,
-      temp bool t_335 = t_333 and t_334,
-      temp bool t_336 = CC.state == 8,
-      temp bool t_337 = t_335 and t_336;
-    guardCondition t_337;
-    effect
-      UserAdmin_1.state = 3,
-      CC.state = 12;
-
-  process UserAdmin_1_CC
-    guardBlock
-      temp bool t_338 = UserAdmin_1.state == 1,
-      temp bool t_339 = UserAdmin_1.cmd == 11,
-      temp bool t_340 = t_338 and t_339,
-      temp bool t_341 = CC.state == 19,
-      temp bool t_342 = t_340 and t_341;
-    guardCondition t_342;
-    effect
-      UserAdmin_1.state = 3,
-      CC.state = 23;
-
-  process channel_ccToUser_1_User_1
-    guardBlock
-      temp bool t_343 = channel_ccToUser_1.state == 1,
-      temp bool t_344 = User_1.state == 1,
-      temp bool t_345 = t_343 and t_344;
-    guardCondition t_345;
-    effect
-      channel_ccToUser_1.state = 0,
-      User_1.cmd = channel_ccToUser_1.v,
-      User_1.state = 2;
-
-  process channel_ccToUser_1_User_1
-    guardBlock
-      temp bool t_346 = channel_ccToUser_1.state == 1,
-      temp bool t_347 = User_1.state == 0,
-      temp bool t_348 = t_346 and t_347;
-    guardCondition t_348;
-    effect
-      channel_ccToUser_1.state = 0,
-      User_1.cmd = channel_ccToUser_1.v,
-      User_1.state = 6;
-
-  process Vault_CC
-    guardBlock
-      temp bool t_349 = Vault.state == 1,
-      temp int t_350 = Vault.cmd / 16,
-      temp bool t_351 = t_350 == 0,
-      temp bool t_352 = t_349 and t_351,
-      temp bool t_353 = CC.state == 25,
-      temp bool t_354 = t_352 and t_353;
-    guardCondition t_354;
-    effect
-      Vault.state = 0,
-      temp int t_355 = Vault.cmd % 16,
-      temp int t_356 = 16 + t_355,
-      CC.cmd = t_356,
-      CC.state = 26;
-
-  process Vault_CC
-    guardBlock
-      temp bool t_357 = Vault.state == 1,
-      temp int t_358 = Vault.cmd / 16,
-      temp bool t_359 = t_358 == 0,
-      temp bool t_360 = t_357 and t_359,
-      temp bool t_361 = CC.state == 29,
-      temp bool t_362 = t_360 and t_361;
-    guardCondition t_362;
-    effect
-      Vault.state = 0,
-      temp int t_363 = Vault.cmd % 16,
-      temp int t_364 = 16 + t_363,
-      CC.cmd = t_364,
-      CC.state = 30;
-
-  process Vault_CC
-    guardBlock
-      temp bool t_365 = Vault.state == 1,
-      temp int t_366 = Vault.cmd / 16,
-      temp bool t_367 = t_366 == 0,
-      temp bool t_368 = t_365 and t_367,
-      temp bool t_369 = CC.state == 40,
-      temp bool t_370 = t_368 and t_369;
-    guardCondition t_370;
-    effect
-      Vault.state = 0,
-      temp int t_371 = Vault.cmd % 16,
-      temp int t_372 = 16 + t_371,
-      CC.cmd = t_372,
-      CC.state = 41;
-
-  process Vault_CC
-    guardBlock
-      temp bool t_373 = Vault.state == 1,
-      temp int t_374 = Vault.cmd / 16,
-      temp bool t_375 = t_374 == 2,
-      temp bool t_376 = t_373 and t_375,
-      temp bool t_377 = CC.state == 25,
-      temp bool t_378 = t_376 and t_377;
-    guardCondition t_378;
-    effect
-      Vault.state = 0,
-      temp int t_379 = Vault.cmd % 16,
-      temp int t_380 = 48 + t_379,
-      CC.cmd = t_380,
-      CC.state = 26;
-
-  process Vault_CC
-    guardBlock
-      temp bool t_381 = Vault.state == 1,
-      temp int t_382 = Vault.cmd / 16,
-      temp bool t_383 = t_382 == 2,
-      temp bool t_384 = t_381 and t_383,
-      temp bool t_385 = CC.state == 29,
-      temp bool t_386 = t_384 and t_385;
-    guardCondition t_386;
-    effect
-      Vault.state = 0,
-      temp int t_387 = Vault.cmd % 16,
-      temp int t_388 = 48 + t_387,
-      CC.cmd = t_388,
-      CC.state = 30;
-
-  process Vault_CC
-    guardBlock
-      temp bool t_389 = Vault.state == 1,
-      temp int t_390 = Vault.cmd / 16,
-      temp bool t_391 = t_390 == 2,
-      temp bool t_392 = t_389 and t_391,
-      temp bool t_393 = CC.state == 40,
-      temp bool t_394 = t_392 and t_393;
-    guardCondition t_394;
-    effect
-      Vault.state = 0,
-      temp int t_395 = Vault.cmd % 16,
-      temp int t_396 = 48 + t_395,
-      CC.cmd = t_396,
-      CC.state = 41;
-
-  process Vault_CC
-    guardBlock
-      temp bool t_397 = Vault.state == 1,
-      temp int t_398 = Vault.cmd / 16,
-      temp bool t_399 = t_398 == 7,
-      temp bool t_400 = t_397 and t_399,
-      temp bool t_401 = CC.state == 25,
-      temp bool t_402 = t_400 and t_401;
-    guardCondition t_402;
-    effect
-      Vault.state = 0,
-      temp int t_403 = Vault.cmd % 16,
-      temp int t_404 = 112 + t_403,
-      CC.cmd = t_404,
-      CC.state = 26;
-
-  process Vault_CC
-    guardBlock
-      temp bool t_405 = Vault.state == 1,
-      temp int t_406 = Vault.cmd / 16,
-      temp bool t_407 = t_406 == 7,
-      temp bool t_408 = t_405 and t_407,
-      temp bool t_409 = CC.state == 29,
-      temp bool t_410 = t_408 and t_409;
-    guardCondition t_410;
-    effect
-      Vault.state = 0,
-      temp int t_411 = Vault.cmd % 16,
-      temp int t_412 = 112 + t_411,
-      CC.cmd = t_412,
-      CC.state = 30;
-
-  process Vault_CC
-    guardBlock
-      temp bool t_413 = Vault.state == 1,
-      temp int t_414 = Vault.cmd / 16,
-      temp bool t_415 = t_414 == 7,
-      temp bool t_416 = t_413 and t_415,
-      temp bool t_417 = CC.state == 40,
-      temp bool t_418 = t_416 and t_417;
-    guardCondition t_418;
-    effect
-      Vault.state = 0,
-      temp int t_419 = Vault.cmd % 16,
-      temp int t_420 = 112 + t_419,
-      CC.cmd = t_420,
-      CC.state = 41;
-
-  process CC_UserAdmin_0
-    guardBlock
-      temp bool t_421 = CC.state == 32,
-      temp bool t_422 = CC.ID == 0,
-      temp int t_423 = CC.cmd % 16,
-      temp bool t_424 = CC.ID != t_423,
-      temp bool t_425 = t_422 and t_424,
-      temp byte t_426 = CC.registered[CC.ID],
-      temp bool t_427 = t_426 == 1,
-      temp bool t_428 = t_425 and t_427,
-      temp bool t_429 = t_421 and t_428,
-      temp bool t_430 = UserAdmin_0.state == 0,
-      temp bool t_431 = t_429 and t_430;
-    guardCondition t_431;
-    effect
-      CC.state = 7,
-      UserAdmin_0.cmd = 12,
-      UserAdmin_0.state = 1;
-
-  process CC_UserAdmin_0
-    guardBlock
-      temp bool t_432 = CC.state == 46,
-      temp bool t_433 = CC.ID == 0,
-      temp int t_434 = CC.cmd % 16,
-      temp bool t_435 = CC.ID != t_434,
-      temp bool t_436 = t_433 and t_435,
-      temp byte t_437 = CC.registered[CC.ID],
-      temp bool t_438 = t_437 == 1,
-      temp bool t_439 = t_436 and t_438,
-      temp bool t_440 = t_432 and t_439,
-      temp bool t_441 = UserAdmin_0.state == 0,
-      temp bool t_442 = t_440 and t_441;
-    guardCondition t_442;
-    effect
-      CC.state = 8,
-      UserAdmin_0.cmd = 11,
-      UserAdmin_0.state = 1;
-
-  process User_0_CC
-    guardBlock
-      temp bool t_443 = User_0.state == 0,
-      temp bool t_444 = User_0.waitingForCheckedOut == 0,
-      temp bool t_445 = t_443 and t_444,
-      temp bool t_446 = CC.state == 0,
-      temp bool t_447 = t_445 and t_446;
-    guardCondition t_447;
+    guardCondition t_335;
     effect
       User_0.state = 1,
       CC.cmd = 0,
       CC.state = 1;
 
-  process User_0_CC
+  process User_0_CC 
     guardBlock
-      temp bool t_448 = User_0.state == 0,
-      temp byte t_449 = User_0.registered[0],
-      temp bool t_450 = t_449 == 0,
-      temp byte t_451 = User_0.edit[0],
-      temp bool t_452 = t_451 == 0,
-      temp bool t_453 = t_450 and t_452,
-      temp bool t_454 = t_448 and t_453,
-      temp bool t_455 = CC.state == 0,
-      temp bool t_456 = t_454 and t_455;
-    guardCondition t_456;
+      temp bool t_336 = User_0.state == 0,
+      temp byte t_337 = User_0.registered[0],
+      temp bool t_338 = t_337 == 0,
+      temp byte t_339 = User_0.edit[0],
+      temp bool t_340 = t_339 == 0,
+      temp bool t_341 = t_338 and t_340,
+      temp bool t_342 = t_336 and t_341,
+      temp bool t_343 = CC.state == 0,
+      temp bool t_344 = t_342 and t_343;
+
+    guardCondition t_344;
     effect
       User_0.state = 3,
       User_0.registered[0] = 1,
       CC.cmd = 144,
       CC.state = 1;
 
-  process User_0_CC
+  process User_0_CC 
     guardBlock
-      temp bool t_457 = User_0.state == 0,
-      temp byte t_458 = User_0.registered[0],
-      temp bool t_459 = t_458 == 1,
-      temp byte t_460 = User_0.edit[0],
-      temp bool t_461 = t_460 == 0,
-      temp bool t_462 = t_459 and t_461,
-      temp bool t_463 = t_457 and t_462,
-      temp bool t_464 = CC.state == 0,
-      temp bool t_465 = t_463 and t_464;
-    guardCondition t_465;
+      temp bool t_345 = User_0.state == 0,
+      temp byte t_346 = User_0.registered[0],
+      temp bool t_347 = t_346 == 1,
+      temp byte t_348 = User_0.edit[0],
+      temp bool t_349 = t_348 == 0,
+      temp bool t_350 = t_347 and t_349,
+      temp bool t_351 = t_345 and t_350,
+      temp bool t_352 = CC.state == 0,
+      temp bool t_353 = t_351 and t_352;
+
+    guardCondition t_353;
     effect
       User_0.state = 4,
       User_0.registered[0] = 0,
       CC.cmd = 160,
       CC.state = 1;
 
-  process User_0_CC
+  process User_0_CC 
     guardBlock
-      temp bool t_466 = User_0.state == 0,
-      temp byte t_467 = User_0.edit[0],
-      temp bool t_468 = t_467 == 0,
-      temp bool t_469 = User_0.waitingForCheckedOut == 0,
-      temp bool t_470 = t_468 and t_469,
-      temp bool t_471 = t_466 and t_470,
-      temp bool t_472 = CC.state == 0,
-      temp bool t_473 = t_471 and t_472;
-    guardCondition t_473;
+      temp bool t_354 = User_0.state == 0,
+      temp byte t_355 = User_0.edit[0],
+      temp bool t_356 = t_355 == 0,
+      temp bool t_357 = User_0.waitingForCheckedOut == 0,
+      temp bool t_358 = t_356 and t_357,
+      temp bool t_359 = t_354 and t_358,
+      temp bool t_360 = CC.state == 0,
+      temp bool t_361 = t_359 and t_360;
+
+    guardCondition t_361;
     effect
       User_0.state = 0,
       User_0.waitingForCheckedOut = 1,
       CC.cmd = 32,
       CC.state = 1;
 
-  process User_0_CC
+  process User_0_CC 
     guardBlock
-      temp bool t_474 = User_0.state == 5,
-      temp bool t_475 = CC.state == 0,
-      temp bool t_476 = t_474 and t_475;
-    guardCondition t_476;
+      temp bool t_362 = User_0.state == 5,
+      temp bool t_363 = CC.state == 0,
+      temp bool t_364 = t_362 and t_363;
+
+    guardCondition t_364;
     effect
       User_0.state = 0,
       User_0.edit[0] = 0,
       CC.cmd = 80,
       CC.state = 1;
 
-  process User_0_CC
+  process User_0_CC 
     guardBlock
-      temp bool t_477 = User_0.state == 5,
-      temp bool t_478 = CC.state == 0,
-      temp bool t_479 = t_477 and t_478;
-    guardCondition t_479;
+      temp bool t_365 = User_0.state == 5,
+      temp bool t_366 = CC.state == 0,
+      temp bool t_367 = t_365 and t_366;
+
+    guardCondition t_367;
     effect
       User_0.state = 0,
       User_0.edit[0] = 0,
       CC.cmd = 112,
       CC.state = 1;
 
-  process User_0_CC
+  process User_0_CC 
     guardBlock
-      temp bool t_480 = User_0.state == 5,
-      temp bool t_481 = CC.state == 0,
-      temp bool t_482 = t_480 and t_481;
-    guardCondition t_482;
+      temp bool t_368 = User_0.state == 5,
+      temp bool t_369 = CC.state == 0,
+      temp bool t_370 = t_368 and t_369;
+
+    guardCondition t_370;
     effect
       User_0.state = 0,
       CC.cmd = 128,
       CC.state = 1;
 
-  process User_1_CC
+  process User_1_CC 
     guardBlock
-      temp bool t_483 = User_1.state == 0,
-      temp bool t_484 = User_1.waitingForCheckedOut == 0,
-      temp bool t_485 = t_483 and t_484,
-      temp bool t_486 = CC.state == 0,
-      temp bool t_487 = t_485 and t_486;
-    guardCondition t_487;
+      temp bool t_371 = User_1.state == 0,
+      temp bool t_372 = User_1.waitingForCheckedOut == 0,
+      temp bool t_373 = t_371 and t_372,
+      temp bool t_374 = CC.state == 0,
+      temp bool t_375 = t_373 and t_374;
+
+    guardCondition t_375;
     effect
       User_1.state = 1,
       CC.cmd = 1,
       CC.state = 1;
 
-  process User_1_CC
+  process User_1_CC 
     guardBlock
-      temp bool t_488 = User_1.state == 0,
-      temp byte t_489 = User_1.registered[0],
-      temp bool t_490 = t_489 == 0,
-      temp byte t_491 = User_1.edit[0],
-      temp bool t_492 = t_491 == 0,
-      temp bool t_493 = t_490 and t_492,
-      temp bool t_494 = t_488 and t_493,
-      temp bool t_495 = CC.state == 0,
-      temp bool t_496 = t_494 and t_495;
-    guardCondition t_496;
+      temp bool t_376 = User_1.state == 0,
+      temp byte t_377 = User_1.registered[0],
+      temp bool t_378 = t_377 == 0,
+      temp byte t_379 = User_1.edit[0],
+      temp bool t_380 = t_379 == 0,
+      temp bool t_381 = t_378 and t_380,
+      temp bool t_382 = t_376 and t_381,
+      temp bool t_383 = CC.state == 0,
+      temp bool t_384 = t_382 and t_383;
+
+    guardCondition t_384;
     effect
       User_1.state = 3,
       User_1.registered[0] = 1,
       CC.cmd = 145,
       CC.state = 1;
 
-  process User_1_CC
+  process User_1_CC 
     guardBlock
-      temp bool t_497 = User_1.state == 0,
-      temp byte t_498 = User_1.registered[0],
-      temp bool t_499 = t_498 == 1,
-      temp byte t_500 = User_1.edit[0],
-      temp bool t_501 = t_500 == 0,
-      temp bool t_502 = t_499 and t_501,
-      temp bool t_503 = t_497 and t_502,
-      temp bool t_504 = CC.state == 0,
-      temp bool t_505 = t_503 and t_504;
-    guardCondition t_505;
+      temp bool t_385 = User_1.state == 0,
+      temp byte t_386 = User_1.registered[0],
+      temp bool t_387 = t_386 == 1,
+      temp byte t_388 = User_1.edit[0],
+      temp bool t_389 = t_388 == 0,
+      temp bool t_390 = t_387 and t_389,
+      temp bool t_391 = t_385 and t_390,
+      temp bool t_392 = CC.state == 0,
+      temp bool t_393 = t_391 and t_392;
+
+    guardCondition t_393;
     effect
       User_1.state = 4,
       User_1.registered[0] = 0,
       CC.cmd = 161,
       CC.state = 1;
 
-  process User_1_CC
+  process User_1_CC 
     guardBlock
-      temp bool t_506 = User_1.state == 0,
-      temp byte t_507 = User_1.edit[0],
-      temp bool t_508 = t_507 == 0,
-      temp bool t_509 = User_1.waitingForCheckedOut == 0,
-      temp bool t_510 = t_508 and t_509,
-      temp bool t_511 = t_506 and t_510,
-      temp bool t_512 = CC.state == 0,
-      temp bool t_513 = t_511 and t_512;
-    guardCondition t_513;
+      temp bool t_394 = User_1.state == 0,
+      temp byte t_395 = User_1.edit[0],
+      temp bool t_396 = t_395 == 0,
+      temp bool t_397 = User_1.waitingForCheckedOut == 0,
+      temp bool t_398 = t_396 and t_397,
+      temp bool t_399 = t_394 and t_398,
+      temp bool t_400 = CC.state == 0,
+      temp bool t_401 = t_399 and t_400;
+
+    guardCondition t_401;
     effect
       User_1.state = 0,
       User_1.waitingForCheckedOut = 1,
       CC.cmd = 33,
       CC.state = 1;
 
-  process User_1_CC
+  process User_1_CC 
     guardBlock
-      temp bool t_514 = User_1.state == 5,
-      temp bool t_515 = CC.state == 0,
-      temp bool t_516 = t_514 and t_515;
-    guardCondition t_516;
+      temp bool t_402 = User_1.state == 5,
+      temp bool t_403 = CC.state == 0,
+      temp bool t_404 = t_402 and t_403;
+
+    guardCondition t_404;
     effect
       User_1.state = 0,
       User_1.edit[0] = 0,
       CC.cmd = 81,
       CC.state = 1;
 
-  process User_1_CC
+  process User_1_CC 
     guardBlock
-      temp bool t_517 = User_1.state == 5,
-      temp bool t_518 = CC.state == 0,
-      temp bool t_519 = t_517 and t_518;
-    guardCondition t_519;
+      temp bool t_405 = User_1.state == 5,
+      temp bool t_406 = CC.state == 0,
+      temp bool t_407 = t_405 and t_406;
+
+    guardCondition t_407;
     effect
       User_1.state = 0,
       User_1.edit[0] = 0,
       CC.cmd = 113,
       CC.state = 1;
 
-  process User_1_CC
+  process User_1_CC 
     guardBlock
-      temp bool t_520 = User_1.state == 5,
-      temp bool t_521 = CC.state == 0,
-      temp bool t_522 = t_520 and t_521;
-    guardCondition t_522;
+      temp bool t_408 = User_1.state == 5,
+      temp bool t_409 = CC.state == 0,
+      temp bool t_410 = t_408 and t_409;
+
+    guardCondition t_410;
     effect
       User_1.state = 0,
       CC.cmd = 129,
       CC.state = 1;
 
-  process CC_channel_ccToUser_0
+  process CC_UserAdmin_1 
     guardBlock
-      temp bool t_523 = CC.state == 26,
-      temp int t_524 = CC.cmd / 16,
-      temp bool t_525 = t_524 == 1,
-      temp int t_526 = CC.cmd % 16,
-      temp bool t_527 = t_526 == 0,
-      temp bool t_528 = t_525 and t_527,
-      temp bool t_529 = t_523 and t_528,
-      temp bool t_530 = channel_ccToUser_0.state == 0,
-      temp bool t_531 = t_529 and t_530;
-    guardCondition t_531;
-    effect
-      CC.state = 0,
-      channel_ccToUser_0.v = 1,
-      channel_ccToUser_0.state = 1;
+      temp bool t_411 = CC.state == 32,
+      temp bool t_412 = CC.ID == 1,
+      temp byte t_413 = CC.cmd % 16,
+      temp bool t_414 = CC.ID != t_413,
+      temp bool t_415 = t_412 and t_414,
+      temp byte t_416 = CC.registered[CC.ID],
+      temp bool t_417 = t_416 == 1,
+      temp bool t_418 = t_415 and t_417,
+      temp bool t_419 = t_411 and t_418,
+      temp bool t_420 = UserAdmin_1.state == 0,
+      temp bool t_421 = t_419 and t_420;
 
-  process CC_channel_ccToUser_0
-    guardBlock
-      temp bool t_532 = CC.state == 30,
-      temp int t_533 = CC.cmd / 16,
-      temp bool t_534 = t_533 == 3,
-      temp int t_535 = CC.cmd % 16,
-      temp bool t_536 = t_535 == 0,
-      temp bool t_537 = t_534 and t_536,
-      temp bool t_538 = t_532 and t_537,
-      temp bool t_539 = channel_ccToUser_0.state == 0,
-      temp bool t_540 = t_538 and t_539;
-    guardCondition t_540;
+    guardCondition t_421;
     effect
-      CC.state = 34,
-      channel_ccToUser_0.v = 3,
-      channel_ccToUser_0.state = 1;
+      CC.state = 18,
+      UserAdmin_1.cmd = 12,
+      UserAdmin_1.state = 1;
 
-  process CC_channel_ccToUser_0
+  process CC_UserAdmin_1 
     guardBlock
-      temp bool t_541 = CC.state == 27,
-      temp bool t_542 = CC.writeLock == 1,
-      temp int t_543 = CC.cmd % 16,
-      temp bool t_544 = t_543 == 0,
-      temp bool t_545 = t_542 and t_544,
-      temp bool t_546 = t_541 and t_545,
-      temp bool t_547 = channel_ccToUser_0.state == 0,
-      temp bool t_548 = t_546 and t_547;
-    guardCondition t_548;
+      temp bool t_422 = CC.state == 46,
+      temp bool t_423 = CC.ID == 1,
+      temp byte t_424 = CC.cmd % 16,
+      temp bool t_425 = CC.ID != t_424,
+      temp bool t_426 = t_423 and t_425,
+      temp byte t_427 = CC.registered[CC.ID],
+      temp bool t_428 = t_427 == 1,
+      temp bool t_429 = t_426 and t_428,
+      temp bool t_430 = t_422 and t_429,
+      temp bool t_431 = UserAdmin_1.state == 0,
+      temp bool t_432 = t_430 and t_431;
+
+    guardCondition t_432;
     effect
-      CC.state = 33,
-      channel_ccToUser_0.v = 4,
-      channel_ccToUser_0.state = 1;
+      CC.state = 19,
+      UserAdmin_1.cmd = 11,
+      UserAdmin_1.state = 1;
 
-  process channel_ccToUser_0_User_0
+  process CC_UserAdmin_0 
     guardBlock
-      temp bool t_549 = channel_ccToUser_0.state == 1,
-      temp bool t_550 = User_0.state == 1,
-      temp bool t_551 = t_549 and t_550;
-    guardCondition t_551;
+      temp bool t_433 = CC.state == 32,
+      temp bool t_434 = CC.ID == 0,
+      temp byte t_435 = CC.cmd % 16,
+      temp bool t_436 = CC.ID != t_435,
+      temp bool t_437 = t_434 and t_436,
+      temp byte t_438 = CC.registered[CC.ID],
+      temp bool t_439 = t_438 == 1,
+      temp bool t_440 = t_437 and t_439,
+      temp bool t_441 = t_433 and t_440,
+      temp bool t_442 = UserAdmin_0.state == 0,
+      temp bool t_443 = t_441 and t_442;
+
+    guardCondition t_443;
     effect
-      channel_ccToUser_0.state = 0,
-      User_0.cmd = channel_ccToUser_0.v,
-      User_0.state = 2;
+      CC.state = 7,
+      UserAdmin_0.cmd = 12,
+      UserAdmin_0.state = 1;
 
-  process channel_ccToUser_0_User_0
+  process CC_UserAdmin_0 
     guardBlock
-      temp bool t_552 = channel_ccToUser_0.state == 1,
-      temp bool t_553 = User_0.state == 0,
+      temp bool t_444 = CC.state == 46,
+      temp bool t_445 = CC.ID == 0,
+      temp byte t_446 = CC.cmd % 16,
+      temp bool t_447 = CC.ID != t_446,
+      temp bool t_448 = t_445 and t_447,
+      temp byte t_449 = CC.registered[CC.ID],
+      temp bool t_450 = t_449 == 1,
+      temp bool t_451 = t_448 and t_450,
+      temp bool t_452 = t_444 and t_451,
+      temp bool t_453 = UserAdmin_0.state == 0,
+      temp bool t_454 = t_452 and t_453;
+
+    guardCondition t_454;
+    effect
+      CC.state = 8,
+      UserAdmin_0.cmd = 11,
+      UserAdmin_0.state = 1;
+
+  process channel_ccToUser_1_User_1 
+    guardBlock
+      temp bool t_455 = channel_ccToUser_1.state == 1,
+      temp bool t_456 = User_1.state == 1,
+      temp bool t_457 = t_455 and t_456;
+
+    guardCondition t_457;
+    effect
+      channel_ccToUser_1.state = 0,
+      User_1.cmd = channel_ccToUser_1.v,
+      User_1.state = 2;
+
+  process channel_ccToUser_1_User_1 
+    guardBlock
+      temp bool t_458 = channel_ccToUser_1.state == 1,
+      temp bool t_459 = User_1.state == 0,
+      temp bool t_460 = t_458 and t_459;
+
+    guardCondition t_460;
+    effect
+      channel_ccToUser_1.state = 0,
+      User_1.cmd = channel_ccToUser_1.v,
+      User_1.state = 6;
+
+  process CC_Vault 
+    guardBlock
+      temp bool t_461 = CC.state == 24,
+      temp bool t_462 = Vault.state == 0,
+      temp bool t_463 = t_461 and t_462;
+
+    guardCondition t_463;
+    effect
+      CC.state = 25,
+      Vault.cmd = CC.cmd,
+      Vault.state = 1;
+
+  process CC_Vault 
+    guardBlock
+      temp bool t_464 = CC.state == 28,
+      temp bool t_465 = Vault.state == 0,
+      temp bool t_466 = t_464 and t_465;
+
+    guardCondition t_466;
+    effect
+      CC.state = 29,
+      CC.writeLock = 1,
+      Vault.cmd = CC.cmd,
+      Vault.state = 1;
+
+  process CC_Vault 
+    guardBlock
+      temp bool t_467 = CC.state == 36,
+      temp bool t_468 = Vault.state == 0,
+      temp bool t_469 = t_467 and t_468;
+
+    guardCondition t_469;
+    effect
+      CC.state = 37,
+      CC.writeLock = 0,
+      Vault.cmd = CC.cmd,
+      Vault.state = 1;
+
+  process CC_Vault 
+    guardBlock
+      temp bool t_470 = CC.state == 39,
+      temp bool t_471 = Vault.state == 0,
+      temp bool t_472 = t_470 and t_471;
+
+    guardCondition t_472;
+    effect
+      CC.state = 40,
+      temp byte t_473 = CC.cmd % 16,
+      temp byte t_474 = 112 + t_473,
+      Vault.cmd = t_474,
+      Vault.state = 1;
+
+  process UserAdmin_0_CC 
+    guardBlock
+      temp bool t_475 = UserAdmin_0.state == 1,
+      temp bool t_476 = UserAdmin_0.cmd == 12,
+      temp bool t_477 = t_475 and t_476,
+      temp bool t_478 = CC.state == 7,
+      temp bool t_479 = t_477 and t_478;
+
+    guardCondition t_479;
+    effect
+      UserAdmin_0.state = 2,
+      CC.state = 6;
+
+  process UserAdmin_0_CC 
+    guardBlock
+      temp bool t_480 = UserAdmin_0.state == 1,
+      temp bool t_481 = UserAdmin_0.cmd == 12,
+      temp bool t_482 = t_480 and t_481,
+      temp bool t_483 = CC.state == 18,
+      temp bool t_484 = t_482 and t_483;
+
+    guardCondition t_484;
+    effect
+      UserAdmin_0.state = 2,
+      CC.state = 17;
+
+  process UserAdmin_0_CC 
+    guardBlock
+      temp bool t_485 = UserAdmin_0.state == 1,
+      temp bool t_486 = UserAdmin_0.cmd == 12,
+      temp bool t_487 = t_485 and t_486,
+      temp bool t_488 = CC.state == 8,
+      temp bool t_489 = t_487 and t_488;
+
+    guardCondition t_489;
+    effect
+      UserAdmin_0.state = 2,
+      CC.state = 12;
+
+  process UserAdmin_0_CC 
+    guardBlock
+      temp bool t_490 = UserAdmin_0.state == 1,
+      temp bool t_491 = UserAdmin_0.cmd == 12,
+      temp bool t_492 = t_490 and t_491,
+      temp bool t_493 = CC.state == 19,
+      temp bool t_494 = t_492 and t_493;
+
+    guardCondition t_494;
+    effect
+      UserAdmin_0.state = 2,
+      CC.state = 23;
+
+  process UserAdmin_0_CC 
+    guardBlock
+      temp bool t_495 = UserAdmin_0.state == 1,
+      temp bool t_496 = UserAdmin_0.cmd == 11,
+      temp bool t_497 = t_495 and t_496,
+      temp bool t_498 = CC.state == 7,
+      temp bool t_499 = t_497 and t_498;
+
+    guardCondition t_499;
+    effect
+      UserAdmin_0.state = 3,
+      CC.state = 6;
+
+  process UserAdmin_0_CC 
+    guardBlock
+      temp bool t_500 = UserAdmin_0.state == 1,
+      temp bool t_501 = UserAdmin_0.cmd == 11,
+      temp bool t_502 = t_500 and t_501,
+      temp bool t_503 = CC.state == 18,
+      temp bool t_504 = t_502 and t_503;
+
+    guardCondition t_504;
+    effect
+      UserAdmin_0.state = 3,
+      CC.state = 17;
+
+  process UserAdmin_0_CC 
+    guardBlock
+      temp bool t_505 = UserAdmin_0.state == 1,
+      temp bool t_506 = UserAdmin_0.cmd == 11,
+      temp bool t_507 = t_505 and t_506,
+      temp bool t_508 = CC.state == 8,
+      temp bool t_509 = t_507 and t_508;
+
+    guardCondition t_509;
+    effect
+      UserAdmin_0.state = 3,
+      CC.state = 12;
+
+  process UserAdmin_0_CC 
+    guardBlock
+      temp bool t_510 = UserAdmin_0.state == 1,
+      temp bool t_511 = UserAdmin_0.cmd == 11,
+      temp bool t_512 = t_510 and t_511,
+      temp bool t_513 = CC.state == 19,
+      temp bool t_514 = t_512 and t_513;
+
+    guardCondition t_514;
+    effect
+      UserAdmin_0.state = 3,
+      CC.state = 23;
+
+  process UserAdmin_1_CC 
+    guardBlock
+      temp bool t_515 = UserAdmin_1.state == 1,
+      temp bool t_516 = UserAdmin_1.cmd == 12,
+      temp bool t_517 = t_515 and t_516,
+      temp bool t_518 = CC.state == 7,
+      temp bool t_519 = t_517 and t_518;
+
+    guardCondition t_519;
+    effect
+      UserAdmin_1.state = 2,
+      CC.state = 6;
+
+  process UserAdmin_1_CC 
+    guardBlock
+      temp bool t_520 = UserAdmin_1.state == 1,
+      temp bool t_521 = UserAdmin_1.cmd == 12,
+      temp bool t_522 = t_520 and t_521,
+      temp bool t_523 = CC.state == 18,
+      temp bool t_524 = t_522 and t_523;
+
+    guardCondition t_524;
+    effect
+      UserAdmin_1.state = 2,
+      CC.state = 17;
+
+  process UserAdmin_1_CC 
+    guardBlock
+      temp bool t_525 = UserAdmin_1.state == 1,
+      temp bool t_526 = UserAdmin_1.cmd == 12,
+      temp bool t_527 = t_525 and t_526,
+      temp bool t_528 = CC.state == 8,
+      temp bool t_529 = t_527 and t_528;
+
+    guardCondition t_529;
+    effect
+      UserAdmin_1.state = 2,
+      CC.state = 12;
+
+  process UserAdmin_1_CC 
+    guardBlock
+      temp bool t_530 = UserAdmin_1.state == 1,
+      temp bool t_531 = UserAdmin_1.cmd == 12,
+      temp bool t_532 = t_530 and t_531,
+      temp bool t_533 = CC.state == 19,
+      temp bool t_534 = t_532 and t_533;
+
+    guardCondition t_534;
+    effect
+      UserAdmin_1.state = 2,
+      CC.state = 23;
+
+  process UserAdmin_1_CC 
+    guardBlock
+      temp bool t_535 = UserAdmin_1.state == 1,
+      temp bool t_536 = UserAdmin_1.cmd == 11,
+      temp bool t_537 = t_535 and t_536,
+      temp bool t_538 = CC.state == 7,
+      temp bool t_539 = t_537 and t_538;
+
+    guardCondition t_539;
+    effect
+      UserAdmin_1.state = 3,
+      CC.state = 6;
+
+  process UserAdmin_1_CC 
+    guardBlock
+      temp bool t_540 = UserAdmin_1.state == 1,
+      temp bool t_541 = UserAdmin_1.cmd == 11,
+      temp bool t_542 = t_540 and t_541,
+      temp bool t_543 = CC.state == 18,
+      temp bool t_544 = t_542 and t_543;
+
+    guardCondition t_544;
+    effect
+      UserAdmin_1.state = 3,
+      CC.state = 17;
+
+  process UserAdmin_1_CC 
+    guardBlock
+      temp bool t_545 = UserAdmin_1.state == 1,
+      temp bool t_546 = UserAdmin_1.cmd == 11,
+      temp bool t_547 = t_545 and t_546,
+      temp bool t_548 = CC.state == 8,
+      temp bool t_549 = t_547 and t_548;
+
+    guardCondition t_549;
+    effect
+      UserAdmin_1.state = 3,
+      CC.state = 12;
+
+  process UserAdmin_1_CC 
+    guardBlock
+      temp bool t_550 = UserAdmin_1.state == 1,
+      temp bool t_551 = UserAdmin_1.cmd == 11,
+      temp bool t_552 = t_550 and t_551,
+      temp bool t_553 = CC.state == 19,
       temp bool t_554 = t_552 and t_553;
+
     guardCondition t_554;
     effect
-      channel_ccToUser_0.state = 0,
-      User_0.cmd = channel_ccToUser_0.v,
-      User_0.state = 6;
+      UserAdmin_1.state = 3,
+      CC.state = 23;
+
+

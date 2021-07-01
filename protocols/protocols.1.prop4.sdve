@@ -13,82 +13,91 @@ byte Consumer.value = 0;
 byte Sender.value = 0;
 byte Receiver.value = 0;
 
-  process channel_K
+  process channel_K 
     guardBlock
       temp bool t_0 = channel_K.state == 1,
       temp bool t_1 = channel_K.lost < 3,
       temp bool t_2 = t_0 and t_1;
+
     guardCondition t_2;
     effect
       channel_K.state = 0,
-      temp int t_3 = channel_K.lost + 1,
+      temp byte t_3 = channel_K.lost + 1,
       channel_K.lost = t_3;
 
-  process channel_L
+  process channel_L 
     guardBlock
       temp bool t_4 = channel_L.state == 1,
       temp bool t_5 = channel_L.lost < 3,
       temp bool t_6 = t_4 and t_5;
+
     guardCondition t_6;
     effect
       channel_L.state = 0,
-      temp int t_7 = channel_L.lost + 1,
+      temp byte t_7 = channel_L.lost + 1,
       channel_L.lost = t_7;
 
-  process Producer
+  process Producer 
     guardBlock
       temp bool t_8 = Producer.state == 0;
+
     guardCondition t_8;
     effect
       Producer.state = 1;
 
-  process Producer
+  process Producer 
     guardBlock
       temp bool t_9 = Producer.state == 0;
+
     guardCondition t_9;
     effect
       Producer.state = 2;
 
-  process Consumer
+  process Consumer 
     guardBlock
       temp bool t_10 = Consumer.state == 1,
       temp bool t_11 = Consumer.value == 0,
       temp bool t_12 = t_10 and t_11;
+
     guardCondition t_12;
     effect
       Consumer.state = 2;
 
-  process Consumer
+  process Consumer 
     guardBlock
       temp bool t_13 = Consumer.state == 1,
       temp bool t_14 = Consumer.value == 1,
       temp bool t_15 = t_13 and t_14;
+
     guardCondition t_15;
     effect
       Consumer.state = 3;
 
-  process Consumer
+  process Consumer 
     guardBlock
       temp bool t_16 = Consumer.state == 2;
+
     guardCondition t_16;
     effect
       Consumer.state = 0;
 
-  process Consumer
+  process Consumer 
     guardBlock
       temp bool t_17 = Consumer.state == 3;
+
     guardCondition t_17;
     effect
       Consumer.state = 0;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_18 = LTL_property.state == 0;
+
     guardCondition t_18;
     effect
       LTL_property.state = 0;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_19 = LTL_property.state == 1,
       temp bool t_20 = Consumer.state == 2,
@@ -96,11 +105,12 @@ byte Receiver.value = 0;
       temp bool t_22 = Producer.state == 0,
       temp bool t_23 = t_21 and t_22,
       temp bool t_24 = t_19 and t_23;
+
     guardCondition t_24;
     effect
       LTL_property.state = 1;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_25 = LTL_property.state == 1,
       temp bool t_26 = Producer.state == 0,
@@ -113,11 +123,12 @@ byte Receiver.value = 0;
       temp bool t_33 = not t_32,
       temp bool t_34 = t_29 and t_33,
       temp bool t_35 = t_25 and t_34;
+
     guardCondition t_35;
     effect
       LTL_property.state = 2;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_36 = LTL_property.state == 1,
       temp bool t_37 = Consumer.state == 2,
@@ -125,11 +136,12 @@ byte Receiver.value = 0;
       temp bool t_39 = Producer.state == 1,
       temp bool t_40 = t_38 and t_39,
       temp bool t_41 = t_36 and t_40;
+
     guardCondition t_41;
     effect
       LTL_property.state = 3;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_42 = LTL_property.state == 1,
       temp bool t_43 = Producer.state == 1,
@@ -142,39 +154,43 @@ byte Receiver.value = 0;
       temp bool t_50 = not t_49,
       temp bool t_51 = t_46 and t_50,
       temp bool t_52 = t_42 and t_51;
+
     guardCondition t_52;
     effect
       LTL_property.state = 0;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_53 = LTL_property.state == 2,
       temp bool t_54 = Producer.state == 0,
       temp bool t_55 = t_53 and t_54;
+
     guardCondition t_55;
     effect
       LTL_property.state = 2;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_56 = LTL_property.state == 2,
       temp bool t_57 = Producer.state == 1,
       temp bool t_58 = t_56 and t_57;
+
     guardCondition t_58;
     effect
       LTL_property.state = 0;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_59 = LTL_property.state == 3,
       temp bool t_60 = Consumer.state == 2,
       temp bool t_61 = not t_60,
       temp bool t_62 = t_59 and t_61;
+
     guardCondition t_62;
     effect
       LTL_property.state = 3;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_63 = LTL_property.state == 3,
       temp bool t_64 = Consumer.state == 2,
@@ -185,64 +201,72 @@ byte Receiver.value = 0;
       temp bool t_69 = not t_68,
       temp bool t_70 = t_65 and t_69,
       temp bool t_71 = t_63 and t_70;
+
     guardCondition t_71;
     effect
       LTL_property.state = 0;
 
-  process Producer_Sender
+  process Receiver_Consumer 
     guardBlock
-      temp bool t_72 = Producer.state == 1,
-      temp bool t_73 = Sender.state == 0,
+      temp bool t_72 = Receiver.state == 1,
+      temp bool t_73 = Consumer.state == 0,
       temp bool t_74 = t_72 and t_73;
+
     guardCondition t_74;
-    effect
-      Producer.state = 0,
-      Sender.value = 0,
-      Sender.state = 1;
-
-  process Producer_Sender
-    guardBlock
-      temp bool t_75 = Producer.state == 2,
-      temp bool t_76 = Sender.state == 0,
-      temp bool t_77 = t_75 and t_76;
-    guardCondition t_77;
-    effect
-      Producer.state = 0,
-      Sender.value = 1,
-      Sender.state = 1;
-
-  process Receiver_Consumer
-    guardBlock
-      temp bool t_78 = Receiver.state == 1,
-      temp bool t_79 = Consumer.state == 0,
-      temp bool t_80 = t_78 and t_79;
-    guardCondition t_80;
     effect
       Receiver.state = 0,
       Consumer.value = Receiver.value,
       Consumer.state = 1;
 
-  process channel_K_Receiver
+  process channel_K_Receiver 
     guardBlock
-      temp bool t_81 = channel_K.state == 1,
-      temp bool t_82 = Receiver.state == 0,
-      temp bool t_83 = t_81 and t_82;
-    guardCondition t_83;
+      temp bool t_75 = channel_K.state == 1,
+      temp bool t_76 = Receiver.state == 0,
+      temp bool t_77 = t_75 and t_76;
+
+    guardCondition t_77;
     effect
       channel_K.state = 0,
       channel_K.lost = 0,
       Receiver.value = channel_K.v,
       Receiver.state = 1;
 
-  process Sender_channel_K
+  process Producer_Sender 
+    guardBlock
+      temp bool t_78 = Producer.state == 1,
+      temp bool t_79 = Sender.state == 0,
+      temp bool t_80 = t_78 and t_79;
+
+    guardCondition t_80;
+    effect
+      Producer.state = 0,
+      Sender.value = 0,
+      Sender.state = 1;
+
+  process Producer_Sender 
+    guardBlock
+      temp bool t_81 = Producer.state == 2,
+      temp bool t_82 = Sender.state == 0,
+      temp bool t_83 = t_81 and t_82;
+
+    guardCondition t_83;
+    effect
+      Producer.state = 0,
+      Sender.value = 1,
+      Sender.state = 1;
+
+  process Sender_channel_K 
     guardBlock
       temp bool t_84 = Sender.state == 1,
       temp bool t_85 = channel_K.state == 0,
       temp bool t_86 = t_84 and t_85;
+
     guardCondition t_86;
     effect
       Sender.state = 0,
       channel_K.v = Sender.value,
       channel_K.state = 1;
-      // accepting conditions
-      // LTL_property.state == 0
+
+accepting conditions
+  LTL_property.state == 0
+

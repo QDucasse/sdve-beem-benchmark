@@ -10,14 +10,15 @@ state {sleep(0), wait(1), load_data(2), latency1(3), latency2(4), comp(5)} lup7.
 state {q1(0), q2(1)} LTL_property.state = 0;
 byte Timer.time = 0;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_0 = LTL_property.state == 0;
+
     guardCondition t_0;
     effect
       LTL_property.state = 0;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_1 = LTL_property.state == 0,
       temp bool t_2 = lup0.state == 1,
@@ -25,40 +26,43 @@ byte Timer.time = 0;
       temp bool t_4 = not t_3,
       temp bool t_5 = t_2 and t_4,
       temp bool t_6 = t_1 and t_5;
+
     guardCondition t_6;
     effect
       LTL_property.state = 1;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_7 = LTL_property.state == 1,
       temp bool t_8 = lup0.state == 2,
       temp bool t_9 = not t_8,
       temp bool t_10 = t_7 and t_9;
+
     guardCondition t_10;
     effect
       LTL_property.state = 1;
 
-  process Timer_lup1
+  process Timer_lup2 
     guardBlock
       temp bool t_11 = Timer.state == 0,
-      temp bool t_12 = Timer.time == 1,
+      temp bool t_12 = Timer.time == 2,
       temp bool t_13 = t_11 and t_12,
-      temp bool t_14 = lup1.state == 0,
+      temp bool t_14 = lup2.state == 0,
       temp bool t_15 = t_13 and t_14;
+
     guardCondition t_15;
     effect
       Timer.state = 0,
-      temp int t_16 = Timer.time + 1,
+      temp byte t_16 = Timer.time + 1,
       Timer.time = t_16,
-      lup1.state = 0;
+      lup2.state = 0;
 
-  process Timer_lup1
+  process Timer_lup2 
     guardBlock
       temp bool t_17 = Timer.state == 0,
-      temp bool t_18 = Timer.time == 1,
+      temp bool t_18 = Timer.time == 2,
       temp bool t_19 = t_17 and t_18,
-      temp bool t_20 = lup1.state == 0,
+      temp bool t_20 = lup2.state == 0,
       temp bool t_21 = lup0.state == 2,
       temp bool t_22 = lup1.state == 2,
       temp bool t_23 = t_21 or t_22,
@@ -77,19 +81,20 @@ byte Timer.time = 0;
       temp bool t_36 = not t_35,
       temp bool t_37 = t_20 and t_36,
       temp bool t_38 = t_19 and t_37;
+
     guardCondition t_38;
     effect
       Timer.state = 0,
-      temp int t_39 = Timer.time + 1,
+      temp byte t_39 = Timer.time + 1,
       Timer.time = t_39,
-      lup1.state = 2;
+      lup2.state = 2;
 
-  process Timer_lup1
+  process Timer_lup2 
     guardBlock
       temp bool t_40 = Timer.state == 0,
-      temp bool t_41 = Timer.time == 1,
+      temp bool t_41 = Timer.time == 2,
       temp bool t_42 = t_40 and t_41,
-      temp bool t_43 = lup1.state == 0,
+      temp bool t_43 = lup2.state == 0,
       temp bool t_44 = lup0.state == 2,
       temp bool t_45 = lup1.state == 2,
       temp bool t_46 = t_44 or t_45,
@@ -107,19 +112,20 @@ byte Timer.time = 0;
       temp bool t_58 = t_56 or t_57,
       temp bool t_59 = t_43 and t_58,
       temp bool t_60 = t_42 and t_59;
+
     guardCondition t_60;
     effect
       Timer.state = 0,
-      temp int t_61 = Timer.time + 1,
+      temp byte t_61 = Timer.time + 1,
       Timer.time = t_61,
-      lup1.state = 1;
+      lup2.state = 1;
 
-  process Timer_lup1
+  process Timer_lup2 
     guardBlock
       temp bool t_62 = Timer.state == 0,
-      temp bool t_63 = Timer.time == 1,
+      temp bool t_63 = Timer.time == 2,
       temp bool t_64 = t_62 and t_63,
-      temp bool t_65 = lup1.state == 1,
+      temp bool t_65 = lup2.state == 1,
       temp bool t_66 = lup0.state == 2,
       temp bool t_67 = lup1.state == 2,
       temp bool t_68 = t_66 or t_67,
@@ -137,19 +143,20 @@ byte Timer.time = 0;
       temp bool t_80 = t_78 or t_79,
       temp bool t_81 = t_65 and t_80,
       temp bool t_82 = t_64 and t_81;
+
     guardCondition t_82;
     effect
       Timer.state = 0,
-      temp int t_83 = Timer.time + 1,
+      temp byte t_83 = Timer.time + 1,
       Timer.time = t_83,
-      lup1.state = 1;
+      lup2.state = 1;
 
-  process Timer_lup1
+  process Timer_lup2 
     guardBlock
       temp bool t_84 = Timer.state == 0,
-      temp bool t_85 = Timer.time == 1,
+      temp bool t_85 = Timer.time == 2,
       temp bool t_86 = t_84 and t_85,
-      temp bool t_87 = lup1.state == 1,
+      temp bool t_87 = lup2.state == 1,
       temp bool t_88 = lup0.state == 2,
       temp bool t_89 = lup1.state == 2,
       temp bool t_90 = t_88 or t_89,
@@ -168,89 +175,95 @@ byte Timer.time = 0;
       temp bool t_103 = not t_102,
       temp bool t_104 = t_87 and t_103,
       temp bool t_105 = t_86 and t_104;
+
     guardCondition t_105;
     effect
       Timer.state = 0,
-      temp int t_106 = Timer.time + 1,
+      temp byte t_106 = Timer.time + 1,
       Timer.time = t_106,
-      lup1.state = 2;
+      lup2.state = 2;
 
-  process Timer_lup1
+  process Timer_lup2 
     guardBlock
       temp bool t_107 = Timer.state == 0,
-      temp bool t_108 = Timer.time == 1,
+      temp bool t_108 = Timer.time == 2,
       temp bool t_109 = t_107 and t_108,
-      temp bool t_110 = lup1.state == 2,
+      temp bool t_110 = lup2.state == 2,
       temp bool t_111 = t_109 and t_110;
+
     guardCondition t_111;
     effect
       Timer.state = 0,
-      temp int t_112 = Timer.time + 1,
+      temp byte t_112 = Timer.time + 1,
       Timer.time = t_112,
-      lup1.state = 3;
+      lup2.state = 3;
 
-  process Timer_lup1
+  process Timer_lup2 
     guardBlock
       temp bool t_113 = Timer.state == 0,
-      temp bool t_114 = Timer.time == 1,
+      temp bool t_114 = Timer.time == 2,
       temp bool t_115 = t_113 and t_114,
-      temp bool t_116 = lup1.state == 3,
+      temp bool t_116 = lup2.state == 3,
       temp bool t_117 = t_115 and t_116;
+
     guardCondition t_117;
     effect
       Timer.state = 0,
-      temp int t_118 = Timer.time + 1,
+      temp byte t_118 = Timer.time + 1,
       Timer.time = t_118,
-      lup1.state = 4;
+      lup2.state = 4;
 
-  process Timer_lup1
+  process Timer_lup2 
     guardBlock
       temp bool t_119 = Timer.state == 0,
-      temp bool t_120 = Timer.time == 1,
+      temp bool t_120 = Timer.time == 2,
       temp bool t_121 = t_119 and t_120,
-      temp bool t_122 = lup1.state == 4,
+      temp bool t_122 = lup2.state == 4,
       temp bool t_123 = t_121 and t_122;
+
     guardCondition t_123;
     effect
       Timer.state = 0,
-      temp int t_124 = Timer.time + 1,
+      temp byte t_124 = Timer.time + 1,
       Timer.time = t_124,
-      lup1.state = 5;
+      lup2.state = 5;
 
-  process Timer_lup1
+  process Timer_lup2 
     guardBlock
       temp bool t_125 = Timer.state == 0,
-      temp bool t_126 = Timer.time == 1,
+      temp bool t_126 = Timer.time == 2,
       temp bool t_127 = t_125 and t_126,
-      temp bool t_128 = lup1.state == 5,
+      temp bool t_128 = lup2.state == 5,
       temp bool t_129 = t_127 and t_128;
+
     guardCondition t_129;
     effect
       Timer.state = 0,
-      temp int t_130 = Timer.time + 1,
+      temp byte t_130 = Timer.time + 1,
       Timer.time = t_130,
-      lup1.state = 5;
+      lup2.state = 5;
 
-  process Timer_lup1
+  process Timer_lup2 
     guardBlock
       temp bool t_131 = Timer.state == 0,
-      temp bool t_132 = Timer.time == 1,
+      temp bool t_132 = Timer.time == 2,
       temp bool t_133 = t_131 and t_132,
-      temp bool t_134 = lup1.state == 5,
+      temp bool t_134 = lup2.state == 5,
       temp bool t_135 = t_133 and t_134;
+
     guardCondition t_135;
     effect
       Timer.state = 0,
-      temp int t_136 = Timer.time + 1,
+      temp byte t_136 = Timer.time + 1,
       Timer.time = t_136,
-      lup1.state = 0;
+      lup2.state = 0;
 
-  process Timer_lup1
+  process Timer_lup2 
     guardBlock
       temp bool t_137 = Timer.state == 0,
-      temp bool t_138 = Timer.time == 1,
+      temp bool t_138 = Timer.time == 2,
       temp bool t_139 = t_137 and t_138,
-      temp bool t_140 = lup1.state == 5,
+      temp bool t_140 = lup2.state == 5,
       temp bool t_141 = lup0.state == 2,
       temp bool t_142 = lup1.state == 2,
       temp bool t_143 = t_141 or t_142,
@@ -269,19 +282,20 @@ byte Timer.time = 0;
       temp bool t_156 = not t_155,
       temp bool t_157 = t_140 and t_156,
       temp bool t_158 = t_139 and t_157;
+
     guardCondition t_158;
     effect
       Timer.state = 0,
-      temp int t_159 = Timer.time + 1,
+      temp byte t_159 = Timer.time + 1,
       Timer.time = t_159,
-      lup1.state = 2;
+      lup2.state = 2;
 
-  process Timer_lup1
+  process Timer_lup2 
     guardBlock
       temp bool t_160 = Timer.state == 0,
-      temp bool t_161 = Timer.time == 1,
+      temp bool t_161 = Timer.time == 2,
       temp bool t_162 = t_160 and t_161,
-      temp bool t_163 = lup1.state == 5,
+      temp bool t_163 = lup2.state == 5,
       temp bool t_164 = lup0.state == 2,
       temp bool t_165 = lup1.state == 2,
       temp bool t_166 = t_164 or t_165,
@@ -299,33 +313,35 @@ byte Timer.time = 0;
       temp bool t_178 = t_176 or t_177,
       temp bool t_179 = t_163 and t_178,
       temp bool t_180 = t_162 and t_179;
+
     guardCondition t_180;
     effect
       Timer.state = 0,
-      temp int t_181 = Timer.time + 1,
+      temp byte t_181 = Timer.time + 1,
       Timer.time = t_181,
-      lup1.state = 1;
+      lup2.state = 1;
 
-  process Timer_lup2
+  process Timer_lup5 
     guardBlock
       temp bool t_182 = Timer.state == 0,
-      temp bool t_183 = Timer.time == 2,
+      temp bool t_183 = Timer.time == 5,
       temp bool t_184 = t_182 and t_183,
-      temp bool t_185 = lup2.state == 0,
+      temp bool t_185 = lup5.state == 0,
       temp bool t_186 = t_184 and t_185;
+
     guardCondition t_186;
     effect
       Timer.state = 0,
-      temp int t_187 = Timer.time + 1,
+      temp byte t_187 = Timer.time + 1,
       Timer.time = t_187,
-      lup2.state = 0;
+      lup5.state = 0;
 
-  process Timer_lup2
+  process Timer_lup5 
     guardBlock
       temp bool t_188 = Timer.state == 0,
-      temp bool t_189 = Timer.time == 2,
+      temp bool t_189 = Timer.time == 5,
       temp bool t_190 = t_188 and t_189,
-      temp bool t_191 = lup2.state == 0,
+      temp bool t_191 = lup5.state == 0,
       temp bool t_192 = lup0.state == 2,
       temp bool t_193 = lup1.state == 2,
       temp bool t_194 = t_192 or t_193,
@@ -344,19 +360,20 @@ byte Timer.time = 0;
       temp bool t_207 = not t_206,
       temp bool t_208 = t_191 and t_207,
       temp bool t_209 = t_190 and t_208;
+
     guardCondition t_209;
     effect
       Timer.state = 0,
-      temp int t_210 = Timer.time + 1,
+      temp byte t_210 = Timer.time + 1,
       Timer.time = t_210,
-      lup2.state = 2;
+      lup5.state = 2;
 
-  process Timer_lup2
+  process Timer_lup5 
     guardBlock
       temp bool t_211 = Timer.state == 0,
-      temp bool t_212 = Timer.time == 2,
+      temp bool t_212 = Timer.time == 5,
       temp bool t_213 = t_211 and t_212,
-      temp bool t_214 = lup2.state == 0,
+      temp bool t_214 = lup5.state == 0,
       temp bool t_215 = lup0.state == 2,
       temp bool t_216 = lup1.state == 2,
       temp bool t_217 = t_215 or t_216,
@@ -374,19 +391,20 @@ byte Timer.time = 0;
       temp bool t_229 = t_227 or t_228,
       temp bool t_230 = t_214 and t_229,
       temp bool t_231 = t_213 and t_230;
+
     guardCondition t_231;
     effect
       Timer.state = 0,
-      temp int t_232 = Timer.time + 1,
+      temp byte t_232 = Timer.time + 1,
       Timer.time = t_232,
-      lup2.state = 1;
+      lup5.state = 1;
 
-  process Timer_lup2
+  process Timer_lup5 
     guardBlock
       temp bool t_233 = Timer.state == 0,
-      temp bool t_234 = Timer.time == 2,
+      temp bool t_234 = Timer.time == 5,
       temp bool t_235 = t_233 and t_234,
-      temp bool t_236 = lup2.state == 1,
+      temp bool t_236 = lup5.state == 1,
       temp bool t_237 = lup0.state == 2,
       temp bool t_238 = lup1.state == 2,
       temp bool t_239 = t_237 or t_238,
@@ -404,19 +422,20 @@ byte Timer.time = 0;
       temp bool t_251 = t_249 or t_250,
       temp bool t_252 = t_236 and t_251,
       temp bool t_253 = t_235 and t_252;
+
     guardCondition t_253;
     effect
       Timer.state = 0,
-      temp int t_254 = Timer.time + 1,
+      temp byte t_254 = Timer.time + 1,
       Timer.time = t_254,
-      lup2.state = 1;
+      lup5.state = 1;
 
-  process Timer_lup2
+  process Timer_lup5 
     guardBlock
       temp bool t_255 = Timer.state == 0,
-      temp bool t_256 = Timer.time == 2,
+      temp bool t_256 = Timer.time == 5,
       temp bool t_257 = t_255 and t_256,
-      temp bool t_258 = lup2.state == 1,
+      temp bool t_258 = lup5.state == 1,
       temp bool t_259 = lup0.state == 2,
       temp bool t_260 = lup1.state == 2,
       temp bool t_261 = t_259 or t_260,
@@ -435,89 +454,95 @@ byte Timer.time = 0;
       temp bool t_274 = not t_273,
       temp bool t_275 = t_258 and t_274,
       temp bool t_276 = t_257 and t_275;
+
     guardCondition t_276;
     effect
       Timer.state = 0,
-      temp int t_277 = Timer.time + 1,
+      temp byte t_277 = Timer.time + 1,
       Timer.time = t_277,
-      lup2.state = 2;
+      lup5.state = 2;
 
-  process Timer_lup2
+  process Timer_lup5 
     guardBlock
       temp bool t_278 = Timer.state == 0,
-      temp bool t_279 = Timer.time == 2,
+      temp bool t_279 = Timer.time == 5,
       temp bool t_280 = t_278 and t_279,
-      temp bool t_281 = lup2.state == 2,
+      temp bool t_281 = lup5.state == 2,
       temp bool t_282 = t_280 and t_281;
+
     guardCondition t_282;
     effect
       Timer.state = 0,
-      temp int t_283 = Timer.time + 1,
+      temp byte t_283 = Timer.time + 1,
       Timer.time = t_283,
-      lup2.state = 3;
+      lup5.state = 3;
 
-  process Timer_lup2
+  process Timer_lup5 
     guardBlock
       temp bool t_284 = Timer.state == 0,
-      temp bool t_285 = Timer.time == 2,
+      temp bool t_285 = Timer.time == 5,
       temp bool t_286 = t_284 and t_285,
-      temp bool t_287 = lup2.state == 3,
+      temp bool t_287 = lup5.state == 3,
       temp bool t_288 = t_286 and t_287;
+
     guardCondition t_288;
     effect
       Timer.state = 0,
-      temp int t_289 = Timer.time + 1,
+      temp byte t_289 = Timer.time + 1,
       Timer.time = t_289,
-      lup2.state = 4;
+      lup5.state = 4;
 
-  process Timer_lup2
+  process Timer_lup5 
     guardBlock
       temp bool t_290 = Timer.state == 0,
-      temp bool t_291 = Timer.time == 2,
+      temp bool t_291 = Timer.time == 5,
       temp bool t_292 = t_290 and t_291,
-      temp bool t_293 = lup2.state == 4,
+      temp bool t_293 = lup5.state == 4,
       temp bool t_294 = t_292 and t_293;
+
     guardCondition t_294;
     effect
       Timer.state = 0,
-      temp int t_295 = Timer.time + 1,
+      temp byte t_295 = Timer.time + 1,
       Timer.time = t_295,
-      lup2.state = 5;
+      lup5.state = 5;
 
-  process Timer_lup2
+  process Timer_lup5 
     guardBlock
       temp bool t_296 = Timer.state == 0,
-      temp bool t_297 = Timer.time == 2,
+      temp bool t_297 = Timer.time == 5,
       temp bool t_298 = t_296 and t_297,
-      temp bool t_299 = lup2.state == 5,
+      temp bool t_299 = lup5.state == 5,
       temp bool t_300 = t_298 and t_299;
+
     guardCondition t_300;
     effect
       Timer.state = 0,
-      temp int t_301 = Timer.time + 1,
+      temp byte t_301 = Timer.time + 1,
       Timer.time = t_301,
-      lup2.state = 5;
+      lup5.state = 5;
 
-  process Timer_lup2
+  process Timer_lup5 
     guardBlock
       temp bool t_302 = Timer.state == 0,
-      temp bool t_303 = Timer.time == 2,
+      temp bool t_303 = Timer.time == 5,
       temp bool t_304 = t_302 and t_303,
-      temp bool t_305 = lup2.state == 5,
+      temp bool t_305 = lup5.state == 5,
       temp bool t_306 = t_304 and t_305;
+
     guardCondition t_306;
     effect
       Timer.state = 0,
-      temp int t_307 = Timer.time + 1,
+      temp byte t_307 = Timer.time + 1,
       Timer.time = t_307,
-      lup2.state = 0;
+      lup5.state = 0;
 
-  process Timer_lup2
+  process Timer_lup5 
     guardBlock
       temp bool t_308 = Timer.state == 0,
-      temp bool t_309 = Timer.time == 2,
+      temp bool t_309 = Timer.time == 5,
       temp bool t_310 = t_308 and t_309,
-      temp bool t_311 = lup2.state == 5,
+      temp bool t_311 = lup5.state == 5,
       temp bool t_312 = lup0.state == 2,
       temp bool t_313 = lup1.state == 2,
       temp bool t_314 = t_312 or t_313,
@@ -536,19 +561,20 @@ byte Timer.time = 0;
       temp bool t_327 = not t_326,
       temp bool t_328 = t_311 and t_327,
       temp bool t_329 = t_310 and t_328;
+
     guardCondition t_329;
     effect
       Timer.state = 0,
-      temp int t_330 = Timer.time + 1,
+      temp byte t_330 = Timer.time + 1,
       Timer.time = t_330,
-      lup2.state = 2;
+      lup5.state = 2;
 
-  process Timer_lup2
+  process Timer_lup5 
     guardBlock
       temp bool t_331 = Timer.state == 0,
-      temp bool t_332 = Timer.time == 2,
+      temp bool t_332 = Timer.time == 5,
       temp bool t_333 = t_331 and t_332,
-      temp bool t_334 = lup2.state == 5,
+      temp bool t_334 = lup5.state == 5,
       temp bool t_335 = lup0.state == 2,
       temp bool t_336 = lup1.state == 2,
       temp bool t_337 = t_335 or t_336,
@@ -566,28 +592,30 @@ byte Timer.time = 0;
       temp bool t_349 = t_347 or t_348,
       temp bool t_350 = t_334 and t_349,
       temp bool t_351 = t_333 and t_350;
+
     guardCondition t_351;
     effect
       Timer.state = 0,
-      temp int t_352 = Timer.time + 1,
+      temp byte t_352 = Timer.time + 1,
       Timer.time = t_352,
-      lup2.state = 1;
+      lup5.state = 1;
 
-  process Timer_lup4
+  process Timer_lup4 
     guardBlock
       temp bool t_353 = Timer.state == 0,
       temp bool t_354 = Timer.time == 4,
       temp bool t_355 = t_353 and t_354,
       temp bool t_356 = lup4.state == 0,
       temp bool t_357 = t_355 and t_356;
+
     guardCondition t_357;
     effect
       Timer.state = 0,
-      temp int t_358 = Timer.time + 1,
+      temp byte t_358 = Timer.time + 1,
       Timer.time = t_358,
       lup4.state = 0;
 
-  process Timer_lup4
+  process Timer_lup4 
     guardBlock
       temp bool t_359 = Timer.state == 0,
       temp bool t_360 = Timer.time == 4,
@@ -611,14 +639,15 @@ byte Timer.time = 0;
       temp bool t_378 = not t_377,
       temp bool t_379 = t_362 and t_378,
       temp bool t_380 = t_361 and t_379;
+
     guardCondition t_380;
     effect
       Timer.state = 0,
-      temp int t_381 = Timer.time + 1,
+      temp byte t_381 = Timer.time + 1,
       Timer.time = t_381,
       lup4.state = 2;
 
-  process Timer_lup4
+  process Timer_lup4 
     guardBlock
       temp bool t_382 = Timer.state == 0,
       temp bool t_383 = Timer.time == 4,
@@ -641,14 +670,15 @@ byte Timer.time = 0;
       temp bool t_400 = t_398 or t_399,
       temp bool t_401 = t_385 and t_400,
       temp bool t_402 = t_384 and t_401;
+
     guardCondition t_402;
     effect
       Timer.state = 0,
-      temp int t_403 = Timer.time + 1,
+      temp byte t_403 = Timer.time + 1,
       Timer.time = t_403,
       lup4.state = 1;
 
-  process Timer_lup4
+  process Timer_lup4 
     guardBlock
       temp bool t_404 = Timer.state == 0,
       temp bool t_405 = Timer.time == 4,
@@ -671,14 +701,15 @@ byte Timer.time = 0;
       temp bool t_422 = t_420 or t_421,
       temp bool t_423 = t_407 and t_422,
       temp bool t_424 = t_406 and t_423;
+
     guardCondition t_424;
     effect
       Timer.state = 0,
-      temp int t_425 = Timer.time + 1,
+      temp byte t_425 = Timer.time + 1,
       Timer.time = t_425,
       lup4.state = 1;
 
-  process Timer_lup4
+  process Timer_lup4 
     guardBlock
       temp bool t_426 = Timer.state == 0,
       temp bool t_427 = Timer.time == 4,
@@ -702,84 +733,90 @@ byte Timer.time = 0;
       temp bool t_445 = not t_444,
       temp bool t_446 = t_429 and t_445,
       temp bool t_447 = t_428 and t_446;
+
     guardCondition t_447;
     effect
       Timer.state = 0,
-      temp int t_448 = Timer.time + 1,
+      temp byte t_448 = Timer.time + 1,
       Timer.time = t_448,
       lup4.state = 2;
 
-  process Timer_lup4
+  process Timer_lup4 
     guardBlock
       temp bool t_449 = Timer.state == 0,
       temp bool t_450 = Timer.time == 4,
       temp bool t_451 = t_449 and t_450,
       temp bool t_452 = lup4.state == 2,
       temp bool t_453 = t_451 and t_452;
+
     guardCondition t_453;
     effect
       Timer.state = 0,
-      temp int t_454 = Timer.time + 1,
+      temp byte t_454 = Timer.time + 1,
       Timer.time = t_454,
       lup4.state = 3;
 
-  process Timer_lup4
+  process Timer_lup4 
     guardBlock
       temp bool t_455 = Timer.state == 0,
       temp bool t_456 = Timer.time == 4,
       temp bool t_457 = t_455 and t_456,
       temp bool t_458 = lup4.state == 3,
       temp bool t_459 = t_457 and t_458;
+
     guardCondition t_459;
     effect
       Timer.state = 0,
-      temp int t_460 = Timer.time + 1,
+      temp byte t_460 = Timer.time + 1,
       Timer.time = t_460,
       lup4.state = 4;
 
-  process Timer_lup4
+  process Timer_lup4 
     guardBlock
       temp bool t_461 = Timer.state == 0,
       temp bool t_462 = Timer.time == 4,
       temp bool t_463 = t_461 and t_462,
       temp bool t_464 = lup4.state == 4,
       temp bool t_465 = t_463 and t_464;
+
     guardCondition t_465;
     effect
       Timer.state = 0,
-      temp int t_466 = Timer.time + 1,
+      temp byte t_466 = Timer.time + 1,
       Timer.time = t_466,
       lup4.state = 5;
 
-  process Timer_lup4
+  process Timer_lup4 
     guardBlock
       temp bool t_467 = Timer.state == 0,
       temp bool t_468 = Timer.time == 4,
       temp bool t_469 = t_467 and t_468,
       temp bool t_470 = lup4.state == 5,
       temp bool t_471 = t_469 and t_470;
+
     guardCondition t_471;
     effect
       Timer.state = 0,
-      temp int t_472 = Timer.time + 1,
+      temp byte t_472 = Timer.time + 1,
       Timer.time = t_472,
       lup4.state = 5;
 
-  process Timer_lup4
+  process Timer_lup4 
     guardBlock
       temp bool t_473 = Timer.state == 0,
       temp bool t_474 = Timer.time == 4,
       temp bool t_475 = t_473 and t_474,
       temp bool t_476 = lup4.state == 5,
       temp bool t_477 = t_475 and t_476;
+
     guardCondition t_477;
     effect
       Timer.state = 0,
-      temp int t_478 = Timer.time + 1,
+      temp byte t_478 = Timer.time + 1,
       Timer.time = t_478,
       lup4.state = 0;
 
-  process Timer_lup4
+  process Timer_lup4 
     guardBlock
       temp bool t_479 = Timer.state == 0,
       temp bool t_480 = Timer.time == 4,
@@ -803,14 +840,15 @@ byte Timer.time = 0;
       temp bool t_498 = not t_497,
       temp bool t_499 = t_482 and t_498,
       temp bool t_500 = t_481 and t_499;
+
     guardCondition t_500;
     effect
       Timer.state = 0,
-      temp int t_501 = Timer.time + 1,
+      temp byte t_501 = Timer.time + 1,
       Timer.time = t_501,
       lup4.state = 2;
 
-  process Timer_lup4
+  process Timer_lup4 
     guardBlock
       temp bool t_502 = Timer.state == 0,
       temp bool t_503 = Timer.time == 4,
@@ -833,1334 +871,1397 @@ byte Timer.time = 0;
       temp bool t_520 = t_518 or t_519,
       temp bool t_521 = t_505 and t_520,
       temp bool t_522 = t_504 and t_521;
+
     guardCondition t_522;
     effect
       Timer.state = 0,
-      temp int t_523 = Timer.time + 1,
+      temp byte t_523 = Timer.time + 1,
       Timer.time = t_523,
       lup4.state = 1;
 
-  process Timer_lup7
+  process Timer_lup3 
     guardBlock
       temp bool t_524 = Timer.state == 0,
-      temp bool t_525 = Timer.time == 7,
+      temp bool t_525 = Timer.time == 3,
       temp bool t_526 = t_524 and t_525,
-      temp bool t_527 = lup7.state == 0,
+      temp bool t_527 = lup3.state == 0,
       temp bool t_528 = t_526 and t_527;
+
     guardCondition t_528;
     effect
       Timer.state = 0,
-      Timer.time = 0,
-      lup7.state = 0;
+      temp byte t_529 = Timer.time + 1,
+      Timer.time = t_529,
+      lup3.state = 0;
 
-  process Timer_lup7
+  process Timer_lup3 
     guardBlock
-      temp bool t_529 = Timer.state == 0,
-      temp bool t_530 = Timer.time == 7,
-      temp bool t_531 = t_529 and t_530,
-      temp bool t_532 = lup7.state == 0,
-      temp bool t_533 = lup0.state == 2,
-      temp bool t_534 = lup1.state == 2,
-      temp bool t_535 = t_533 or t_534,
-      temp bool t_536 = lup2.state == 2,
-      temp bool t_537 = t_535 or t_536,
-      temp bool t_538 = lup3.state == 2,
-      temp bool t_539 = t_537 or t_538,
-      temp bool t_540 = lup4.state == 2,
-      temp bool t_541 = t_539 or t_540,
-      temp bool t_542 = lup5.state == 2,
-      temp bool t_543 = t_541 or t_542,
-      temp bool t_544 = lup6.state == 2,
-      temp bool t_545 = t_543 or t_544,
-      temp bool t_546 = lup7.state == 2,
-      temp bool t_547 = t_545 or t_546,
-      temp bool t_548 = not t_547,
-      temp bool t_549 = t_532 and t_548,
-      temp bool t_550 = t_531 and t_549;
-    guardCondition t_550;
+      temp bool t_530 = Timer.state == 0,
+      temp bool t_531 = Timer.time == 3,
+      temp bool t_532 = t_530 and t_531,
+      temp bool t_533 = lup3.state == 0,
+      temp bool t_534 = lup0.state == 2,
+      temp bool t_535 = lup1.state == 2,
+      temp bool t_536 = t_534 or t_535,
+      temp bool t_537 = lup2.state == 2,
+      temp bool t_538 = t_536 or t_537,
+      temp bool t_539 = lup3.state == 2,
+      temp bool t_540 = t_538 or t_539,
+      temp bool t_541 = lup4.state == 2,
+      temp bool t_542 = t_540 or t_541,
+      temp bool t_543 = lup5.state == 2,
+      temp bool t_544 = t_542 or t_543,
+      temp bool t_545 = lup6.state == 2,
+      temp bool t_546 = t_544 or t_545,
+      temp bool t_547 = lup7.state == 2,
+      temp bool t_548 = t_546 or t_547,
+      temp bool t_549 = not t_548,
+      temp bool t_550 = t_533 and t_549,
+      temp bool t_551 = t_532 and t_550;
+
+    guardCondition t_551;
     effect
       Timer.state = 0,
-      Timer.time = 0,
-      lup7.state = 2;
+      temp byte t_552 = Timer.time + 1,
+      Timer.time = t_552,
+      lup3.state = 2;
 
-  process Timer_lup7
+  process Timer_lup3 
     guardBlock
-      temp bool t_551 = Timer.state == 0,
-      temp bool t_552 = Timer.time == 7,
-      temp bool t_553 = t_551 and t_552,
-      temp bool t_554 = lup7.state == 0,
-      temp bool t_555 = lup0.state == 2,
-      temp bool t_556 = lup1.state == 2,
-      temp bool t_557 = t_555 or t_556,
-      temp bool t_558 = lup2.state == 2,
+      temp bool t_553 = Timer.state == 0,
+      temp bool t_554 = Timer.time == 3,
+      temp bool t_555 = t_553 and t_554,
+      temp bool t_556 = lup3.state == 0,
+      temp bool t_557 = lup0.state == 2,
+      temp bool t_558 = lup1.state == 2,
       temp bool t_559 = t_557 or t_558,
-      temp bool t_560 = lup3.state == 2,
+      temp bool t_560 = lup2.state == 2,
       temp bool t_561 = t_559 or t_560,
-      temp bool t_562 = lup4.state == 2,
+      temp bool t_562 = lup3.state == 2,
       temp bool t_563 = t_561 or t_562,
-      temp bool t_564 = lup5.state == 2,
+      temp bool t_564 = lup4.state == 2,
       temp bool t_565 = t_563 or t_564,
-      temp bool t_566 = lup6.state == 2,
+      temp bool t_566 = lup5.state == 2,
       temp bool t_567 = t_565 or t_566,
-      temp bool t_568 = lup7.state == 2,
+      temp bool t_568 = lup6.state == 2,
       temp bool t_569 = t_567 or t_568,
-      temp bool t_570 = t_554 and t_569,
-      temp bool t_571 = t_553 and t_570;
-    guardCondition t_571;
+      temp bool t_570 = lup7.state == 2,
+      temp bool t_571 = t_569 or t_570,
+      temp bool t_572 = t_556 and t_571,
+      temp bool t_573 = t_555 and t_572;
+
+    guardCondition t_573;
     effect
       Timer.state = 0,
-      Timer.time = 0,
-      lup7.state = 1;
+      temp byte t_574 = Timer.time + 1,
+      Timer.time = t_574,
+      lup3.state = 1;
 
-  process Timer_lup7
+  process Timer_lup3 
     guardBlock
-      temp bool t_572 = Timer.state == 0,
-      temp bool t_573 = Timer.time == 7,
-      temp bool t_574 = t_572 and t_573,
-      temp bool t_575 = lup7.state == 1,
-      temp bool t_576 = lup0.state == 2,
-      temp bool t_577 = lup1.state == 2,
-      temp bool t_578 = t_576 or t_577,
-      temp bool t_579 = lup2.state == 2,
-      temp bool t_580 = t_578 or t_579,
-      temp bool t_581 = lup3.state == 2,
-      temp bool t_582 = t_580 or t_581,
-      temp bool t_583 = lup4.state == 2,
-      temp bool t_584 = t_582 or t_583,
-      temp bool t_585 = lup5.state == 2,
-      temp bool t_586 = t_584 or t_585,
-      temp bool t_587 = lup6.state == 2,
-      temp bool t_588 = t_586 or t_587,
-      temp bool t_589 = lup7.state == 2,
-      temp bool t_590 = t_588 or t_589,
-      temp bool t_591 = t_575 and t_590,
-      temp bool t_592 = t_574 and t_591;
-    guardCondition t_592;
+      temp bool t_575 = Timer.state == 0,
+      temp bool t_576 = Timer.time == 3,
+      temp bool t_577 = t_575 and t_576,
+      temp bool t_578 = lup3.state == 1,
+      temp bool t_579 = lup0.state == 2,
+      temp bool t_580 = lup1.state == 2,
+      temp bool t_581 = t_579 or t_580,
+      temp bool t_582 = lup2.state == 2,
+      temp bool t_583 = t_581 or t_582,
+      temp bool t_584 = lup3.state == 2,
+      temp bool t_585 = t_583 or t_584,
+      temp bool t_586 = lup4.state == 2,
+      temp bool t_587 = t_585 or t_586,
+      temp bool t_588 = lup5.state == 2,
+      temp bool t_589 = t_587 or t_588,
+      temp bool t_590 = lup6.state == 2,
+      temp bool t_591 = t_589 or t_590,
+      temp bool t_592 = lup7.state == 2,
+      temp bool t_593 = t_591 or t_592,
+      temp bool t_594 = t_578 and t_593,
+      temp bool t_595 = t_577 and t_594;
+
+    guardCondition t_595;
     effect
       Timer.state = 0,
-      Timer.time = 0,
-      lup7.state = 1;
+      temp byte t_596 = Timer.time + 1,
+      Timer.time = t_596,
+      lup3.state = 1;
 
-  process Timer_lup7
+  process Timer_lup3 
     guardBlock
-      temp bool t_593 = Timer.state == 0,
-      temp bool t_594 = Timer.time == 7,
-      temp bool t_595 = t_593 and t_594,
-      temp bool t_596 = lup7.state == 1,
-      temp bool t_597 = lup0.state == 2,
-      temp bool t_598 = lup1.state == 2,
-      temp bool t_599 = t_597 or t_598,
-      temp bool t_600 = lup2.state == 2,
-      temp bool t_601 = t_599 or t_600,
-      temp bool t_602 = lup3.state == 2,
+      temp bool t_597 = Timer.state == 0,
+      temp bool t_598 = Timer.time == 3,
+      temp bool t_599 = t_597 and t_598,
+      temp bool t_600 = lup3.state == 1,
+      temp bool t_601 = lup0.state == 2,
+      temp bool t_602 = lup1.state == 2,
       temp bool t_603 = t_601 or t_602,
-      temp bool t_604 = lup4.state == 2,
+      temp bool t_604 = lup2.state == 2,
       temp bool t_605 = t_603 or t_604,
-      temp bool t_606 = lup5.state == 2,
+      temp bool t_606 = lup3.state == 2,
       temp bool t_607 = t_605 or t_606,
-      temp bool t_608 = lup6.state == 2,
+      temp bool t_608 = lup4.state == 2,
       temp bool t_609 = t_607 or t_608,
-      temp bool t_610 = lup7.state == 2,
+      temp bool t_610 = lup5.state == 2,
       temp bool t_611 = t_609 or t_610,
-      temp bool t_612 = not t_611,
-      temp bool t_613 = t_596 and t_612,
-      temp bool t_614 = t_595 and t_613;
-    guardCondition t_614;
+      temp bool t_612 = lup6.state == 2,
+      temp bool t_613 = t_611 or t_612,
+      temp bool t_614 = lup7.state == 2,
+      temp bool t_615 = t_613 or t_614,
+      temp bool t_616 = not t_615,
+      temp bool t_617 = t_600 and t_616,
+      temp bool t_618 = t_599 and t_617;
+
+    guardCondition t_618;
     effect
       Timer.state = 0,
-      Timer.time = 0,
-      lup7.state = 2;
+      temp byte t_619 = Timer.time + 1,
+      Timer.time = t_619,
+      lup3.state = 2;
 
-  process Timer_lup7
-    guardBlock
-      temp bool t_615 = Timer.state == 0,
-      temp bool t_616 = Timer.time == 7,
-      temp bool t_617 = t_615 and t_616,
-      temp bool t_618 = lup7.state == 2,
-      temp bool t_619 = t_617 and t_618;
-    guardCondition t_619;
-    effect
-      Timer.state = 0,
-      Timer.time = 0,
-      lup7.state = 3;
-
-  process Timer_lup7
+  process Timer_lup3 
     guardBlock
       temp bool t_620 = Timer.state == 0,
-      temp bool t_621 = Timer.time == 7,
+      temp bool t_621 = Timer.time == 3,
       temp bool t_622 = t_620 and t_621,
-      temp bool t_623 = lup7.state == 3,
+      temp bool t_623 = lup3.state == 2,
       temp bool t_624 = t_622 and t_623;
+
     guardCondition t_624;
     effect
       Timer.state = 0,
-      Timer.time = 0,
-      lup7.state = 4;
+      temp byte t_625 = Timer.time + 1,
+      Timer.time = t_625,
+      lup3.state = 3;
 
-  process Timer_lup7
+  process Timer_lup3 
     guardBlock
-      temp bool t_625 = Timer.state == 0,
-      temp bool t_626 = Timer.time == 7,
-      temp bool t_627 = t_625 and t_626,
-      temp bool t_628 = lup7.state == 4,
-      temp bool t_629 = t_627 and t_628;
-    guardCondition t_629;
+      temp bool t_626 = Timer.state == 0,
+      temp bool t_627 = Timer.time == 3,
+      temp bool t_628 = t_626 and t_627,
+      temp bool t_629 = lup3.state == 3,
+      temp bool t_630 = t_628 and t_629;
+
+    guardCondition t_630;
     effect
       Timer.state = 0,
-      Timer.time = 0,
-      lup7.state = 5;
+      temp byte t_631 = Timer.time + 1,
+      Timer.time = t_631,
+      lup3.state = 4;
 
-  process Timer_lup7
+  process Timer_lup3 
     guardBlock
-      temp bool t_630 = Timer.state == 0,
-      temp bool t_631 = Timer.time == 7,
-      temp bool t_632 = t_630 and t_631,
-      temp bool t_633 = lup7.state == 5,
-      temp bool t_634 = t_632 and t_633;
-    guardCondition t_634;
+      temp bool t_632 = Timer.state == 0,
+      temp bool t_633 = Timer.time == 3,
+      temp bool t_634 = t_632 and t_633,
+      temp bool t_635 = lup3.state == 4,
+      temp bool t_636 = t_634 and t_635;
+
+    guardCondition t_636;
     effect
       Timer.state = 0,
-      Timer.time = 0,
-      lup7.state = 5;
+      temp byte t_637 = Timer.time + 1,
+      Timer.time = t_637,
+      lup3.state = 5;
 
-  process Timer_lup7
+  process Timer_lup3 
     guardBlock
-      temp bool t_635 = Timer.state == 0,
-      temp bool t_636 = Timer.time == 7,
-      temp bool t_637 = t_635 and t_636,
-      temp bool t_638 = lup7.state == 5,
-      temp bool t_639 = t_637 and t_638;
-    guardCondition t_639;
+      temp bool t_638 = Timer.state == 0,
+      temp bool t_639 = Timer.time == 3,
+      temp bool t_640 = t_638 and t_639,
+      temp bool t_641 = lup3.state == 5,
+      temp bool t_642 = t_640 and t_641;
+
+    guardCondition t_642;
     effect
       Timer.state = 0,
-      Timer.time = 0,
-      lup7.state = 0;
+      temp byte t_643 = Timer.time + 1,
+      Timer.time = t_643,
+      lup3.state = 5;
 
-  process Timer_lup7
+  process Timer_lup3 
     guardBlock
-      temp bool t_640 = Timer.state == 0,
-      temp bool t_641 = Timer.time == 7,
-      temp bool t_642 = t_640 and t_641,
-      temp bool t_643 = lup7.state == 5,
-      temp bool t_644 = lup0.state == 2,
-      temp bool t_645 = lup1.state == 2,
-      temp bool t_646 = t_644 or t_645,
-      temp bool t_647 = lup2.state == 2,
-      temp bool t_648 = t_646 or t_647,
-      temp bool t_649 = lup3.state == 2,
-      temp bool t_650 = t_648 or t_649,
-      temp bool t_651 = lup4.state == 2,
-      temp bool t_652 = t_650 or t_651,
-      temp bool t_653 = lup5.state == 2,
-      temp bool t_654 = t_652 or t_653,
-      temp bool t_655 = lup6.state == 2,
+      temp bool t_644 = Timer.state == 0,
+      temp bool t_645 = Timer.time == 3,
+      temp bool t_646 = t_644 and t_645,
+      temp bool t_647 = lup3.state == 5,
+      temp bool t_648 = t_646 and t_647;
+
+    guardCondition t_648;
+    effect
+      Timer.state = 0,
+      temp byte t_649 = Timer.time + 1,
+      Timer.time = t_649,
+      lup3.state = 0;
+
+  process Timer_lup3 
+    guardBlock
+      temp bool t_650 = Timer.state == 0,
+      temp bool t_651 = Timer.time == 3,
+      temp bool t_652 = t_650 and t_651,
+      temp bool t_653 = lup3.state == 5,
+      temp bool t_654 = lup0.state == 2,
+      temp bool t_655 = lup1.state == 2,
       temp bool t_656 = t_654 or t_655,
-      temp bool t_657 = lup7.state == 2,
+      temp bool t_657 = lup2.state == 2,
       temp bool t_658 = t_656 or t_657,
-      temp bool t_659 = not t_658,
-      temp bool t_660 = t_643 and t_659,
-      temp bool t_661 = t_642 and t_660;
-    guardCondition t_661;
-    effect
-      Timer.state = 0,
-      Timer.time = 0,
-      lup7.state = 2;
-
-  process Timer_lup7
-    guardBlock
-      temp bool t_662 = Timer.state == 0,
-      temp bool t_663 = Timer.time == 7,
-      temp bool t_664 = t_662 and t_663,
-      temp bool t_665 = lup7.state == 5,
-      temp bool t_666 = lup0.state == 2,
-      temp bool t_667 = lup1.state == 2,
+      temp bool t_659 = lup3.state == 2,
+      temp bool t_660 = t_658 or t_659,
+      temp bool t_661 = lup4.state == 2,
+      temp bool t_662 = t_660 or t_661,
+      temp bool t_663 = lup5.state == 2,
+      temp bool t_664 = t_662 or t_663,
+      temp bool t_665 = lup6.state == 2,
+      temp bool t_666 = t_664 or t_665,
+      temp bool t_667 = lup7.state == 2,
       temp bool t_668 = t_666 or t_667,
-      temp bool t_669 = lup2.state == 2,
-      temp bool t_670 = t_668 or t_669,
-      temp bool t_671 = lup3.state == 2,
-      temp bool t_672 = t_670 or t_671,
-      temp bool t_673 = lup4.state == 2,
-      temp bool t_674 = t_672 or t_673,
-      temp bool t_675 = lup5.state == 2,
-      temp bool t_676 = t_674 or t_675,
-      temp bool t_677 = lup6.state == 2,
-      temp bool t_678 = t_676 or t_677,
-      temp bool t_679 = lup7.state == 2,
-      temp bool t_680 = t_678 or t_679,
-      temp bool t_681 = t_665 and t_680,
-      temp bool t_682 = t_664 and t_681;
-    guardCondition t_682;
+      temp bool t_669 = not t_668,
+      temp bool t_670 = t_653 and t_669,
+      temp bool t_671 = t_652 and t_670;
+
+    guardCondition t_671;
     effect
       Timer.state = 0,
-      Timer.time = 0,
-      lup7.state = 1;
+      temp byte t_672 = Timer.time + 1,
+      Timer.time = t_672,
+      lup3.state = 2;
 
-  process Timer_lup6
+  process Timer_lup3 
     guardBlock
-      temp bool t_683 = Timer.state == 0,
-      temp bool t_684 = Timer.time == 6,
-      temp bool t_685 = t_683 and t_684,
-      temp bool t_686 = lup6.state == 0,
-      temp bool t_687 = t_685 and t_686;
-    guardCondition t_687;
+      temp bool t_673 = Timer.state == 0,
+      temp bool t_674 = Timer.time == 3,
+      temp bool t_675 = t_673 and t_674,
+      temp bool t_676 = lup3.state == 5,
+      temp bool t_677 = lup0.state == 2,
+      temp bool t_678 = lup1.state == 2,
+      temp bool t_679 = t_677 or t_678,
+      temp bool t_680 = lup2.state == 2,
+      temp bool t_681 = t_679 or t_680,
+      temp bool t_682 = lup3.state == 2,
+      temp bool t_683 = t_681 or t_682,
+      temp bool t_684 = lup4.state == 2,
+      temp bool t_685 = t_683 or t_684,
+      temp bool t_686 = lup5.state == 2,
+      temp bool t_687 = t_685 or t_686,
+      temp bool t_688 = lup6.state == 2,
+      temp bool t_689 = t_687 or t_688,
+      temp bool t_690 = lup7.state == 2,
+      temp bool t_691 = t_689 or t_690,
+      temp bool t_692 = t_676 and t_691,
+      temp bool t_693 = t_675 and t_692;
+
+    guardCondition t_693;
     effect
       Timer.state = 0,
-      temp int t_688 = Timer.time + 1,
-      Timer.time = t_688,
-      lup6.state = 0;
+      temp byte t_694 = Timer.time + 1,
+      Timer.time = t_694,
+      lup3.state = 1;
 
-  process Timer_lup6
+  process Timer_lup1 
     guardBlock
-      temp bool t_689 = Timer.state == 0,
-      temp bool t_690 = Timer.time == 6,
-      temp bool t_691 = t_689 and t_690,
-      temp bool t_692 = lup6.state == 0,
-      temp bool t_693 = lup0.state == 2,
-      temp bool t_694 = lup1.state == 2,
-      temp bool t_695 = t_693 or t_694,
-      temp bool t_696 = lup2.state == 2,
-      temp bool t_697 = t_695 or t_696,
-      temp bool t_698 = lup3.state == 2,
-      temp bool t_699 = t_697 or t_698,
-      temp bool t_700 = lup4.state == 2,
-      temp bool t_701 = t_699 or t_700,
-      temp bool t_702 = lup5.state == 2,
-      temp bool t_703 = t_701 or t_702,
-      temp bool t_704 = lup6.state == 2,
-      temp bool t_705 = t_703 or t_704,
-      temp bool t_706 = lup7.state == 2,
+      temp bool t_695 = Timer.state == 0,
+      temp bool t_696 = Timer.time == 1,
+      temp bool t_697 = t_695 and t_696,
+      temp bool t_698 = lup1.state == 0,
+      temp bool t_699 = t_697 and t_698;
+
+    guardCondition t_699;
+    effect
+      Timer.state = 0,
+      temp byte t_700 = Timer.time + 1,
+      Timer.time = t_700,
+      lup1.state = 0;
+
+  process Timer_lup1 
+    guardBlock
+      temp bool t_701 = Timer.state == 0,
+      temp bool t_702 = Timer.time == 1,
+      temp bool t_703 = t_701 and t_702,
+      temp bool t_704 = lup1.state == 0,
+      temp bool t_705 = lup0.state == 2,
+      temp bool t_706 = lup1.state == 2,
       temp bool t_707 = t_705 or t_706,
-      temp bool t_708 = not t_707,
-      temp bool t_709 = t_692 and t_708,
-      temp bool t_710 = t_691 and t_709;
-    guardCondition t_710;
+      temp bool t_708 = lup2.state == 2,
+      temp bool t_709 = t_707 or t_708,
+      temp bool t_710 = lup3.state == 2,
+      temp bool t_711 = t_709 or t_710,
+      temp bool t_712 = lup4.state == 2,
+      temp bool t_713 = t_711 or t_712,
+      temp bool t_714 = lup5.state == 2,
+      temp bool t_715 = t_713 or t_714,
+      temp bool t_716 = lup6.state == 2,
+      temp bool t_717 = t_715 or t_716,
+      temp bool t_718 = lup7.state == 2,
+      temp bool t_719 = t_717 or t_718,
+      temp bool t_720 = not t_719,
+      temp bool t_721 = t_704 and t_720,
+      temp bool t_722 = t_703 and t_721;
+
+    guardCondition t_722;
     effect
       Timer.state = 0,
-      temp int t_711 = Timer.time + 1,
-      Timer.time = t_711,
-      lup6.state = 2;
+      temp byte t_723 = Timer.time + 1,
+      Timer.time = t_723,
+      lup1.state = 2;
 
-  process Timer_lup6
+  process Timer_lup1 
     guardBlock
-      temp bool t_712 = Timer.state == 0,
-      temp bool t_713 = Timer.time == 6,
-      temp bool t_714 = t_712 and t_713,
-      temp bool t_715 = lup6.state == 0,
-      temp bool t_716 = lup0.state == 2,
-      temp bool t_717 = lup1.state == 2,
-      temp bool t_718 = t_716 or t_717,
-      temp bool t_719 = lup2.state == 2,
-      temp bool t_720 = t_718 or t_719,
-      temp bool t_721 = lup3.state == 2,
-      temp bool t_722 = t_720 or t_721,
-      temp bool t_723 = lup4.state == 2,
-      temp bool t_724 = t_722 or t_723,
-      temp bool t_725 = lup5.state == 2,
-      temp bool t_726 = t_724 or t_725,
-      temp bool t_727 = lup6.state == 2,
-      temp bool t_728 = t_726 or t_727,
-      temp bool t_729 = lup7.state == 2,
+      temp bool t_724 = Timer.state == 0,
+      temp bool t_725 = Timer.time == 1,
+      temp bool t_726 = t_724 and t_725,
+      temp bool t_727 = lup1.state == 0,
+      temp bool t_728 = lup0.state == 2,
+      temp bool t_729 = lup1.state == 2,
       temp bool t_730 = t_728 or t_729,
-      temp bool t_731 = t_715 and t_730,
-      temp bool t_732 = t_714 and t_731;
-    guardCondition t_732;
-    effect
-      Timer.state = 0,
-      temp int t_733 = Timer.time + 1,
-      Timer.time = t_733,
-      lup6.state = 1;
-
-  process Timer_lup6
-    guardBlock
-      temp bool t_734 = Timer.state == 0,
-      temp bool t_735 = Timer.time == 6,
-      temp bool t_736 = t_734 and t_735,
-      temp bool t_737 = lup6.state == 1,
-      temp bool t_738 = lup0.state == 2,
-      temp bool t_739 = lup1.state == 2,
+      temp bool t_731 = lup2.state == 2,
+      temp bool t_732 = t_730 or t_731,
+      temp bool t_733 = lup3.state == 2,
+      temp bool t_734 = t_732 or t_733,
+      temp bool t_735 = lup4.state == 2,
+      temp bool t_736 = t_734 or t_735,
+      temp bool t_737 = lup5.state == 2,
+      temp bool t_738 = t_736 or t_737,
+      temp bool t_739 = lup6.state == 2,
       temp bool t_740 = t_738 or t_739,
-      temp bool t_741 = lup2.state == 2,
+      temp bool t_741 = lup7.state == 2,
       temp bool t_742 = t_740 or t_741,
-      temp bool t_743 = lup3.state == 2,
-      temp bool t_744 = t_742 or t_743,
-      temp bool t_745 = lup4.state == 2,
-      temp bool t_746 = t_744 or t_745,
-      temp bool t_747 = lup5.state == 2,
-      temp bool t_748 = t_746 or t_747,
-      temp bool t_749 = lup6.state == 2,
-      temp bool t_750 = t_748 or t_749,
-      temp bool t_751 = lup7.state == 2,
+      temp bool t_743 = t_727 and t_742,
+      temp bool t_744 = t_726 and t_743;
+
+    guardCondition t_744;
+    effect
+      Timer.state = 0,
+      temp byte t_745 = Timer.time + 1,
+      Timer.time = t_745,
+      lup1.state = 1;
+
+  process Timer_lup1 
+    guardBlock
+      temp bool t_746 = Timer.state == 0,
+      temp bool t_747 = Timer.time == 1,
+      temp bool t_748 = t_746 and t_747,
+      temp bool t_749 = lup1.state == 1,
+      temp bool t_750 = lup0.state == 2,
+      temp bool t_751 = lup1.state == 2,
       temp bool t_752 = t_750 or t_751,
-      temp bool t_753 = t_737 and t_752,
-      temp bool t_754 = t_736 and t_753;
-    guardCondition t_754;
-    effect
-      Timer.state = 0,
-      temp int t_755 = Timer.time + 1,
-      Timer.time = t_755,
-      lup6.state = 1;
-
-  process Timer_lup6
-    guardBlock
-      temp bool t_756 = Timer.state == 0,
-      temp bool t_757 = Timer.time == 6,
-      temp bool t_758 = t_756 and t_757,
-      temp bool t_759 = lup6.state == 1,
-      temp bool t_760 = lup0.state == 2,
-      temp bool t_761 = lup1.state == 2,
+      temp bool t_753 = lup2.state == 2,
+      temp bool t_754 = t_752 or t_753,
+      temp bool t_755 = lup3.state == 2,
+      temp bool t_756 = t_754 or t_755,
+      temp bool t_757 = lup4.state == 2,
+      temp bool t_758 = t_756 or t_757,
+      temp bool t_759 = lup5.state == 2,
+      temp bool t_760 = t_758 or t_759,
+      temp bool t_761 = lup6.state == 2,
       temp bool t_762 = t_760 or t_761,
-      temp bool t_763 = lup2.state == 2,
+      temp bool t_763 = lup7.state == 2,
       temp bool t_764 = t_762 or t_763,
-      temp bool t_765 = lup3.state == 2,
-      temp bool t_766 = t_764 or t_765,
-      temp bool t_767 = lup4.state == 2,
-      temp bool t_768 = t_766 or t_767,
-      temp bool t_769 = lup5.state == 2,
-      temp bool t_770 = t_768 or t_769,
-      temp bool t_771 = lup6.state == 2,
-      temp bool t_772 = t_770 or t_771,
-      temp bool t_773 = lup7.state == 2,
+      temp bool t_765 = t_749 and t_764,
+      temp bool t_766 = t_748 and t_765;
+
+    guardCondition t_766;
+    effect
+      Timer.state = 0,
+      temp byte t_767 = Timer.time + 1,
+      Timer.time = t_767,
+      lup1.state = 1;
+
+  process Timer_lup1 
+    guardBlock
+      temp bool t_768 = Timer.state == 0,
+      temp bool t_769 = Timer.time == 1,
+      temp bool t_770 = t_768 and t_769,
+      temp bool t_771 = lup1.state == 1,
+      temp bool t_772 = lup0.state == 2,
+      temp bool t_773 = lup1.state == 2,
       temp bool t_774 = t_772 or t_773,
-      temp bool t_775 = not t_774,
-      temp bool t_776 = t_759 and t_775,
-      temp bool t_777 = t_758 and t_776;
-    guardCondition t_777;
-    effect
-      Timer.state = 0,
-      temp int t_778 = Timer.time + 1,
-      Timer.time = t_778,
-      lup6.state = 2;
+      temp bool t_775 = lup2.state == 2,
+      temp bool t_776 = t_774 or t_775,
+      temp bool t_777 = lup3.state == 2,
+      temp bool t_778 = t_776 or t_777,
+      temp bool t_779 = lup4.state == 2,
+      temp bool t_780 = t_778 or t_779,
+      temp bool t_781 = lup5.state == 2,
+      temp bool t_782 = t_780 or t_781,
+      temp bool t_783 = lup6.state == 2,
+      temp bool t_784 = t_782 or t_783,
+      temp bool t_785 = lup7.state == 2,
+      temp bool t_786 = t_784 or t_785,
+      temp bool t_787 = not t_786,
+      temp bool t_788 = t_771 and t_787,
+      temp bool t_789 = t_770 and t_788;
 
-  process Timer_lup6
-    guardBlock
-      temp bool t_779 = Timer.state == 0,
-      temp bool t_780 = Timer.time == 6,
-      temp bool t_781 = t_779 and t_780,
-      temp bool t_782 = lup6.state == 2,
-      temp bool t_783 = t_781 and t_782;
-    guardCondition t_783;
-    effect
-      Timer.state = 0,
-      temp int t_784 = Timer.time + 1,
-      Timer.time = t_784,
-      lup6.state = 3;
-
-  process Timer_lup6
-    guardBlock
-      temp bool t_785 = Timer.state == 0,
-      temp bool t_786 = Timer.time == 6,
-      temp bool t_787 = t_785 and t_786,
-      temp bool t_788 = lup6.state == 3,
-      temp bool t_789 = t_787 and t_788;
     guardCondition t_789;
     effect
       Timer.state = 0,
-      temp int t_790 = Timer.time + 1,
+      temp byte t_790 = Timer.time + 1,
       Timer.time = t_790,
-      lup6.state = 4;
+      lup1.state = 2;
 
-  process Timer_lup6
+  process Timer_lup1 
     guardBlock
       temp bool t_791 = Timer.state == 0,
-      temp bool t_792 = Timer.time == 6,
+      temp bool t_792 = Timer.time == 1,
       temp bool t_793 = t_791 and t_792,
-      temp bool t_794 = lup6.state == 4,
+      temp bool t_794 = lup1.state == 2,
       temp bool t_795 = t_793 and t_794;
+
     guardCondition t_795;
     effect
       Timer.state = 0,
-      temp int t_796 = Timer.time + 1,
+      temp byte t_796 = Timer.time + 1,
       Timer.time = t_796,
-      lup6.state = 5;
+      lup1.state = 3;
 
-  process Timer_lup6
+  process Timer_lup1 
     guardBlock
       temp bool t_797 = Timer.state == 0,
-      temp bool t_798 = Timer.time == 6,
+      temp bool t_798 = Timer.time == 1,
       temp bool t_799 = t_797 and t_798,
-      temp bool t_800 = lup6.state == 5,
+      temp bool t_800 = lup1.state == 3,
       temp bool t_801 = t_799 and t_800;
+
     guardCondition t_801;
     effect
       Timer.state = 0,
-      temp int t_802 = Timer.time + 1,
+      temp byte t_802 = Timer.time + 1,
       Timer.time = t_802,
-      lup6.state = 5;
+      lup1.state = 4;
 
-  process Timer_lup6
+  process Timer_lup1 
     guardBlock
       temp bool t_803 = Timer.state == 0,
-      temp bool t_804 = Timer.time == 6,
+      temp bool t_804 = Timer.time == 1,
       temp bool t_805 = t_803 and t_804,
-      temp bool t_806 = lup6.state == 5,
+      temp bool t_806 = lup1.state == 4,
       temp bool t_807 = t_805 and t_806;
+
     guardCondition t_807;
     effect
       Timer.state = 0,
-      temp int t_808 = Timer.time + 1,
+      temp byte t_808 = Timer.time + 1,
       Timer.time = t_808,
-      lup6.state = 0;
+      lup1.state = 5;
 
-  process Timer_lup6
+  process Timer_lup1 
     guardBlock
       temp bool t_809 = Timer.state == 0,
-      temp bool t_810 = Timer.time == 6,
+      temp bool t_810 = Timer.time == 1,
       temp bool t_811 = t_809 and t_810,
-      temp bool t_812 = lup6.state == 5,
-      temp bool t_813 = lup0.state == 2,
-      temp bool t_814 = lup1.state == 2,
-      temp bool t_815 = t_813 or t_814,
-      temp bool t_816 = lup2.state == 2,
-      temp bool t_817 = t_815 or t_816,
-      temp bool t_818 = lup3.state == 2,
-      temp bool t_819 = t_817 or t_818,
-      temp bool t_820 = lup4.state == 2,
-      temp bool t_821 = t_819 or t_820,
-      temp bool t_822 = lup5.state == 2,
-      temp bool t_823 = t_821 or t_822,
-      temp bool t_824 = lup6.state == 2,
-      temp bool t_825 = t_823 or t_824,
-      temp bool t_826 = lup7.state == 2,
+      temp bool t_812 = lup1.state == 5,
+      temp bool t_813 = t_811 and t_812;
+
+    guardCondition t_813;
+    effect
+      Timer.state = 0,
+      temp byte t_814 = Timer.time + 1,
+      Timer.time = t_814,
+      lup1.state = 5;
+
+  process Timer_lup1 
+    guardBlock
+      temp bool t_815 = Timer.state == 0,
+      temp bool t_816 = Timer.time == 1,
+      temp bool t_817 = t_815 and t_816,
+      temp bool t_818 = lup1.state == 5,
+      temp bool t_819 = t_817 and t_818;
+
+    guardCondition t_819;
+    effect
+      Timer.state = 0,
+      temp byte t_820 = Timer.time + 1,
+      Timer.time = t_820,
+      lup1.state = 0;
+
+  process Timer_lup1 
+    guardBlock
+      temp bool t_821 = Timer.state == 0,
+      temp bool t_822 = Timer.time == 1,
+      temp bool t_823 = t_821 and t_822,
+      temp bool t_824 = lup1.state == 5,
+      temp bool t_825 = lup0.state == 2,
+      temp bool t_826 = lup1.state == 2,
       temp bool t_827 = t_825 or t_826,
-      temp bool t_828 = not t_827,
-      temp bool t_829 = t_812 and t_828,
-      temp bool t_830 = t_811 and t_829;
-    guardCondition t_830;
+      temp bool t_828 = lup2.state == 2,
+      temp bool t_829 = t_827 or t_828,
+      temp bool t_830 = lup3.state == 2,
+      temp bool t_831 = t_829 or t_830,
+      temp bool t_832 = lup4.state == 2,
+      temp bool t_833 = t_831 or t_832,
+      temp bool t_834 = lup5.state == 2,
+      temp bool t_835 = t_833 or t_834,
+      temp bool t_836 = lup6.state == 2,
+      temp bool t_837 = t_835 or t_836,
+      temp bool t_838 = lup7.state == 2,
+      temp bool t_839 = t_837 or t_838,
+      temp bool t_840 = not t_839,
+      temp bool t_841 = t_824 and t_840,
+      temp bool t_842 = t_823 and t_841;
+
+    guardCondition t_842;
     effect
       Timer.state = 0,
-      temp int t_831 = Timer.time + 1,
-      Timer.time = t_831,
-      lup6.state = 2;
+      temp byte t_843 = Timer.time + 1,
+      Timer.time = t_843,
+      lup1.state = 2;
 
-  process Timer_lup6
+  process Timer_lup1 
     guardBlock
-      temp bool t_832 = Timer.state == 0,
-      temp bool t_833 = Timer.time == 6,
-      temp bool t_834 = t_832 and t_833,
-      temp bool t_835 = lup6.state == 5,
-      temp bool t_836 = lup0.state == 2,
-      temp bool t_837 = lup1.state == 2,
-      temp bool t_838 = t_836 or t_837,
-      temp bool t_839 = lup2.state == 2,
-      temp bool t_840 = t_838 or t_839,
-      temp bool t_841 = lup3.state == 2,
-      temp bool t_842 = t_840 or t_841,
-      temp bool t_843 = lup4.state == 2,
-      temp bool t_844 = t_842 or t_843,
-      temp bool t_845 = lup5.state == 2,
-      temp bool t_846 = t_844 or t_845,
-      temp bool t_847 = lup6.state == 2,
-      temp bool t_848 = t_846 or t_847,
-      temp bool t_849 = lup7.state == 2,
+      temp bool t_844 = Timer.state == 0,
+      temp bool t_845 = Timer.time == 1,
+      temp bool t_846 = t_844 and t_845,
+      temp bool t_847 = lup1.state == 5,
+      temp bool t_848 = lup0.state == 2,
+      temp bool t_849 = lup1.state == 2,
       temp bool t_850 = t_848 or t_849,
-      temp bool t_851 = t_835 and t_850,
-      temp bool t_852 = t_834 and t_851;
-    guardCondition t_852;
-    effect
-      Timer.state = 0,
-      temp int t_853 = Timer.time + 1,
-      Timer.time = t_853,
-      lup6.state = 1;
+      temp bool t_851 = lup2.state == 2,
+      temp bool t_852 = t_850 or t_851,
+      temp bool t_853 = lup3.state == 2,
+      temp bool t_854 = t_852 or t_853,
+      temp bool t_855 = lup4.state == 2,
+      temp bool t_856 = t_854 or t_855,
+      temp bool t_857 = lup5.state == 2,
+      temp bool t_858 = t_856 or t_857,
+      temp bool t_859 = lup6.state == 2,
+      temp bool t_860 = t_858 or t_859,
+      temp bool t_861 = lup7.state == 2,
+      temp bool t_862 = t_860 or t_861,
+      temp bool t_863 = t_847 and t_862,
+      temp bool t_864 = t_846 and t_863;
 
-  process Timer_lup0
-    guardBlock
-      temp bool t_854 = Timer.state == 0,
-      temp bool t_855 = Timer.time == 0,
-      temp bool t_856 = t_854 and t_855,
-      temp bool t_857 = lup0.state == 0,
-      temp bool t_858 = t_856 and t_857;
-    guardCondition t_858;
+    guardCondition t_864;
     effect
       Timer.state = 0,
-      temp int t_859 = Timer.time + 1,
-      Timer.time = t_859,
+      temp byte t_865 = Timer.time + 1,
+      Timer.time = t_865,
+      lup1.state = 1;
+
+  process Timer_lup0 
+    guardBlock
+      temp bool t_866 = Timer.state == 0,
+      temp bool t_867 = Timer.time == 0,
+      temp bool t_868 = t_866 and t_867,
+      temp bool t_869 = lup0.state == 0,
+      temp bool t_870 = t_868 and t_869;
+
+    guardCondition t_870;
+    effect
+      Timer.state = 0,
+      temp byte t_871 = Timer.time + 1,
+      Timer.time = t_871,
       lup0.state = 0;
 
-  process Timer_lup0
+  process Timer_lup0 
     guardBlock
-      temp bool t_860 = Timer.state == 0,
-      temp bool t_861 = Timer.time == 0,
-      temp bool t_862 = t_860 and t_861,
-      temp bool t_863 = lup0.state == 0,
-      temp bool t_864 = lup0.state == 2,
-      temp bool t_865 = lup1.state == 2,
-      temp bool t_866 = t_864 or t_865,
-      temp bool t_867 = lup2.state == 2,
-      temp bool t_868 = t_866 or t_867,
-      temp bool t_869 = lup3.state == 2,
-      temp bool t_870 = t_868 or t_869,
-      temp bool t_871 = lup4.state == 2,
-      temp bool t_872 = t_870 or t_871,
-      temp bool t_873 = lup5.state == 2,
-      temp bool t_874 = t_872 or t_873,
-      temp bool t_875 = lup6.state == 2,
-      temp bool t_876 = t_874 or t_875,
-      temp bool t_877 = lup7.state == 2,
+      temp bool t_872 = Timer.state == 0,
+      temp bool t_873 = Timer.time == 0,
+      temp bool t_874 = t_872 and t_873,
+      temp bool t_875 = lup0.state == 0,
+      temp bool t_876 = lup0.state == 2,
+      temp bool t_877 = lup1.state == 2,
       temp bool t_878 = t_876 or t_877,
-      temp bool t_879 = not t_878,
-      temp bool t_880 = t_863 and t_879,
-      temp bool t_881 = t_862 and t_880;
-    guardCondition t_881;
+      temp bool t_879 = lup2.state == 2,
+      temp bool t_880 = t_878 or t_879,
+      temp bool t_881 = lup3.state == 2,
+      temp bool t_882 = t_880 or t_881,
+      temp bool t_883 = lup4.state == 2,
+      temp bool t_884 = t_882 or t_883,
+      temp bool t_885 = lup5.state == 2,
+      temp bool t_886 = t_884 or t_885,
+      temp bool t_887 = lup6.state == 2,
+      temp bool t_888 = t_886 or t_887,
+      temp bool t_889 = lup7.state == 2,
+      temp bool t_890 = t_888 or t_889,
+      temp bool t_891 = not t_890,
+      temp bool t_892 = t_875 and t_891,
+      temp bool t_893 = t_874 and t_892;
+
+    guardCondition t_893;
     effect
       Timer.state = 0,
-      temp int t_882 = Timer.time + 1,
-      Timer.time = t_882,
+      temp byte t_894 = Timer.time + 1,
+      Timer.time = t_894,
       lup0.state = 2;
 
-  process Timer_lup0
+  process Timer_lup0 
     guardBlock
-      temp bool t_883 = Timer.state == 0,
-      temp bool t_884 = Timer.time == 0,
-      temp bool t_885 = t_883 and t_884,
-      temp bool t_886 = lup0.state == 0,
-      temp bool t_887 = lup0.state == 2,
-      temp bool t_888 = lup1.state == 2,
-      temp bool t_889 = t_887 or t_888,
-      temp bool t_890 = lup2.state == 2,
-      temp bool t_891 = t_889 or t_890,
-      temp bool t_892 = lup3.state == 2,
-      temp bool t_893 = t_891 or t_892,
-      temp bool t_894 = lup4.state == 2,
-      temp bool t_895 = t_893 or t_894,
-      temp bool t_896 = lup5.state == 2,
-      temp bool t_897 = t_895 or t_896,
-      temp bool t_898 = lup6.state == 2,
-      temp bool t_899 = t_897 or t_898,
-      temp bool t_900 = lup7.state == 2,
+      temp bool t_895 = Timer.state == 0,
+      temp bool t_896 = Timer.time == 0,
+      temp bool t_897 = t_895 and t_896,
+      temp bool t_898 = lup0.state == 0,
+      temp bool t_899 = lup0.state == 2,
+      temp bool t_900 = lup1.state == 2,
       temp bool t_901 = t_899 or t_900,
-      temp bool t_902 = t_886 and t_901,
-      temp bool t_903 = t_885 and t_902;
-    guardCondition t_903;
-    effect
-      Timer.state = 0,
-      temp int t_904 = Timer.time + 1,
-      Timer.time = t_904,
-      lup0.state = 1;
-
-  process Timer_lup0
-    guardBlock
-      temp bool t_905 = Timer.state == 0,
-      temp bool t_906 = Timer.time == 0,
-      temp bool t_907 = t_905 and t_906,
-      temp bool t_908 = lup0.state == 1,
-      temp bool t_909 = lup0.state == 2,
-      temp bool t_910 = lup1.state == 2,
+      temp bool t_902 = lup2.state == 2,
+      temp bool t_903 = t_901 or t_902,
+      temp bool t_904 = lup3.state == 2,
+      temp bool t_905 = t_903 or t_904,
+      temp bool t_906 = lup4.state == 2,
+      temp bool t_907 = t_905 or t_906,
+      temp bool t_908 = lup5.state == 2,
+      temp bool t_909 = t_907 or t_908,
+      temp bool t_910 = lup6.state == 2,
       temp bool t_911 = t_909 or t_910,
-      temp bool t_912 = lup2.state == 2,
+      temp bool t_912 = lup7.state == 2,
       temp bool t_913 = t_911 or t_912,
-      temp bool t_914 = lup3.state == 2,
-      temp bool t_915 = t_913 or t_914,
-      temp bool t_916 = lup4.state == 2,
-      temp bool t_917 = t_915 or t_916,
-      temp bool t_918 = lup5.state == 2,
-      temp bool t_919 = t_917 or t_918,
-      temp bool t_920 = lup6.state == 2,
-      temp bool t_921 = t_919 or t_920,
-      temp bool t_922 = lup7.state == 2,
-      temp bool t_923 = t_921 or t_922,
-      temp bool t_924 = t_908 and t_923,
-      temp bool t_925 = t_907 and t_924;
-    guardCondition t_925;
+      temp bool t_914 = t_898 and t_913,
+      temp bool t_915 = t_897 and t_914;
+
+    guardCondition t_915;
     effect
       Timer.state = 0,
-      temp int t_926 = Timer.time + 1,
-      Timer.time = t_926,
+      temp byte t_916 = Timer.time + 1,
+      Timer.time = t_916,
       lup0.state = 1;
 
-  process Timer_lup0
+  process Timer_lup0 
     guardBlock
-      temp bool t_927 = Timer.state == 0,
-      temp bool t_928 = Timer.time == 0,
-      temp bool t_929 = t_927 and t_928,
-      temp bool t_930 = lup0.state == 1,
-      temp bool t_931 = lup0.state == 2,
-      temp bool t_932 = lup1.state == 2,
+      temp bool t_917 = Timer.state == 0,
+      temp bool t_918 = Timer.time == 0,
+      temp bool t_919 = t_917 and t_918,
+      temp bool t_920 = lup0.state == 1,
+      temp bool t_921 = lup0.state == 2,
+      temp bool t_922 = lup1.state == 2,
+      temp bool t_923 = t_921 or t_922,
+      temp bool t_924 = lup2.state == 2,
+      temp bool t_925 = t_923 or t_924,
+      temp bool t_926 = lup3.state == 2,
+      temp bool t_927 = t_925 or t_926,
+      temp bool t_928 = lup4.state == 2,
+      temp bool t_929 = t_927 or t_928,
+      temp bool t_930 = lup5.state == 2,
+      temp bool t_931 = t_929 or t_930,
+      temp bool t_932 = lup6.state == 2,
       temp bool t_933 = t_931 or t_932,
-      temp bool t_934 = lup2.state == 2,
+      temp bool t_934 = lup7.state == 2,
       temp bool t_935 = t_933 or t_934,
-      temp bool t_936 = lup3.state == 2,
-      temp bool t_937 = t_935 or t_936,
-      temp bool t_938 = lup4.state == 2,
-      temp bool t_939 = t_937 or t_938,
-      temp bool t_940 = lup5.state == 2,
-      temp bool t_941 = t_939 or t_940,
-      temp bool t_942 = lup6.state == 2,
-      temp bool t_943 = t_941 or t_942,
-      temp bool t_944 = lup7.state == 2,
+      temp bool t_936 = t_920 and t_935,
+      temp bool t_937 = t_919 and t_936;
+
+    guardCondition t_937;
+    effect
+      Timer.state = 0,
+      temp byte t_938 = Timer.time + 1,
+      Timer.time = t_938,
+      lup0.state = 1;
+
+  process Timer_lup0 
+    guardBlock
+      temp bool t_939 = Timer.state == 0,
+      temp bool t_940 = Timer.time == 0,
+      temp bool t_941 = t_939 and t_940,
+      temp bool t_942 = lup0.state == 1,
+      temp bool t_943 = lup0.state == 2,
+      temp bool t_944 = lup1.state == 2,
       temp bool t_945 = t_943 or t_944,
-      temp bool t_946 = not t_945,
-      temp bool t_947 = t_930 and t_946,
-      temp bool t_948 = t_929 and t_947;
-    guardCondition t_948;
-    effect
-      Timer.state = 0,
-      temp int t_949 = Timer.time + 1,
-      Timer.time = t_949,
-      lup0.state = 2;
+      temp bool t_946 = lup2.state == 2,
+      temp bool t_947 = t_945 or t_946,
+      temp bool t_948 = lup3.state == 2,
+      temp bool t_949 = t_947 or t_948,
+      temp bool t_950 = lup4.state == 2,
+      temp bool t_951 = t_949 or t_950,
+      temp bool t_952 = lup5.state == 2,
+      temp bool t_953 = t_951 or t_952,
+      temp bool t_954 = lup6.state == 2,
+      temp bool t_955 = t_953 or t_954,
+      temp bool t_956 = lup7.state == 2,
+      temp bool t_957 = t_955 or t_956,
+      temp bool t_958 = not t_957,
+      temp bool t_959 = t_942 and t_958,
+      temp bool t_960 = t_941 and t_959;
 
-  process Timer_lup0
-    guardBlock
-      temp bool t_950 = Timer.state == 0,
-      temp bool t_951 = Timer.time == 0,
-      temp bool t_952 = t_950 and t_951,
-      temp bool t_953 = lup0.state == 2,
-      temp bool t_954 = t_952 and t_953;
-    guardCondition t_954;
-    effect
-      Timer.state = 0,
-      temp int t_955 = Timer.time + 1,
-      Timer.time = t_955,
-      lup0.state = 3;
-
-  process Timer_lup0
-    guardBlock
-      temp bool t_956 = Timer.state == 0,
-      temp bool t_957 = Timer.time == 0,
-      temp bool t_958 = t_956 and t_957,
-      temp bool t_959 = lup0.state == 3,
-      temp bool t_960 = t_958 and t_959;
     guardCondition t_960;
     effect
       Timer.state = 0,
-      temp int t_961 = Timer.time + 1,
+      temp byte t_961 = Timer.time + 1,
       Timer.time = t_961,
-      lup0.state = 4;
+      lup0.state = 2;
 
-  process Timer_lup0
+  process Timer_lup0 
     guardBlock
       temp bool t_962 = Timer.state == 0,
       temp bool t_963 = Timer.time == 0,
       temp bool t_964 = t_962 and t_963,
-      temp bool t_965 = lup0.state == 4,
+      temp bool t_965 = lup0.state == 2,
       temp bool t_966 = t_964 and t_965;
+
     guardCondition t_966;
     effect
       Timer.state = 0,
-      temp int t_967 = Timer.time + 1,
+      temp byte t_967 = Timer.time + 1,
       Timer.time = t_967,
-      lup0.state = 5;
+      lup0.state = 3;
 
-  process Timer_lup0
+  process Timer_lup0 
     guardBlock
       temp bool t_968 = Timer.state == 0,
       temp bool t_969 = Timer.time == 0,
       temp bool t_970 = t_968 and t_969,
-      temp bool t_971 = lup0.state == 5,
+      temp bool t_971 = lup0.state == 3,
       temp bool t_972 = t_970 and t_971;
+
     guardCondition t_972;
     effect
       Timer.state = 0,
-      temp int t_973 = Timer.time + 1,
+      temp byte t_973 = Timer.time + 1,
       Timer.time = t_973,
-      lup0.state = 5;
+      lup0.state = 4;
 
-  process Timer_lup0
+  process Timer_lup0 
     guardBlock
       temp bool t_974 = Timer.state == 0,
       temp bool t_975 = Timer.time == 0,
       temp bool t_976 = t_974 and t_975,
-      temp bool t_977 = lup0.state == 5,
+      temp bool t_977 = lup0.state == 4,
       temp bool t_978 = t_976 and t_977;
+
     guardCondition t_978;
     effect
       Timer.state = 0,
-      temp int t_979 = Timer.time + 1,
+      temp byte t_979 = Timer.time + 1,
       Timer.time = t_979,
-      lup0.state = 0;
+      lup0.state = 5;
 
-  process Timer_lup0
+  process Timer_lup0 
     guardBlock
       temp bool t_980 = Timer.state == 0,
       temp bool t_981 = Timer.time == 0,
       temp bool t_982 = t_980 and t_981,
       temp bool t_983 = lup0.state == 5,
-      temp bool t_984 = lup0.state == 2,
-      temp bool t_985 = lup1.state == 2,
-      temp bool t_986 = t_984 or t_985,
-      temp bool t_987 = lup2.state == 2,
-      temp bool t_988 = t_986 or t_987,
-      temp bool t_989 = lup3.state == 2,
-      temp bool t_990 = t_988 or t_989,
-      temp bool t_991 = lup4.state == 2,
-      temp bool t_992 = t_990 or t_991,
-      temp bool t_993 = lup5.state == 2,
-      temp bool t_994 = t_992 or t_993,
-      temp bool t_995 = lup6.state == 2,
-      temp bool t_996 = t_994 or t_995,
-      temp bool t_997 = lup7.state == 2,
-      temp bool t_998 = t_996 or t_997,
-      temp bool t_999 = not t_998,
-      temp bool t_1000 = t_983 and t_999,
-      temp bool t_1001 = t_982 and t_1000;
-    guardCondition t_1001;
+      temp bool t_984 = t_982 and t_983;
+
+    guardCondition t_984;
     effect
       Timer.state = 0,
-      temp int t_1002 = Timer.time + 1,
-      Timer.time = t_1002,
+      temp byte t_985 = Timer.time + 1,
+      Timer.time = t_985,
+      lup0.state = 5;
+
+  process Timer_lup0 
+    guardBlock
+      temp bool t_986 = Timer.state == 0,
+      temp bool t_987 = Timer.time == 0,
+      temp bool t_988 = t_986 and t_987,
+      temp bool t_989 = lup0.state == 5,
+      temp bool t_990 = t_988 and t_989;
+
+    guardCondition t_990;
+    effect
+      Timer.state = 0,
+      temp byte t_991 = Timer.time + 1,
+      Timer.time = t_991,
+      lup0.state = 0;
+
+  process Timer_lup0 
+    guardBlock
+      temp bool t_992 = Timer.state == 0,
+      temp bool t_993 = Timer.time == 0,
+      temp bool t_994 = t_992 and t_993,
+      temp bool t_995 = lup0.state == 5,
+      temp bool t_996 = lup0.state == 2,
+      temp bool t_997 = lup1.state == 2,
+      temp bool t_998 = t_996 or t_997,
+      temp bool t_999 = lup2.state == 2,
+      temp bool t_1000 = t_998 or t_999,
+      temp bool t_1001 = lup3.state == 2,
+      temp bool t_1002 = t_1000 or t_1001,
+      temp bool t_1003 = lup4.state == 2,
+      temp bool t_1004 = t_1002 or t_1003,
+      temp bool t_1005 = lup5.state == 2,
+      temp bool t_1006 = t_1004 or t_1005,
+      temp bool t_1007 = lup6.state == 2,
+      temp bool t_1008 = t_1006 or t_1007,
+      temp bool t_1009 = lup7.state == 2,
+      temp bool t_1010 = t_1008 or t_1009,
+      temp bool t_1011 = not t_1010,
+      temp bool t_1012 = t_995 and t_1011,
+      temp bool t_1013 = t_994 and t_1012;
+
+    guardCondition t_1013;
+    effect
+      Timer.state = 0,
+      temp byte t_1014 = Timer.time + 1,
+      Timer.time = t_1014,
       lup0.state = 2;
 
-  process Timer_lup0
+  process Timer_lup0 
     guardBlock
-      temp bool t_1003 = Timer.state == 0,
-      temp bool t_1004 = Timer.time == 0,
-      temp bool t_1005 = t_1003 and t_1004,
-      temp bool t_1006 = lup0.state == 5,
-      temp bool t_1007 = lup0.state == 2,
-      temp bool t_1008 = lup1.state == 2,
-      temp bool t_1009 = t_1007 or t_1008,
-      temp bool t_1010 = lup2.state == 2,
-      temp bool t_1011 = t_1009 or t_1010,
-      temp bool t_1012 = lup3.state == 2,
-      temp bool t_1013 = t_1011 or t_1012,
-      temp bool t_1014 = lup4.state == 2,
-      temp bool t_1015 = t_1013 or t_1014,
-      temp bool t_1016 = lup5.state == 2,
-      temp bool t_1017 = t_1015 or t_1016,
-      temp bool t_1018 = lup6.state == 2,
-      temp bool t_1019 = t_1017 or t_1018,
-      temp bool t_1020 = lup7.state == 2,
+      temp bool t_1015 = Timer.state == 0,
+      temp bool t_1016 = Timer.time == 0,
+      temp bool t_1017 = t_1015 and t_1016,
+      temp bool t_1018 = lup0.state == 5,
+      temp bool t_1019 = lup0.state == 2,
+      temp bool t_1020 = lup1.state == 2,
       temp bool t_1021 = t_1019 or t_1020,
-      temp bool t_1022 = t_1006 and t_1021,
-      temp bool t_1023 = t_1005 and t_1022;
-    guardCondition t_1023;
+      temp bool t_1022 = lup2.state == 2,
+      temp bool t_1023 = t_1021 or t_1022,
+      temp bool t_1024 = lup3.state == 2,
+      temp bool t_1025 = t_1023 or t_1024,
+      temp bool t_1026 = lup4.state == 2,
+      temp bool t_1027 = t_1025 or t_1026,
+      temp bool t_1028 = lup5.state == 2,
+      temp bool t_1029 = t_1027 or t_1028,
+      temp bool t_1030 = lup6.state == 2,
+      temp bool t_1031 = t_1029 or t_1030,
+      temp bool t_1032 = lup7.state == 2,
+      temp bool t_1033 = t_1031 or t_1032,
+      temp bool t_1034 = t_1018 and t_1033,
+      temp bool t_1035 = t_1017 and t_1034;
+
+    guardCondition t_1035;
     effect
       Timer.state = 0,
-      temp int t_1024 = Timer.time + 1,
-      Timer.time = t_1024,
+      temp byte t_1036 = Timer.time + 1,
+      Timer.time = t_1036,
       lup0.state = 1;
 
-  process Timer_lup5
+  process Timer_lup6 
     guardBlock
-      temp bool t_1025 = Timer.state == 0,
-      temp bool t_1026 = Timer.time == 5,
-      temp bool t_1027 = t_1025 and t_1026,
-      temp bool t_1028 = lup5.state == 0,
-      temp bool t_1029 = t_1027 and t_1028;
-    guardCondition t_1029;
+      temp bool t_1037 = Timer.state == 0,
+      temp bool t_1038 = Timer.time == 6,
+      temp bool t_1039 = t_1037 and t_1038,
+      temp bool t_1040 = lup6.state == 0,
+      temp bool t_1041 = t_1039 and t_1040;
+
+    guardCondition t_1041;
     effect
       Timer.state = 0,
-      temp int t_1030 = Timer.time + 1,
-      Timer.time = t_1030,
-      lup5.state = 0;
+      temp byte t_1042 = Timer.time + 1,
+      Timer.time = t_1042,
+      lup6.state = 0;
 
-  process Timer_lup5
+  process Timer_lup6 
     guardBlock
-      temp bool t_1031 = Timer.state == 0,
-      temp bool t_1032 = Timer.time == 5,
-      temp bool t_1033 = t_1031 and t_1032,
-      temp bool t_1034 = lup5.state == 0,
-      temp bool t_1035 = lup0.state == 2,
-      temp bool t_1036 = lup1.state == 2,
-      temp bool t_1037 = t_1035 or t_1036,
-      temp bool t_1038 = lup2.state == 2,
-      temp bool t_1039 = t_1037 or t_1038,
-      temp bool t_1040 = lup3.state == 2,
-      temp bool t_1041 = t_1039 or t_1040,
-      temp bool t_1042 = lup4.state == 2,
-      temp bool t_1043 = t_1041 or t_1042,
-      temp bool t_1044 = lup5.state == 2,
-      temp bool t_1045 = t_1043 or t_1044,
-      temp bool t_1046 = lup6.state == 2,
-      temp bool t_1047 = t_1045 or t_1046,
-      temp bool t_1048 = lup7.state == 2,
+      temp bool t_1043 = Timer.state == 0,
+      temp bool t_1044 = Timer.time == 6,
+      temp bool t_1045 = t_1043 and t_1044,
+      temp bool t_1046 = lup6.state == 0,
+      temp bool t_1047 = lup0.state == 2,
+      temp bool t_1048 = lup1.state == 2,
       temp bool t_1049 = t_1047 or t_1048,
-      temp bool t_1050 = not t_1049,
-      temp bool t_1051 = t_1034 and t_1050,
-      temp bool t_1052 = t_1033 and t_1051;
-    guardCondition t_1052;
+      temp bool t_1050 = lup2.state == 2,
+      temp bool t_1051 = t_1049 or t_1050,
+      temp bool t_1052 = lup3.state == 2,
+      temp bool t_1053 = t_1051 or t_1052,
+      temp bool t_1054 = lup4.state == 2,
+      temp bool t_1055 = t_1053 or t_1054,
+      temp bool t_1056 = lup5.state == 2,
+      temp bool t_1057 = t_1055 or t_1056,
+      temp bool t_1058 = lup6.state == 2,
+      temp bool t_1059 = t_1057 or t_1058,
+      temp bool t_1060 = lup7.state == 2,
+      temp bool t_1061 = t_1059 or t_1060,
+      temp bool t_1062 = not t_1061,
+      temp bool t_1063 = t_1046 and t_1062,
+      temp bool t_1064 = t_1045 and t_1063;
+
+    guardCondition t_1064;
     effect
       Timer.state = 0,
-      temp int t_1053 = Timer.time + 1,
-      Timer.time = t_1053,
-      lup5.state = 2;
+      temp byte t_1065 = Timer.time + 1,
+      Timer.time = t_1065,
+      lup6.state = 2;
 
-  process Timer_lup5
+  process Timer_lup6 
     guardBlock
-      temp bool t_1054 = Timer.state == 0,
-      temp bool t_1055 = Timer.time == 5,
-      temp bool t_1056 = t_1054 and t_1055,
-      temp bool t_1057 = lup5.state == 0,
-      temp bool t_1058 = lup0.state == 2,
-      temp bool t_1059 = lup1.state == 2,
-      temp bool t_1060 = t_1058 or t_1059,
-      temp bool t_1061 = lup2.state == 2,
-      temp bool t_1062 = t_1060 or t_1061,
-      temp bool t_1063 = lup3.state == 2,
-      temp bool t_1064 = t_1062 or t_1063,
-      temp bool t_1065 = lup4.state == 2,
-      temp bool t_1066 = t_1064 or t_1065,
-      temp bool t_1067 = lup5.state == 2,
-      temp bool t_1068 = t_1066 or t_1067,
-      temp bool t_1069 = lup6.state == 2,
-      temp bool t_1070 = t_1068 or t_1069,
-      temp bool t_1071 = lup7.state == 2,
+      temp bool t_1066 = Timer.state == 0,
+      temp bool t_1067 = Timer.time == 6,
+      temp bool t_1068 = t_1066 and t_1067,
+      temp bool t_1069 = lup6.state == 0,
+      temp bool t_1070 = lup0.state == 2,
+      temp bool t_1071 = lup1.state == 2,
       temp bool t_1072 = t_1070 or t_1071,
-      temp bool t_1073 = t_1057 and t_1072,
-      temp bool t_1074 = t_1056 and t_1073;
-    guardCondition t_1074;
-    effect
-      Timer.state = 0,
-      temp int t_1075 = Timer.time + 1,
-      Timer.time = t_1075,
-      lup5.state = 1;
-
-  process Timer_lup5
-    guardBlock
-      temp bool t_1076 = Timer.state == 0,
-      temp bool t_1077 = Timer.time == 5,
-      temp bool t_1078 = t_1076 and t_1077,
-      temp bool t_1079 = lup5.state == 1,
-      temp bool t_1080 = lup0.state == 2,
-      temp bool t_1081 = lup1.state == 2,
+      temp bool t_1073 = lup2.state == 2,
+      temp bool t_1074 = t_1072 or t_1073,
+      temp bool t_1075 = lup3.state == 2,
+      temp bool t_1076 = t_1074 or t_1075,
+      temp bool t_1077 = lup4.state == 2,
+      temp bool t_1078 = t_1076 or t_1077,
+      temp bool t_1079 = lup5.state == 2,
+      temp bool t_1080 = t_1078 or t_1079,
+      temp bool t_1081 = lup6.state == 2,
       temp bool t_1082 = t_1080 or t_1081,
-      temp bool t_1083 = lup2.state == 2,
+      temp bool t_1083 = lup7.state == 2,
       temp bool t_1084 = t_1082 or t_1083,
-      temp bool t_1085 = lup3.state == 2,
-      temp bool t_1086 = t_1084 or t_1085,
-      temp bool t_1087 = lup4.state == 2,
-      temp bool t_1088 = t_1086 or t_1087,
-      temp bool t_1089 = lup5.state == 2,
-      temp bool t_1090 = t_1088 or t_1089,
-      temp bool t_1091 = lup6.state == 2,
-      temp bool t_1092 = t_1090 or t_1091,
-      temp bool t_1093 = lup7.state == 2,
+      temp bool t_1085 = t_1069 and t_1084,
+      temp bool t_1086 = t_1068 and t_1085;
+
+    guardCondition t_1086;
+    effect
+      Timer.state = 0,
+      temp byte t_1087 = Timer.time + 1,
+      Timer.time = t_1087,
+      lup6.state = 1;
+
+  process Timer_lup6 
+    guardBlock
+      temp bool t_1088 = Timer.state == 0,
+      temp bool t_1089 = Timer.time == 6,
+      temp bool t_1090 = t_1088 and t_1089,
+      temp bool t_1091 = lup6.state == 1,
+      temp bool t_1092 = lup0.state == 2,
+      temp bool t_1093 = lup1.state == 2,
       temp bool t_1094 = t_1092 or t_1093,
-      temp bool t_1095 = t_1079 and t_1094,
-      temp bool t_1096 = t_1078 and t_1095;
-    guardCondition t_1096;
-    effect
-      Timer.state = 0,
-      temp int t_1097 = Timer.time + 1,
-      Timer.time = t_1097,
-      lup5.state = 1;
-
-  process Timer_lup5
-    guardBlock
-      temp bool t_1098 = Timer.state == 0,
-      temp bool t_1099 = Timer.time == 5,
-      temp bool t_1100 = t_1098 and t_1099,
-      temp bool t_1101 = lup5.state == 1,
-      temp bool t_1102 = lup0.state == 2,
-      temp bool t_1103 = lup1.state == 2,
+      temp bool t_1095 = lup2.state == 2,
+      temp bool t_1096 = t_1094 or t_1095,
+      temp bool t_1097 = lup3.state == 2,
+      temp bool t_1098 = t_1096 or t_1097,
+      temp bool t_1099 = lup4.state == 2,
+      temp bool t_1100 = t_1098 or t_1099,
+      temp bool t_1101 = lup5.state == 2,
+      temp bool t_1102 = t_1100 or t_1101,
+      temp bool t_1103 = lup6.state == 2,
       temp bool t_1104 = t_1102 or t_1103,
-      temp bool t_1105 = lup2.state == 2,
+      temp bool t_1105 = lup7.state == 2,
       temp bool t_1106 = t_1104 or t_1105,
-      temp bool t_1107 = lup3.state == 2,
-      temp bool t_1108 = t_1106 or t_1107,
-      temp bool t_1109 = lup4.state == 2,
-      temp bool t_1110 = t_1108 or t_1109,
-      temp bool t_1111 = lup5.state == 2,
-      temp bool t_1112 = t_1110 or t_1111,
-      temp bool t_1113 = lup6.state == 2,
-      temp bool t_1114 = t_1112 or t_1113,
-      temp bool t_1115 = lup7.state == 2,
+      temp bool t_1107 = t_1091 and t_1106,
+      temp bool t_1108 = t_1090 and t_1107;
+
+    guardCondition t_1108;
+    effect
+      Timer.state = 0,
+      temp byte t_1109 = Timer.time + 1,
+      Timer.time = t_1109,
+      lup6.state = 1;
+
+  process Timer_lup6 
+    guardBlock
+      temp bool t_1110 = Timer.state == 0,
+      temp bool t_1111 = Timer.time == 6,
+      temp bool t_1112 = t_1110 and t_1111,
+      temp bool t_1113 = lup6.state == 1,
+      temp bool t_1114 = lup0.state == 2,
+      temp bool t_1115 = lup1.state == 2,
       temp bool t_1116 = t_1114 or t_1115,
-      temp bool t_1117 = not t_1116,
-      temp bool t_1118 = t_1101 and t_1117,
-      temp bool t_1119 = t_1100 and t_1118;
-    guardCondition t_1119;
-    effect
-      Timer.state = 0,
-      temp int t_1120 = Timer.time + 1,
-      Timer.time = t_1120,
-      lup5.state = 2;
+      temp bool t_1117 = lup2.state == 2,
+      temp bool t_1118 = t_1116 or t_1117,
+      temp bool t_1119 = lup3.state == 2,
+      temp bool t_1120 = t_1118 or t_1119,
+      temp bool t_1121 = lup4.state == 2,
+      temp bool t_1122 = t_1120 or t_1121,
+      temp bool t_1123 = lup5.state == 2,
+      temp bool t_1124 = t_1122 or t_1123,
+      temp bool t_1125 = lup6.state == 2,
+      temp bool t_1126 = t_1124 or t_1125,
+      temp bool t_1127 = lup7.state == 2,
+      temp bool t_1128 = t_1126 or t_1127,
+      temp bool t_1129 = not t_1128,
+      temp bool t_1130 = t_1113 and t_1129,
+      temp bool t_1131 = t_1112 and t_1130;
 
-  process Timer_lup5
-    guardBlock
-      temp bool t_1121 = Timer.state == 0,
-      temp bool t_1122 = Timer.time == 5,
-      temp bool t_1123 = t_1121 and t_1122,
-      temp bool t_1124 = lup5.state == 2,
-      temp bool t_1125 = t_1123 and t_1124;
-    guardCondition t_1125;
-    effect
-      Timer.state = 0,
-      temp int t_1126 = Timer.time + 1,
-      Timer.time = t_1126,
-      lup5.state = 3;
-
-  process Timer_lup5
-    guardBlock
-      temp bool t_1127 = Timer.state == 0,
-      temp bool t_1128 = Timer.time == 5,
-      temp bool t_1129 = t_1127 and t_1128,
-      temp bool t_1130 = lup5.state == 3,
-      temp bool t_1131 = t_1129 and t_1130;
     guardCondition t_1131;
     effect
       Timer.state = 0,
-      temp int t_1132 = Timer.time + 1,
+      temp byte t_1132 = Timer.time + 1,
       Timer.time = t_1132,
-      lup5.state = 4;
+      lup6.state = 2;
 
-  process Timer_lup5
+  process Timer_lup6 
     guardBlock
       temp bool t_1133 = Timer.state == 0,
-      temp bool t_1134 = Timer.time == 5,
+      temp bool t_1134 = Timer.time == 6,
       temp bool t_1135 = t_1133 and t_1134,
-      temp bool t_1136 = lup5.state == 4,
+      temp bool t_1136 = lup6.state == 2,
       temp bool t_1137 = t_1135 and t_1136;
+
     guardCondition t_1137;
     effect
       Timer.state = 0,
-      temp int t_1138 = Timer.time + 1,
+      temp byte t_1138 = Timer.time + 1,
       Timer.time = t_1138,
-      lup5.state = 5;
+      lup6.state = 3;
 
-  process Timer_lup5
+  process Timer_lup6 
     guardBlock
       temp bool t_1139 = Timer.state == 0,
-      temp bool t_1140 = Timer.time == 5,
+      temp bool t_1140 = Timer.time == 6,
       temp bool t_1141 = t_1139 and t_1140,
-      temp bool t_1142 = lup5.state == 5,
+      temp bool t_1142 = lup6.state == 3,
       temp bool t_1143 = t_1141 and t_1142;
+
     guardCondition t_1143;
     effect
       Timer.state = 0,
-      temp int t_1144 = Timer.time + 1,
+      temp byte t_1144 = Timer.time + 1,
       Timer.time = t_1144,
-      lup5.state = 5;
+      lup6.state = 4;
 
-  process Timer_lup5
+  process Timer_lup6 
     guardBlock
       temp bool t_1145 = Timer.state == 0,
-      temp bool t_1146 = Timer.time == 5,
+      temp bool t_1146 = Timer.time == 6,
       temp bool t_1147 = t_1145 and t_1146,
-      temp bool t_1148 = lup5.state == 5,
+      temp bool t_1148 = lup6.state == 4,
       temp bool t_1149 = t_1147 and t_1148;
+
     guardCondition t_1149;
     effect
       Timer.state = 0,
-      temp int t_1150 = Timer.time + 1,
+      temp byte t_1150 = Timer.time + 1,
       Timer.time = t_1150,
-      lup5.state = 0;
+      lup6.state = 5;
 
-  process Timer_lup5
+  process Timer_lup6 
     guardBlock
       temp bool t_1151 = Timer.state == 0,
-      temp bool t_1152 = Timer.time == 5,
+      temp bool t_1152 = Timer.time == 6,
       temp bool t_1153 = t_1151 and t_1152,
-      temp bool t_1154 = lup5.state == 5,
-      temp bool t_1155 = lup0.state == 2,
-      temp bool t_1156 = lup1.state == 2,
-      temp bool t_1157 = t_1155 or t_1156,
-      temp bool t_1158 = lup2.state == 2,
-      temp bool t_1159 = t_1157 or t_1158,
-      temp bool t_1160 = lup3.state == 2,
-      temp bool t_1161 = t_1159 or t_1160,
-      temp bool t_1162 = lup4.state == 2,
-      temp bool t_1163 = t_1161 or t_1162,
-      temp bool t_1164 = lup5.state == 2,
-      temp bool t_1165 = t_1163 or t_1164,
-      temp bool t_1166 = lup6.state == 2,
-      temp bool t_1167 = t_1165 or t_1166,
-      temp bool t_1168 = lup7.state == 2,
+      temp bool t_1154 = lup6.state == 5,
+      temp bool t_1155 = t_1153 and t_1154;
+
+    guardCondition t_1155;
+    effect
+      Timer.state = 0,
+      temp byte t_1156 = Timer.time + 1,
+      Timer.time = t_1156,
+      lup6.state = 5;
+
+  process Timer_lup6 
+    guardBlock
+      temp bool t_1157 = Timer.state == 0,
+      temp bool t_1158 = Timer.time == 6,
+      temp bool t_1159 = t_1157 and t_1158,
+      temp bool t_1160 = lup6.state == 5,
+      temp bool t_1161 = t_1159 and t_1160;
+
+    guardCondition t_1161;
+    effect
+      Timer.state = 0,
+      temp byte t_1162 = Timer.time + 1,
+      Timer.time = t_1162,
+      lup6.state = 0;
+
+  process Timer_lup6 
+    guardBlock
+      temp bool t_1163 = Timer.state == 0,
+      temp bool t_1164 = Timer.time == 6,
+      temp bool t_1165 = t_1163 and t_1164,
+      temp bool t_1166 = lup6.state == 5,
+      temp bool t_1167 = lup0.state == 2,
+      temp bool t_1168 = lup1.state == 2,
       temp bool t_1169 = t_1167 or t_1168,
-      temp bool t_1170 = not t_1169,
-      temp bool t_1171 = t_1154 and t_1170,
-      temp bool t_1172 = t_1153 and t_1171;
-    guardCondition t_1172;
+      temp bool t_1170 = lup2.state == 2,
+      temp bool t_1171 = t_1169 or t_1170,
+      temp bool t_1172 = lup3.state == 2,
+      temp bool t_1173 = t_1171 or t_1172,
+      temp bool t_1174 = lup4.state == 2,
+      temp bool t_1175 = t_1173 or t_1174,
+      temp bool t_1176 = lup5.state == 2,
+      temp bool t_1177 = t_1175 or t_1176,
+      temp bool t_1178 = lup6.state == 2,
+      temp bool t_1179 = t_1177 or t_1178,
+      temp bool t_1180 = lup7.state == 2,
+      temp bool t_1181 = t_1179 or t_1180,
+      temp bool t_1182 = not t_1181,
+      temp bool t_1183 = t_1166 and t_1182,
+      temp bool t_1184 = t_1165 and t_1183;
+
+    guardCondition t_1184;
     effect
       Timer.state = 0,
-      temp int t_1173 = Timer.time + 1,
-      Timer.time = t_1173,
-      lup5.state = 2;
+      temp byte t_1185 = Timer.time + 1,
+      Timer.time = t_1185,
+      lup6.state = 2;
 
-  process Timer_lup5
+  process Timer_lup6 
     guardBlock
-      temp bool t_1174 = Timer.state == 0,
-      temp bool t_1175 = Timer.time == 5,
-      temp bool t_1176 = t_1174 and t_1175,
-      temp bool t_1177 = lup5.state == 5,
-      temp bool t_1178 = lup0.state == 2,
-      temp bool t_1179 = lup1.state == 2,
-      temp bool t_1180 = t_1178 or t_1179,
-      temp bool t_1181 = lup2.state == 2,
-      temp bool t_1182 = t_1180 or t_1181,
-      temp bool t_1183 = lup3.state == 2,
-      temp bool t_1184 = t_1182 or t_1183,
-      temp bool t_1185 = lup4.state == 2,
-      temp bool t_1186 = t_1184 or t_1185,
-      temp bool t_1187 = lup5.state == 2,
-      temp bool t_1188 = t_1186 or t_1187,
-      temp bool t_1189 = lup6.state == 2,
-      temp bool t_1190 = t_1188 or t_1189,
-      temp bool t_1191 = lup7.state == 2,
+      temp bool t_1186 = Timer.state == 0,
+      temp bool t_1187 = Timer.time == 6,
+      temp bool t_1188 = t_1186 and t_1187,
+      temp bool t_1189 = lup6.state == 5,
+      temp bool t_1190 = lup0.state == 2,
+      temp bool t_1191 = lup1.state == 2,
       temp bool t_1192 = t_1190 or t_1191,
-      temp bool t_1193 = t_1177 and t_1192,
-      temp bool t_1194 = t_1176 and t_1193;
-    guardCondition t_1194;
+      temp bool t_1193 = lup2.state == 2,
+      temp bool t_1194 = t_1192 or t_1193,
+      temp bool t_1195 = lup3.state == 2,
+      temp bool t_1196 = t_1194 or t_1195,
+      temp bool t_1197 = lup4.state == 2,
+      temp bool t_1198 = t_1196 or t_1197,
+      temp bool t_1199 = lup5.state == 2,
+      temp bool t_1200 = t_1198 or t_1199,
+      temp bool t_1201 = lup6.state == 2,
+      temp bool t_1202 = t_1200 or t_1201,
+      temp bool t_1203 = lup7.state == 2,
+      temp bool t_1204 = t_1202 or t_1203,
+      temp bool t_1205 = t_1189 and t_1204,
+      temp bool t_1206 = t_1188 and t_1205;
+
+    guardCondition t_1206;
     effect
       Timer.state = 0,
-      temp int t_1195 = Timer.time + 1,
-      Timer.time = t_1195,
-      lup5.state = 1;
+      temp byte t_1207 = Timer.time + 1,
+      Timer.time = t_1207,
+      lup6.state = 1;
 
-  process Timer_lup3
+  process Timer_lup7 
     guardBlock
-      temp bool t_1196 = Timer.state == 0,
-      temp bool t_1197 = Timer.time == 3,
-      temp bool t_1198 = t_1196 and t_1197,
-      temp bool t_1199 = lup3.state == 0,
-      temp bool t_1200 = t_1198 and t_1199;
-    guardCondition t_1200;
+      temp bool t_1208 = Timer.state == 0,
+      temp bool t_1209 = Timer.time == 7,
+      temp bool t_1210 = t_1208 and t_1209,
+      temp bool t_1211 = lup7.state == 0,
+      temp bool t_1212 = t_1210 and t_1211;
+
+    guardCondition t_1212;
     effect
       Timer.state = 0,
-      temp int t_1201 = Timer.time + 1,
-      Timer.time = t_1201,
-      lup3.state = 0;
+      Timer.time = 0,
+      lup7.state = 0;
 
-  process Timer_lup3
+  process Timer_lup7 
     guardBlock
-      temp bool t_1202 = Timer.state == 0,
-      temp bool t_1203 = Timer.time == 3,
-      temp bool t_1204 = t_1202 and t_1203,
-      temp bool t_1205 = lup3.state == 0,
-      temp bool t_1206 = lup0.state == 2,
-      temp bool t_1207 = lup1.state == 2,
-      temp bool t_1208 = t_1206 or t_1207,
-      temp bool t_1209 = lup2.state == 2,
-      temp bool t_1210 = t_1208 or t_1209,
-      temp bool t_1211 = lup3.state == 2,
-      temp bool t_1212 = t_1210 or t_1211,
-      temp bool t_1213 = lup4.state == 2,
-      temp bool t_1214 = t_1212 or t_1213,
-      temp bool t_1215 = lup5.state == 2,
-      temp bool t_1216 = t_1214 or t_1215,
-      temp bool t_1217 = lup6.state == 2,
-      temp bool t_1218 = t_1216 or t_1217,
-      temp bool t_1219 = lup7.state == 2,
-      temp bool t_1220 = t_1218 or t_1219,
-      temp bool t_1221 = not t_1220,
-      temp bool t_1222 = t_1205 and t_1221,
-      temp bool t_1223 = t_1204 and t_1222;
-    guardCondition t_1223;
-    effect
-      Timer.state = 0,
-      temp int t_1224 = Timer.time + 1,
-      Timer.time = t_1224,
-      lup3.state = 2;
-
-  process Timer_lup3
-    guardBlock
-      temp bool t_1225 = Timer.state == 0,
-      temp bool t_1226 = Timer.time == 3,
-      temp bool t_1227 = t_1225 and t_1226,
-      temp bool t_1228 = lup3.state == 0,
-      temp bool t_1229 = lup0.state == 2,
-      temp bool t_1230 = lup1.state == 2,
+      temp bool t_1213 = Timer.state == 0,
+      temp bool t_1214 = Timer.time == 7,
+      temp bool t_1215 = t_1213 and t_1214,
+      temp bool t_1216 = lup7.state == 0,
+      temp bool t_1217 = lup0.state == 2,
+      temp bool t_1218 = lup1.state == 2,
+      temp bool t_1219 = t_1217 or t_1218,
+      temp bool t_1220 = lup2.state == 2,
+      temp bool t_1221 = t_1219 or t_1220,
+      temp bool t_1222 = lup3.state == 2,
+      temp bool t_1223 = t_1221 or t_1222,
+      temp bool t_1224 = lup4.state == 2,
+      temp bool t_1225 = t_1223 or t_1224,
+      temp bool t_1226 = lup5.state == 2,
+      temp bool t_1227 = t_1225 or t_1226,
+      temp bool t_1228 = lup6.state == 2,
+      temp bool t_1229 = t_1227 or t_1228,
+      temp bool t_1230 = lup7.state == 2,
       temp bool t_1231 = t_1229 or t_1230,
-      temp bool t_1232 = lup2.state == 2,
-      temp bool t_1233 = t_1231 or t_1232,
-      temp bool t_1234 = lup3.state == 2,
-      temp bool t_1235 = t_1233 or t_1234,
-      temp bool t_1236 = lup4.state == 2,
-      temp bool t_1237 = t_1235 or t_1236,
-      temp bool t_1238 = lup5.state == 2,
-      temp bool t_1239 = t_1237 or t_1238,
-      temp bool t_1240 = lup6.state == 2,
+      temp bool t_1232 = not t_1231,
+      temp bool t_1233 = t_1216 and t_1232,
+      temp bool t_1234 = t_1215 and t_1233;
+
+    guardCondition t_1234;
+    effect
+      Timer.state = 0,
+      Timer.time = 0,
+      lup7.state = 2;
+
+  process Timer_lup7 
+    guardBlock
+      temp bool t_1235 = Timer.state == 0,
+      temp bool t_1236 = Timer.time == 7,
+      temp bool t_1237 = t_1235 and t_1236,
+      temp bool t_1238 = lup7.state == 0,
+      temp bool t_1239 = lup0.state == 2,
+      temp bool t_1240 = lup1.state == 2,
       temp bool t_1241 = t_1239 or t_1240,
-      temp bool t_1242 = lup7.state == 2,
+      temp bool t_1242 = lup2.state == 2,
       temp bool t_1243 = t_1241 or t_1242,
-      temp bool t_1244 = t_1228 and t_1243,
-      temp bool t_1245 = t_1227 and t_1244;
-    guardCondition t_1245;
-    effect
-      Timer.state = 0,
-      temp int t_1246 = Timer.time + 1,
-      Timer.time = t_1246,
-      lup3.state = 1;
-
-  process Timer_lup3
-    guardBlock
-      temp bool t_1247 = Timer.state == 0,
-      temp bool t_1248 = Timer.time == 3,
-      temp bool t_1249 = t_1247 and t_1248,
-      temp bool t_1250 = lup3.state == 1,
-      temp bool t_1251 = lup0.state == 2,
-      temp bool t_1252 = lup1.state == 2,
+      temp bool t_1244 = lup3.state == 2,
+      temp bool t_1245 = t_1243 or t_1244,
+      temp bool t_1246 = lup4.state == 2,
+      temp bool t_1247 = t_1245 or t_1246,
+      temp bool t_1248 = lup5.state == 2,
+      temp bool t_1249 = t_1247 or t_1248,
+      temp bool t_1250 = lup6.state == 2,
+      temp bool t_1251 = t_1249 or t_1250,
+      temp bool t_1252 = lup7.state == 2,
       temp bool t_1253 = t_1251 or t_1252,
-      temp bool t_1254 = lup2.state == 2,
-      temp bool t_1255 = t_1253 or t_1254,
-      temp bool t_1256 = lup3.state == 2,
-      temp bool t_1257 = t_1255 or t_1256,
-      temp bool t_1258 = lup4.state == 2,
-      temp bool t_1259 = t_1257 or t_1258,
-      temp bool t_1260 = lup5.state == 2,
-      temp bool t_1261 = t_1259 or t_1260,
-      temp bool t_1262 = lup6.state == 2,
-      temp bool t_1263 = t_1261 or t_1262,
-      temp bool t_1264 = lup7.state == 2,
-      temp bool t_1265 = t_1263 or t_1264,
-      temp bool t_1266 = t_1250 and t_1265,
-      temp bool t_1267 = t_1249 and t_1266;
-    guardCondition t_1267;
+      temp bool t_1254 = t_1238 and t_1253,
+      temp bool t_1255 = t_1237 and t_1254;
+
+    guardCondition t_1255;
     effect
       Timer.state = 0,
-      temp int t_1268 = Timer.time + 1,
-      Timer.time = t_1268,
-      lup3.state = 1;
+      Timer.time = 0,
+      lup7.state = 1;
 
-  process Timer_lup3
+  process Timer_lup7 
     guardBlock
-      temp bool t_1269 = Timer.state == 0,
-      temp bool t_1270 = Timer.time == 3,
-      temp bool t_1271 = t_1269 and t_1270,
-      temp bool t_1272 = lup3.state == 1,
-      temp bool t_1273 = lup0.state == 2,
-      temp bool t_1274 = lup1.state == 2,
-      temp bool t_1275 = t_1273 or t_1274,
-      temp bool t_1276 = lup2.state == 2,
-      temp bool t_1277 = t_1275 or t_1276,
-      temp bool t_1278 = lup3.state == 2,
-      temp bool t_1279 = t_1277 or t_1278,
-      temp bool t_1280 = lup4.state == 2,
-      temp bool t_1281 = t_1279 or t_1280,
-      temp bool t_1282 = lup5.state == 2,
+      temp bool t_1256 = Timer.state == 0,
+      temp bool t_1257 = Timer.time == 7,
+      temp bool t_1258 = t_1256 and t_1257,
+      temp bool t_1259 = lup7.state == 1,
+      temp bool t_1260 = lup0.state == 2,
+      temp bool t_1261 = lup1.state == 2,
+      temp bool t_1262 = t_1260 or t_1261,
+      temp bool t_1263 = lup2.state == 2,
+      temp bool t_1264 = t_1262 or t_1263,
+      temp bool t_1265 = lup3.state == 2,
+      temp bool t_1266 = t_1264 or t_1265,
+      temp bool t_1267 = lup4.state == 2,
+      temp bool t_1268 = t_1266 or t_1267,
+      temp bool t_1269 = lup5.state == 2,
+      temp bool t_1270 = t_1268 or t_1269,
+      temp bool t_1271 = lup6.state == 2,
+      temp bool t_1272 = t_1270 or t_1271,
+      temp bool t_1273 = lup7.state == 2,
+      temp bool t_1274 = t_1272 or t_1273,
+      temp bool t_1275 = t_1259 and t_1274,
+      temp bool t_1276 = t_1258 and t_1275;
+
+    guardCondition t_1276;
+    effect
+      Timer.state = 0,
+      Timer.time = 0,
+      lup7.state = 1;
+
+  process Timer_lup7 
+    guardBlock
+      temp bool t_1277 = Timer.state == 0,
+      temp bool t_1278 = Timer.time == 7,
+      temp bool t_1279 = t_1277 and t_1278,
+      temp bool t_1280 = lup7.state == 1,
+      temp bool t_1281 = lup0.state == 2,
+      temp bool t_1282 = lup1.state == 2,
       temp bool t_1283 = t_1281 or t_1282,
-      temp bool t_1284 = lup6.state == 2,
+      temp bool t_1284 = lup2.state == 2,
       temp bool t_1285 = t_1283 or t_1284,
-      temp bool t_1286 = lup7.state == 2,
+      temp bool t_1286 = lup3.state == 2,
       temp bool t_1287 = t_1285 or t_1286,
-      temp bool t_1288 = not t_1287,
-      temp bool t_1289 = t_1272 and t_1288,
-      temp bool t_1290 = t_1271 and t_1289;
-    guardCondition t_1290;
+      temp bool t_1288 = lup4.state == 2,
+      temp bool t_1289 = t_1287 or t_1288,
+      temp bool t_1290 = lup5.state == 2,
+      temp bool t_1291 = t_1289 or t_1290,
+      temp bool t_1292 = lup6.state == 2,
+      temp bool t_1293 = t_1291 or t_1292,
+      temp bool t_1294 = lup7.state == 2,
+      temp bool t_1295 = t_1293 or t_1294,
+      temp bool t_1296 = not t_1295,
+      temp bool t_1297 = t_1280 and t_1296,
+      temp bool t_1298 = t_1279 and t_1297;
+
+    guardCondition t_1298;
     effect
       Timer.state = 0,
-      temp int t_1291 = Timer.time + 1,
-      Timer.time = t_1291,
-      lup3.state = 2;
+      Timer.time = 0,
+      lup7.state = 2;
 
-  process Timer_lup3
+  process Timer_lup7 
     guardBlock
-      temp bool t_1292 = Timer.state == 0,
-      temp bool t_1293 = Timer.time == 3,
-      temp bool t_1294 = t_1292 and t_1293,
-      temp bool t_1295 = lup3.state == 2,
-      temp bool t_1296 = t_1294 and t_1295;
-    guardCondition t_1296;
+      temp bool t_1299 = Timer.state == 0,
+      temp bool t_1300 = Timer.time == 7,
+      temp bool t_1301 = t_1299 and t_1300,
+      temp bool t_1302 = lup7.state == 2,
+      temp bool t_1303 = t_1301 and t_1302;
+
+    guardCondition t_1303;
     effect
       Timer.state = 0,
-      temp int t_1297 = Timer.time + 1,
-      Timer.time = t_1297,
-      lup3.state = 3;
+      Timer.time = 0,
+      lup7.state = 3;
 
-  process Timer_lup3
-    guardBlock
-      temp bool t_1298 = Timer.state == 0,
-      temp bool t_1299 = Timer.time == 3,
-      temp bool t_1300 = t_1298 and t_1299,
-      temp bool t_1301 = lup3.state == 3,
-      temp bool t_1302 = t_1300 and t_1301;
-    guardCondition t_1302;
-    effect
-      Timer.state = 0,
-      temp int t_1303 = Timer.time + 1,
-      Timer.time = t_1303,
-      lup3.state = 4;
-
-  process Timer_lup3
+  process Timer_lup7 
     guardBlock
       temp bool t_1304 = Timer.state == 0,
-      temp bool t_1305 = Timer.time == 3,
+      temp bool t_1305 = Timer.time == 7,
       temp bool t_1306 = t_1304 and t_1305,
-      temp bool t_1307 = lup3.state == 4,
+      temp bool t_1307 = lup7.state == 3,
       temp bool t_1308 = t_1306 and t_1307;
+
     guardCondition t_1308;
     effect
       Timer.state = 0,
-      temp int t_1309 = Timer.time + 1,
-      Timer.time = t_1309,
-      lup3.state = 5;
+      Timer.time = 0,
+      lup7.state = 4;
 
-  process Timer_lup3
+  process Timer_lup7 
     guardBlock
-      temp bool t_1310 = Timer.state == 0,
-      temp bool t_1311 = Timer.time == 3,
-      temp bool t_1312 = t_1310 and t_1311,
-      temp bool t_1313 = lup3.state == 5,
-      temp bool t_1314 = t_1312 and t_1313;
-    guardCondition t_1314;
+      temp bool t_1309 = Timer.state == 0,
+      temp bool t_1310 = Timer.time == 7,
+      temp bool t_1311 = t_1309 and t_1310,
+      temp bool t_1312 = lup7.state == 4,
+      temp bool t_1313 = t_1311 and t_1312;
+
+    guardCondition t_1313;
     effect
       Timer.state = 0,
-      temp int t_1315 = Timer.time + 1,
-      Timer.time = t_1315,
-      lup3.state = 5;
+      Timer.time = 0,
+      lup7.state = 5;
 
-  process Timer_lup3
+  process Timer_lup7 
     guardBlock
-      temp bool t_1316 = Timer.state == 0,
-      temp bool t_1317 = Timer.time == 3,
-      temp bool t_1318 = t_1316 and t_1317,
-      temp bool t_1319 = lup3.state == 5,
-      temp bool t_1320 = t_1318 and t_1319;
-    guardCondition t_1320;
+      temp bool t_1314 = Timer.state == 0,
+      temp bool t_1315 = Timer.time == 7,
+      temp bool t_1316 = t_1314 and t_1315,
+      temp bool t_1317 = lup7.state == 5,
+      temp bool t_1318 = t_1316 and t_1317;
+
+    guardCondition t_1318;
     effect
       Timer.state = 0,
-      temp int t_1321 = Timer.time + 1,
-      Timer.time = t_1321,
-      lup3.state = 0;
+      Timer.time = 0,
+      lup7.state = 5;
 
-  process Timer_lup3
+  process Timer_lup7 
     guardBlock
-      temp bool t_1322 = Timer.state == 0,
-      temp bool t_1323 = Timer.time == 3,
-      temp bool t_1324 = t_1322 and t_1323,
-      temp bool t_1325 = lup3.state == 5,
-      temp bool t_1326 = lup0.state == 2,
-      temp bool t_1327 = lup1.state == 2,
-      temp bool t_1328 = t_1326 or t_1327,
-      temp bool t_1329 = lup2.state == 2,
+      temp bool t_1319 = Timer.state == 0,
+      temp bool t_1320 = Timer.time == 7,
+      temp bool t_1321 = t_1319 and t_1320,
+      temp bool t_1322 = lup7.state == 5,
+      temp bool t_1323 = t_1321 and t_1322;
+
+    guardCondition t_1323;
+    effect
+      Timer.state = 0,
+      Timer.time = 0,
+      lup7.state = 0;
+
+  process Timer_lup7 
+    guardBlock
+      temp bool t_1324 = Timer.state == 0,
+      temp bool t_1325 = Timer.time == 7,
+      temp bool t_1326 = t_1324 and t_1325,
+      temp bool t_1327 = lup7.state == 5,
+      temp bool t_1328 = lup0.state == 2,
+      temp bool t_1329 = lup1.state == 2,
       temp bool t_1330 = t_1328 or t_1329,
-      temp bool t_1331 = lup3.state == 2,
+      temp bool t_1331 = lup2.state == 2,
       temp bool t_1332 = t_1330 or t_1331,
-      temp bool t_1333 = lup4.state == 2,
+      temp bool t_1333 = lup3.state == 2,
       temp bool t_1334 = t_1332 or t_1333,
-      temp bool t_1335 = lup5.state == 2,
+      temp bool t_1335 = lup4.state == 2,
       temp bool t_1336 = t_1334 or t_1335,
-      temp bool t_1337 = lup6.state == 2,
+      temp bool t_1337 = lup5.state == 2,
       temp bool t_1338 = t_1336 or t_1337,
-      temp bool t_1339 = lup7.state == 2,
+      temp bool t_1339 = lup6.state == 2,
       temp bool t_1340 = t_1338 or t_1339,
-      temp bool t_1341 = not t_1340,
-      temp bool t_1342 = t_1325 and t_1341,
-      temp bool t_1343 = t_1324 and t_1342;
-    guardCondition t_1343;
-    effect
-      Timer.state = 0,
-      temp int t_1344 = Timer.time + 1,
-      Timer.time = t_1344,
-      lup3.state = 2;
+      temp bool t_1341 = lup7.state == 2,
+      temp bool t_1342 = t_1340 or t_1341,
+      temp bool t_1343 = not t_1342,
+      temp bool t_1344 = t_1327 and t_1343,
+      temp bool t_1345 = t_1326 and t_1344;
 
-  process Timer_lup3
-    guardBlock
-      temp bool t_1345 = Timer.state == 0,
-      temp bool t_1346 = Timer.time == 3,
-      temp bool t_1347 = t_1345 and t_1346,
-      temp bool t_1348 = lup3.state == 5,
-      temp bool t_1349 = lup0.state == 2,
-      temp bool t_1350 = lup1.state == 2,
-      temp bool t_1351 = t_1349 or t_1350,
-      temp bool t_1352 = lup2.state == 2,
-      temp bool t_1353 = t_1351 or t_1352,
-      temp bool t_1354 = lup3.state == 2,
-      temp bool t_1355 = t_1353 or t_1354,
-      temp bool t_1356 = lup4.state == 2,
-      temp bool t_1357 = t_1355 or t_1356,
-      temp bool t_1358 = lup5.state == 2,
-      temp bool t_1359 = t_1357 or t_1358,
-      temp bool t_1360 = lup6.state == 2,
-      temp bool t_1361 = t_1359 or t_1360,
-      temp bool t_1362 = lup7.state == 2,
-      temp bool t_1363 = t_1361 or t_1362,
-      temp bool t_1364 = t_1348 and t_1363,
-      temp bool t_1365 = t_1347 and t_1364;
-    guardCondition t_1365;
+    guardCondition t_1345;
     effect
       Timer.state = 0,
-      temp int t_1366 = Timer.time + 1,
-      Timer.time = t_1366,
-      lup3.state = 1;
-      // accepting conditions
-      // LTL_property.state == 1
+      Timer.time = 0,
+      lup7.state = 2;
+
+  process Timer_lup7 
+    guardBlock
+      temp bool t_1346 = Timer.state == 0,
+      temp bool t_1347 = Timer.time == 7,
+      temp bool t_1348 = t_1346 and t_1347,
+      temp bool t_1349 = lup7.state == 5,
+      temp bool t_1350 = lup0.state == 2,
+      temp bool t_1351 = lup1.state == 2,
+      temp bool t_1352 = t_1350 or t_1351,
+      temp bool t_1353 = lup2.state == 2,
+      temp bool t_1354 = t_1352 or t_1353,
+      temp bool t_1355 = lup3.state == 2,
+      temp bool t_1356 = t_1354 or t_1355,
+      temp bool t_1357 = lup4.state == 2,
+      temp bool t_1358 = t_1356 or t_1357,
+      temp bool t_1359 = lup5.state == 2,
+      temp bool t_1360 = t_1358 or t_1359,
+      temp bool t_1361 = lup6.state == 2,
+      temp bool t_1362 = t_1360 or t_1361,
+      temp bool t_1363 = lup7.state == 2,
+      temp bool t_1364 = t_1362 or t_1363,
+      temp bool t_1365 = t_1349 and t_1364,
+      temp bool t_1366 = t_1348 and t_1365;
+
+    guardCondition t_1366;
+    effect
+      Timer.state = 0,
+      Timer.time = 0,
+      lup7.state = 1;
+
+accepting conditions
+  LTL_property.state == 1
+

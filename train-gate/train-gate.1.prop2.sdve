@@ -4,104 +4,112 @@ state {Start(0), Shiftdown(1)} IntQueue.state = 0;
 state {Safe(0), Stop(1), Cross(2), Appr(3), Start(4)} Train_1.state = 0;
 state {Safe(0), Stop(1), Cross(2), Appr(3), Start(4)} Train_2.state = 0;
 state {q1(0), q2(1)} LTL_property.state = 0;
-byte e[4] =  {0, 0, 0};
+byte e[3] = {0, 0, 0};
 byte x = 0;
 byte max_x_1 = 0;
 byte max_x_2 = 0;
-byte IntQueue.list[4] =  {0, 0, 0};
+byte IntQueue.list[3] = {0, 0, 0};
 byte IntQueue.len = 0;
 byte IntQueue.i = 0;
 
-  process Clock
+  process Clock 
     guardBlock
       temp bool t_0 = Clock.state == 0,
       temp bool t_1 = x <= max_x_2,
       temp bool t_2 = x <= max_x_1,
       temp bool t_3 = t_1 and t_2,
       temp bool t_4 = t_0 and t_3;
+
     guardCondition t_4;
     effect
       Clock.state = 0,
-      temp int t_5 = x + 1,
+      temp byte t_5 = x + 1,
       x = t_5;
 
-  process IntQueue
+  process IntQueue 
     guardBlock
       temp bool t_6 = IntQueue.state == 1,
       temp bool t_7 = IntQueue.i < IntQueue.len,
       temp bool t_8 = t_6 and t_7;
+
     guardCondition t_8;
     effect
       IntQueue.state = 1,
-      temp int t_9 = IntQueue.i + 1,
+      temp byte t_9 = IntQueue.i + 1,
       temp byte t_10 = IntQueue.list[t_9],
       IntQueue.list[IntQueue.i] = t_10,
-      temp int t_11 = IntQueue.i + 1,
+      temp byte t_11 = IntQueue.i + 1,
       IntQueue.i = t_11;
 
-  process IntQueue
+  process IntQueue 
     guardBlock
       temp bool t_12 = IntQueue.state == 1,
       temp bool t_13 = IntQueue.len == IntQueue.i,
       temp bool t_14 = t_12 and t_13;
+
     guardCondition t_14;
     effect
       IntQueue.state = 0,
       IntQueue.list[IntQueue.i] = 0,
       IntQueue.i = 0;
 
-  process Train_1
+  process Train_1 
     guardBlock
       temp bool t_15 = Train_1.state == 3,
       temp bool t_16 = x >= 10,
       temp bool t_17 = t_15 and t_16;
+
     guardCondition t_17;
     effect
       Train_1.state = 2,
       x = 0,
       max_x_1 = 5;
 
-  process Train_1
+  process Train_1 
     guardBlock
       temp bool t_18 = Train_1.state == 4,
       temp bool t_19 = x >= 5,
       temp bool t_20 = t_18 and t_19;
+
     guardCondition t_20;
     effect
       Train_1.state = 2,
       x = 0,
       max_x_1 = 5;
 
-  process Train_2
+  process Train_2 
     guardBlock
       temp bool t_21 = Train_2.state == 3,
       temp bool t_22 = x >= 10,
       temp bool t_23 = t_21 and t_22;
+
     guardCondition t_23;
     effect
       Train_2.state = 2,
       x = 0,
       max_x_2 = 5;
 
-  process Train_2
+  process Train_2 
     guardBlock
       temp bool t_24 = Train_2.state == 4,
       temp bool t_25 = x >= 5,
       temp bool t_26 = t_24 and t_25;
+
     guardCondition t_26;
     effect
       Train_2.state = 2,
       x = 0,
       max_x_2 = 5;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_27 = LTL_property.state == 0;
+
     guardCondition t_27;
     effect
       LTL_property.state = 0;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_28 = LTL_property.state == 0,
       temp bool t_29 = Train_1.state == 3,
@@ -109,217 +117,31 @@ byte IntQueue.i = 0;
       temp bool t_31 = not t_30,
       temp bool t_32 = t_29 and t_31,
       temp bool t_33 = t_28 and t_32;
+
     guardCondition t_33;
     effect
       LTL_property.state = 1;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_34 = LTL_property.state == 1,
       temp bool t_35 = Train_1.state == 2,
       temp bool t_36 = not t_35,
       temp bool t_37 = t_34 and t_36;
+
     guardCondition t_37;
     effect
       LTL_property.state = 1;
 
-  process IntQueue_Gate
+  process Train_1_Gate 
     guardBlock
-      temp bool t_38 = IntQueue.state == 0,
-      temp bool t_39 = IntQueue.len > 0,
+      temp bool t_38 = Train_1.state == 2,
+      temp bool t_39 = x >= 3,
       temp bool t_40 = t_38 and t_39,
-      temp bool t_41 = Gate.state == 7,
+      temp bool t_41 = Gate.state == 6,
       temp bool t_42 = t_40 and t_41;
+
     guardCondition t_42;
-    effect
-      IntQueue.state = 0,
-      Gate.state = 4;
-
-  process Gate_IntQueue
-    guardBlock
-      temp bool t_43 = Gate.state == 4,
-      temp bool t_44 = IntQueue.state == 0,
-      temp bool t_45 = t_43 and t_44;
-    guardCondition t_45;
-    effect
-      Gate.state = 8,
-      IntQueue.state = 0,
-      temp byte t_46 = IntQueue.list[0],
-      e = t_46;
-
-  process IntQueue_Gate
-    guardBlock
-      temp bool t_47 = IntQueue.state == 0,
-      temp bool t_48 = IntQueue.len >= 1,
-      temp bool t_49 = t_47 and t_48,
-      temp bool t_50 = Gate.state == 0,
-      temp bool t_51 = t_49 and t_50;
-    guardCondition t_51;
-    effect
-      IntQueue.state = 1,
-      temp int t_52 = IntQueue.len - 1,
-      IntQueue.len = t_52,
-      IntQueue.i = 0,
-      Gate.state = 7;
-
-  process Gate_Train_1
-    guardBlock
-      temp bool t_53 = Gate.state == 8,
-      temp bool t_54 = Train_1.state == 1,
-      temp bool t_55 = e == 1,
-      temp bool t_56 = t_54 and t_55,
-      temp bool t_57 = t_53 and t_56;
-    guardCondition t_57;
-    effect
-      Gate.state = 6,
-      Train_1.state = 4,
-      x = 0,
-      max_x_1 = 15;
-
-  process Gate_Train_2
-    guardBlock
-      temp bool t_58 = Gate.state == 8,
-      temp bool t_59 = Train_2.state == 1,
-      temp bool t_60 = e == 2,
-      temp bool t_61 = t_59 and t_60,
-      temp bool t_62 = t_58 and t_61;
-    guardCondition t_62;
-    effect
-      Gate.state = 6,
-      Train_2.state = 4,
-      x = 0,
-      max_x_2 = 15;
-
-  process Gate_Train_1
-    guardBlock
-      temp bool t_63 = Gate.state == 5,
-      temp bool t_64 = Train_1.state == 3,
-      temp bool t_65 = x <= 10,
-      temp bool t_66 = e == 1,
-      temp bool t_67 = t_65 and t_66,
-      temp bool t_68 = t_64 and t_67,
-      temp bool t_69 = t_63 and t_68;
-    guardCondition t_69;
-    effect
-      Gate.state = 1,
-      Train_1.state = 1,
-      x = 0,
-      max_x_1 = 25;
-
-  process Gate_Train_2
-    guardBlock
-      temp bool t_70 = Gate.state == 5,
-      temp bool t_71 = Train_2.state == 3,
-      temp bool t_72 = x <= 10,
-      temp bool t_73 = e == 2,
-      temp bool t_74 = t_72 and t_73,
-      temp bool t_75 = t_71 and t_74,
-      temp bool t_76 = t_70 and t_75;
-    guardCondition t_76;
-    effect
-      Gate.state = 1,
-      Train_2.state = 1,
-      x = 0,
-      max_x_2 = 25;
-
-  process Gate_IntQueue
-    guardBlock
-      temp bool t_77 = Gate.state == 2,
-      temp bool t_78 = IntQueue.state == 0,
-      temp bool t_79 = t_77 and t_78;
-    guardCondition t_79;
-    effect
-      Gate.state = 6,
-      IntQueue.state = 0,
-      IntQueue.list[IntQueue.len] = e,
-      temp int t_80 = IntQueue.len + 1,
-      IntQueue.len = t_80;
-
-  process Gate_IntQueue
-    guardBlock
-      temp bool t_81 = Gate.state == 1,
-      temp bool t_82 = IntQueue.state == 0,
-      temp bool t_83 = t_81 and t_82;
-    guardCondition t_83;
-    effect
-      Gate.state = 6,
-      IntQueue.state = 0,
-      IntQueue.list[IntQueue.len] = e,
-      temp int t_84 = IntQueue.len + 1,
-      IntQueue.len = t_84;
-
-  process Train_1_Gate
-    guardBlock
-      temp bool t_85 = Train_1.state == 0,
-      temp bool t_86 = Gate.state == 6,
-      temp bool t_87 = t_85 and t_86;
-    guardCondition t_87;
-    effect
-      Train_1.state = 3,
-      e = 1,
-      x = 0,
-      max_x_1 = 20,
-      Gate.state = 5;
-
-  process Train_1_Gate
-    guardBlock
-      temp bool t_88 = Train_1.state == 0,
-      temp bool t_89 = Gate.state == 3,
-      temp bool t_90 = t_88 and t_89;
-    guardCondition t_90;
-    effect
-      Train_1.state = 3,
-      e = 1,
-      x = 0,
-      max_x_1 = 20,
-      Gate.state = 2;
-
-  process Train_2_Gate
-    guardBlock
-      temp bool t_91 = Train_2.state == 0,
-      temp bool t_92 = Gate.state == 6,
-      temp bool t_93 = t_91 and t_92;
-    guardCondition t_93;
-    effect
-      Train_2.state = 3,
-      e = 2,
-      x = 0,
-      max_x_2 = 20,
-      Gate.state = 5;
-
-  process Train_2_Gate
-    guardBlock
-      temp bool t_94 = Train_2.state == 0,
-      temp bool t_95 = Gate.state == 3,
-      temp bool t_96 = t_94 and t_95;
-    guardCondition t_96;
-    effect
-      Train_2.state = 3,
-      e = 2,
-      x = 0,
-      max_x_2 = 20,
-      Gate.state = 2;
-
-  process IntQueue_Gate
-    guardBlock
-      temp bool t_97 = IntQueue.state == 0,
-      temp bool t_98 = IntQueue.len == 0,
-      temp bool t_99 = t_97 and t_98,
-      temp bool t_100 = Gate.state == 7,
-      temp bool t_101 = t_99 and t_100;
-    guardCondition t_101;
-    effect
-      IntQueue.state = 0,
-      Gate.state = 3;
-
-  process Train_1_Gate
-    guardBlock
-      temp bool t_102 = Train_1.state == 2,
-      temp bool t_103 = x >= 3,
-      temp bool t_104 = t_102 and t_103,
-      temp bool t_105 = Gate.state == 6,
-      temp bool t_106 = t_104 and t_105;
-    guardCondition t_106;
     effect
       Train_1.state = 0,
       e = 1,
@@ -327,19 +149,225 @@ byte IntQueue.i = 0;
       max_x_1 = 25,
       Gate.state = 0;
 
-  process Train_2_Gate
+  process Train_2_Gate 
     guardBlock
-      temp bool t_107 = Train_2.state == 2,
-      temp bool t_108 = x >= 3,
-      temp bool t_109 = t_107 and t_108,
-      temp bool t_110 = Gate.state == 6,
-      temp bool t_111 = t_109 and t_110;
-    guardCondition t_111;
+      temp bool t_43 = Train_2.state == 2,
+      temp bool t_44 = x >= 3,
+      temp bool t_45 = t_43 and t_44,
+      temp bool t_46 = Gate.state == 6,
+      temp bool t_47 = t_45 and t_46;
+
+    guardCondition t_47;
     effect
       Train_2.state = 0,
       e = 2,
       x = 0,
       max_x_2 = 25,
       Gate.state = 0;
-      // accepting conditions
-      // LTL_property.state == 1
+
+  process Gate_IntQueue 
+    guardBlock
+      temp bool t_48 = Gate.state == 2,
+      temp bool t_49 = IntQueue.state == 0,
+      temp bool t_50 = t_48 and t_49;
+
+    guardCondition t_50;
+    effect
+      Gate.state = 6,
+      IntQueue.state = 0,
+      IntQueue.list[IntQueue.len] = e,
+      temp byte t_51 = IntQueue.len + 1,
+      IntQueue.len = t_51;
+
+  process Gate_IntQueue 
+    guardBlock
+      temp bool t_52 = Gate.state == 1,
+      temp bool t_53 = IntQueue.state == 0,
+      temp bool t_54 = t_52 and t_53;
+
+    guardCondition t_54;
+    effect
+      Gate.state = 6,
+      IntQueue.state = 0,
+      IntQueue.list[IntQueue.len] = e,
+      temp byte t_55 = IntQueue.len + 1,
+      IntQueue.len = t_55;
+
+  process Gate_IntQueue 
+    guardBlock
+      temp bool t_56 = Gate.state == 4,
+      temp bool t_57 = IntQueue.state == 0,
+      temp bool t_58 = t_56 and t_57;
+
+    guardCondition t_58;
+    effect
+      Gate.state = 8,
+      IntQueue.state = 0,
+      temp byte t_59 = IntQueue.list[0],
+      e = t_59;
+
+  process IntQueue_Gate 
+    guardBlock
+      temp bool t_60 = IntQueue.state == 0,
+      temp bool t_61 = IntQueue.len > 0,
+      temp bool t_62 = t_60 and t_61,
+      temp bool t_63 = Gate.state == 7,
+      temp bool t_64 = t_62 and t_63;
+
+    guardCondition t_64;
+    effect
+      IntQueue.state = 0,
+      Gate.state = 4;
+
+  process Gate_Train_1 
+    guardBlock
+      temp bool t_65 = Gate.state == 8,
+      temp bool t_66 = Train_1.state == 1,
+      temp bool t_67 = e == 1,
+      temp bool t_68 = t_66 and t_67,
+      temp bool t_69 = t_65 and t_68;
+
+    guardCondition t_69;
+    effect
+      Gate.state = 6,
+      Train_1.state = 4,
+      x = 0,
+      max_x_1 = 15;
+
+  process Gate_Train_2 
+    guardBlock
+      temp bool t_70 = Gate.state == 8,
+      temp bool t_71 = Train_2.state == 1,
+      temp bool t_72 = e == 2,
+      temp bool t_73 = t_71 and t_72,
+      temp bool t_74 = t_70 and t_73;
+
+    guardCondition t_74;
+    effect
+      Gate.state = 6,
+      Train_2.state = 4,
+      x = 0,
+      max_x_2 = 15;
+
+  process IntQueue_Gate 
+    guardBlock
+      temp bool t_75 = IntQueue.state == 0,
+      temp bool t_76 = IntQueue.len >= 1,
+      temp bool t_77 = t_75 and t_76,
+      temp bool t_78 = Gate.state == 0,
+      temp bool t_79 = t_77 and t_78;
+
+    guardCondition t_79;
+    effect
+      IntQueue.state = 1,
+      temp byte t_80 = IntQueue.len - 1,
+      IntQueue.len = t_80,
+      IntQueue.i = 0,
+      Gate.state = 7;
+
+  process Gate_Train_1 
+    guardBlock
+      temp bool t_81 = Gate.state == 5,
+      temp bool t_82 = Train_1.state == 3,
+      temp bool t_83 = x <= 10,
+      temp bool t_84 = e == 1,
+      temp bool t_85 = t_83 and t_84,
+      temp bool t_86 = t_82 and t_85,
+      temp bool t_87 = t_81 and t_86;
+
+    guardCondition t_87;
+    effect
+      Gate.state = 1,
+      Train_1.state = 1,
+      x = 0,
+      max_x_1 = 25;
+
+  process Gate_Train_2 
+    guardBlock
+      temp bool t_88 = Gate.state == 5,
+      temp bool t_89 = Train_2.state == 3,
+      temp bool t_90 = x <= 10,
+      temp bool t_91 = e == 2,
+      temp bool t_92 = t_90 and t_91,
+      temp bool t_93 = t_89 and t_92,
+      temp bool t_94 = t_88 and t_93;
+
+    guardCondition t_94;
+    effect
+      Gate.state = 1,
+      Train_2.state = 1,
+      x = 0,
+      max_x_2 = 25;
+
+  process IntQueue_Gate 
+    guardBlock
+      temp bool t_95 = IntQueue.state == 0,
+      temp bool t_96 = IntQueue.len == 0,
+      temp bool t_97 = t_95 and t_96,
+      temp bool t_98 = Gate.state == 7,
+      temp bool t_99 = t_97 and t_98;
+
+    guardCondition t_99;
+    effect
+      IntQueue.state = 0,
+      Gate.state = 3;
+
+  process Train_1_Gate 
+    guardBlock
+      temp bool t_100 = Train_1.state == 0,
+      temp bool t_101 = Gate.state == 6,
+      temp bool t_102 = t_100 and t_101;
+
+    guardCondition t_102;
+    effect
+      Train_1.state = 3,
+      e = 1,
+      x = 0,
+      max_x_1 = 20,
+      Gate.state = 5;
+
+  process Train_1_Gate 
+    guardBlock
+      temp bool t_103 = Train_1.state == 0,
+      temp bool t_104 = Gate.state == 3,
+      temp bool t_105 = t_103 and t_104;
+
+    guardCondition t_105;
+    effect
+      Train_1.state = 3,
+      e = 1,
+      x = 0,
+      max_x_1 = 20,
+      Gate.state = 2;
+
+  process Train_2_Gate 
+    guardBlock
+      temp bool t_106 = Train_2.state == 0,
+      temp bool t_107 = Gate.state == 6,
+      temp bool t_108 = t_106 and t_107;
+
+    guardCondition t_108;
+    effect
+      Train_2.state = 3,
+      e = 2,
+      x = 0,
+      max_x_2 = 20,
+      Gate.state = 5;
+
+  process Train_2_Gate 
+    guardBlock
+      temp bool t_109 = Train_2.state == 0,
+      temp bool t_110 = Gate.state == 3,
+      temp bool t_111 = t_109 and t_110;
+
+    guardCondition t_111;
+    effect
+      Train_2.state = 3,
+      e = 2,
+      x = 0,
+      max_x_2 = 20,
+      Gate.state = 2;
+
+accepting conditions
+  LTL_property.state == 1
+

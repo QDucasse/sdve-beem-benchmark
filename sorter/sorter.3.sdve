@@ -25,19 +25,20 @@ byte ShortBrick1.position = 0;
 byte ShortBrick2.location = 0;
 byte ShortBrick2.position = 0;
 
-  process ButtonControler
+  process ButtonControler 
     guardBlock
       temp bool t_0 = ButtonControler.state == 0,
       temp bool t_1 = token == 0,
       temp bool t_2 = button_pressed == 0,
       temp bool t_3 = t_1 and t_2,
       temp bool t_4 = t_0 and t_3;
+
     guardCondition t_4;
     effect
       ButtonControler.state = 0,
       token = 1;
 
-  process ButtonControler
+  process ButtonControler 
     guardBlock
       temp bool t_5 = ButtonControler.state == 0,
       temp bool t_6 = token == 0,
@@ -46,15 +47,16 @@ byte ShortBrick2.position = 0;
       temp bool t_9 = requests < 5,
       temp bool t_10 = t_8 and t_9,
       temp bool t_11 = t_5 and t_10;
+
     guardCondition t_11;
     effect
       ButtonControler.state = 0,
       button_pressed = 0,
-      temp int t_12 = requests + 1,
+      temp byte t_12 = requests + 1,
       requests = t_12,
       token = 1;
 
-  process ButtonControler
+  process ButtonControler 
     guardBlock
       temp bool t_13 = ButtonControler.state == 0,
       temp bool t_14 = token == 0,
@@ -63,13 +65,14 @@ byte ShortBrick2.position = 0;
       temp bool t_17 = requests == 5,
       temp bool t_18 = t_16 and t_17,
       temp bool t_19 = t_13 and t_18;
+
     guardCondition t_19;
     effect
       ButtonControler.state = 0,
       button_pressed = 0,
       token = 1;
 
-  process ArmControler
+  process ArmControler 
     guardBlock
       temp bool t_20 = ArmControler.state == 0,
       temp bool t_21 = token == 1,
@@ -79,12 +82,13 @@ byte ShortBrick2.position = 0;
       temp bool t_25 = not t_24,
       temp bool t_26 = t_21 and t_25,
       temp bool t_27 = t_20 and t_26;
+
     guardCondition t_27;
     effect
       ArmControler.state = 0,
       token = 2;
 
-  process ArmControler
+  process ArmControler 
     guardBlock
       temp bool t_28 = ArmControler.state == 0,
       temp bool t_29 = token == 1,
@@ -93,6 +97,7 @@ byte ShortBrick2.position = 0;
       temp bool t_32 = timer > 3,
       temp bool t_33 = t_31 and t_32,
       temp bool t_34 = t_28 and t_33;
+
     guardCondition t_34;
     effect
       ArmControler.state = 1,
@@ -101,11 +106,12 @@ byte ShortBrick2.position = 0;
       belt1_moving = 0,
       token = 2;
 
-  process ArmControler
+  process ArmControler 
     guardBlock
       temp bool t_35 = ArmControler.state == 1,
       temp bool t_36 = token == 1,
       temp bool t_37 = t_35 and t_36;
+
     guardCondition t_37;
     effect
       ArmControler.state = 0,
@@ -113,7 +119,7 @@ byte ShortBrick2.position = 0;
       belt1_moving = 1,
       token = 2;
 
-  process Belt2Controler
+  process Belt2Controler 
     guardBlock
       temp bool t_38 = Belt2Controler.state == 0,
       temp bool t_39 = token == 2,
@@ -123,12 +129,13 @@ byte ShortBrick2.position = 0;
       temp bool t_43 = not t_42,
       temp bool t_44 = t_39 and t_43,
       temp bool t_45 = t_38 and t_44;
+
     guardCondition t_45;
     effect
       Belt2Controler.state = 0,
       token = 3;
 
-  process Belt2Controler
+  process Belt2Controler 
     guardBlock
       temp bool t_46 = Belt2Controler.state == 0,
       temp bool t_47 = token == 2,
@@ -137,184 +144,200 @@ byte ShortBrick2.position = 0;
       temp bool t_50 = t_48 and t_49,
       temp bool t_51 = t_47 and t_50,
       temp bool t_52 = t_46 and t_51;
+
     guardCondition t_52;
     effect
       Belt2Controler.state = 1,
       Belt2Controler.t1 = 0;
 
-  process Belt2Controler
+  process Belt2Controler 
     guardBlock
       temp bool t_53 = Belt2Controler.state == 1,
       temp bool t_54 = requests > 0,
       temp bool t_55 = t_53 and t_54;
+
     guardCondition t_55;
     effect
       Belt2Controler.state = 2,
       belt2_moving = 2,
       token = 3;
 
-  process Belt2Controler
+  process Belt2Controler 
     guardBlock
       temp bool t_56 = Belt2Controler.state == 1,
       temp bool t_57 = requests == 0,
       temp bool t_58 = t_56 and t_57;
+
     guardCondition t_58;
     effect
       Belt2Controler.state = 2,
       belt2_moving = 1,
       token = 3;
 
-  process Belt2Controler
+  process Belt2Controler 
     guardBlock
       temp bool t_59 = Belt2Controler.state == 2,
       temp bool t_60 = token == 2,
       temp bool t_61 = Belt2Controler.t1 < 4,
       temp bool t_62 = t_60 and t_61,
       temp bool t_63 = t_59 and t_62;
+
     guardCondition t_63;
     effect
       Belt2Controler.state = 2,
-      temp int t_64 = Belt2Controler.t1 + 1,
+      temp byte t_64 = Belt2Controler.t1 + 1,
       Belt2Controler.t1 = t_64,
       token = 3;
 
-  process Belt2Controler
+  process Belt2Controler 
     guardBlock
       temp bool t_65 = Belt2Controler.state == 2,
       temp bool t_66 = token == 2,
       temp bool t_67 = Belt2Controler.t1 == 4,
       temp bool t_68 = t_66 and t_67,
       temp bool t_69 = t_65 and t_68;
+
     guardCondition t_69;
     effect
       Belt2Controler.state = 0,
       token = 3;
 
-  process LightControler
+  process LightControler 
     guardBlock
       temp bool t_70 = LightControler.state == 0,
       temp bool t_71 = token == 3,
       temp bool t_72 = light_sensor_level == 0,
       temp bool t_73 = t_71 and t_72,
       temp bool t_74 = t_70 and t_73;
+
     guardCondition t_74;
     effect
       LightControler.state = 0,
       token = 4;
 
-  process LightControler
+  process LightControler 
     guardBlock
       temp bool t_75 = LightControler.state == 0,
       temp bool t_76 = token == 3,
       temp bool t_77 = light_sensor_level == 1,
       temp bool t_78 = t_76 and t_77,
       temp bool t_79 = t_75 and t_78;
+
     guardCondition t_79;
     effect
       LightControler.state = 2,
       LightControler.x = 1,
       token = 4;
 
-  process LightControler
+  process LightControler 
     guardBlock
       temp bool t_80 = LightControler.state == 2,
       temp bool t_81 = token == 3,
       temp bool t_82 = light_sensor_level == 1,
       temp bool t_83 = t_81 and t_82,
       temp bool t_84 = t_80 and t_83;
+
     guardCondition t_84;
     effect
       LightControler.state = 2,
-      temp int t_85 = LightControler.x + 1,
+      temp byte t_85 = LightControler.x + 1,
       LightControler.x = t_85,
       token = 4;
 
-  process LightControler
+  process LightControler 
     guardBlock
       temp bool t_86 = LightControler.state == 2,
       temp bool t_87 = token == 3,
       temp bool t_88 = light_sensor_level == 0,
       temp bool t_89 = t_87 and t_88,
       temp bool t_90 = t_86 and t_89;
+
     guardCondition t_90;
     effect
       LightControler.state = 1,
       timer = 0;
 
-  process LightControler
+  process LightControler 
     guardBlock
       temp bool t_91 = LightControler.state == 1,
       temp bool t_92 = LightControler.x <= 2,
       temp bool t_93 = t_91 and t_92;
+
     guardCondition t_93;
     effect
       LightControler.state = 0,
       brick = 3,
       token = 4;
 
-  process LightControler
+  process LightControler 
     guardBlock
       temp bool t_94 = LightControler.state == 1,
       temp bool t_95 = LightControler.x > 2,
       temp bool t_96 = t_94 and t_95;
+
     guardCondition t_96;
     effect
       LightControler.state = 0,
       brick = 4,
       token = 4;
 
-  process TimerStep
+  process TimerStep 
     guardBlock
       temp bool t_97 = TimerStep.state == 0,
       temp bool t_98 = token == 4,
       temp bool t_99 = timer < 8,
       temp bool t_100 = t_98 and t_99,
       temp bool t_101 = t_97 and t_100;
+
     guardCondition t_101;
     effect
       TimerStep.state = 0,
-      temp int t_102 = timer + 1,
+      temp byte t_102 = timer + 1,
       timer = t_102,
       token = 5;
 
-  process TimerStep
+  process TimerStep 
     guardBlock
       temp bool t_103 = TimerStep.state == 0,
       temp bool t_104 = token == 4,
       temp bool t_105 = timer == 8,
       temp bool t_106 = t_104 and t_105,
       temp bool t_107 = t_103 and t_106;
+
     guardCondition t_107;
     effect
       TimerStep.state = 0,
       token = 5;
 
-  process User
+  process User 
     guardBlock
       temp bool t_108 = User.state == 0,
       temp bool t_109 = token == 5,
       temp bool t_110 = t_108 and t_109;
+
     guardCondition t_110;
     effect
       User.state = 0,
       token = 6;
 
-  process User
+  process User 
     guardBlock
       temp bool t_111 = User.state == 0,
       temp bool t_112 = token == 5,
       temp bool t_113 = t_111 and t_112;
+
     guardCondition t_113;
     effect
       User.state = 0,
       button_pressed = 1,
       token = 6;
 
-  process User
+  process User 
     guardBlock
       temp bool t_114 = User.state == 0,
       temp bool t_115 = token == 5,
       temp bool t_116 = t_114 and t_115;
+
     guardCondition t_116;
     effect
       User.state = 1,
@@ -322,11 +345,12 @@ byte ShortBrick2.position = 0;
       User.t2 = 1,
       token = 6;
 
-  process User
+  process User 
     guardBlock
       temp bool t_117 = User.state == 0,
       temp bool t_118 = token == 5,
       temp bool t_119 = t_117 and t_118;
+
     guardCondition t_119;
     effect
       User.state = 1,
@@ -334,33 +358,35 @@ byte ShortBrick2.position = 0;
       User.t2 = 3,
       token = 6;
 
-  process User
+  process User 
     guardBlock
       temp bool t_120 = User.state == 1,
       temp bool t_121 = token == 5,
       temp bool t_122 = User.t2 > 0,
       temp bool t_123 = t_121 and t_122,
       temp bool t_124 = t_120 and t_123;
+
     guardCondition t_124;
     effect
       User.state = 1,
-      temp int t_125 = User.t2 - 1,
+      temp byte t_125 = User.t2 - 1,
       User.t2 = t_125,
       token = 6;
 
-  process User
+  process User 
     guardBlock
       temp bool t_126 = User.state == 1,
       temp bool t_127 = token == 5,
       temp bool t_128 = User.t2 == 0,
       temp bool t_129 = t_127 and t_128,
       temp bool t_130 = t_126 and t_129;
+
     guardCondition t_130;
     effect
       User.state = 0,
       token = 6;
 
-  process ShortBrick1
+  process ShortBrick1 
     guardBlock
       temp bool t_131 = ShortBrick1.state == 0,
       temp bool t_132 = token == 6,
@@ -369,12 +395,13 @@ byte ShortBrick2.position = 0;
       temp bool t_135 = put_short_brick == 0,
       temp bool t_136 = t_134 and t_135,
       temp bool t_137 = t_131 and t_136;
+
     guardCondition t_137;
     effect
       ShortBrick1.state = 0,
       token = 7;
 
-  process ShortBrick1
+  process ShortBrick1 
     guardBlock
       temp bool t_138 = ShortBrick1.state == 0,
       temp bool t_139 = token == 6,
@@ -383,6 +410,7 @@ byte ShortBrick2.position = 0;
       temp bool t_142 = put_short_brick == 1,
       temp bool t_143 = t_141 and t_142,
       temp bool t_144 = t_138 and t_143;
+
     guardCondition t_144;
     effect
       ShortBrick1.state = 0,
@@ -390,7 +418,7 @@ byte ShortBrick2.position = 0;
       ShortBrick1.location = 1,
       token = 7;
 
-  process ShortBrick1
+  process ShortBrick1 
     guardBlock
       temp bool t_145 = ShortBrick1.state == 0,
       temp bool t_146 = token == 6,
@@ -407,14 +435,15 @@ byte ShortBrick2.position = 0;
       temp bool t_157 = belt1_moving == 1,
       temp bool t_158 = t_156 and t_157,
       temp bool t_159 = t_145 and t_158;
+
     guardCondition t_159;
     effect
       ShortBrick1.state = 0,
-      temp int t_160 = ShortBrick1.position + 1,
+      temp byte t_160 = ShortBrick1.position + 1,
       ShortBrick1.position = t_160,
       token = 7;
 
-  process ShortBrick1
+  process ShortBrick1 
     guardBlock
       temp bool t_161 = ShortBrick1.state == 0,
       temp bool t_162 = token == 6,
@@ -425,15 +454,16 @@ byte ShortBrick2.position = 0;
       temp bool t_167 = ShortBrick1.position == 3,
       temp bool t_168 = t_166 and t_167,
       temp bool t_169 = t_161 and t_168;
+
     guardCondition t_169;
     effect
       ShortBrick1.state = 0,
       light_sensor_level = 1,
-      temp int t_170 = ShortBrick1.position + 1,
+      temp byte t_170 = ShortBrick1.position + 1,
       ShortBrick1.position = t_170,
       token = 7;
 
-  process ShortBrick1
+  process ShortBrick1 
     guardBlock
       temp bool t_171 = ShortBrick1.state == 0,
       temp bool t_172 = token == 6,
@@ -444,15 +474,16 @@ byte ShortBrick2.position = 0;
       temp bool t_177 = ShortBrick1.position == 5,
       temp bool t_178 = t_176 and t_177,
       temp bool t_179 = t_171 and t_178;
+
     guardCondition t_179;
     effect
       ShortBrick1.state = 0,
       light_sensor_level = 0,
-      temp int t_180 = ShortBrick1.position + 1,
+      temp byte t_180 = ShortBrick1.position + 1,
       ShortBrick1.position = t_180,
       token = 7;
 
-  process ShortBrick1
+  process ShortBrick1 
     guardBlock
       temp bool t_181 = ShortBrick1.state == 0,
       temp bool t_182 = token == 6,
@@ -465,14 +496,15 @@ byte ShortBrick2.position = 0;
       temp bool t_189 = belt1_moving == 1,
       temp bool t_190 = t_188 and t_189,
       temp bool t_191 = t_181 and t_190;
+
     guardCondition t_191;
     effect
       ShortBrick1.state = 0,
-      temp int t_192 = ShortBrick1.position + 1,
+      temp byte t_192 = ShortBrick1.position + 1,
       ShortBrick1.position = t_192,
       token = 7;
 
-  process ShortBrick1
+  process ShortBrick1 
     guardBlock
       temp bool t_193 = ShortBrick1.state == 0,
       temp bool t_194 = token == 6,
@@ -485,6 +517,7 @@ byte ShortBrick2.position = 0;
       temp bool t_201 = belt1_moving == 1,
       temp bool t_202 = t_200 and t_201,
       temp bool t_203 = t_193 and t_202;
+
     guardCondition t_203;
     effect
       ShortBrick1.state = 0,
@@ -492,7 +525,7 @@ byte ShortBrick2.position = 0;
       ShortBrick1.position = 3,
       token = 7;
 
-  process ShortBrick1
+  process ShortBrick1 
     guardBlock
       temp bool t_204 = ShortBrick1.state == 0,
       temp bool t_205 = token == 6,
@@ -503,12 +536,13 @@ byte ShortBrick2.position = 0;
       temp bool t_210 = ShortBrick1.position < 10,
       temp bool t_211 = t_209 and t_210,
       temp bool t_212 = t_204 and t_211;
+
     guardCondition t_212;
     effect
       ShortBrick1.state = 0,
       token = 7;
 
-  process ShortBrick1
+  process ShortBrick1 
     guardBlock
       temp bool t_213 = ShortBrick1.state == 0,
       temp bool t_214 = token == 6,
@@ -523,12 +557,13 @@ byte ShortBrick2.position = 0;
       temp bool t_223 = arm_kicking == 0,
       temp bool t_224 = t_222 and t_223,
       temp bool t_225 = t_213 and t_224;
+
     guardCondition t_225;
     effect
       ShortBrick1.state = 0,
       token = 7;
 
-  process ShortBrick1
+  process ShortBrick1 
     guardBlock
       temp bool t_226 = ShortBrick1.state == 0,
       temp bool t_227 = token == 6,
@@ -541,13 +576,14 @@ byte ShortBrick2.position = 0;
       temp bool t_234 = arm_kicking == 1,
       temp bool t_235 = t_233 and t_234,
       temp bool t_236 = t_226 and t_235;
+
     guardCondition t_236;
     effect
       ShortBrick1.state = 0,
       ShortBrick1.location = 3,
       token = 7;
 
-  process ShortBrick1
+  process ShortBrick1 
     guardBlock
       temp bool t_237 = ShortBrick1.state == 0,
       temp bool t_238 = token == 6,
@@ -558,14 +594,15 @@ byte ShortBrick2.position = 0;
       temp bool t_243 = ShortBrick1.position < 5,
       temp bool t_244 = t_242 and t_243,
       temp bool t_245 = t_237 and t_244;
+
     guardCondition t_245;
     effect
       ShortBrick1.state = 0,
-      temp int t_246 = ShortBrick1.position + 1,
+      temp byte t_246 = ShortBrick1.position + 1,
       ShortBrick1.position = t_246,
       token = 7;
 
-  process ShortBrick1
+  process ShortBrick1 
     guardBlock
       temp bool t_247 = ShortBrick1.state == 0,
       temp bool t_248 = token == 6,
@@ -576,14 +613,15 @@ byte ShortBrick2.position = 0;
       temp bool t_253 = ShortBrick1.position > 0,
       temp bool t_254 = t_252 and t_253,
       temp bool t_255 = t_247 and t_254;
+
     guardCondition t_255;
     effect
       ShortBrick1.state = 0,
-      temp int t_256 = ShortBrick1.position - 1,
+      temp byte t_256 = ShortBrick1.position - 1,
       ShortBrick1.position = t_256,
       token = 7;
 
-  process ShortBrick1
+  process ShortBrick1 
     guardBlock
       temp bool t_257 = ShortBrick1.state == 0,
       temp bool t_258 = token == 6,
@@ -592,12 +630,13 @@ byte ShortBrick2.position = 0;
       temp bool t_261 = belt2_moving == 0,
       temp bool t_262 = t_260 and t_261,
       temp bool t_263 = t_257 and t_262;
+
     guardCondition t_263;
     effect
       ShortBrick1.state = 0,
       token = 7;
 
-  process ShortBrick1
+  process ShortBrick1 
     guardBlock
       temp bool t_264 = ShortBrick1.state == 0,
       temp bool t_265 = token == 6,
@@ -608,13 +647,14 @@ byte ShortBrick2.position = 0;
       temp bool t_270 = ShortBrick1.position == 5,
       temp bool t_271 = t_269 and t_270,
       temp bool t_272 = t_264 and t_271;
+
     guardCondition t_272;
     effect
       ShortBrick1.state = 0,
       ShortBrick1.location = 4,
       token = 7;
 
-  process ShortBrick1
+  process ShortBrick1 
     guardBlock
       temp bool t_273 = ShortBrick1.state == 0,
       temp bool t_274 = token == 6,
@@ -625,13 +665,14 @@ byte ShortBrick2.position = 0;
       temp bool t_279 = ShortBrick1.position == 0,
       temp bool t_280 = t_278 and t_279,
       temp bool t_281 = t_273 and t_280;
+
     guardCondition t_281;
     effect
       ShortBrick1.state = 0,
       ShortBrick1.location = 5,
       token = 7;
 
-  process ShortBrick1
+  process ShortBrick1 
     guardBlock
       temp bool t_282 = ShortBrick1.state == 0,
       temp bool t_283 = ShortBrick1.location == 5,
@@ -640,12 +681,13 @@ byte ShortBrick2.position = 0;
       temp bool t_286 = ShortBrick1.location == 3,
       temp bool t_287 = t_285 or t_286,
       temp bool t_288 = t_282 and t_287;
+
     guardCondition t_288;
     effect
       ShortBrick1.state = 0,
       token = 7;
 
-  process ShortBrick2
+  process ShortBrick2 
     guardBlock
       temp bool t_289 = ShortBrick2.state == 0,
       temp bool t_290 = token == 7,
@@ -654,12 +696,13 @@ byte ShortBrick2.position = 0;
       temp bool t_293 = put_short_brick == 0,
       temp bool t_294 = t_292 and t_293,
       temp bool t_295 = t_289 and t_294;
+
     guardCondition t_295;
     effect
       ShortBrick2.state = 0,
       token = 0;
 
-  process ShortBrick2
+  process ShortBrick2 
     guardBlock
       temp bool t_296 = ShortBrick2.state == 0,
       temp bool t_297 = token == 7,
@@ -668,6 +711,7 @@ byte ShortBrick2.position = 0;
       temp bool t_300 = put_short_brick == 1,
       temp bool t_301 = t_299 and t_300,
       temp bool t_302 = t_296 and t_301;
+
     guardCondition t_302;
     effect
       ShortBrick2.state = 0,
@@ -675,7 +719,7 @@ byte ShortBrick2.position = 0;
       ShortBrick2.location = 1,
       token = 0;
 
-  process ShortBrick2
+  process ShortBrick2 
     guardBlock
       temp bool t_303 = ShortBrick2.state == 0,
       temp bool t_304 = token == 7,
@@ -692,14 +736,15 @@ byte ShortBrick2.position = 0;
       temp bool t_315 = belt1_moving == 1,
       temp bool t_316 = t_314 and t_315,
       temp bool t_317 = t_303 and t_316;
+
     guardCondition t_317;
     effect
       ShortBrick2.state = 0,
-      temp int t_318 = ShortBrick2.position + 1,
+      temp byte t_318 = ShortBrick2.position + 1,
       ShortBrick2.position = t_318,
       token = 0;
 
-  process ShortBrick2
+  process ShortBrick2 
     guardBlock
       temp bool t_319 = ShortBrick2.state == 0,
       temp bool t_320 = token == 7,
@@ -710,15 +755,16 @@ byte ShortBrick2.position = 0;
       temp bool t_325 = ShortBrick2.position == 3,
       temp bool t_326 = t_324 and t_325,
       temp bool t_327 = t_319 and t_326;
+
     guardCondition t_327;
     effect
       ShortBrick2.state = 0,
       light_sensor_level = 1,
-      temp int t_328 = ShortBrick2.position + 1,
+      temp byte t_328 = ShortBrick2.position + 1,
       ShortBrick2.position = t_328,
       token = 0;
 
-  process ShortBrick2
+  process ShortBrick2 
     guardBlock
       temp bool t_329 = ShortBrick2.state == 0,
       temp bool t_330 = token == 7,
@@ -729,15 +775,16 @@ byte ShortBrick2.position = 0;
       temp bool t_335 = ShortBrick2.position == 5,
       temp bool t_336 = t_334 and t_335,
       temp bool t_337 = t_329 and t_336;
+
     guardCondition t_337;
     effect
       ShortBrick2.state = 0,
       light_sensor_level = 0,
-      temp int t_338 = ShortBrick2.position + 1,
+      temp byte t_338 = ShortBrick2.position + 1,
       ShortBrick2.position = t_338,
       token = 0;
 
-  process ShortBrick2
+  process ShortBrick2 
     guardBlock
       temp bool t_339 = ShortBrick2.state == 0,
       temp bool t_340 = token == 7,
@@ -750,14 +797,15 @@ byte ShortBrick2.position = 0;
       temp bool t_347 = belt1_moving == 1,
       temp bool t_348 = t_346 and t_347,
       temp bool t_349 = t_339 and t_348;
+
     guardCondition t_349;
     effect
       ShortBrick2.state = 0,
-      temp int t_350 = ShortBrick2.position + 1,
+      temp byte t_350 = ShortBrick2.position + 1,
       ShortBrick2.position = t_350,
       token = 0;
 
-  process ShortBrick2
+  process ShortBrick2 
     guardBlock
       temp bool t_351 = ShortBrick2.state == 0,
       temp bool t_352 = token == 7,
@@ -770,6 +818,7 @@ byte ShortBrick2.position = 0;
       temp bool t_359 = belt1_moving == 1,
       temp bool t_360 = t_358 and t_359,
       temp bool t_361 = t_351 and t_360;
+
     guardCondition t_361;
     effect
       ShortBrick2.state = 0,
@@ -777,7 +826,7 @@ byte ShortBrick2.position = 0;
       ShortBrick2.position = 3,
       token = 0;
 
-  process ShortBrick2
+  process ShortBrick2 
     guardBlock
       temp bool t_362 = ShortBrick2.state == 0,
       temp bool t_363 = token == 7,
@@ -788,12 +837,13 @@ byte ShortBrick2.position = 0;
       temp bool t_368 = ShortBrick2.position < 10,
       temp bool t_369 = t_367 and t_368,
       temp bool t_370 = t_362 and t_369;
+
     guardCondition t_370;
     effect
       ShortBrick2.state = 0,
       token = 0;
 
-  process ShortBrick2
+  process ShortBrick2 
     guardBlock
       temp bool t_371 = ShortBrick2.state == 0,
       temp bool t_372 = token == 7,
@@ -808,12 +858,13 @@ byte ShortBrick2.position = 0;
       temp bool t_381 = arm_kicking == 0,
       temp bool t_382 = t_380 and t_381,
       temp bool t_383 = t_371 and t_382;
+
     guardCondition t_383;
     effect
       ShortBrick2.state = 0,
       token = 0;
 
-  process ShortBrick2
+  process ShortBrick2 
     guardBlock
       temp bool t_384 = ShortBrick2.state == 0,
       temp bool t_385 = token == 7,
@@ -826,13 +877,14 @@ byte ShortBrick2.position = 0;
       temp bool t_392 = arm_kicking == 1,
       temp bool t_393 = t_391 and t_392,
       temp bool t_394 = t_384 and t_393;
+
     guardCondition t_394;
     effect
       ShortBrick2.state = 0,
       ShortBrick2.location = 3,
       token = 0;
 
-  process ShortBrick2
+  process ShortBrick2 
     guardBlock
       temp bool t_395 = ShortBrick2.state == 0,
       temp bool t_396 = token == 7,
@@ -843,14 +895,15 @@ byte ShortBrick2.position = 0;
       temp bool t_401 = ShortBrick2.position < 5,
       temp bool t_402 = t_400 and t_401,
       temp bool t_403 = t_395 and t_402;
+
     guardCondition t_403;
     effect
       ShortBrick2.state = 0,
-      temp int t_404 = ShortBrick2.position + 1,
+      temp byte t_404 = ShortBrick2.position + 1,
       ShortBrick2.position = t_404,
       token = 0;
 
-  process ShortBrick2
+  process ShortBrick2 
     guardBlock
       temp bool t_405 = ShortBrick2.state == 0,
       temp bool t_406 = token == 7,
@@ -861,14 +914,15 @@ byte ShortBrick2.position = 0;
       temp bool t_411 = ShortBrick2.position > 0,
       temp bool t_412 = t_410 and t_411,
       temp bool t_413 = t_405 and t_412;
+
     guardCondition t_413;
     effect
       ShortBrick2.state = 0,
-      temp int t_414 = ShortBrick2.position - 1,
+      temp byte t_414 = ShortBrick2.position - 1,
       ShortBrick2.position = t_414,
       token = 0;
 
-  process ShortBrick2
+  process ShortBrick2 
     guardBlock
       temp bool t_415 = ShortBrick2.state == 0,
       temp bool t_416 = token == 7,
@@ -877,12 +931,13 @@ byte ShortBrick2.position = 0;
       temp bool t_419 = belt2_moving == 0,
       temp bool t_420 = t_418 and t_419,
       temp bool t_421 = t_415 and t_420;
+
     guardCondition t_421;
     effect
       ShortBrick2.state = 0,
       token = 0;
 
-  process ShortBrick2
+  process ShortBrick2 
     guardBlock
       temp bool t_422 = ShortBrick2.state == 0,
       temp bool t_423 = token == 7,
@@ -893,13 +948,14 @@ byte ShortBrick2.position = 0;
       temp bool t_428 = ShortBrick2.position == 5,
       temp bool t_429 = t_427 and t_428,
       temp bool t_430 = t_422 and t_429;
+
     guardCondition t_430;
     effect
       ShortBrick2.state = 0,
       ShortBrick2.location = 4,
       token = 0;
 
-  process ShortBrick2
+  process ShortBrick2 
     guardBlock
       temp bool t_431 = ShortBrick2.state == 0,
       temp bool t_432 = token == 7,
@@ -910,13 +966,14 @@ byte ShortBrick2.position = 0;
       temp bool t_437 = ShortBrick2.position == 0,
       temp bool t_438 = t_436 and t_437,
       temp bool t_439 = t_431 and t_438;
+
     guardCondition t_439;
     effect
       ShortBrick2.state = 0,
       ShortBrick2.location = 5,
       token = 0;
 
-  process ShortBrick2
+  process ShortBrick2 
     guardBlock
       temp bool t_440 = ShortBrick2.state == 0,
       temp bool t_441 = ShortBrick2.location == 5,
@@ -925,7 +982,10 @@ byte ShortBrick2.position = 0;
       temp bool t_444 = ShortBrick2.location == 3,
       temp bool t_445 = t_443 or t_444,
       temp bool t_446 = t_440 and t_445;
+
     guardCondition t_446;
     effect
       ShortBrick2.state = 0,
       token = 0;
+
+

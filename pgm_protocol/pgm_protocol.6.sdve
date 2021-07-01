@@ -1,6 +1,3 @@
-int DELAY = 2;
-int TXW_SIZE = 5;
-int RXW_SIZE = 5;
 state {s0(0), s1(1), s0_1(2), s0_2(3), s0_3(4), s0_4(5), s0_5(6), s0_6(7), s1_1(8), s1_2(9)} sender.state = 0;
 state {tick(0)} clock.state = 0;
 state {e0(0), e0_1(1), e0_2(2), e1(3), e_odata(4), e_odata1(5), e_odata2(6), e_rdata(7), e_rdata1(8), e_rdata2(9), e_nak(10), e_spm(11), e_spm1(12), e_spm2(13)} element.state = 0;
@@ -9,13 +6,13 @@ state {q_in_1(0), q_out_1(1), q_in_2(2), q_out_2(3), q_in_3(4), q_out_3(5), q(6)
 state {q_in_1(0), q_out_1(1), q(2)} NS.state = 2;
 state {q_in_1(0), q_out_1(1), q(2)} RN.state = 2;
 state {q_in_1(0), q_out_1(1), q_in_2(2), q_out_2(3), q_in_3(4), q_out_3(5), q(6)} NR.state = 6;
-byte SN_time[8] =  {0, 0, 0, 0, 0, 0, 0};
+byte SN_time[7] = {0, 0, 0, 0, 0, 0, 0};
 byte SN_size = 0;
-byte NS_time[8] =  {0, 0, 0, 0, 0, 0, 0};
+byte NS_time[7] = {0, 0, 0, 0, 0, 0, 0};
 byte NS_size = 0;
-byte NR_time[8] =  {0, 0, 0, 0, 0, 0, 0};
+byte NR_time[7] = {0, 0, 0, 0, 0, 0, 0};
 byte NR_size = 0;
-byte RN_time[8] =  {0, 0, 0, 0, 0, 0, 0};
+byte RN_time[7] = {0, 0, 0, 0, 0, 0, 0};
 byte RN_size = 0;
 byte x = 0;
 byte sqn = 1;
@@ -30,7 +27,7 @@ byte element.packet = 0;
 byte element.nloss = 0;
 byte element.i = 0;
 byte element.rs_len = 0;
-byte element.rs[6] =  {0, 0, 0, 0, 0};
+byte element.rs[5] = {0, 0, 0, 0, 0};
 byte element.seq = 0;
 byte element.trail = 0;
 byte receiver.packet = 0;
@@ -38,59 +35,61 @@ byte receiver.sqn = 0;
 byte receiver.trail = 0;
 byte receiver.outloss = 0;
 byte receiver.outdata = 0;
-byte receiver.RXW[6] =  {0, 0, 0, 0, 0};
-byte SN.buf_0[8] =  {0, 0, 0, 0, 0, 0, 0};
-byte SN.buf_1[8] =  {0, 0, 0, 0, 0, 0, 0};
-byte SN.buf_2[8] =  {0, 0, 0, 0, 0, 0, 0};
-byte NS.buf_0[8] =  {0, 0, 0, 0, 0, 0, 0};
-byte RN.buf_0[8] =  {0, 0, 0, 0, 0, 0, 0};
-byte NR.buf_0[8] =  {0, 0, 0, 0, 0, 0, 0};
-byte NR.buf_1[8] =  {0, 0, 0, 0, 0, 0, 0};
-byte NR.buf_2[8] =  {0, 0, 0, 0, 0, 0, 0};
+byte receiver.RXW[5] = {0, 0, 0, 0, 0};
+byte SN.buf_0[7] = {0, 0, 0, 0, 0, 0, 0};
+byte SN.buf_1[7] = {0, 0, 0, 0, 0, 0, 0};
+byte SN.buf_2[7] = {0, 0, 0, 0, 0, 0, 0};
+byte NS.buf_0[7] = {0, 0, 0, 0, 0, 0, 0};
+byte RN.buf_0[7] = {0, 0, 0, 0, 0, 0, 0};
+byte NR.buf_0[7] = {0, 0, 0, 0, 0, 0, 0};
+byte NR.buf_1[7] = {0, 0, 0, 0, 0, 0, 0};
+byte NR.buf_2[7] = {0, 0, 0, 0, 0, 0, 0};
 
-  process sender
+  process sender 
     guardBlock
       temp bool t_0 = sender.state == 0,
-      temp int t_1 = TXW_LEAD - TXW_TRAIL,
-      temp int t_2 = t_1 + 1,
+      temp byte t_1 = TXW_LEAD - TXW_TRAIL,
+      temp byte t_2 = t_1 + 1,
       temp bool t_3 = t_2 <= 5,
       temp bool t_4 = TXW_LEAD < 9,
       temp bool t_5 = t_3 and t_4,
       temp bool t_6 = x >= 3,
       temp bool t_7 = t_5 and t_6,
       temp bool t_8 = t_0 and t_7;
+
     guardCondition t_8;
     effect
       sender.state = 0,
-      temp int t_9 = TXW_LEAD + 1,
-      temp int t_10 = t_9 - TXW_TRAIL,
+      temp byte t_9 = TXW_LEAD + 1,
+      temp byte t_10 = t_9 - TXW_TRAIL,
       temp bool t_11 = t_10 == 5,
-      temp int t_12 = TXW_TRAIL + t_11,
+      temp byte t_12 = TXW_TRAIL + t_11,
       TXW_TRAIL = t_12,
-      temp int t_13 = TXW_LEAD + 1,
+      temp byte t_13 = TXW_LEAD + 1,
       TXW_LEAD = t_13,
-      temp int t_14 = c + 1,
+      temp byte t_14 = c + 1,
       c = t_14,
       x = 0;
 
-  process sender
+  process sender 
     guardBlock
       temp bool t_15 = sender.state == 0,
       temp bool t_16 = not close,
       temp bool t_17 = x >= 3,
       temp bool t_18 = t_16 and t_17,
       temp bool t_19 = t_15 and t_18;
+
     guardCondition t_19;
     effect
       sender.state = 0,
       x = 0;
 
-  process sender
+  process sender 
     guardBlock
       temp bool t_20 = sender.state == 0,
       temp bool t_21 = TXW_LEAD == 9,
       temp bool t_22 = close and t_21,
-      temp int t_23 = TXW_LEAD + 1,
+      temp byte t_23 = TXW_LEAD + 1,
       temp bool t_24 = TXW_TRAIL == t_23,
       temp bool t_25 = t_22 and t_24,
       temp bool t_26 = not t_25,
@@ -100,8 +99,8 @@ byte NR.buf_2[8] =  {0, 0, 0, 0, 0, 0, 0};
       temp bool t_30 = c >= 2,
       temp bool t_31 = not t_30,
       temp bool t_32 = t_29 and t_31,
-      temp int t_33 = TXW_LEAD - TXW_TRAIL,
-      temp int t_34 = t_33 + 1,
+      temp byte t_33 = TXW_LEAD - TXW_TRAIL,
+      temp byte t_34 = t_33 + 1,
       temp bool t_35 = t_34 <= 5,
       temp bool t_36 = TXW_LEAD < 9,
       temp bool t_37 = t_35 and t_36,
@@ -109,7 +108,7 @@ byte NR.buf_2[8] =  {0, 0, 0, 0, 0, 0, 0};
       temp bool t_39 = t_37 and t_38,
       temp bool t_40 = not t_39,
       temp bool t_41 = t_32 and t_40,
-      temp int t_42 = TXW_LEAD + 1,
+      temp byte t_42 = TXW_LEAD + 1,
       temp bool t_43 = TXW_TRAIL < t_42,
       temp bool t_44 = t_41 and t_43,
       temp bool t_45 = TXW_LEAD == 9,
@@ -117,31 +116,33 @@ byte NR.buf_2[8] =  {0, 0, 0, 0, 0, 0, 0};
       temp bool t_47 = x >= 3,
       temp bool t_48 = t_46 and t_47,
       temp bool t_49 = t_20 and t_48;
+
     guardCondition t_49;
     effect
       sender.state = 0,
-      temp int t_50 = TXW_TRAIL + 1,
+      temp byte t_50 = TXW_TRAIL + 1,
       TXW_TRAIL = t_50,
       x = 0;
 
-  process sender
+  process sender 
     guardBlock
       temp bool t_51 = sender.state == 1,
       temp bool t_52 = packet > TXW_LEAD,
       temp bool t_53 = packet < TXW_TRAIL,
       temp bool t_54 = t_52 or t_53,
       temp bool t_55 = t_51 and t_54;
+
     guardCondition t_55;
     effect
       sender.state = 0;
 
-  process clock
+  process clock 
     guardBlock
       temp bool t_56 = clock.state == 0,
       temp bool t_57 = x < 3,
       temp bool t_58 = TXW_LEAD == 9,
       temp bool t_59 = close and t_58,
-      temp int t_60 = TXW_LEAD + 1,
+      temp byte t_60 = TXW_LEAD + 1,
       temp bool t_61 = TXW_TRAIL == t_60,
       temp bool t_62 = t_59 and t_61,
       temp bool t_63 = not t_62,
@@ -152,8 +153,8 @@ byte NR.buf_2[8] =  {0, 0, 0, 0, 0, 0, 0};
       temp bool t_68 = c >= 2,
       temp bool t_69 = not t_68,
       temp bool t_70 = t_67 and t_69,
-      temp int t_71 = TXW_LEAD - TXW_TRAIL,
-      temp int t_72 = t_71 + 1,
+      temp byte t_71 = TXW_LEAD - TXW_TRAIL,
+      temp byte t_72 = t_71 + 1,
       temp bool t_73 = t_72 <= 5,
       temp bool t_74 = TXW_LEAD < 9,
       temp bool t_75 = t_73 and t_74,
@@ -316,164 +317,169 @@ byte NR.buf_2[8] =  {0, 0, 0, 0, 0, 0, 0};
       temp bool t_232 = NR.state == 6,
       temp bool t_233 = t_231 and t_232,
       temp bool t_234 = t_56 and t_233;
+
     guardCondition t_234;
     effect
       clock.state = 0,
       temp byte t_235 = SN_time[0],
       temp bool t_236 = SN_size > 0,
-      temp int t_237 = t_235 - t_236,
+      temp byte t_237 = t_235 - t_236,
       SN_time[0] = t_237,
       temp byte t_238 = SN_time[1],
       temp bool t_239 = SN_size > 1,
-      temp int t_240 = t_238 - t_239,
+      temp byte t_240 = t_238 - t_239,
       SN_time[1] = t_240,
       temp byte t_241 = SN_time[2],
       temp bool t_242 = SN_size > 2,
-      temp int t_243 = t_241 - t_242,
+      temp byte t_243 = t_241 - t_242,
       SN_time[2] = t_243,
       temp byte t_244 = SN_time[3],
       temp bool t_245 = SN_size > 3,
-      temp int t_246 = t_244 - t_245,
+      temp byte t_246 = t_244 - t_245,
       SN_time[3] = t_246,
       temp byte t_247 = SN_time[4],
       temp bool t_248 = SN_size > 4,
-      temp int t_249 = t_247 - t_248,
+      temp byte t_249 = t_247 - t_248,
       SN_time[4] = t_249,
       temp byte t_250 = SN_time[5],
       temp bool t_251 = SN_size > 5,
-      temp int t_252 = t_250 - t_251,
+      temp byte t_252 = t_250 - t_251,
       SN_time[5] = t_252,
       temp byte t_253 = SN_time[6],
       temp bool t_254 = SN_size > 6,
-      temp int t_255 = t_253 - t_254,
+      temp byte t_255 = t_253 - t_254,
       SN_time[6] = t_255,
       temp byte t_256 = NS_time[0],
       temp bool t_257 = NS_size > 0,
-      temp int t_258 = t_256 - t_257,
+      temp byte t_258 = t_256 - t_257,
       NS_time[0] = t_258,
       temp byte t_259 = NS_time[1],
       temp bool t_260 = NS_size > 1,
-      temp int t_261 = t_259 - t_260,
+      temp byte t_261 = t_259 - t_260,
       NS_time[1] = t_261,
       temp byte t_262 = NS_time[2],
       temp bool t_263 = NS_size > 2,
-      temp int t_264 = t_262 - t_263,
+      temp byte t_264 = t_262 - t_263,
       NS_time[2] = t_264,
       temp byte t_265 = NS_time[3],
       temp bool t_266 = NS_size > 3,
-      temp int t_267 = t_265 - t_266,
+      temp byte t_267 = t_265 - t_266,
       NS_time[3] = t_267,
       temp byte t_268 = NS_time[4],
       temp bool t_269 = NS_size > 4,
-      temp int t_270 = t_268 - t_269,
+      temp byte t_270 = t_268 - t_269,
       NS_time[4] = t_270,
       temp byte t_271 = NS_time[5],
       temp bool t_272 = NS_size > 5,
-      temp int t_273 = t_271 - t_272,
+      temp byte t_273 = t_271 - t_272,
       NS_time[5] = t_273,
       temp byte t_274 = NS_time[6],
       temp bool t_275 = NS_size > 6,
-      temp int t_276 = t_274 - t_275,
+      temp byte t_276 = t_274 - t_275,
       NS_time[6] = t_276,
       temp byte t_277 = NR_time[0],
       temp bool t_278 = NR_size > 0,
-      temp int t_279 = t_277 - t_278,
+      temp byte t_279 = t_277 - t_278,
       NR_time[0] = t_279,
       temp byte t_280 = NR_time[1],
       temp bool t_281 = NR_size > 1,
-      temp int t_282 = t_280 - t_281,
+      temp byte t_282 = t_280 - t_281,
       NR_time[1] = t_282,
       temp byte t_283 = NR_time[2],
       temp bool t_284 = NR_size > 2,
-      temp int t_285 = t_283 - t_284,
+      temp byte t_285 = t_283 - t_284,
       NR_time[2] = t_285,
       temp byte t_286 = NR_time[3],
       temp bool t_287 = NR_size > 3,
-      temp int t_288 = t_286 - t_287,
+      temp byte t_288 = t_286 - t_287,
       NR_time[3] = t_288,
       temp byte t_289 = NR_time[4],
       temp bool t_290 = NR_size > 4,
-      temp int t_291 = t_289 - t_290,
+      temp byte t_291 = t_289 - t_290,
       NR_time[4] = t_291,
       temp byte t_292 = NR_time[5],
       temp bool t_293 = NR_size > 5,
-      temp int t_294 = t_292 - t_293,
+      temp byte t_294 = t_292 - t_293,
       NR_time[5] = t_294,
       temp byte t_295 = NR_time[6],
       temp bool t_296 = NR_size > 6,
-      temp int t_297 = t_295 - t_296,
+      temp byte t_297 = t_295 - t_296,
       NR_time[6] = t_297,
       temp byte t_298 = RN_time[0],
       temp bool t_299 = RN_size > 0,
-      temp int t_300 = t_298 - t_299,
+      temp byte t_300 = t_298 - t_299,
       RN_time[0] = t_300,
       temp byte t_301 = RN_time[1],
       temp bool t_302 = RN_size > 1,
-      temp int t_303 = t_301 - t_302,
+      temp byte t_303 = t_301 - t_302,
       RN_time[1] = t_303,
       temp byte t_304 = RN_time[2],
       temp bool t_305 = RN_size > 2,
-      temp int t_306 = t_304 - t_305,
+      temp byte t_306 = t_304 - t_305,
       RN_time[2] = t_306,
       temp byte t_307 = RN_time[3],
       temp bool t_308 = RN_size > 3,
-      temp int t_309 = t_307 - t_308,
+      temp byte t_309 = t_307 - t_308,
       RN_time[3] = t_309,
       temp byte t_310 = RN_time[4],
       temp bool t_311 = RN_size > 4,
-      temp int t_312 = t_310 - t_311,
+      temp byte t_312 = t_310 - t_311,
       RN_time[4] = t_312,
       temp byte t_313 = RN_time[5],
       temp bool t_314 = RN_size > 5,
-      temp int t_315 = t_313 - t_314,
+      temp byte t_315 = t_313 - t_314,
       RN_time[5] = t_315,
       temp byte t_316 = RN_time[6],
       temp bool t_317 = RN_size > 6,
-      temp int t_318 = t_316 - t_317,
+      temp byte t_318 = t_316 - t_317,
       RN_time[6] = t_318,
-      temp int t_319 = x + 1,
+      temp byte t_319 = x + 1,
       x = t_319;
 
-  process element
+  process element 
     guardBlock
       temp bool t_320 = element.state == 3,
       temp bool t_321 = element.packet == 6,
       temp bool t_322 = t_320 and t_321;
+
     guardCondition t_322;
     effect
       element.state = 4;
 
-  process element
+  process element 
     guardBlock
       temp bool t_323 = element.state == 4,
       temp bool t_324 = element.nloss < 4,
       temp bool t_325 = t_323 and t_324;
+
     guardCondition t_325;
     effect
       element.state = 0,
-      temp int t_326 = element.nloss + 1,
+      temp byte t_326 = element.nloss + 1,
       element.nloss = t_326;
 
-  process element
+  process element 
     guardBlock
       temp bool t_327 = element.state == 3,
       temp bool t_328 = element.packet == 9,
       temp bool t_329 = t_327 and t_328;
+
     guardCondition t_329;
     effect
       element.state = 7,
       element.i = 0;
 
-  process element
+  process element 
     guardBlock
       temp bool t_330 = element.state == 7,
       temp bool t_331 = element.i == element.rs_len,
       temp bool t_332 = t_330 and t_331;
+
     guardCondition t_332;
     effect
       element.state = 0;
 
-  process element
+  process element 
     guardBlock
       temp bool t_333 = element.state == 7,
       temp bool t_334 = element.i < element.rs_len,
@@ -481,23 +487,25 @@ byte NR.buf_2[8] =  {0, 0, 0, 0, 0, 0, 0};
       temp bool t_336 = t_335 != element.seq,
       temp bool t_337 = t_334 and t_336,
       temp bool t_338 = t_333 and t_337;
+
     guardCondition t_338;
     effect
       element.state = 7,
-      temp int t_339 = element.i + 1,
+      temp byte t_339 = element.i + 1,
       element.i = t_339;
 
-  process element
+  process element 
     guardBlock
       temp bool t_340 = element.state == 3,
       temp bool t_341 = element.packet == 3,
       temp bool t_342 = t_340 and t_341;
+
     guardCondition t_342;
     effect
       element.state = 11,
       element.i = 0;
 
-  process element
+  process element 
     guardBlock
       temp bool t_343 = element.state == 11,
       temp bool t_344 = element.i < element.rs_len,
@@ -505,13 +513,14 @@ byte NR.buf_2[8] =  {0, 0, 0, 0, 0, 0, 0};
       temp bool t_346 = t_345 >= element.trail,
       temp bool t_347 = t_344 and t_346,
       temp bool t_348 = t_343 and t_347;
+
     guardCondition t_348;
     effect
       element.state = 11,
-      temp int t_349 = element.i + 1,
+      temp byte t_349 = element.i + 1,
       element.i = t_349;
 
-  process element
+  process element 
     guardBlock
       temp bool t_350 = element.state == 11,
       temp bool t_351 = element.i < element.rs_len,
@@ -519,16 +528,17 @@ byte NR.buf_2[8] =  {0, 0, 0, 0, 0, 0, 0};
       temp bool t_353 = t_352 < element.trail,
       temp bool t_354 = t_351 and t_353,
       temp bool t_355 = t_350 and t_354;
+
     guardCondition t_355;
     effect
       element.state = 11,
-      temp int t_356 = element.rs_len - 1,
+      temp byte t_356 = element.rs_len - 1,
       temp byte t_357 = element.rs[t_356],
       element.rs[element.i] = t_357,
-      temp int t_358 = element.rs_len - 1,
+      temp byte t_358 = element.rs_len - 1,
       element.rs_len = t_358;
 
-  process element
+  process element 
     guardBlock
       temp bool t_359 = element.state == 10,
       temp bool t_360 = element.i < element.rs_len,
@@ -536,13 +546,14 @@ byte NR.buf_2[8] =  {0, 0, 0, 0, 0, 0, 0};
       temp bool t_362 = t_361 != element.packet,
       temp bool t_363 = t_360 and t_362,
       temp bool t_364 = t_359 and t_363;
+
     guardCondition t_364;
     effect
       element.state = 10,
-      temp int t_365 = element.i + 1,
+      temp byte t_365 = element.i + 1,
       element.i = t_365;
 
-  process element
+  process element 
     guardBlock
       temp bool t_366 = element.state == 10,
       temp bool t_367 = element.i < element.rs_len,
@@ -550,88 +561,95 @@ byte NR.buf_2[8] =  {0, 0, 0, 0, 0, 0, 0};
       temp bool t_369 = t_368 == element.packet,
       temp bool t_370 = t_367 and t_369,
       temp bool t_371 = t_366 and t_370;
+
     guardCondition t_371;
     effect
       element.state = 0;
 
-  process receiver
+  process receiver 
     guardBlock
       temp bool t_372 = receiver.state == 7,
       temp bool t_373 = RXW_TRAIL < receiver.trail,
       temp bool t_374 = t_372 and t_373;
+
     guardCondition t_374;
     effect
       receiver.state = 8;
 
-  process receiver
+  process receiver 
     guardBlock
       temp bool t_375 = receiver.state == 8,
       temp bool t_376 = RXW_TRAIL <= RXW_LEAD,
-      temp int t_377 = RXW_TRAIL % 5,
+      temp byte t_377 = RXW_TRAIL % 5,
       temp byte t_378 = receiver.RXW[t_377],
       temp bool t_379 = t_376 and t_378,
       temp bool t_380 = t_375 and t_379;
+
     guardCondition t_380;
     effect
       receiver.state = 9,
-      temp int t_381 = receiver.outdata + 1,
+      temp byte t_381 = receiver.outdata + 1,
       receiver.outdata = t_381;
 
-  process receiver
+  process receiver 
     guardBlock
       temp bool t_382 = receiver.state == 8,
       temp bool t_383 = RXW_TRAIL <= RXW_LEAD,
-      temp int t_384 = RXW_TRAIL % 5,
+      temp byte t_384 = RXW_TRAIL % 5,
       temp byte t_385 = receiver.RXW[t_384],
       temp bool t_386 = not t_385,
       temp bool t_387 = t_383 and t_386,
       temp bool t_388 = t_382 and t_387;
+
     guardCondition t_388;
     effect
       receiver.state = 9,
-      temp int t_389 = receiver.outloss + 1,
+      temp byte t_389 = receiver.outloss + 1,
       receiver.outloss = t_389;
 
-  process receiver
+  process receiver 
     guardBlock
       temp bool t_390 = receiver.state == 8,
       temp bool t_391 = RXW_TRAIL > RXW_LEAD,
       temp bool t_392 = t_390 and t_391;
+
     guardCondition t_392;
     effect
       receiver.state = 9,
-      temp int t_393 = receiver.outloss + 1,
+      temp byte t_393 = receiver.outloss + 1,
       receiver.outloss = t_393,
-      temp int t_394 = RXW_LEAD + 1,
+      temp byte t_394 = RXW_LEAD + 1,
       RXW_LEAD = t_394;
 
-  process receiver
+  process receiver 
     guardBlock
       temp bool t_395 = receiver.state == 9;
+
     guardCondition t_395;
     effect
       receiver.state = 7,
-      temp int t_396 = RXW_TRAIL % 5,
+      temp byte t_396 = RXW_TRAIL % 5,
       receiver.RXW[t_396] = 0,
-      temp int t_397 = RXW_TRAIL + 1,
+      temp byte t_397 = RXW_TRAIL + 1,
       RXW_TRAIL = t_397;
 
-  process receiver
+  process receiver 
     guardBlock
       temp bool t_398 = receiver.state == 7,
       temp bool t_399 = RXW_TRAIL >= receiver.trail,
       temp bool t_400 = t_398 and t_399;
+
     guardCondition t_400;
     effect
       receiver.state = 5;
 
-  process receiver
+  process receiver 
     guardBlock
       temp bool t_401 = receiver.state == 5,
       temp bool t_402 = receiver.packet == 6,
       temp bool t_403 = receiver.packet == 9,
       temp bool t_404 = t_402 or t_403,
-      temp int t_405 = RXW_LEAD + 1,
+      temp byte t_405 = RXW_LEAD + 1,
       temp bool t_406 = receiver.sqn > t_405,
       temp bool t_407 = t_404 and t_406,
       temp bool t_408 = receiver.packet == 3,
@@ -639,22 +657,24 @@ byte NR.buf_2[8] =  {0, 0, 0, 0, 0, 0, 0};
       temp bool t_410 = t_408 and t_409,
       temp bool t_411 = t_407 or t_410,
       temp bool t_412 = t_401 and t_411;
+
     guardCondition t_412;
     effect
       receiver.state = 6;
 
-  process receiver
+  process receiver 
     guardBlock
       temp bool t_413 = receiver.state == 5,
       temp bool t_414 = receiver.packet == 3,
       temp bool t_415 = receiver.sqn <= RXW_LEAD,
       temp bool t_416 = t_414 and t_415,
       temp bool t_417 = t_413 and t_416;
+
     guardCondition t_417;
     effect
       receiver.state = 0;
 
-  process receiver
+  process receiver 
     guardBlock
       temp bool t_418 = receiver.state == 5,
       temp bool t_419 = receiver.packet == 6,
@@ -665,70 +685,76 @@ byte NR.buf_2[8] =  {0, 0, 0, 0, 0, 0, 0};
       temp bool t_424 = receiver.sqn <= RXW_LEAD,
       temp bool t_425 = t_423 and t_424,
       temp bool t_426 = t_418 and t_425;
+
     guardCondition t_426;
     effect
       receiver.state = 0,
-      temp int t_427 = receiver.sqn % 5,
+      temp byte t_427 = receiver.sqn % 5,
       receiver.RXW[t_427] = 1;
 
-  process receiver
+  process receiver 
     guardBlock
       temp bool t_428 = receiver.state == 5,
       temp bool t_429 = receiver.sqn < RXW_TRAIL,
       temp bool t_430 = t_428 and t_429;
+
     guardCondition t_430;
     effect
       receiver.state = 0;
 
-  process receiver
+  process receiver 
     guardBlock
       temp bool t_431 = receiver.state == 5,
       temp bool t_432 = receiver.packet == 6,
       temp bool t_433 = receiver.packet == 9,
       temp bool t_434 = t_432 or t_433,
-      temp int t_435 = RXW_LEAD + 1,
+      temp byte t_435 = RXW_LEAD + 1,
       temp bool t_436 = receiver.sqn == t_435,
       temp bool t_437 = t_434 and t_436,
       temp bool t_438 = t_431 and t_437;
+
     guardCondition t_438;
     effect
       receiver.state = 0,
-      temp int t_439 = receiver.sqn % 5,
+      temp byte t_439 = receiver.sqn % 5,
       receiver.RXW[t_439] = 1,
-      temp int t_440 = RXW_LEAD + 1,
+      temp byte t_440 = RXW_LEAD + 1,
       RXW_LEAD = t_440;
 
-  process receiver
+  process receiver 
     guardBlock
       temp bool t_441 = receiver.state == 0,
       temp bool t_442 = RXW_TRAIL <= RXW_LEAD,
-      temp int t_443 = RXW_TRAIL % 5,
+      temp byte t_443 = RXW_TRAIL % 5,
       temp byte t_444 = receiver.RXW[t_443],
       temp bool t_445 = t_442 and t_444,
       temp bool t_446 = t_441 and t_445;
+
     guardCondition t_446;
     effect
       receiver.state = 0,
-      temp int t_447 = RXW_TRAIL % 5,
+      temp byte t_447 = RXW_TRAIL % 5,
       receiver.RXW[t_447] = 0,
-      temp int t_448 = RXW_TRAIL + 1,
+      temp byte t_448 = RXW_TRAIL + 1,
       RXW_TRAIL = t_448,
-      temp int t_449 = receiver.outdata + 1,
+      temp byte t_449 = receiver.outdata + 1,
       receiver.outdata = t_449;
 
-  process SN
+  process SN 
     guardBlock
       temp bool t_450 = SN.state == 4;
+
     guardCondition t_450;
     effect
       SN.state = 6,
       SN_time[SN_size] = 2,
-      temp int t_451 = SN_size + 1,
+      temp byte t_451 = SN_size + 1,
       SN_size = t_451;
 
-  process SN
+  process SN 
     guardBlock
       temp bool t_452 = SN.state == 5;
+
     guardCondition t_452;
     effect
       SN.state = 6,
@@ -745,22 +771,24 @@ byte NR.buf_2[8] =  {0, 0, 0, 0, 0, 0, 0};
       temp byte t_458 = SN_time[6],
       SN_time[5] = t_458,
       SN_time[6] = 0,
-      temp int t_459 = SN_size - 1,
+      temp byte t_459 = SN_size - 1,
       SN_size = t_459;
 
-  process NS
+  process NS 
     guardBlock
       temp bool t_460 = NS.state == 0;
+
     guardCondition t_460;
     effect
       NS.state = 2,
       NS_time[NS_size] = 2,
-      temp int t_461 = NS_size + 1,
+      temp byte t_461 = NS_size + 1,
       NS_size = t_461;
 
-  process NS
+  process NS 
     guardBlock
       temp bool t_462 = NS.state == 1;
+
     guardCondition t_462;
     effect
       NS.state = 2,
@@ -777,22 +805,24 @@ byte NR.buf_2[8] =  {0, 0, 0, 0, 0, 0, 0};
       temp byte t_468 = NS_time[6],
       NS_time[5] = t_468,
       NS_time[6] = 0,
-      temp int t_469 = NS_size - 1,
+      temp byte t_469 = NS_size - 1,
       NS_size = t_469;
 
-  process RN
+  process RN 
     guardBlock
       temp bool t_470 = RN.state == 0;
+
     guardCondition t_470;
     effect
       RN.state = 2,
       RN_time[RN_size] = 2,
-      temp int t_471 = RN_size + 1,
+      temp byte t_471 = RN_size + 1,
       RN_size = t_471;
 
-  process RN
+  process RN 
     guardBlock
       temp bool t_472 = RN.state == 1;
+
     guardCondition t_472;
     effect
       RN.state = 2,
@@ -809,22 +839,24 @@ byte NR.buf_2[8] =  {0, 0, 0, 0, 0, 0, 0};
       temp byte t_478 = RN_time[6],
       RN_time[5] = t_478,
       RN_time[6] = 0,
-      temp int t_479 = RN_size - 1,
+      temp byte t_479 = RN_size - 1,
       RN_size = t_479;
 
-  process NR
+  process NR 
     guardBlock
       temp bool t_480 = NR.state == 4;
+
     guardCondition t_480;
     effect
       NR.state = 6,
       NR_time[NR_size] = 2,
-      temp int t_481 = NR_size + 1,
+      temp byte t_481 = NR_size + 1,
       NR_size = t_481;
 
-  process NR
+  process NR 
     guardBlock
       temp bool t_482 = NR.state == 5;
+
     guardCondition t_482;
     effect
       NR.state = 6,
@@ -841,1295 +873,844 @@ byte NR.buf_2[8] =  {0, 0, 0, 0, 0, 0, 0};
       temp byte t_488 = NR_time[6],
       NR_time[5] = t_488,
       NR_time[6] = 0,
-      temp int t_489 = NR_size - 1,
+      temp byte t_489 = NR_size - 1,
       NR_size = t_489;
 
-  process SN_element
+  process NS_sender 
     guardBlock
-      temp bool t_490 = SN.state == 6,
-      temp bool t_491 = SN_size == 0,
+      temp bool t_490 = NS.state == 2,
+      temp bool t_491 = NS_size == 0,
       temp bool t_492 = not t_491,
-      temp byte t_493 = SN_time[0],
+      temp byte t_493 = NS_time[0],
       temp bool t_494 = t_493 == 0,
       temp bool t_495 = t_492 and t_494,
       temp bool t_496 = t_490 and t_495,
-      temp bool t_497 = element.state == 0,
-      temp bool t_498 = t_496 and t_497;
-    guardCondition t_498;
-    effect
-      SN.state = 1,
-      temp byte t_499 = SN.buf_0[1],
-      SN.buf_0[0] = t_499,
-      temp byte t_500 = SN.buf_0[2],
-      SN.buf_0[1] = t_500,
-      temp byte t_501 = SN.buf_0[3],
-      SN.buf_0[2] = t_501,
-      temp byte t_502 = SN.buf_0[4],
-      SN.buf_0[3] = t_502,
-      temp byte t_503 = SN.buf_0[5],
-      SN.buf_0[4] = t_503,
-      temp byte t_504 = SN.buf_0[6],
-      SN.buf_0[5] = t_504,
-      SN.buf_0[6] = 0,
-      temp byte t_505 = SN.buf_0[0],
-      element.packet = t_505,
-      element.state = 1;
-
-  process SN_element
-    guardBlock
-      temp bool t_506 = SN.state == 6,
-      temp bool t_507 = SN_size == 0,
+      temp bool t_497 = sender.state == 0,
+      temp bool t_498 = TXW_LEAD == 9,
+      temp bool t_499 = close and t_498,
+      temp byte t_500 = TXW_LEAD + 1,
+      temp bool t_501 = TXW_TRAIL == t_500,
+      temp bool t_502 = t_499 and t_501,
+      temp bool t_503 = not t_502,
+      temp bool t_504 = sqn <= TXW_LEAD,
+      temp bool t_505 = not t_504,
+      temp bool t_506 = t_503 and t_505,
+      temp bool t_507 = c >= 2,
       temp bool t_508 = not t_507,
-      temp byte t_509 = SN_time[0],
-      temp bool t_510 = t_509 == 0,
-      temp bool t_511 = t_508 and t_510,
-      temp bool t_512 = t_506 and t_511,
-      temp bool t_513 = element.state == 1,
-      temp bool t_514 = t_512 and t_513;
-    guardCondition t_514;
-    effect
-      SN.state = 1,
-      temp byte t_515 = SN.buf_0[1],
-      SN.buf_0[0] = t_515,
-      temp byte t_516 = SN.buf_0[2],
-      SN.buf_0[1] = t_516,
-      temp byte t_517 = SN.buf_0[3],
-      SN.buf_0[2] = t_517,
-      temp byte t_518 = SN.buf_0[4],
-      SN.buf_0[3] = t_518,
-      temp byte t_519 = SN.buf_0[5],
-      SN.buf_0[4] = t_519,
-      temp byte t_520 = SN.buf_0[6],
-      SN.buf_0[5] = t_520,
-      SN.buf_0[6] = 0,
-      temp byte t_521 = SN.buf_0[0],
-      element.seq = t_521,
-      element.state = 2;
+      temp bool t_509 = t_506 and t_508,
+      temp byte t_510 = TXW_LEAD - TXW_TRAIL,
+      temp byte t_511 = t_510 + 1,
+      temp bool t_512 = t_511 <= 5,
+      temp bool t_513 = TXW_LEAD < 9,
+      temp bool t_514 = t_512 and t_513,
+      temp bool t_515 = x >= 3,
+      temp bool t_516 = t_514 and t_515,
+      temp bool t_517 = not t_516,
+      temp bool t_518 = t_509 and t_517,
+      temp bool t_519 = t_497 and t_518,
+      temp bool t_520 = t_496 and t_519;
 
-  process SN_element
-    guardBlock
-      temp bool t_522 = SN.state == 6,
-      temp bool t_523 = SN_size == 0,
-      temp bool t_524 = not t_523,
-      temp byte t_525 = SN_time[0],
-      temp bool t_526 = t_525 == 0,
-      temp bool t_527 = t_524 and t_526,
-      temp bool t_528 = t_522 and t_527,
-      temp bool t_529 = element.state == 2,
-      temp bool t_530 = t_528 and t_529;
-    guardCondition t_530;
-    effect
-      SN.state = 1,
-      temp byte t_531 = SN.buf_0[1],
-      SN.buf_0[0] = t_531,
-      temp byte t_532 = SN.buf_0[2],
-      SN.buf_0[1] = t_532,
-      temp byte t_533 = SN.buf_0[3],
-      SN.buf_0[2] = t_533,
-      temp byte t_534 = SN.buf_0[4],
-      SN.buf_0[3] = t_534,
-      temp byte t_535 = SN.buf_0[5],
-      SN.buf_0[4] = t_535,
-      temp byte t_536 = SN.buf_0[6],
-      SN.buf_0[5] = t_536,
-      SN.buf_0[6] = 0,
-      temp byte t_537 = SN.buf_0[0],
-      element.trail = t_537,
-      element.state = 3;
-
-  process SN_element
-    guardBlock
-      temp bool t_538 = SN.state == 1,
-      temp bool t_539 = element.state == 0,
-      temp bool t_540 = t_538 and t_539;
-    guardCondition t_540;
-    effect
-      SN.state = 3,
-      temp byte t_541 = SN.buf_1[1],
-      SN.buf_1[0] = t_541,
-      temp byte t_542 = SN.buf_1[2],
-      SN.buf_1[1] = t_542,
-      temp byte t_543 = SN.buf_1[3],
-      SN.buf_1[2] = t_543,
-      temp byte t_544 = SN.buf_1[4],
-      SN.buf_1[3] = t_544,
-      temp byte t_545 = SN.buf_1[5],
-      SN.buf_1[4] = t_545,
-      temp byte t_546 = SN.buf_1[6],
-      SN.buf_1[5] = t_546,
-      SN.buf_1[6] = 0,
-      temp byte t_547 = SN.buf_1[0],
-      element.packet = t_547,
-      element.state = 1;
-
-  process SN_element
-    guardBlock
-      temp bool t_548 = SN.state == 1,
-      temp bool t_549 = element.state == 1,
-      temp bool t_550 = t_548 and t_549;
-    guardCondition t_550;
-    effect
-      SN.state = 3,
-      temp byte t_551 = SN.buf_1[1],
-      SN.buf_1[0] = t_551,
-      temp byte t_552 = SN.buf_1[2],
-      SN.buf_1[1] = t_552,
-      temp byte t_553 = SN.buf_1[3],
-      SN.buf_1[2] = t_553,
-      temp byte t_554 = SN.buf_1[4],
-      SN.buf_1[3] = t_554,
-      temp byte t_555 = SN.buf_1[5],
-      SN.buf_1[4] = t_555,
-      temp byte t_556 = SN.buf_1[6],
-      SN.buf_1[5] = t_556,
-      SN.buf_1[6] = 0,
-      temp byte t_557 = SN.buf_1[0],
-      element.seq = t_557,
-      element.state = 2;
-
-  process SN_element
-    guardBlock
-      temp bool t_558 = SN.state == 1,
-      temp bool t_559 = element.state == 2,
-      temp bool t_560 = t_558 and t_559;
-    guardCondition t_560;
-    effect
-      SN.state = 3,
-      temp byte t_561 = SN.buf_1[1],
-      SN.buf_1[0] = t_561,
-      temp byte t_562 = SN.buf_1[2],
-      SN.buf_1[1] = t_562,
-      temp byte t_563 = SN.buf_1[3],
-      SN.buf_1[2] = t_563,
-      temp byte t_564 = SN.buf_1[4],
-      SN.buf_1[3] = t_564,
-      temp byte t_565 = SN.buf_1[5],
-      SN.buf_1[4] = t_565,
-      temp byte t_566 = SN.buf_1[6],
-      SN.buf_1[5] = t_566,
-      SN.buf_1[6] = 0,
-      temp byte t_567 = SN.buf_1[0],
-      element.trail = t_567,
-      element.state = 3;
-
-  process SN_element
-    guardBlock
-      temp bool t_568 = SN.state == 3,
-      temp bool t_569 = element.state == 0,
-      temp bool t_570 = t_568 and t_569;
-    guardCondition t_570;
-    effect
-      SN.state = 5,
-      temp byte t_571 = SN.buf_2[1],
-      SN.buf_2[0] = t_571,
-      temp byte t_572 = SN.buf_2[2],
-      SN.buf_2[1] = t_572,
-      temp byte t_573 = SN.buf_2[3],
-      SN.buf_2[2] = t_573,
-      temp byte t_574 = SN.buf_2[4],
-      SN.buf_2[3] = t_574,
-      temp byte t_575 = SN.buf_2[5],
-      SN.buf_2[4] = t_575,
-      temp byte t_576 = SN.buf_2[6],
-      SN.buf_2[5] = t_576,
-      SN.buf_2[6] = 0,
-      temp byte t_577 = SN.buf_2[0],
-      element.packet = t_577,
-      element.state = 1;
-
-  process SN_element
-    guardBlock
-      temp bool t_578 = SN.state == 3,
-      temp bool t_579 = element.state == 1,
-      temp bool t_580 = t_578 and t_579;
-    guardCondition t_580;
-    effect
-      SN.state = 5,
-      temp byte t_581 = SN.buf_2[1],
-      SN.buf_2[0] = t_581,
-      temp byte t_582 = SN.buf_2[2],
-      SN.buf_2[1] = t_582,
-      temp byte t_583 = SN.buf_2[3],
-      SN.buf_2[2] = t_583,
-      temp byte t_584 = SN.buf_2[4],
-      SN.buf_2[3] = t_584,
-      temp byte t_585 = SN.buf_2[5],
-      SN.buf_2[4] = t_585,
-      temp byte t_586 = SN.buf_2[6],
-      SN.buf_2[5] = t_586,
-      SN.buf_2[6] = 0,
-      temp byte t_587 = SN.buf_2[0],
-      element.seq = t_587,
-      element.state = 2;
-
-  process SN_element
-    guardBlock
-      temp bool t_588 = SN.state == 3,
-      temp bool t_589 = element.state == 2,
-      temp bool t_590 = t_588 and t_589;
-    guardCondition t_590;
-    effect
-      SN.state = 5,
-      temp byte t_591 = SN.buf_2[1],
-      SN.buf_2[0] = t_591,
-      temp byte t_592 = SN.buf_2[2],
-      SN.buf_2[1] = t_592,
-      temp byte t_593 = SN.buf_2[3],
-      SN.buf_2[2] = t_593,
-      temp byte t_594 = SN.buf_2[4],
-      SN.buf_2[3] = t_594,
-      temp byte t_595 = SN.buf_2[5],
-      SN.buf_2[4] = t_595,
-      temp byte t_596 = SN.buf_2[6],
-      SN.buf_2[5] = t_596,
-      SN.buf_2[6] = 0,
-      temp byte t_597 = SN.buf_2[0],
-      element.trail = t_597,
-      element.state = 3;
-
-  process NS_sender
-    guardBlock
-      temp bool t_598 = NS.state == 2,
-      temp bool t_599 = NS_size == 0,
-      temp bool t_600 = not t_599,
-      temp byte t_601 = NS_time[0],
-      temp bool t_602 = t_601 == 0,
-      temp bool t_603 = t_600 and t_602,
-      temp bool t_604 = t_598 and t_603,
-      temp bool t_605 = sender.state == 0,
-      temp bool t_606 = TXW_LEAD == 9,
-      temp bool t_607 = close and t_606,
-      temp int t_608 = TXW_LEAD + 1,
-      temp bool t_609 = TXW_TRAIL == t_608,
-      temp bool t_610 = t_607 and t_609,
-      temp bool t_611 = not t_610,
-      temp bool t_612 = sqn <= TXW_LEAD,
-      temp bool t_613 = not t_612,
-      temp bool t_614 = t_611 and t_613,
-      temp bool t_615 = c >= 2,
-      temp bool t_616 = not t_615,
-      temp bool t_617 = t_614 and t_616,
-      temp int t_618 = TXW_LEAD - TXW_TRAIL,
-      temp int t_619 = t_618 + 1,
-      temp bool t_620 = t_619 <= 5,
-      temp bool t_621 = TXW_LEAD < 9,
-      temp bool t_622 = t_620 and t_621,
-      temp bool t_623 = x >= 3,
-      temp bool t_624 = t_622 and t_623,
-      temp bool t_625 = not t_624,
-      temp bool t_626 = t_617 and t_625,
-      temp bool t_627 = t_605 and t_626,
-      temp bool t_628 = t_604 and t_627;
-    guardCondition t_628;
+    guardCondition t_520;
     effect
       NS.state = 1,
-      temp byte t_629 = NS.buf_0[1],
-      NS.buf_0[0] = t_629,
-      temp byte t_630 = NS.buf_0[2],
-      NS.buf_0[1] = t_630,
-      temp byte t_631 = NS.buf_0[3],
-      NS.buf_0[2] = t_631,
-      temp byte t_632 = NS.buf_0[4],
-      NS.buf_0[3] = t_632,
-      temp byte t_633 = NS.buf_0[5],
-      NS.buf_0[4] = t_633,
-      temp byte t_634 = NS.buf_0[6],
-      NS.buf_0[5] = t_634,
+      temp byte t_521 = NS.buf_0[1],
+      NS.buf_0[0] = t_521,
+      temp byte t_522 = NS.buf_0[2],
+      NS.buf_0[1] = t_522,
+      temp byte t_523 = NS.buf_0[3],
+      NS.buf_0[2] = t_523,
+      temp byte t_524 = NS.buf_0[4],
+      NS.buf_0[3] = t_524,
+      temp byte t_525 = NS.buf_0[5],
+      NS.buf_0[4] = t_525,
+      temp byte t_526 = NS.buf_0[6],
+      NS.buf_0[5] = t_526,
       NS.buf_0[6] = 0,
-      temp byte t_635 = NS.buf_0[0],
-      packet = t_635,
+      temp byte t_527 = NS.buf_0[0],
+      packet = t_527,
       sender.state = 1;
 
-  process RN_element
+  process element_NR 
     guardBlock
-      temp bool t_636 = RN.state == 2,
-      temp bool t_637 = RN_size == 0,
-      temp bool t_638 = not t_637,
-      temp byte t_639 = RN_time[0],
-      temp bool t_640 = t_639 == 0,
-      temp bool t_641 = t_638 and t_640,
-      temp bool t_642 = t_636 and t_641,
-      temp bool t_643 = element.state == 0,
-      temp bool t_644 = t_642 and t_643;
-    guardCondition t_644;
-    effect
-      RN.state = 1,
-      temp byte t_645 = RN.buf_0[1],
-      RN.buf_0[0] = t_645,
-      temp byte t_646 = RN.buf_0[2],
-      RN.buf_0[1] = t_646,
-      temp byte t_647 = RN.buf_0[3],
-      RN.buf_0[2] = t_647,
-      temp byte t_648 = RN.buf_0[4],
-      RN.buf_0[3] = t_648,
-      temp byte t_649 = RN.buf_0[5],
-      RN.buf_0[4] = t_649,
-      temp byte t_650 = RN.buf_0[6],
-      RN.buf_0[5] = t_650,
-      RN.buf_0[6] = 0,
-      temp byte t_651 = RN.buf_0[0],
-      element.packet = t_651,
-      element.state = 10,
-      element.i = 0;
+      temp bool t_528 = element.state == 4,
+      temp bool t_529 = NR.state == 6,
+      temp bool t_530 = NR_size == 7,
+      temp bool t_531 = not t_530,
+      temp bool t_532 = t_529 and t_531,
+      temp bool t_533 = t_528 and t_532;
 
-  process element_NR
-    guardBlock
-      temp bool t_652 = element.state == 4,
-      temp bool t_653 = NR.state == 6,
-      temp bool t_654 = NR_size == 7,
-      temp bool t_655 = not t_654,
-      temp bool t_656 = t_653 and t_655,
-      temp bool t_657 = t_652 and t_656;
-    guardCondition t_657;
+    guardCondition t_533;
     effect
       element.state = 5,
       NR.buf_0[NR_size] = element.packet,
       NR.state = 0;
 
-  process element_NR
+  process element_NR 
     guardBlock
-      temp bool t_658 = element.state == 4,
-      temp bool t_659 = NR.state == 0,
-      temp bool t_660 = t_658 and t_659;
-    guardCondition t_660;
+      temp bool t_534 = element.state == 4,
+      temp bool t_535 = NR.state == 0,
+      temp bool t_536 = t_534 and t_535;
+
+    guardCondition t_536;
     effect
       element.state = 5,
       NR.buf_1[NR_size] = element.packet,
       NR.state = 2;
 
-  process element_NR
+  process element_NR 
     guardBlock
-      temp bool t_661 = element.state == 4,
-      temp bool t_662 = NR.state == 2,
-      temp bool t_663 = t_661 and t_662;
-    guardCondition t_663;
+      temp bool t_537 = element.state == 4,
+      temp bool t_538 = NR.state == 2,
+      temp bool t_539 = t_537 and t_538;
+
+    guardCondition t_539;
     effect
       element.state = 5,
       NR.buf_2[NR_size] = element.packet,
       NR.state = 4;
 
-  process element_NR
+  process element_NR 
     guardBlock
-      temp bool t_664 = element.state == 5,
-      temp bool t_665 = NR.state == 6,
-      temp bool t_666 = NR_size == 7,
-      temp bool t_667 = not t_666,
-      temp bool t_668 = t_665 and t_667,
-      temp bool t_669 = t_664 and t_668;
-    guardCondition t_669;
+      temp bool t_540 = element.state == 5,
+      temp bool t_541 = NR.state == 6,
+      temp bool t_542 = NR_size == 7,
+      temp bool t_543 = not t_542,
+      temp bool t_544 = t_541 and t_543,
+      temp bool t_545 = t_540 and t_544;
+
+    guardCondition t_545;
     effect
       element.state = 6,
       NR.buf_0[NR_size] = element.seq,
       NR.state = 0;
 
-  process element_NR
+  process element_NR 
     guardBlock
-      temp bool t_670 = element.state == 5,
-      temp bool t_671 = NR.state == 0,
-      temp bool t_672 = t_670 and t_671;
-    guardCondition t_672;
+      temp bool t_546 = element.state == 5,
+      temp bool t_547 = NR.state == 0,
+      temp bool t_548 = t_546 and t_547;
+
+    guardCondition t_548;
     effect
       element.state = 6,
       NR.buf_1[NR_size] = element.seq,
       NR.state = 2;
 
-  process element_NR
+  process element_NR 
     guardBlock
-      temp bool t_673 = element.state == 5,
-      temp bool t_674 = NR.state == 2,
-      temp bool t_675 = t_673 and t_674;
-    guardCondition t_675;
+      temp bool t_549 = element.state == 5,
+      temp bool t_550 = NR.state == 2,
+      temp bool t_551 = t_549 and t_550;
+
+    guardCondition t_551;
     effect
       element.state = 6,
       NR.buf_2[NR_size] = element.seq,
       NR.state = 4;
 
-  process element_NR
+  process element_NR 
     guardBlock
-      temp bool t_676 = element.state == 6,
-      temp bool t_677 = NR.state == 6,
-      temp bool t_678 = NR_size == 7,
-      temp bool t_679 = not t_678,
-      temp bool t_680 = t_677 and t_679,
-      temp bool t_681 = t_676 and t_680;
-    guardCondition t_681;
+      temp bool t_552 = element.state == 6,
+      temp bool t_553 = NR.state == 6,
+      temp bool t_554 = NR_size == 7,
+      temp bool t_555 = not t_554,
+      temp bool t_556 = t_553 and t_555,
+      temp bool t_557 = t_552 and t_556;
+
+    guardCondition t_557;
     effect
       element.state = 0,
       NR.buf_0[NR_size] = element.trail,
       NR.state = 0;
 
-  process element_NR
+  process element_NR 
     guardBlock
-      temp bool t_682 = element.state == 6,
-      temp bool t_683 = NR.state == 0,
-      temp bool t_684 = t_682 and t_683;
-    guardCondition t_684;
+      temp bool t_558 = element.state == 6,
+      temp bool t_559 = NR.state == 0,
+      temp bool t_560 = t_558 and t_559;
+
+    guardCondition t_560;
     effect
       element.state = 0,
       NR.buf_1[NR_size] = element.trail,
       NR.state = 2;
 
-  process element_NR
+  process element_NR 
     guardBlock
-      temp bool t_685 = element.state == 6,
-      temp bool t_686 = NR.state == 2,
-      temp bool t_687 = t_685 and t_686;
-    guardCondition t_687;
+      temp bool t_561 = element.state == 6,
+      temp bool t_562 = NR.state == 2,
+      temp bool t_563 = t_561 and t_562;
+
+    guardCondition t_563;
     effect
       element.state = 0,
       NR.buf_2[NR_size] = element.trail,
       NR.state = 4;
 
-  process element_NR
+  process element_NR 
     guardBlock
-      temp bool t_688 = element.state == 7,
-      temp bool t_689 = element.i < element.rs_len,
-      temp byte t_690 = element.rs[element.i],
-      temp bool t_691 = t_690 == element.seq,
-      temp bool t_692 = t_689 and t_691,
-      temp bool t_693 = t_688 and t_692,
-      temp bool t_694 = NR.state == 6,
-      temp bool t_695 = NR_size == 7,
-      temp bool t_696 = not t_695,
-      temp bool t_697 = t_694 and t_696,
-      temp bool t_698 = t_693 and t_697;
-    guardCondition t_698;
+      temp bool t_564 = element.state == 7,
+      temp bool t_565 = element.i < element.rs_len,
+      temp byte t_566 = element.rs[element.i],
+      temp bool t_567 = t_566 == element.seq,
+      temp bool t_568 = t_565 and t_567,
+      temp bool t_569 = t_564 and t_568,
+      temp bool t_570 = NR.state == 6,
+      temp bool t_571 = NR_size == 7,
+      temp bool t_572 = not t_571,
+      temp bool t_573 = t_570 and t_572,
+      temp bool t_574 = t_569 and t_573;
+
+    guardCondition t_574;
     effect
       element.state = 8,
       NR.buf_0[NR_size] = 9,
       NR.state = 0;
 
-  process element_NR
+  process element_NR 
     guardBlock
-      temp bool t_699 = element.state == 7,
-      temp bool t_700 = element.i < element.rs_len,
-      temp byte t_701 = element.rs[element.i],
-      temp bool t_702 = t_701 == element.seq,
-      temp bool t_703 = t_700 and t_702,
-      temp bool t_704 = t_699 and t_703,
-      temp bool t_705 = NR.state == 0,
-      temp bool t_706 = t_704 and t_705;
-    guardCondition t_706;
+      temp bool t_575 = element.state == 7,
+      temp bool t_576 = element.i < element.rs_len,
+      temp byte t_577 = element.rs[element.i],
+      temp bool t_578 = t_577 == element.seq,
+      temp bool t_579 = t_576 and t_578,
+      temp bool t_580 = t_575 and t_579,
+      temp bool t_581 = NR.state == 0,
+      temp bool t_582 = t_580 and t_581;
+
+    guardCondition t_582;
     effect
       element.state = 8,
       NR.buf_1[NR_size] = 9,
       NR.state = 2;
 
-  process element_NR
+  process element_NR 
     guardBlock
-      temp bool t_707 = element.state == 7,
-      temp bool t_708 = element.i < element.rs_len,
-      temp byte t_709 = element.rs[element.i],
-      temp bool t_710 = t_709 == element.seq,
-      temp bool t_711 = t_708 and t_710,
-      temp bool t_712 = t_707 and t_711,
-      temp bool t_713 = NR.state == 2,
-      temp bool t_714 = t_712 and t_713;
-    guardCondition t_714;
+      temp bool t_583 = element.state == 7,
+      temp bool t_584 = element.i < element.rs_len,
+      temp byte t_585 = element.rs[element.i],
+      temp bool t_586 = t_585 == element.seq,
+      temp bool t_587 = t_584 and t_586,
+      temp bool t_588 = t_583 and t_587,
+      temp bool t_589 = NR.state == 2,
+      temp bool t_590 = t_588 and t_589;
+
+    guardCondition t_590;
     effect
       element.state = 8,
       NR.buf_2[NR_size] = 9,
       NR.state = 4;
 
-  process element_NR
+  process element_NR 
     guardBlock
-      temp bool t_715 = element.state == 8,
-      temp bool t_716 = NR.state == 6,
-      temp bool t_717 = NR_size == 7,
-      temp bool t_718 = not t_717,
-      temp bool t_719 = t_716 and t_718,
-      temp bool t_720 = t_715 and t_719;
-    guardCondition t_720;
+      temp bool t_591 = element.state == 8,
+      temp bool t_592 = NR.state == 6,
+      temp bool t_593 = NR_size == 7,
+      temp bool t_594 = not t_593,
+      temp bool t_595 = t_592 and t_594,
+      temp bool t_596 = t_591 and t_595;
+
+    guardCondition t_596;
     effect
       element.state = 9,
       NR.buf_0[NR_size] = element.seq,
       NR.state = 0;
 
-  process element_NR
+  process element_NR 
     guardBlock
-      temp bool t_721 = element.state == 8,
-      temp bool t_722 = NR.state == 0,
-      temp bool t_723 = t_721 and t_722;
-    guardCondition t_723;
+      temp bool t_597 = element.state == 8,
+      temp bool t_598 = NR.state == 0,
+      temp bool t_599 = t_597 and t_598;
+
+    guardCondition t_599;
     effect
       element.state = 9,
       NR.buf_1[NR_size] = element.seq,
       NR.state = 2;
 
-  process element_NR
+  process element_NR 
     guardBlock
-      temp bool t_724 = element.state == 8,
-      temp bool t_725 = NR.state == 2,
-      temp bool t_726 = t_724 and t_725;
-    guardCondition t_726;
+      temp bool t_600 = element.state == 8,
+      temp bool t_601 = NR.state == 2,
+      temp bool t_602 = t_600 and t_601;
+
+    guardCondition t_602;
     effect
       element.state = 9,
       NR.buf_2[NR_size] = element.seq,
       NR.state = 4;
 
-  process element_NR
+  process element_NR 
     guardBlock
-      temp bool t_727 = element.state == 9,
-      temp bool t_728 = NR.state == 6,
-      temp bool t_729 = NR_size == 7,
-      temp bool t_730 = not t_729,
-      temp bool t_731 = t_728 and t_730,
-      temp bool t_732 = t_727 and t_731;
-    guardCondition t_732;
+      temp bool t_603 = element.state == 9,
+      temp bool t_604 = NR.state == 6,
+      temp bool t_605 = NR_size == 7,
+      temp bool t_606 = not t_605,
+      temp bool t_607 = t_604 and t_606,
+      temp bool t_608 = t_603 and t_607;
+
+    guardCondition t_608;
     effect
       element.state = 0,
-      temp int t_733 = element.rs_len - 1,
-      temp byte t_734 = element.rs[t_733],
-      element.rs[element.i] = t_734,
-      temp int t_735 = element.rs_len - 1,
-      element.rs_len = t_735,
+      temp byte t_609 = element.rs_len - 1,
+      temp byte t_610 = element.rs[t_609],
+      element.rs[element.i] = t_610,
+      temp byte t_611 = element.rs_len - 1,
+      element.rs_len = t_611,
       NR.buf_0[NR_size] = element.trail,
       NR.state = 0;
 
-  process element_NR
+  process element_NR 
     guardBlock
-      temp bool t_736 = element.state == 9,
-      temp bool t_737 = NR.state == 0,
-      temp bool t_738 = t_736 and t_737;
-    guardCondition t_738;
+      temp bool t_612 = element.state == 9,
+      temp bool t_613 = NR.state == 0,
+      temp bool t_614 = t_612 and t_613;
+
+    guardCondition t_614;
     effect
       element.state = 0,
-      temp int t_739 = element.rs_len - 1,
-      temp byte t_740 = element.rs[t_739],
-      element.rs[element.i] = t_740,
-      temp int t_741 = element.rs_len - 1,
-      element.rs_len = t_741,
+      temp byte t_615 = element.rs_len - 1,
+      temp byte t_616 = element.rs[t_615],
+      element.rs[element.i] = t_616,
+      temp byte t_617 = element.rs_len - 1,
+      element.rs_len = t_617,
       NR.buf_1[NR_size] = element.trail,
       NR.state = 2;
 
-  process element_NR
+  process element_NR 
     guardBlock
-      temp bool t_742 = element.state == 9,
-      temp bool t_743 = NR.state == 2,
-      temp bool t_744 = t_742 and t_743;
-    guardCondition t_744;
+      temp bool t_618 = element.state == 9,
+      temp bool t_619 = NR.state == 2,
+      temp bool t_620 = t_618 and t_619;
+
+    guardCondition t_620;
     effect
       element.state = 0,
-      temp int t_745 = element.rs_len - 1,
-      temp byte t_746 = element.rs[t_745],
-      element.rs[element.i] = t_746,
-      temp int t_747 = element.rs_len - 1,
-      element.rs_len = t_747,
+      temp byte t_621 = element.rs_len - 1,
+      temp byte t_622 = element.rs[t_621],
+      element.rs[element.i] = t_622,
+      temp byte t_623 = element.rs_len - 1,
+      element.rs_len = t_623,
       NR.buf_2[NR_size] = element.trail,
       NR.state = 4;
 
-  process element_NR
+  process element_NR 
     guardBlock
-      temp bool t_748 = element.state == 11,
-      temp bool t_749 = element.i == element.rs_len,
-      temp bool t_750 = t_748 and t_749,
-      temp bool t_751 = NR.state == 6,
-      temp bool t_752 = NR_size == 7,
-      temp bool t_753 = not t_752,
-      temp bool t_754 = t_751 and t_753,
-      temp bool t_755 = t_750 and t_754;
-    guardCondition t_755;
+      temp bool t_624 = element.state == 11,
+      temp bool t_625 = element.i == element.rs_len,
+      temp bool t_626 = t_624 and t_625,
+      temp bool t_627 = NR.state == 6,
+      temp bool t_628 = NR_size == 7,
+      temp bool t_629 = not t_628,
+      temp bool t_630 = t_627 and t_629,
+      temp bool t_631 = t_626 and t_630;
+
+    guardCondition t_631;
     effect
       element.state = 12,
       NR.buf_0[NR_size] = element.packet,
       NR.state = 0;
 
-  process element_NR
+  process element_NR 
     guardBlock
-      temp bool t_756 = element.state == 11,
-      temp bool t_757 = element.i == element.rs_len,
-      temp bool t_758 = t_756 and t_757,
-      temp bool t_759 = NR.state == 0,
-      temp bool t_760 = t_758 and t_759;
-    guardCondition t_760;
+      temp bool t_632 = element.state == 11,
+      temp bool t_633 = element.i == element.rs_len,
+      temp bool t_634 = t_632 and t_633,
+      temp bool t_635 = NR.state == 0,
+      temp bool t_636 = t_634 and t_635;
+
+    guardCondition t_636;
     effect
       element.state = 12,
       NR.buf_1[NR_size] = element.packet,
       NR.state = 2;
 
-  process element_NR
+  process element_NR 
     guardBlock
-      temp bool t_761 = element.state == 11,
-      temp bool t_762 = element.i == element.rs_len,
-      temp bool t_763 = t_761 and t_762,
-      temp bool t_764 = NR.state == 2,
-      temp bool t_765 = t_763 and t_764;
-    guardCondition t_765;
+      temp bool t_637 = element.state == 11,
+      temp bool t_638 = element.i == element.rs_len,
+      temp bool t_639 = t_637 and t_638,
+      temp bool t_640 = NR.state == 2,
+      temp bool t_641 = t_639 and t_640;
+
+    guardCondition t_641;
     effect
       element.state = 12,
       NR.buf_2[NR_size] = element.packet,
       NR.state = 4;
 
-  process element_NR
+  process element_NR 
     guardBlock
-      temp bool t_766 = element.state == 12,
-      temp bool t_767 = NR.state == 6,
-      temp bool t_768 = NR_size == 7,
-      temp bool t_769 = not t_768,
-      temp bool t_770 = t_767 and t_769,
-      temp bool t_771 = t_766 and t_770;
-    guardCondition t_771;
+      temp bool t_642 = element.state == 12,
+      temp bool t_643 = NR.state == 6,
+      temp bool t_644 = NR_size == 7,
+      temp bool t_645 = not t_644,
+      temp bool t_646 = t_643 and t_645,
+      temp bool t_647 = t_642 and t_646;
+
+    guardCondition t_647;
     effect
       element.state = 13,
       NR.buf_0[NR_size] = element.seq,
       NR.state = 0;
 
-  process element_NR
+  process element_NR 
     guardBlock
-      temp bool t_772 = element.state == 12,
-      temp bool t_773 = NR.state == 0,
-      temp bool t_774 = t_772 and t_773;
-    guardCondition t_774;
+      temp bool t_648 = element.state == 12,
+      temp bool t_649 = NR.state == 0,
+      temp bool t_650 = t_648 and t_649;
+
+    guardCondition t_650;
     effect
       element.state = 13,
       NR.buf_1[NR_size] = element.seq,
       NR.state = 2;
 
-  process element_NR
+  process element_NR 
     guardBlock
-      temp bool t_775 = element.state == 12,
-      temp bool t_776 = NR.state == 2,
-      temp bool t_777 = t_775 and t_776;
-    guardCondition t_777;
+      temp bool t_651 = element.state == 12,
+      temp bool t_652 = NR.state == 2,
+      temp bool t_653 = t_651 and t_652;
+
+    guardCondition t_653;
     effect
       element.state = 13,
       NR.buf_2[NR_size] = element.seq,
       NR.state = 4;
 
-  process element_NR
+  process element_NR 
     guardBlock
-      temp bool t_778 = element.state == 13,
-      temp bool t_779 = NR.state == 6,
-      temp bool t_780 = NR_size == 7,
-      temp bool t_781 = not t_780,
-      temp bool t_782 = t_779 and t_781,
-      temp bool t_783 = t_778 and t_782;
-    guardCondition t_783;
+      temp bool t_654 = element.state == 13,
+      temp bool t_655 = NR.state == 6,
+      temp bool t_656 = NR_size == 7,
+      temp bool t_657 = not t_656,
+      temp bool t_658 = t_655 and t_657,
+      temp bool t_659 = t_654 and t_658;
+
+    guardCondition t_659;
     effect
       element.state = 0,
       NR.buf_0[NR_size] = element.trail,
       NR.state = 0;
 
-  process element_NR
+  process element_NR 
     guardBlock
-      temp bool t_784 = element.state == 13,
-      temp bool t_785 = NR.state == 0,
-      temp bool t_786 = t_784 and t_785;
-    guardCondition t_786;
+      temp bool t_660 = element.state == 13,
+      temp bool t_661 = NR.state == 0,
+      temp bool t_662 = t_660 and t_661;
+
+    guardCondition t_662;
     effect
       element.state = 0,
       NR.buf_1[NR_size] = element.trail,
       NR.state = 2;
 
-  process element_NR
+  process element_NR 
     guardBlock
-      temp bool t_787 = element.state == 13,
-      temp bool t_788 = NR.state == 2,
-      temp bool t_789 = t_787 and t_788;
-    guardCondition t_789;
+      temp bool t_663 = element.state == 13,
+      temp bool t_664 = NR.state == 2,
+      temp bool t_665 = t_663 and t_664;
+
+    guardCondition t_665;
     effect
       element.state = 0,
       NR.buf_2[NR_size] = element.trail,
       NR.state = 4;
 
-  process element_NS
+  process RN_element 
     guardBlock
-      temp bool t_790 = element.state == 10,
-      temp bool t_791 = element.i == element.rs_len,
-      temp bool t_792 = t_790 and t_791,
-      temp bool t_793 = NS.state == 2,
-      temp bool t_794 = NS_size == 7,
-      temp bool t_795 = not t_794,
-      temp bool t_796 = t_793 and t_795,
-      temp bool t_797 = t_792 and t_796;
-    guardCondition t_797;
-    effect
-      element.state = 0,
-      element.rs[element.rs_len] = element.packet,
-      temp int t_798 = element.rs_len + 1,
-      element.rs_len = t_798,
-      NS.buf_0[NS_size] = element.packet,
-      NS.state = 0;
+      temp bool t_666 = RN.state == 2,
+      temp bool t_667 = RN_size == 0,
+      temp bool t_668 = not t_667,
+      temp byte t_669 = RN_time[0],
+      temp bool t_670 = t_669 == 0,
+      temp bool t_671 = t_668 and t_670,
+      temp bool t_672 = t_666 and t_671,
+      temp bool t_673 = element.state == 0,
+      temp bool t_674 = t_672 and t_673;
 
-  process NR_receiver
-    guardBlock
-      temp bool t_799 = NR.state == 6,
-      temp bool t_800 = NR_size == 0,
-      temp bool t_801 = not t_800,
-      temp byte t_802 = NR_time[0],
-      temp bool t_803 = t_802 == 0,
-      temp bool t_804 = t_801 and t_803,
-      temp bool t_805 = t_799 and t_804,
-      temp bool t_806 = receiver.state == 0,
-      temp bool t_807 = t_805 and t_806;
-    guardCondition t_807;
+    guardCondition t_674;
     effect
-      NR.state = 1,
-      temp byte t_808 = NR.buf_0[1],
-      NR.buf_0[0] = t_808,
-      temp byte t_809 = NR.buf_0[2],
-      NR.buf_0[1] = t_809,
-      temp byte t_810 = NR.buf_0[3],
-      NR.buf_0[2] = t_810,
-      temp byte t_811 = NR.buf_0[4],
-      NR.buf_0[3] = t_811,
-      temp byte t_812 = NR.buf_0[5],
-      NR.buf_0[4] = t_812,
-      temp byte t_813 = NR.buf_0[6],
-      NR.buf_0[5] = t_813,
-      NR.buf_0[6] = 0,
-      temp byte t_814 = NR.buf_0[0],
-      receiver.packet = t_814,
-      receiver.state = 2;
+      RN.state = 1,
+      temp byte t_675 = RN.buf_0[1],
+      RN.buf_0[0] = t_675,
+      temp byte t_676 = RN.buf_0[2],
+      RN.buf_0[1] = t_676,
+      temp byte t_677 = RN.buf_0[3],
+      RN.buf_0[2] = t_677,
+      temp byte t_678 = RN.buf_0[4],
+      RN.buf_0[3] = t_678,
+      temp byte t_679 = RN.buf_0[5],
+      RN.buf_0[4] = t_679,
+      temp byte t_680 = RN.buf_0[6],
+      RN.buf_0[5] = t_680,
+      RN.buf_0[6] = 0,
+      temp byte t_681 = RN.buf_0[0],
+      element.packet = t_681,
+      element.state = 10,
+      element.i = 0;
 
-  process NR_receiver
+  process sender_SN 
     guardBlock
-      temp bool t_815 = NR.state == 6,
-      temp bool t_816 = NR_size == 0,
-      temp bool t_817 = not t_816,
-      temp byte t_818 = NR_time[0],
-      temp bool t_819 = t_818 == 0,
-      temp bool t_820 = t_817 and t_819,
-      temp bool t_821 = t_815 and t_820,
-      temp bool t_822 = receiver.state == 2,
-      temp bool t_823 = t_821 and t_822;
-    guardCondition t_823;
-    effect
-      NR.state = 1,
-      temp byte t_824 = NR.buf_0[1],
-      NR.buf_0[0] = t_824,
-      temp byte t_825 = NR.buf_0[2],
-      NR.buf_0[1] = t_825,
-      temp byte t_826 = NR.buf_0[3],
-      NR.buf_0[2] = t_826,
-      temp byte t_827 = NR.buf_0[4],
-      NR.buf_0[3] = t_827,
-      temp byte t_828 = NR.buf_0[5],
-      NR.buf_0[4] = t_828,
-      temp byte t_829 = NR.buf_0[6],
-      NR.buf_0[5] = t_829,
-      NR.buf_0[6] = 0,
-      temp byte t_830 = NR.buf_0[0],
-      receiver.sqn = t_830,
-      receiver.state = 3;
+      temp bool t_682 = sender.state == 0,
+      temp bool t_683 = sqn <= TXW_LEAD,
+      temp bool t_684 = t_682 and t_683,
+      temp bool t_685 = SN.state == 6,
+      temp bool t_686 = SN_size == 7,
+      temp bool t_687 = not t_686,
+      temp bool t_688 = t_685 and t_687,
+      temp bool t_689 = t_684 and t_688;
 
-  process NR_receiver
-    guardBlock
-      temp bool t_831 = NR.state == 6,
-      temp bool t_832 = NR_size == 0,
-      temp bool t_833 = not t_832,
-      temp byte t_834 = NR_time[0],
-      temp bool t_835 = t_834 == 0,
-      temp bool t_836 = t_833 and t_835,
-      temp bool t_837 = t_831 and t_836,
-      temp bool t_838 = receiver.state == 3,
-      temp bool t_839 = t_837 and t_838;
-    guardCondition t_839;
-    effect
-      NR.state = 1,
-      temp byte t_840 = NR.buf_0[1],
-      NR.buf_0[0] = t_840,
-      temp byte t_841 = NR.buf_0[2],
-      NR.buf_0[1] = t_841,
-      temp byte t_842 = NR.buf_0[3],
-      NR.buf_0[2] = t_842,
-      temp byte t_843 = NR.buf_0[4],
-      NR.buf_0[3] = t_843,
-      temp byte t_844 = NR.buf_0[5],
-      NR.buf_0[4] = t_844,
-      temp byte t_845 = NR.buf_0[6],
-      NR.buf_0[5] = t_845,
-      NR.buf_0[6] = 0,
-      temp byte t_846 = NR.buf_0[0],
-      receiver.trail = t_846,
-      receiver.state = 7;
-
-  process NR_receiver
-    guardBlock
-      temp bool t_847 = NR.state == 1,
-      temp bool t_848 = receiver.state == 0,
-      temp bool t_849 = t_847 and t_848;
-    guardCondition t_849;
-    effect
-      NR.state = 3,
-      temp byte t_850 = NR.buf_1[1],
-      NR.buf_1[0] = t_850,
-      temp byte t_851 = NR.buf_1[2],
-      NR.buf_1[1] = t_851,
-      temp byte t_852 = NR.buf_1[3],
-      NR.buf_1[2] = t_852,
-      temp byte t_853 = NR.buf_1[4],
-      NR.buf_1[3] = t_853,
-      temp byte t_854 = NR.buf_1[5],
-      NR.buf_1[4] = t_854,
-      temp byte t_855 = NR.buf_1[6],
-      NR.buf_1[5] = t_855,
-      NR.buf_1[6] = 0,
-      temp byte t_856 = NR.buf_1[0],
-      receiver.packet = t_856,
-      receiver.state = 2;
-
-  process NR_receiver
-    guardBlock
-      temp bool t_857 = NR.state == 1,
-      temp bool t_858 = receiver.state == 2,
-      temp bool t_859 = t_857 and t_858;
-    guardCondition t_859;
-    effect
-      NR.state = 3,
-      temp byte t_860 = NR.buf_1[1],
-      NR.buf_1[0] = t_860,
-      temp byte t_861 = NR.buf_1[2],
-      NR.buf_1[1] = t_861,
-      temp byte t_862 = NR.buf_1[3],
-      NR.buf_1[2] = t_862,
-      temp byte t_863 = NR.buf_1[4],
-      NR.buf_1[3] = t_863,
-      temp byte t_864 = NR.buf_1[5],
-      NR.buf_1[4] = t_864,
-      temp byte t_865 = NR.buf_1[6],
-      NR.buf_1[5] = t_865,
-      NR.buf_1[6] = 0,
-      temp byte t_866 = NR.buf_1[0],
-      receiver.sqn = t_866,
-      receiver.state = 3;
-
-  process NR_receiver
-    guardBlock
-      temp bool t_867 = NR.state == 1,
-      temp bool t_868 = receiver.state == 3,
-      temp bool t_869 = t_867 and t_868;
-    guardCondition t_869;
-    effect
-      NR.state = 3,
-      temp byte t_870 = NR.buf_1[1],
-      NR.buf_1[0] = t_870,
-      temp byte t_871 = NR.buf_1[2],
-      NR.buf_1[1] = t_871,
-      temp byte t_872 = NR.buf_1[3],
-      NR.buf_1[2] = t_872,
-      temp byte t_873 = NR.buf_1[4],
-      NR.buf_1[3] = t_873,
-      temp byte t_874 = NR.buf_1[5],
-      NR.buf_1[4] = t_874,
-      temp byte t_875 = NR.buf_1[6],
-      NR.buf_1[5] = t_875,
-      NR.buf_1[6] = 0,
-      temp byte t_876 = NR.buf_1[0],
-      receiver.trail = t_876,
-      receiver.state = 7;
-
-  process NR_receiver
-    guardBlock
-      temp bool t_877 = NR.state == 3,
-      temp bool t_878 = receiver.state == 0,
-      temp bool t_879 = t_877 and t_878;
-    guardCondition t_879;
-    effect
-      NR.state = 5,
-      temp byte t_880 = NR.buf_2[1],
-      NR.buf_2[0] = t_880,
-      temp byte t_881 = NR.buf_2[2],
-      NR.buf_2[1] = t_881,
-      temp byte t_882 = NR.buf_2[3],
-      NR.buf_2[2] = t_882,
-      temp byte t_883 = NR.buf_2[4],
-      NR.buf_2[3] = t_883,
-      temp byte t_884 = NR.buf_2[5],
-      NR.buf_2[4] = t_884,
-      temp byte t_885 = NR.buf_2[6],
-      NR.buf_2[5] = t_885,
-      NR.buf_2[6] = 0,
-      temp byte t_886 = NR.buf_2[0],
-      receiver.packet = t_886,
-      receiver.state = 2;
-
-  process NR_receiver
-    guardBlock
-      temp bool t_887 = NR.state == 3,
-      temp bool t_888 = receiver.state == 2,
-      temp bool t_889 = t_887 and t_888;
-    guardCondition t_889;
-    effect
-      NR.state = 5,
-      temp byte t_890 = NR.buf_2[1],
-      NR.buf_2[0] = t_890,
-      temp byte t_891 = NR.buf_2[2],
-      NR.buf_2[1] = t_891,
-      temp byte t_892 = NR.buf_2[3],
-      NR.buf_2[2] = t_892,
-      temp byte t_893 = NR.buf_2[4],
-      NR.buf_2[3] = t_893,
-      temp byte t_894 = NR.buf_2[5],
-      NR.buf_2[4] = t_894,
-      temp byte t_895 = NR.buf_2[6],
-      NR.buf_2[5] = t_895,
-      NR.buf_2[6] = 0,
-      temp byte t_896 = NR.buf_2[0],
-      receiver.sqn = t_896,
-      receiver.state = 3;
-
-  process NR_receiver
-    guardBlock
-      temp bool t_897 = NR.state == 3,
-      temp bool t_898 = receiver.state == 3,
-      temp bool t_899 = t_897 and t_898;
-    guardCondition t_899;
-    effect
-      NR.state = 5,
-      temp byte t_900 = NR.buf_2[1],
-      NR.buf_2[0] = t_900,
-      temp byte t_901 = NR.buf_2[2],
-      NR.buf_2[1] = t_901,
-      temp byte t_902 = NR.buf_2[3],
-      NR.buf_2[2] = t_902,
-      temp byte t_903 = NR.buf_2[4],
-      NR.buf_2[3] = t_903,
-      temp byte t_904 = NR.buf_2[5],
-      NR.buf_2[4] = t_904,
-      temp byte t_905 = NR.buf_2[6],
-      NR.buf_2[5] = t_905,
-      NR.buf_2[6] = 0,
-      temp byte t_906 = NR.buf_2[0],
-      receiver.trail = t_906,
-      receiver.state = 7;
-
-  process sender_SN
-    guardBlock
-      temp bool t_907 = sender.state == 0,
-      temp bool t_908 = sqn <= TXW_LEAD,
-      temp bool t_909 = t_907 and t_908,
-      temp bool t_910 = SN.state == 6,
-      temp bool t_911 = SN_size == 7,
-      temp bool t_912 = not t_911,
-      temp bool t_913 = t_910 and t_912,
-      temp bool t_914 = t_909 and t_913;
-    guardCondition t_914;
+    guardCondition t_689;
     effect
       sender.state = 2,
       SN.buf_0[SN_size] = 6,
       SN.state = 0;
 
-  process sender_SN
+  process sender_SN 
     guardBlock
-      temp bool t_915 = sender.state == 0,
-      temp bool t_916 = sqn <= TXW_LEAD,
-      temp bool t_917 = t_915 and t_916,
-      temp bool t_918 = SN.state == 0,
-      temp bool t_919 = t_917 and t_918;
-    guardCondition t_919;
+      temp bool t_690 = sender.state == 0,
+      temp bool t_691 = sqn <= TXW_LEAD,
+      temp bool t_692 = t_690 and t_691,
+      temp bool t_693 = SN.state == 0,
+      temp bool t_694 = t_692 and t_693;
+
+    guardCondition t_694;
     effect
       sender.state = 2,
       SN.buf_1[SN_size] = 6,
       SN.state = 2;
 
-  process sender_SN
+  process sender_SN 
     guardBlock
-      temp bool t_920 = sender.state == 0,
-      temp bool t_921 = sqn <= TXW_LEAD,
-      temp bool t_922 = t_920 and t_921,
-      temp bool t_923 = SN.state == 2,
-      temp bool t_924 = t_922 and t_923;
-    guardCondition t_924;
+      temp bool t_695 = sender.state == 0,
+      temp bool t_696 = sqn <= TXW_LEAD,
+      temp bool t_697 = t_695 and t_696,
+      temp bool t_698 = SN.state == 2,
+      temp bool t_699 = t_697 and t_698;
+
+    guardCondition t_699;
     effect
       sender.state = 2,
       SN.buf_2[SN_size] = 6,
       SN.state = 4;
 
-  process sender_SN
+  process sender_SN 
     guardBlock
-      temp bool t_925 = sender.state == 2,
-      temp bool t_926 = SN.state == 6,
-      temp bool t_927 = SN_size == 7,
-      temp bool t_928 = not t_927,
-      temp bool t_929 = t_926 and t_928,
-      temp bool t_930 = t_925 and t_929;
-    guardCondition t_930;
+      temp bool t_700 = sender.state == 2,
+      temp bool t_701 = SN.state == 6,
+      temp bool t_702 = SN_size == 7,
+      temp bool t_703 = not t_702,
+      temp bool t_704 = t_701 and t_703,
+      temp bool t_705 = t_700 and t_704;
+
+    guardCondition t_705;
     effect
       sender.state = 3,
       SN.buf_0[SN_size] = sqn,
       SN.state = 0;
 
-  process sender_SN
+  process sender_SN 
     guardBlock
-      temp bool t_931 = sender.state == 2,
-      temp bool t_932 = SN.state == 0,
-      temp bool t_933 = t_931 and t_932;
-    guardCondition t_933;
+      temp bool t_706 = sender.state == 2,
+      temp bool t_707 = SN.state == 0,
+      temp bool t_708 = t_706 and t_707;
+
+    guardCondition t_708;
     effect
       sender.state = 3,
       SN.buf_1[SN_size] = sqn,
       SN.state = 2;
 
-  process sender_SN
+  process sender_SN 
     guardBlock
-      temp bool t_934 = sender.state == 2,
-      temp bool t_935 = SN.state == 2,
-      temp bool t_936 = t_934 and t_935;
-    guardCondition t_936;
+      temp bool t_709 = sender.state == 2,
+      temp bool t_710 = SN.state == 2,
+      temp bool t_711 = t_709 and t_710;
+
+    guardCondition t_711;
     effect
       sender.state = 3,
       SN.buf_2[SN_size] = sqn,
       SN.state = 4;
 
-  process sender_SN
+  process sender_SN 
     guardBlock
-      temp bool t_937 = sender.state == 3,
-      temp bool t_938 = SN.state == 6,
-      temp bool t_939 = SN_size == 7,
-      temp bool t_940 = not t_939,
-      temp bool t_941 = t_938 and t_940,
-      temp bool t_942 = t_937 and t_941;
-    guardCondition t_942;
+      temp bool t_712 = sender.state == 3,
+      temp bool t_713 = SN.state == 6,
+      temp bool t_714 = SN_size == 7,
+      temp bool t_715 = not t_714,
+      temp bool t_716 = t_713 and t_715,
+      temp bool t_717 = t_712 and t_716;
+
+    guardCondition t_717;
     effect
       sender.state = 0,
-      temp int t_943 = sqn + 1,
-      sqn = t_943,
+      temp byte t_718 = sqn + 1,
+      sqn = t_718,
       SN.buf_0[SN_size] = TXW_TRAIL,
       SN.state = 0;
 
-  process sender_SN
+  process sender_SN 
     guardBlock
-      temp bool t_944 = sender.state == 3,
-      temp bool t_945 = SN.state == 0,
-      temp bool t_946 = t_944 and t_945;
-    guardCondition t_946;
+      temp bool t_719 = sender.state == 3,
+      temp bool t_720 = SN.state == 0,
+      temp bool t_721 = t_719 and t_720;
+
+    guardCondition t_721;
     effect
       sender.state = 0,
-      temp int t_947 = sqn + 1,
-      sqn = t_947,
+      temp byte t_722 = sqn + 1,
+      sqn = t_722,
       SN.buf_1[SN_size] = TXW_TRAIL,
       SN.state = 2;
 
-  process sender_SN
+  process sender_SN 
     guardBlock
-      temp bool t_948 = sender.state == 3,
-      temp bool t_949 = SN.state == 2,
-      temp bool t_950 = t_948 and t_949;
-    guardCondition t_950;
+      temp bool t_723 = sender.state == 3,
+      temp bool t_724 = SN.state == 2,
+      temp bool t_725 = t_723 and t_724;
+
+    guardCondition t_725;
     effect
       sender.state = 0,
-      temp int t_951 = sqn + 1,
-      sqn = t_951,
+      temp byte t_726 = sqn + 1,
+      sqn = t_726,
       SN.buf_2[SN_size] = TXW_TRAIL,
       SN.state = 4;
 
-  process sender_SN
+  process sender_SN 
     guardBlock
-      temp bool t_952 = sender.state == 0,
-      temp bool t_953 = c >= 2,
-      temp bool t_954 = t_952 and t_953,
-      temp bool t_955 = SN.state == 6,
-      temp bool t_956 = SN_size == 7,
-      temp bool t_957 = not t_956,
-      temp bool t_958 = t_955 and t_957,
-      temp bool t_959 = t_954 and t_958;
-    guardCondition t_959;
+      temp bool t_727 = sender.state == 0,
+      temp bool t_728 = c >= 2,
+      temp bool t_729 = t_727 and t_728,
+      temp bool t_730 = SN.state == 6,
+      temp bool t_731 = SN_size == 7,
+      temp bool t_732 = not t_731,
+      temp bool t_733 = t_730 and t_732,
+      temp bool t_734 = t_729 and t_733;
+
+    guardCondition t_734;
     effect
       sender.state = 4,
       SN.buf_0[SN_size] = 3,
       SN.state = 0;
 
-  process sender_SN
+  process sender_SN 
     guardBlock
-      temp bool t_960 = sender.state == 0,
-      temp bool t_961 = c >= 2,
-      temp bool t_962 = t_960 and t_961,
-      temp bool t_963 = SN.state == 0,
-      temp bool t_964 = t_962 and t_963;
-    guardCondition t_964;
+      temp bool t_735 = sender.state == 0,
+      temp bool t_736 = c >= 2,
+      temp bool t_737 = t_735 and t_736,
+      temp bool t_738 = SN.state == 0,
+      temp bool t_739 = t_737 and t_738;
+
+    guardCondition t_739;
     effect
       sender.state = 4,
       SN.buf_1[SN_size] = 3,
       SN.state = 2;
 
-  process sender_SN
+  process sender_SN 
     guardBlock
-      temp bool t_965 = sender.state == 0,
-      temp bool t_966 = c >= 2,
-      temp bool t_967 = t_965 and t_966,
-      temp bool t_968 = SN.state == 2,
-      temp bool t_969 = t_967 and t_968;
-    guardCondition t_969;
+      temp bool t_740 = sender.state == 0,
+      temp bool t_741 = c >= 2,
+      temp bool t_742 = t_740 and t_741,
+      temp bool t_743 = SN.state == 2,
+      temp bool t_744 = t_742 and t_743;
+
+    guardCondition t_744;
     effect
       sender.state = 4,
       SN.buf_2[SN_size] = 3,
       SN.state = 4;
 
-  process sender_SN
+  process sender_SN 
     guardBlock
-      temp bool t_970 = sender.state == 4,
-      temp bool t_971 = SN.state == 6,
-      temp bool t_972 = SN_size == 7,
-      temp bool t_973 = not t_972,
-      temp bool t_974 = t_971 and t_973,
-      temp bool t_975 = t_970 and t_974;
-    guardCondition t_975;
+      temp bool t_745 = sender.state == 4,
+      temp bool t_746 = SN.state == 6,
+      temp bool t_747 = SN_size == 7,
+      temp bool t_748 = not t_747,
+      temp bool t_749 = t_746 and t_748,
+      temp bool t_750 = t_745 and t_749;
+
+    guardCondition t_750;
     effect
       sender.state = 5,
       SN.buf_0[SN_size] = TXW_LEAD,
       SN.state = 0;
 
-  process sender_SN
+  process sender_SN 
     guardBlock
-      temp bool t_976 = sender.state == 4,
-      temp bool t_977 = SN.state == 0,
-      temp bool t_978 = t_976 and t_977;
-    guardCondition t_978;
+      temp bool t_751 = sender.state == 4,
+      temp bool t_752 = SN.state == 0,
+      temp bool t_753 = t_751 and t_752;
+
+    guardCondition t_753;
     effect
       sender.state = 5,
       SN.buf_1[SN_size] = TXW_LEAD,
       SN.state = 2;
 
-  process sender_SN
+  process sender_SN 
     guardBlock
-      temp bool t_979 = sender.state == 4,
-      temp bool t_980 = SN.state == 2,
-      temp bool t_981 = t_979 and t_980;
-    guardCondition t_981;
+      temp bool t_754 = sender.state == 4,
+      temp bool t_755 = SN.state == 2,
+      temp bool t_756 = t_754 and t_755;
+
+    guardCondition t_756;
     effect
       sender.state = 5,
       SN.buf_2[SN_size] = TXW_LEAD,
       SN.state = 4;
 
-  process sender_SN
+  process sender_SN 
     guardBlock
-      temp bool t_982 = sender.state == 5,
-      temp bool t_983 = SN.state == 6,
-      temp bool t_984 = SN_size == 7,
-      temp bool t_985 = not t_984,
-      temp bool t_986 = t_983 and t_985,
-      temp bool t_987 = t_982 and t_986;
-    guardCondition t_987;
+      temp bool t_757 = sender.state == 5,
+      temp bool t_758 = SN.state == 6,
+      temp bool t_759 = SN_size == 7,
+      temp bool t_760 = not t_759,
+      temp bool t_761 = t_758 and t_760,
+      temp bool t_762 = t_757 and t_761;
+
+    guardCondition t_762;
     effect
       sender.state = 0,
       c = 0,
       SN.buf_0[SN_size] = TXW_TRAIL,
       SN.state = 0;
 
-  process sender_SN
+  process sender_SN 
     guardBlock
-      temp bool t_988 = sender.state == 5,
-      temp bool t_989 = SN.state == 0,
-      temp bool t_990 = t_988 and t_989;
-    guardCondition t_990;
+      temp bool t_763 = sender.state == 5,
+      temp bool t_764 = SN.state == 0,
+      temp bool t_765 = t_763 and t_764;
+
+    guardCondition t_765;
     effect
       sender.state = 0,
       c = 0,
       SN.buf_1[SN_size] = TXW_TRAIL,
       SN.state = 2;
 
-  process sender_SN
+  process sender_SN 
     guardBlock
-      temp bool t_991 = sender.state == 5,
-      temp bool t_992 = SN.state == 2,
-      temp bool t_993 = t_991 and t_992;
-    guardCondition t_993;
+      temp bool t_766 = sender.state == 5,
+      temp bool t_767 = SN.state == 2,
+      temp bool t_768 = t_766 and t_767;
+
+    guardCondition t_768;
     effect
       sender.state = 0,
       c = 0,
       SN.buf_2[SN_size] = TXW_TRAIL,
       SN.state = 4;
 
-  process sender_SN
+  process sender_SN 
     guardBlock
-      temp bool t_994 = sender.state == 0,
-      temp bool t_995 = TXW_LEAD == 9,
-      temp bool t_996 = close and t_995,
-      temp int t_997 = TXW_LEAD + 1,
-      temp bool t_998 = TXW_TRAIL == t_997,
-      temp bool t_999 = t_996 and t_998,
-      temp bool t_1000 = t_994 and t_999,
-      temp bool t_1001 = SN.state == 6,
-      temp bool t_1002 = SN_size == 7,
-      temp bool t_1003 = not t_1002,
-      temp bool t_1004 = t_1001 and t_1003,
-      temp bool t_1005 = t_1000 and t_1004;
-    guardCondition t_1005;
+      temp bool t_769 = sender.state == 0,
+      temp bool t_770 = TXW_LEAD == 9,
+      temp bool t_771 = close and t_770,
+      temp byte t_772 = TXW_LEAD + 1,
+      temp bool t_773 = TXW_TRAIL == t_772,
+      temp bool t_774 = t_771 and t_773,
+      temp bool t_775 = t_769 and t_774,
+      temp bool t_776 = SN.state == 6,
+      temp bool t_777 = SN_size == 7,
+      temp bool t_778 = not t_777,
+      temp bool t_779 = t_776 and t_778,
+      temp bool t_780 = t_775 and t_779;
+
+    guardCondition t_780;
     effect
       sender.state = 6,
       SN.buf_0[SN_size] = 3,
       SN.state = 0;
 
-  process sender_SN
+  process sender_SN 
     guardBlock
-      temp bool t_1006 = sender.state == 0,
-      temp bool t_1007 = TXW_LEAD == 9,
-      temp bool t_1008 = close and t_1007,
-      temp int t_1009 = TXW_LEAD + 1,
-      temp bool t_1010 = TXW_TRAIL == t_1009,
-      temp bool t_1011 = t_1008 and t_1010,
-      temp bool t_1012 = t_1006 and t_1011,
-      temp bool t_1013 = SN.state == 0,
-      temp bool t_1014 = t_1012 and t_1013;
-    guardCondition t_1014;
+      temp bool t_781 = sender.state == 0,
+      temp bool t_782 = TXW_LEAD == 9,
+      temp bool t_783 = close and t_782,
+      temp byte t_784 = TXW_LEAD + 1,
+      temp bool t_785 = TXW_TRAIL == t_784,
+      temp bool t_786 = t_783 and t_785,
+      temp bool t_787 = t_781 and t_786,
+      temp bool t_788 = SN.state == 0,
+      temp bool t_789 = t_787 and t_788;
+
+    guardCondition t_789;
     effect
       sender.state = 6,
       SN.buf_1[SN_size] = 3,
       SN.state = 2;
 
-  process sender_SN
+  process sender_SN 
     guardBlock
-      temp bool t_1015 = sender.state == 0,
-      temp bool t_1016 = TXW_LEAD == 9,
-      temp bool t_1017 = close and t_1016,
-      temp int t_1018 = TXW_LEAD + 1,
-      temp bool t_1019 = TXW_TRAIL == t_1018,
-      temp bool t_1020 = t_1017 and t_1019,
-      temp bool t_1021 = t_1015 and t_1020,
-      temp bool t_1022 = SN.state == 2,
-      temp bool t_1023 = t_1021 and t_1022;
-    guardCondition t_1023;
+      temp bool t_790 = sender.state == 0,
+      temp bool t_791 = TXW_LEAD == 9,
+      temp bool t_792 = close and t_791,
+      temp byte t_793 = TXW_LEAD + 1,
+      temp bool t_794 = TXW_TRAIL == t_793,
+      temp bool t_795 = t_792 and t_794,
+      temp bool t_796 = t_790 and t_795,
+      temp bool t_797 = SN.state == 2,
+      temp bool t_798 = t_796 and t_797;
+
+    guardCondition t_798;
     effect
       sender.state = 6,
       SN.buf_2[SN_size] = 3,
       SN.state = 4;
 
-  process sender_SN
+  process sender_SN 
     guardBlock
-      temp bool t_1024 = sender.state == 6,
-      temp bool t_1025 = SN.state == 6,
-      temp bool t_1026 = SN_size == 7,
-      temp bool t_1027 = not t_1026,
-      temp bool t_1028 = t_1025 and t_1027,
-      temp bool t_1029 = t_1024 and t_1028;
-    guardCondition t_1029;
+      temp bool t_799 = sender.state == 6,
+      temp bool t_800 = SN.state == 6,
+      temp bool t_801 = SN_size == 7,
+      temp bool t_802 = not t_801,
+      temp bool t_803 = t_800 and t_802,
+      temp bool t_804 = t_799 and t_803;
+
+    guardCondition t_804;
     effect
       sender.state = 7,
       SN.buf_0[SN_size] = TXW_LEAD,
       SN.state = 0;
 
-  process sender_SN
+  process sender_SN 
     guardBlock
-      temp bool t_1030 = sender.state == 6,
-      temp bool t_1031 = SN.state == 0,
-      temp bool t_1032 = t_1030 and t_1031;
-    guardCondition t_1032;
+      temp bool t_805 = sender.state == 6,
+      temp bool t_806 = SN.state == 0,
+      temp bool t_807 = t_805 and t_806;
+
+    guardCondition t_807;
     effect
       sender.state = 7,
       SN.buf_1[SN_size] = TXW_LEAD,
       SN.state = 2;
 
-  process sender_SN
+  process sender_SN 
     guardBlock
-      temp bool t_1033 = sender.state == 6,
-      temp bool t_1034 = SN.state == 2,
-      temp bool t_1035 = t_1033 and t_1034;
-    guardCondition t_1035;
+      temp bool t_808 = sender.state == 6,
+      temp bool t_809 = SN.state == 2,
+      temp bool t_810 = t_808 and t_809;
+
+    guardCondition t_810;
     effect
       sender.state = 7,
       SN.buf_2[SN_size] = TXW_LEAD,
       SN.state = 4;
 
-  process sender_SN
+  process sender_SN 
     guardBlock
-      temp bool t_1036 = sender.state == 7,
-      temp bool t_1037 = SN.state == 6,
-      temp bool t_1038 = SN_size == 7,
-      temp bool t_1039 = not t_1038,
-      temp bool t_1040 = t_1037 and t_1039,
-      temp bool t_1041 = t_1036 and t_1040;
-    guardCondition t_1041;
+      temp bool t_811 = sender.state == 7,
+      temp bool t_812 = SN.state == 6,
+      temp bool t_813 = SN_size == 7,
+      temp bool t_814 = not t_813,
+      temp bool t_815 = t_812 and t_814,
+      temp bool t_816 = t_811 and t_815;
+
+    guardCondition t_816;
     effect
       sender.state = 0,
       close = 0,
@@ -2137,12 +1718,13 @@ byte NR.buf_2[8] =  {0, 0, 0, 0, 0, 0, 0};
       SN.buf_0[SN_size] = TXW_TRAIL,
       SN.state = 0;
 
-  process sender_SN
+  process sender_SN 
     guardBlock
-      temp bool t_1042 = sender.state == 7,
-      temp bool t_1043 = SN.state == 0,
-      temp bool t_1044 = t_1042 and t_1043;
-    guardCondition t_1044;
+      temp bool t_817 = sender.state == 7,
+      temp bool t_818 = SN.state == 0,
+      temp bool t_819 = t_817 and t_818;
+
+    guardCondition t_819;
     effect
       sender.state = 0,
       close = 0,
@@ -2150,12 +1732,13 @@ byte NR.buf_2[8] =  {0, 0, 0, 0, 0, 0, 0};
       SN.buf_1[SN_size] = TXW_TRAIL,
       SN.state = 2;
 
-  process sender_SN
+  process sender_SN 
     guardBlock
-      temp bool t_1045 = sender.state == 7,
-      temp bool t_1046 = SN.state == 2,
-      temp bool t_1047 = t_1045 and t_1046;
-    guardCondition t_1047;
+      temp bool t_820 = sender.state == 7,
+      temp bool t_821 = SN.state == 2,
+      temp bool t_822 = t_820 and t_821;
+
+    guardCondition t_822;
     effect
       sender.state = 0,
       close = 0,
@@ -2163,142 +1746,678 @@ byte NR.buf_2[8] =  {0, 0, 0, 0, 0, 0, 0};
       SN.buf_2[SN_size] = TXW_TRAIL,
       SN.state = 4;
 
-  process sender_SN
+  process sender_SN 
     guardBlock
-      temp bool t_1048 = sender.state == 1,
-      temp bool t_1049 = packet <= TXW_LEAD,
-      temp bool t_1050 = packet >= TXW_TRAIL,
-      temp bool t_1051 = t_1049 and t_1050,
-      temp bool t_1052 = t_1048 and t_1051,
-      temp bool t_1053 = SN.state == 6,
-      temp bool t_1054 = SN_size == 7,
-      temp bool t_1055 = not t_1054,
-      temp bool t_1056 = t_1053 and t_1055,
-      temp bool t_1057 = t_1052 and t_1056;
-    guardCondition t_1057;
+      temp bool t_823 = sender.state == 1,
+      temp bool t_824 = packet <= TXW_LEAD,
+      temp bool t_825 = packet >= TXW_TRAIL,
+      temp bool t_826 = t_824 and t_825,
+      temp bool t_827 = t_823 and t_826,
+      temp bool t_828 = SN.state == 6,
+      temp bool t_829 = SN_size == 7,
+      temp bool t_830 = not t_829,
+      temp bool t_831 = t_828 and t_830,
+      temp bool t_832 = t_827 and t_831;
+
+    guardCondition t_832;
     effect
       sender.state = 8,
       SN.buf_0[SN_size] = 9,
       SN.state = 0;
 
-  process sender_SN
+  process sender_SN 
     guardBlock
-      temp bool t_1058 = sender.state == 1,
-      temp bool t_1059 = packet <= TXW_LEAD,
-      temp bool t_1060 = packet >= TXW_TRAIL,
-      temp bool t_1061 = t_1059 and t_1060,
-      temp bool t_1062 = t_1058 and t_1061,
-      temp bool t_1063 = SN.state == 0,
-      temp bool t_1064 = t_1062 and t_1063;
-    guardCondition t_1064;
+      temp bool t_833 = sender.state == 1,
+      temp bool t_834 = packet <= TXW_LEAD,
+      temp bool t_835 = packet >= TXW_TRAIL,
+      temp bool t_836 = t_834 and t_835,
+      temp bool t_837 = t_833 and t_836,
+      temp bool t_838 = SN.state == 0,
+      temp bool t_839 = t_837 and t_838;
+
+    guardCondition t_839;
     effect
       sender.state = 8,
       SN.buf_1[SN_size] = 9,
       SN.state = 2;
 
-  process sender_SN
+  process sender_SN 
     guardBlock
-      temp bool t_1065 = sender.state == 1,
-      temp bool t_1066 = packet <= TXW_LEAD,
-      temp bool t_1067 = packet >= TXW_TRAIL,
-      temp bool t_1068 = t_1066 and t_1067,
-      temp bool t_1069 = t_1065 and t_1068,
-      temp bool t_1070 = SN.state == 2,
-      temp bool t_1071 = t_1069 and t_1070;
-    guardCondition t_1071;
+      temp bool t_840 = sender.state == 1,
+      temp bool t_841 = packet <= TXW_LEAD,
+      temp bool t_842 = packet >= TXW_TRAIL,
+      temp bool t_843 = t_841 and t_842,
+      temp bool t_844 = t_840 and t_843,
+      temp bool t_845 = SN.state == 2,
+      temp bool t_846 = t_844 and t_845;
+
+    guardCondition t_846;
     effect
       sender.state = 8,
       SN.buf_2[SN_size] = 9,
       SN.state = 4;
 
-  process sender_SN
+  process sender_SN 
     guardBlock
-      temp bool t_1072 = sender.state == 8,
-      temp bool t_1073 = SN.state == 6,
-      temp bool t_1074 = SN_size == 7,
-      temp bool t_1075 = not t_1074,
-      temp bool t_1076 = t_1073 and t_1075,
-      temp bool t_1077 = t_1072 and t_1076;
-    guardCondition t_1077;
+      temp bool t_847 = sender.state == 8,
+      temp bool t_848 = SN.state == 6,
+      temp bool t_849 = SN_size == 7,
+      temp bool t_850 = not t_849,
+      temp bool t_851 = t_848 and t_850,
+      temp bool t_852 = t_847 and t_851;
+
+    guardCondition t_852;
     effect
       sender.state = 9,
       SN.buf_0[SN_size] = packet,
       SN.state = 0;
 
-  process sender_SN
+  process sender_SN 
     guardBlock
-      temp bool t_1078 = sender.state == 8,
-      temp bool t_1079 = SN.state == 0,
-      temp bool t_1080 = t_1078 and t_1079;
-    guardCondition t_1080;
+      temp bool t_853 = sender.state == 8,
+      temp bool t_854 = SN.state == 0,
+      temp bool t_855 = t_853 and t_854;
+
+    guardCondition t_855;
     effect
       sender.state = 9,
       SN.buf_1[SN_size] = packet,
       SN.state = 2;
 
-  process sender_SN
+  process sender_SN 
     guardBlock
-      temp bool t_1081 = sender.state == 8,
-      temp bool t_1082 = SN.state == 2,
-      temp bool t_1083 = t_1081 and t_1082;
-    guardCondition t_1083;
+      temp bool t_856 = sender.state == 8,
+      temp bool t_857 = SN.state == 2,
+      temp bool t_858 = t_856 and t_857;
+
+    guardCondition t_858;
     effect
       sender.state = 9,
       SN.buf_2[SN_size] = packet,
       SN.state = 4;
 
-  process sender_SN
+  process sender_SN 
     guardBlock
-      temp bool t_1084 = sender.state == 9,
-      temp bool t_1085 = SN.state == 6,
-      temp bool t_1086 = SN_size == 7,
-      temp bool t_1087 = not t_1086,
-      temp bool t_1088 = t_1085 and t_1087,
-      temp bool t_1089 = t_1084 and t_1088;
-    guardCondition t_1089;
+      temp bool t_859 = sender.state == 9,
+      temp bool t_860 = SN.state == 6,
+      temp bool t_861 = SN_size == 7,
+      temp bool t_862 = not t_861,
+      temp bool t_863 = t_860 and t_862,
+      temp bool t_864 = t_859 and t_863;
+
+    guardCondition t_864;
     effect
       sender.state = 0,
       SN.buf_0[SN_size] = TXW_TRAIL,
       SN.state = 0;
 
-  process sender_SN
+  process sender_SN 
     guardBlock
-      temp bool t_1090 = sender.state == 9,
-      temp bool t_1091 = SN.state == 0,
-      temp bool t_1092 = t_1090 and t_1091;
-    guardCondition t_1092;
+      temp bool t_865 = sender.state == 9,
+      temp bool t_866 = SN.state == 0,
+      temp bool t_867 = t_865 and t_866;
+
+    guardCondition t_867;
     effect
       sender.state = 0,
       SN.buf_1[SN_size] = TXW_TRAIL,
       SN.state = 2;
 
-  process sender_SN
+  process sender_SN 
     guardBlock
-      temp bool t_1093 = sender.state == 9,
-      temp bool t_1094 = SN.state == 2,
-      temp bool t_1095 = t_1093 and t_1094;
-    guardCondition t_1095;
+      temp bool t_868 = sender.state == 9,
+      temp bool t_869 = SN.state == 2,
+      temp bool t_870 = t_868 and t_869;
+
+    guardCondition t_870;
     effect
       sender.state = 0,
       SN.buf_2[SN_size] = TXW_TRAIL,
       SN.state = 4;
 
-  process receiver_RN
+  process receiver_RN 
     guardBlock
-      temp bool t_1096 = receiver.state == 6,
-      temp bool t_1097 = RN.state == 2,
-      temp bool t_1098 = RN_size == 7,
-      temp bool t_1099 = not t_1098,
-      temp bool t_1100 = t_1097 and t_1099,
-      temp bool t_1101 = t_1096 and t_1100;
-    guardCondition t_1101;
+      temp bool t_871 = receiver.state == 6,
+      temp bool t_872 = RN.state == 2,
+      temp bool t_873 = RN_size == 7,
+      temp bool t_874 = not t_873,
+      temp bool t_875 = t_872 and t_874,
+      temp bool t_876 = t_871 and t_875;
+
+    guardCondition t_876;
     effect
       receiver.state = 5,
-      temp int t_1102 = RXW_LEAD + 1,
-      temp int t_1103 = t_1102 % 5,
-      receiver.RXW[t_1103] = 0,
-      temp int t_1104 = RXW_LEAD + 1,
-      RXW_LEAD = t_1104,
-      temp int t_1105 = RXW_LEAD + 1,
-      RN.buf_0[RN_size] = t_1105,
+      temp byte t_877 = RXW_LEAD + 1,
+      temp byte t_878 = t_877 % 5,
+      receiver.RXW[t_878] = 0,
+      temp byte t_879 = RXW_LEAD + 1,
+      RXW_LEAD = t_879,
+      temp byte t_880 = RXW_LEAD + 1,
+      RN.buf_0[RN_size] = t_880,
       RN.state = 0;
+
+  process SN_element 
+    guardBlock
+      temp bool t_881 = SN.state == 6,
+      temp bool t_882 = SN_size == 0,
+      temp bool t_883 = not t_882,
+      temp byte t_884 = SN_time[0],
+      temp bool t_885 = t_884 == 0,
+      temp bool t_886 = t_883 and t_885,
+      temp bool t_887 = t_881 and t_886,
+      temp bool t_888 = element.state == 0,
+      temp bool t_889 = t_887 and t_888;
+
+    guardCondition t_889;
+    effect
+      SN.state = 1,
+      temp byte t_890 = SN.buf_0[1],
+      SN.buf_0[0] = t_890,
+      temp byte t_891 = SN.buf_0[2],
+      SN.buf_0[1] = t_891,
+      temp byte t_892 = SN.buf_0[3],
+      SN.buf_0[2] = t_892,
+      temp byte t_893 = SN.buf_0[4],
+      SN.buf_0[3] = t_893,
+      temp byte t_894 = SN.buf_0[5],
+      SN.buf_0[4] = t_894,
+      temp byte t_895 = SN.buf_0[6],
+      SN.buf_0[5] = t_895,
+      SN.buf_0[6] = 0,
+      temp byte t_896 = SN.buf_0[0],
+      element.packet = t_896,
+      element.state = 1;
+
+  process SN_element 
+    guardBlock
+      temp bool t_897 = SN.state == 6,
+      temp bool t_898 = SN_size == 0,
+      temp bool t_899 = not t_898,
+      temp byte t_900 = SN_time[0],
+      temp bool t_901 = t_900 == 0,
+      temp bool t_902 = t_899 and t_901,
+      temp bool t_903 = t_897 and t_902,
+      temp bool t_904 = element.state == 1,
+      temp bool t_905 = t_903 and t_904;
+
+    guardCondition t_905;
+    effect
+      SN.state = 1,
+      temp byte t_906 = SN.buf_0[1],
+      SN.buf_0[0] = t_906,
+      temp byte t_907 = SN.buf_0[2],
+      SN.buf_0[1] = t_907,
+      temp byte t_908 = SN.buf_0[3],
+      SN.buf_0[2] = t_908,
+      temp byte t_909 = SN.buf_0[4],
+      SN.buf_0[3] = t_909,
+      temp byte t_910 = SN.buf_0[5],
+      SN.buf_0[4] = t_910,
+      temp byte t_911 = SN.buf_0[6],
+      SN.buf_0[5] = t_911,
+      SN.buf_0[6] = 0,
+      temp byte t_912 = SN.buf_0[0],
+      element.seq = t_912,
+      element.state = 2;
+
+  process SN_element 
+    guardBlock
+      temp bool t_913 = SN.state == 6,
+      temp bool t_914 = SN_size == 0,
+      temp bool t_915 = not t_914,
+      temp byte t_916 = SN_time[0],
+      temp bool t_917 = t_916 == 0,
+      temp bool t_918 = t_915 and t_917,
+      temp bool t_919 = t_913 and t_918,
+      temp bool t_920 = element.state == 2,
+      temp bool t_921 = t_919 and t_920;
+
+    guardCondition t_921;
+    effect
+      SN.state = 1,
+      temp byte t_922 = SN.buf_0[1],
+      SN.buf_0[0] = t_922,
+      temp byte t_923 = SN.buf_0[2],
+      SN.buf_0[1] = t_923,
+      temp byte t_924 = SN.buf_0[3],
+      SN.buf_0[2] = t_924,
+      temp byte t_925 = SN.buf_0[4],
+      SN.buf_0[3] = t_925,
+      temp byte t_926 = SN.buf_0[5],
+      SN.buf_0[4] = t_926,
+      temp byte t_927 = SN.buf_0[6],
+      SN.buf_0[5] = t_927,
+      SN.buf_0[6] = 0,
+      temp byte t_928 = SN.buf_0[0],
+      element.trail = t_928,
+      element.state = 3;
+
+  process SN_element 
+    guardBlock
+      temp bool t_929 = SN.state == 1,
+      temp bool t_930 = element.state == 0,
+      temp bool t_931 = t_929 and t_930;
+
+    guardCondition t_931;
+    effect
+      SN.state = 3,
+      temp byte t_932 = SN.buf_1[1],
+      SN.buf_1[0] = t_932,
+      temp byte t_933 = SN.buf_1[2],
+      SN.buf_1[1] = t_933,
+      temp byte t_934 = SN.buf_1[3],
+      SN.buf_1[2] = t_934,
+      temp byte t_935 = SN.buf_1[4],
+      SN.buf_1[3] = t_935,
+      temp byte t_936 = SN.buf_1[5],
+      SN.buf_1[4] = t_936,
+      temp byte t_937 = SN.buf_1[6],
+      SN.buf_1[5] = t_937,
+      SN.buf_1[6] = 0,
+      temp byte t_938 = SN.buf_1[0],
+      element.packet = t_938,
+      element.state = 1;
+
+  process SN_element 
+    guardBlock
+      temp bool t_939 = SN.state == 1,
+      temp bool t_940 = element.state == 1,
+      temp bool t_941 = t_939 and t_940;
+
+    guardCondition t_941;
+    effect
+      SN.state = 3,
+      temp byte t_942 = SN.buf_1[1],
+      SN.buf_1[0] = t_942,
+      temp byte t_943 = SN.buf_1[2],
+      SN.buf_1[1] = t_943,
+      temp byte t_944 = SN.buf_1[3],
+      SN.buf_1[2] = t_944,
+      temp byte t_945 = SN.buf_1[4],
+      SN.buf_1[3] = t_945,
+      temp byte t_946 = SN.buf_1[5],
+      SN.buf_1[4] = t_946,
+      temp byte t_947 = SN.buf_1[6],
+      SN.buf_1[5] = t_947,
+      SN.buf_1[6] = 0,
+      temp byte t_948 = SN.buf_1[0],
+      element.seq = t_948,
+      element.state = 2;
+
+  process SN_element 
+    guardBlock
+      temp bool t_949 = SN.state == 1,
+      temp bool t_950 = element.state == 2,
+      temp bool t_951 = t_949 and t_950;
+
+    guardCondition t_951;
+    effect
+      SN.state = 3,
+      temp byte t_952 = SN.buf_1[1],
+      SN.buf_1[0] = t_952,
+      temp byte t_953 = SN.buf_1[2],
+      SN.buf_1[1] = t_953,
+      temp byte t_954 = SN.buf_1[3],
+      SN.buf_1[2] = t_954,
+      temp byte t_955 = SN.buf_1[4],
+      SN.buf_1[3] = t_955,
+      temp byte t_956 = SN.buf_1[5],
+      SN.buf_1[4] = t_956,
+      temp byte t_957 = SN.buf_1[6],
+      SN.buf_1[5] = t_957,
+      SN.buf_1[6] = 0,
+      temp byte t_958 = SN.buf_1[0],
+      element.trail = t_958,
+      element.state = 3;
+
+  process SN_element 
+    guardBlock
+      temp bool t_959 = SN.state == 3,
+      temp bool t_960 = element.state == 0,
+      temp bool t_961 = t_959 and t_960;
+
+    guardCondition t_961;
+    effect
+      SN.state = 5,
+      temp byte t_962 = SN.buf_2[1],
+      SN.buf_2[0] = t_962,
+      temp byte t_963 = SN.buf_2[2],
+      SN.buf_2[1] = t_963,
+      temp byte t_964 = SN.buf_2[3],
+      SN.buf_2[2] = t_964,
+      temp byte t_965 = SN.buf_2[4],
+      SN.buf_2[3] = t_965,
+      temp byte t_966 = SN.buf_2[5],
+      SN.buf_2[4] = t_966,
+      temp byte t_967 = SN.buf_2[6],
+      SN.buf_2[5] = t_967,
+      SN.buf_2[6] = 0,
+      temp byte t_968 = SN.buf_2[0],
+      element.packet = t_968,
+      element.state = 1;
+
+  process SN_element 
+    guardBlock
+      temp bool t_969 = SN.state == 3,
+      temp bool t_970 = element.state == 1,
+      temp bool t_971 = t_969 and t_970;
+
+    guardCondition t_971;
+    effect
+      SN.state = 5,
+      temp byte t_972 = SN.buf_2[1],
+      SN.buf_2[0] = t_972,
+      temp byte t_973 = SN.buf_2[2],
+      SN.buf_2[1] = t_973,
+      temp byte t_974 = SN.buf_2[3],
+      SN.buf_2[2] = t_974,
+      temp byte t_975 = SN.buf_2[4],
+      SN.buf_2[3] = t_975,
+      temp byte t_976 = SN.buf_2[5],
+      SN.buf_2[4] = t_976,
+      temp byte t_977 = SN.buf_2[6],
+      SN.buf_2[5] = t_977,
+      SN.buf_2[6] = 0,
+      temp byte t_978 = SN.buf_2[0],
+      element.seq = t_978,
+      element.state = 2;
+
+  process SN_element 
+    guardBlock
+      temp bool t_979 = SN.state == 3,
+      temp bool t_980 = element.state == 2,
+      temp bool t_981 = t_979 and t_980;
+
+    guardCondition t_981;
+    effect
+      SN.state = 5,
+      temp byte t_982 = SN.buf_2[1],
+      SN.buf_2[0] = t_982,
+      temp byte t_983 = SN.buf_2[2],
+      SN.buf_2[1] = t_983,
+      temp byte t_984 = SN.buf_2[3],
+      SN.buf_2[2] = t_984,
+      temp byte t_985 = SN.buf_2[4],
+      SN.buf_2[3] = t_985,
+      temp byte t_986 = SN.buf_2[5],
+      SN.buf_2[4] = t_986,
+      temp byte t_987 = SN.buf_2[6],
+      SN.buf_2[5] = t_987,
+      SN.buf_2[6] = 0,
+      temp byte t_988 = SN.buf_2[0],
+      element.trail = t_988,
+      element.state = 3;
+
+  process element_NS 
+    guardBlock
+      temp bool t_989 = element.state == 10,
+      temp bool t_990 = element.i == element.rs_len,
+      temp bool t_991 = t_989 and t_990,
+      temp bool t_992 = NS.state == 2,
+      temp bool t_993 = NS_size == 7,
+      temp bool t_994 = not t_993,
+      temp bool t_995 = t_992 and t_994,
+      temp bool t_996 = t_991 and t_995;
+
+    guardCondition t_996;
+    effect
+      element.state = 0,
+      element.rs[element.rs_len] = element.packet,
+      temp byte t_997 = element.rs_len + 1,
+      element.rs_len = t_997,
+      NS.buf_0[NS_size] = element.packet,
+      NS.state = 0;
+
+  process NR_receiver 
+    guardBlock
+      temp bool t_998 = NR.state == 6,
+      temp bool t_999 = NR_size == 0,
+      temp bool t_1000 = not t_999,
+      temp byte t_1001 = NR_time[0],
+      temp bool t_1002 = t_1001 == 0,
+      temp bool t_1003 = t_1000 and t_1002,
+      temp bool t_1004 = t_998 and t_1003,
+      temp bool t_1005 = receiver.state == 0,
+      temp bool t_1006 = t_1004 and t_1005;
+
+    guardCondition t_1006;
+    effect
+      NR.state = 1,
+      temp byte t_1007 = NR.buf_0[1],
+      NR.buf_0[0] = t_1007,
+      temp byte t_1008 = NR.buf_0[2],
+      NR.buf_0[1] = t_1008,
+      temp byte t_1009 = NR.buf_0[3],
+      NR.buf_0[2] = t_1009,
+      temp byte t_1010 = NR.buf_0[4],
+      NR.buf_0[3] = t_1010,
+      temp byte t_1011 = NR.buf_0[5],
+      NR.buf_0[4] = t_1011,
+      temp byte t_1012 = NR.buf_0[6],
+      NR.buf_0[5] = t_1012,
+      NR.buf_0[6] = 0,
+      temp byte t_1013 = NR.buf_0[0],
+      receiver.packet = t_1013,
+      receiver.state = 2;
+
+  process NR_receiver 
+    guardBlock
+      temp bool t_1014 = NR.state == 6,
+      temp bool t_1015 = NR_size == 0,
+      temp bool t_1016 = not t_1015,
+      temp byte t_1017 = NR_time[0],
+      temp bool t_1018 = t_1017 == 0,
+      temp bool t_1019 = t_1016 and t_1018,
+      temp bool t_1020 = t_1014 and t_1019,
+      temp bool t_1021 = receiver.state == 2,
+      temp bool t_1022 = t_1020 and t_1021;
+
+    guardCondition t_1022;
+    effect
+      NR.state = 1,
+      temp byte t_1023 = NR.buf_0[1],
+      NR.buf_0[0] = t_1023,
+      temp byte t_1024 = NR.buf_0[2],
+      NR.buf_0[1] = t_1024,
+      temp byte t_1025 = NR.buf_0[3],
+      NR.buf_0[2] = t_1025,
+      temp byte t_1026 = NR.buf_0[4],
+      NR.buf_0[3] = t_1026,
+      temp byte t_1027 = NR.buf_0[5],
+      NR.buf_0[4] = t_1027,
+      temp byte t_1028 = NR.buf_0[6],
+      NR.buf_0[5] = t_1028,
+      NR.buf_0[6] = 0,
+      temp byte t_1029 = NR.buf_0[0],
+      receiver.sqn = t_1029,
+      receiver.state = 3;
+
+  process NR_receiver 
+    guardBlock
+      temp bool t_1030 = NR.state == 6,
+      temp bool t_1031 = NR_size == 0,
+      temp bool t_1032 = not t_1031,
+      temp byte t_1033 = NR_time[0],
+      temp bool t_1034 = t_1033 == 0,
+      temp bool t_1035 = t_1032 and t_1034,
+      temp bool t_1036 = t_1030 and t_1035,
+      temp bool t_1037 = receiver.state == 3,
+      temp bool t_1038 = t_1036 and t_1037;
+
+    guardCondition t_1038;
+    effect
+      NR.state = 1,
+      temp byte t_1039 = NR.buf_0[1],
+      NR.buf_0[0] = t_1039,
+      temp byte t_1040 = NR.buf_0[2],
+      NR.buf_0[1] = t_1040,
+      temp byte t_1041 = NR.buf_0[3],
+      NR.buf_0[2] = t_1041,
+      temp byte t_1042 = NR.buf_0[4],
+      NR.buf_0[3] = t_1042,
+      temp byte t_1043 = NR.buf_0[5],
+      NR.buf_0[4] = t_1043,
+      temp byte t_1044 = NR.buf_0[6],
+      NR.buf_0[5] = t_1044,
+      NR.buf_0[6] = 0,
+      temp byte t_1045 = NR.buf_0[0],
+      receiver.trail = t_1045,
+      receiver.state = 7;
+
+  process NR_receiver 
+    guardBlock
+      temp bool t_1046 = NR.state == 1,
+      temp bool t_1047 = receiver.state == 0,
+      temp bool t_1048 = t_1046 and t_1047;
+
+    guardCondition t_1048;
+    effect
+      NR.state = 3,
+      temp byte t_1049 = NR.buf_1[1],
+      NR.buf_1[0] = t_1049,
+      temp byte t_1050 = NR.buf_1[2],
+      NR.buf_1[1] = t_1050,
+      temp byte t_1051 = NR.buf_1[3],
+      NR.buf_1[2] = t_1051,
+      temp byte t_1052 = NR.buf_1[4],
+      NR.buf_1[3] = t_1052,
+      temp byte t_1053 = NR.buf_1[5],
+      NR.buf_1[4] = t_1053,
+      temp byte t_1054 = NR.buf_1[6],
+      NR.buf_1[5] = t_1054,
+      NR.buf_1[6] = 0,
+      temp byte t_1055 = NR.buf_1[0],
+      receiver.packet = t_1055,
+      receiver.state = 2;
+
+  process NR_receiver 
+    guardBlock
+      temp bool t_1056 = NR.state == 1,
+      temp bool t_1057 = receiver.state == 2,
+      temp bool t_1058 = t_1056 and t_1057;
+
+    guardCondition t_1058;
+    effect
+      NR.state = 3,
+      temp byte t_1059 = NR.buf_1[1],
+      NR.buf_1[0] = t_1059,
+      temp byte t_1060 = NR.buf_1[2],
+      NR.buf_1[1] = t_1060,
+      temp byte t_1061 = NR.buf_1[3],
+      NR.buf_1[2] = t_1061,
+      temp byte t_1062 = NR.buf_1[4],
+      NR.buf_1[3] = t_1062,
+      temp byte t_1063 = NR.buf_1[5],
+      NR.buf_1[4] = t_1063,
+      temp byte t_1064 = NR.buf_1[6],
+      NR.buf_1[5] = t_1064,
+      NR.buf_1[6] = 0,
+      temp byte t_1065 = NR.buf_1[0],
+      receiver.sqn = t_1065,
+      receiver.state = 3;
+
+  process NR_receiver 
+    guardBlock
+      temp bool t_1066 = NR.state == 1,
+      temp bool t_1067 = receiver.state == 3,
+      temp bool t_1068 = t_1066 and t_1067;
+
+    guardCondition t_1068;
+    effect
+      NR.state = 3,
+      temp byte t_1069 = NR.buf_1[1],
+      NR.buf_1[0] = t_1069,
+      temp byte t_1070 = NR.buf_1[2],
+      NR.buf_1[1] = t_1070,
+      temp byte t_1071 = NR.buf_1[3],
+      NR.buf_1[2] = t_1071,
+      temp byte t_1072 = NR.buf_1[4],
+      NR.buf_1[3] = t_1072,
+      temp byte t_1073 = NR.buf_1[5],
+      NR.buf_1[4] = t_1073,
+      temp byte t_1074 = NR.buf_1[6],
+      NR.buf_1[5] = t_1074,
+      NR.buf_1[6] = 0,
+      temp byte t_1075 = NR.buf_1[0],
+      receiver.trail = t_1075,
+      receiver.state = 7;
+
+  process NR_receiver 
+    guardBlock
+      temp bool t_1076 = NR.state == 3,
+      temp bool t_1077 = receiver.state == 0,
+      temp bool t_1078 = t_1076 and t_1077;
+
+    guardCondition t_1078;
+    effect
+      NR.state = 5,
+      temp byte t_1079 = NR.buf_2[1],
+      NR.buf_2[0] = t_1079,
+      temp byte t_1080 = NR.buf_2[2],
+      NR.buf_2[1] = t_1080,
+      temp byte t_1081 = NR.buf_2[3],
+      NR.buf_2[2] = t_1081,
+      temp byte t_1082 = NR.buf_2[4],
+      NR.buf_2[3] = t_1082,
+      temp byte t_1083 = NR.buf_2[5],
+      NR.buf_2[4] = t_1083,
+      temp byte t_1084 = NR.buf_2[6],
+      NR.buf_2[5] = t_1084,
+      NR.buf_2[6] = 0,
+      temp byte t_1085 = NR.buf_2[0],
+      receiver.packet = t_1085,
+      receiver.state = 2;
+
+  process NR_receiver 
+    guardBlock
+      temp bool t_1086 = NR.state == 3,
+      temp bool t_1087 = receiver.state == 2,
+      temp bool t_1088 = t_1086 and t_1087;
+
+    guardCondition t_1088;
+    effect
+      NR.state = 5,
+      temp byte t_1089 = NR.buf_2[1],
+      NR.buf_2[0] = t_1089,
+      temp byte t_1090 = NR.buf_2[2],
+      NR.buf_2[1] = t_1090,
+      temp byte t_1091 = NR.buf_2[3],
+      NR.buf_2[2] = t_1091,
+      temp byte t_1092 = NR.buf_2[4],
+      NR.buf_2[3] = t_1092,
+      temp byte t_1093 = NR.buf_2[5],
+      NR.buf_2[4] = t_1093,
+      temp byte t_1094 = NR.buf_2[6],
+      NR.buf_2[5] = t_1094,
+      NR.buf_2[6] = 0,
+      temp byte t_1095 = NR.buf_2[0],
+      receiver.sqn = t_1095,
+      receiver.state = 3;
+
+  process NR_receiver 
+    guardBlock
+      temp bool t_1096 = NR.state == 3,
+      temp bool t_1097 = receiver.state == 3,
+      temp bool t_1098 = t_1096 and t_1097;
+
+    guardCondition t_1098;
+    effect
+      NR.state = 5,
+      temp byte t_1099 = NR.buf_2[1],
+      NR.buf_2[0] = t_1099,
+      temp byte t_1100 = NR.buf_2[2],
+      NR.buf_2[1] = t_1100,
+      temp byte t_1101 = NR.buf_2[3],
+      NR.buf_2[2] = t_1101,
+      temp byte t_1102 = NR.buf_2[4],
+      NR.buf_2[3] = t_1102,
+      temp byte t_1103 = NR.buf_2[5],
+      NR.buf_2[4] = t_1103,
+      temp byte t_1104 = NR.buf_2[6],
+      NR.buf_2[5] = t_1104,
+      NR.buf_2[6] = 0,
+      temp byte t_1105 = NR.buf_2[0],
+      receiver.trail = t_1105,
+      receiver.state = 7;
+
+

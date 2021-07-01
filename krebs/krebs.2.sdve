@@ -18,7 +18,7 @@ byte Hp = 10;
 byte H20 = 10;
 byte energy = 0;
 
-  process glykoza
+  process glykoza 
     guardBlock
       temp bool t_0 = glykoza.state == 0,
       temp bool t_1 = glukosa >= 1,
@@ -29,215 +29,230 @@ byte energy = 0;
       temp bool t_6 = NADp >= 2,
       temp bool t_7 = t_5 and t_6,
       temp bool t_8 = t_0 and t_7;
+
     guardCondition t_8;
     effect
       glykoza.state = 0,
-      temp int t_9 = glukosa - 1,
+      temp byte t_9 = glukosa - 1,
       glukosa = t_9,
-      temp int t_10 = ADP - 2,
+      temp byte t_10 = ADP - 2,
       ADP = t_10,
-      temp int t_11 = ATP + 2,
+      temp byte t_11 = ATP + 2,
       ATP = t_11,
-      temp int t_12 = NADp - 2,
+      temp byte t_12 = NADp - 2,
       NADp = t_12,
-      temp int t_13 = NADH + 2,
+      temp byte t_13 = NADH + 2,
       NADH = t_13,
-      temp int t_14 = puryvat + 2,
+      temp byte t_14 = puryvat + 2,
       puryvat = t_14,
-      temp int t_15 = Hp + 2,
+      temp byte t_15 = Hp + 2,
       Hp = t_15,
-      temp int t_16 = H20 + 2,
+      temp byte t_16 = H20 + 2,
       H20 = t_16;
 
-  process puryvat_oxyd
+  process puryvat_oxyd 
     guardBlock
       temp bool t_17 = puryvat_oxyd.state == 0,
       temp bool t_18 = puryvat >= 1,
       temp bool t_19 = NADp >= 1,
       temp bool t_20 = t_18 and t_19,
       temp bool t_21 = t_17 and t_20;
+
     guardCondition t_21;
     effect
       puryvat_oxyd.state = 0,
-      temp int t_22 = puryvat - 1,
+      temp byte t_22 = puryvat - 1,
       puryvat = t_22,
-      temp int t_23 = NADp - 1,
+      temp byte t_23 = NADp - 1,
       NADp = t_23,
-      temp int t_24 = acetyl_co_a + 1,
+      temp byte t_24 = acetyl_co_a + 1,
       acetyl_co_a = t_24,
-      temp int t_25 = NADH + 1,
+      temp byte t_25 = NADH + 1,
       NADH = t_25,
-      temp int t_26 = CO2 + 1,
+      temp byte t_26 = CO2 + 1,
       CO2 = t_26;
 
-  process krebs_0
+  process krebs_0 
     guardBlock
       temp bool t_27 = krebs_0.state == 0,
       temp bool t_28 = acetyl_co_a >= 1,
       temp bool t_29 = H20 >= 1,
       temp bool t_30 = t_28 and t_29,
       temp bool t_31 = t_27 and t_30;
+
     guardCondition t_31;
     effect
       krebs_0.state = 1,
-      temp int t_32 = acetyl_co_a - 1,
+      temp byte t_32 = acetyl_co_a - 1,
       acetyl_co_a = t_32,
-      temp int t_33 = H20 - 1,
+      temp byte t_33 = H20 - 1,
       H20 = t_33;
 
-  process krebs_0
+  process krebs_0 
     guardBlock
       temp bool t_34 = krebs_0.state == 1;
+
     guardCondition t_34;
     effect
       krebs_0.state = 2;
 
-  process krebs_0
+  process krebs_0 
     guardBlock
       temp bool t_35 = krebs_0.state == 2,
       temp bool t_36 = NADp >= 1,
       temp bool t_37 = t_35 and t_36;
+
     guardCondition t_37;
     effect
       krebs_0.state = 3,
-      temp int t_38 = NADp - 1,
+      temp byte t_38 = NADp - 1,
       NADp = t_38,
-      temp int t_39 = NADH + 1,
+      temp byte t_39 = NADH + 1,
       NADH = t_39,
-      temp int t_40 = Hp + 1,
+      temp byte t_40 = Hp + 1,
       Hp = t_40,
-      temp int t_41 = CO2 + 1,
+      temp byte t_41 = CO2 + 1,
       CO2 = t_41;
 
-  process krebs_0
+  process krebs_0 
     guardBlock
       temp bool t_42 = krebs_0.state == 3,
       temp bool t_43 = NADp >= 1,
       temp bool t_44 = t_42 and t_43;
+
     guardCondition t_44;
     effect
       krebs_0.state = 6,
-      temp int t_45 = NADH + 1,
+      temp byte t_45 = NADH + 1,
       NADH = t_45,
-      temp int t_46 = CO2 + 1,
+      temp byte t_46 = CO2 + 1,
       CO2 = t_46;
 
-  process krebs_0
+  process krebs_0 
     guardBlock
       temp bool t_47 = krebs_0.state == 6,
       temp bool t_48 = H20 >= 1,
       temp bool t_49 = t_47 and t_48;
+
     guardCondition t_49;
     effect
       krebs_0.state = 7,
-      temp int t_50 = H20 - 1,
+      temp byte t_50 = H20 - 1,
       H20 = t_50;
 
-  process krebs_0
+  process krebs_0 
     guardBlock
       temp bool t_51 = krebs_0.state == 7,
       temp bool t_52 = NADp >= 1,
       temp bool t_53 = t_51 and t_52;
+
     guardCondition t_53;
     effect
       krebs_0.state = 0,
-      temp int t_54 = NADp - 1,
+      temp byte t_54 = NADp - 1,
       NADp = t_54,
-      temp int t_55 = NADH + 1,
+      temp byte t_55 = NADH + 1,
       NADH = t_55;
 
-  process krebs_1
+  process krebs_1 
     guardBlock
       temp bool t_56 = krebs_1.state == 0,
       temp bool t_57 = acetyl_co_a >= 1,
       temp bool t_58 = H20 >= 1,
       temp bool t_59 = t_57 and t_58,
       temp bool t_60 = t_56 and t_59;
+
     guardCondition t_60;
     effect
       krebs_1.state = 1,
-      temp int t_61 = acetyl_co_a - 1,
+      temp byte t_61 = acetyl_co_a - 1,
       acetyl_co_a = t_61,
-      temp int t_62 = H20 - 1,
+      temp byte t_62 = H20 - 1,
       H20 = t_62;
 
-  process krebs_1
+  process krebs_1 
     guardBlock
       temp bool t_63 = krebs_1.state == 1;
+
     guardCondition t_63;
     effect
       krebs_1.state = 2;
 
-  process krebs_1
+  process krebs_1 
     guardBlock
       temp bool t_64 = krebs_1.state == 2,
       temp bool t_65 = NADp >= 1,
       temp bool t_66 = t_64 and t_65;
+
     guardCondition t_66;
     effect
       krebs_1.state = 3,
-      temp int t_67 = NADp - 1,
+      temp byte t_67 = NADp - 1,
       NADp = t_67,
-      temp int t_68 = NADH + 1,
+      temp byte t_68 = NADH + 1,
       NADH = t_68,
-      temp int t_69 = Hp + 1,
+      temp byte t_69 = Hp + 1,
       Hp = t_69,
-      temp int t_70 = CO2 + 1,
+      temp byte t_70 = CO2 + 1,
       CO2 = t_70;
 
-  process krebs_1
+  process krebs_1 
     guardBlock
       temp bool t_71 = krebs_1.state == 3,
       temp bool t_72 = NADp >= 1,
       temp bool t_73 = t_71 and t_72;
+
     guardCondition t_73;
     effect
       krebs_1.state = 6,
-      temp int t_74 = NADH + 1,
+      temp byte t_74 = NADH + 1,
       NADH = t_74,
-      temp int t_75 = CO2 + 1,
+      temp byte t_75 = CO2 + 1,
       CO2 = t_75;
 
-  process krebs_1
+  process krebs_1 
     guardBlock
       temp bool t_76 = krebs_1.state == 6,
       temp bool t_77 = H20 >= 1,
       temp bool t_78 = t_76 and t_77;
+
     guardCondition t_78;
     effect
       krebs_1.state = 7,
-      temp int t_79 = H20 - 1,
+      temp byte t_79 = H20 - 1,
       H20 = t_79;
 
-  process krebs_1
+  process krebs_1 
     guardBlock
       temp bool t_80 = krebs_1.state == 7,
       temp bool t_81 = NADp >= 1,
       temp bool t_82 = t_80 and t_81;
+
     guardCondition t_82;
     effect
       krebs_1.state = 0,
-      temp int t_83 = NADp - 1,
+      temp byte t_83 = NADp - 1,
       NADp = t_83,
-      temp int t_84 = NADH + 1,
+      temp byte t_84 = NADH + 1,
       NADH = t_84;
 
-  process rest_of_cell
+  process rest_of_cell 
     guardBlock
       temp bool t_85 = rest_of_cell.state == 0,
       temp bool t_86 = ATP >= 1,
       temp bool t_87 = t_85 and t_86;
+
     guardCondition t_87;
     effect
       rest_of_cell.state = 0,
-      temp int t_88 = ATP - 1,
+      temp byte t_88 = ATP - 1,
       ATP = t_88,
-      temp int t_89 = ADP + 1,
+      temp byte t_89 = ADP + 1,
       ADP = t_89,
-      temp int t_90 = energy + 1,
+      temp byte t_90 = energy + 1,
       energy = t_90;
 
-  process glykolyza_ETS
+  process glykolyza_ETS 
     guardBlock
       temp bool t_91 = glykolyza.state == 0,
       temp bool t_92 = NADH >= 1,
@@ -250,21 +265,24 @@ byte energy = 0;
       temp bool t_99 = ADP >= 2,
       temp bool t_100 = t_98 and t_99,
       temp bool t_101 = t_97 and t_100;
+
     guardCondition t_101;
     effect
       glykolyza.state = 0,
-      temp int t_102 = NADH - 1,
+      temp byte t_102 = NADH - 1,
       NADH = t_102,
-      temp int t_103 = NADp + 1,
+      temp byte t_103 = NADp + 1,
       NADp = t_103,
-      temp int t_104 = O2 - 1,
+      temp byte t_104 = O2 - 1,
       O2 = t_104,
-      temp int t_105 = Hp - 2,
+      temp byte t_105 = Hp - 2,
       Hp = t_105,
-      temp int t_106 = H20 + 1,
+      temp byte t_106 = H20 + 1,
       H20 = t_106,
       ETS.state = 0,
-      temp int t_107 = ADP - 2,
+      temp byte t_107 = ADP - 2,
       ADP = t_107,
-      temp int t_108 = ATP + 2,
+      temp byte t_108 = ATP + 2,
       ATP = t_108;
+
+

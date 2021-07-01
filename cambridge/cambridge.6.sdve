@@ -6,42 +6,45 @@ state {idle(0), ack_reset(1), reset(2), advance(3), N(4), E(5), q_i(6), q_e(7), 
 state {idle(0), ack_reset(1), reset(2), advance(3), N(4), E(5), q_i(6), q_e(7), q_n(8), q_a(9), q_error(10), q_e2(11)} Receiver.state = 0;
 state {q(0)} StoR.state = 0;
 state {q(0)} RtoS.state = 0;
-byte StoR.buf[16] =  {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+byte StoR.buf[15] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 byte StoR.buf_act = 0;
 byte StoR.n = 0;
-byte RtoS.buf[16] =  {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+byte RtoS.buf[15] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 byte RtoS.buf_act = 0;
 byte RtoS.n = 0;
 
-  process Sender
+  process Sender 
     guardBlock
       temp bool t_0 = Sender.state == 6,
       temp int t_1 = Sender.n + 1,
       temp int t_2 = t_1 % 4,
       temp bool t_3 = Sender.m == t_2,
       temp bool t_4 = t_0 and t_3;
+
     guardCondition t_4;
     effect
       Sender.state = 0;
 
-  process Sender
+  process Sender 
     guardBlock
       temp bool t_5 = Sender.state == 6,
       temp int t_6 = Sender.n + 1,
       temp int t_7 = t_6 % 4,
       temp bool t_8 = Sender.m != t_7,
       temp bool t_9 = t_5 and t_8;
+
     guardCondition t_9;
     effect
       Sender.state = 10;
 
-  process Sender
+  process Sender 
     guardBlock
       temp bool t_10 = Sender.state == 9,
       temp int t_11 = Sender.n + 1,
       temp int t_12 = t_11 % 4,
       temp bool t_13 = Sender.m == t_12,
       temp bool t_14 = t_10 and t_13;
+
     guardCondition t_14;
     effect
       Sender.state = 3,
@@ -49,33 +52,36 @@ byte RtoS.n = 0;
       temp int t_16 = t_15 % 4,
       Sender.n = t_16;
 
-  process Sender
+  process Sender 
     guardBlock
       temp bool t_17 = Sender.state == 9,
       temp int t_18 = Sender.n + 1,
       temp int t_19 = t_18 % 4,
       temp bool t_20 = Sender.m != t_19,
       temp bool t_21 = t_17 and t_20;
+
     guardCondition t_21;
     effect
       Sender.state = 10;
 
-  process Sender
+  process Sender 
     guardBlock
       temp bool t_22 = Sender.state == 8,
       temp bool t_23 = Sender.m != Sender.n,
       temp bool t_24 = t_22 and t_23;
+
     guardCondition t_24;
     effect
       Sender.state = 10;
 
-  process Sender
+  process Sender 
     guardBlock
       temp bool t_25 = Sender.state == 7,
       temp int t_26 = Sender.n + 1,
       temp int t_27 = t_26 % 4,
       temp bool t_28 = Sender.m == t_27,
       temp bool t_29 = t_25 and t_28;
+
     guardCondition t_29;
     effect
       Sender.state = 3,
@@ -83,29 +89,32 @@ byte RtoS.n = 0;
       temp int t_31 = t_30 % 4,
       Sender.n = t_31;
 
-  process Receiver
+  process Receiver 
     guardBlock
       temp bool t_32 = Receiver.state == 6,
       temp bool t_33 = Receiver.m == Receiver.n,
       temp bool t_34 = t_32 and t_33;
+
     guardCondition t_34;
     effect
       Receiver.state = 0;
 
-  process Receiver
+  process Receiver 
     guardBlock
       temp bool t_35 = Receiver.state == 6,
       temp bool t_36 = Receiver.m != Receiver.n,
       temp bool t_37 = t_35 and t_36;
+
     guardCondition t_37;
     effect
       Receiver.state = 10;
 
-  process Receiver
+  process Receiver 
     guardBlock
       temp bool t_38 = Receiver.state == 9,
       temp bool t_39 = Receiver.m == Receiver.n,
       temp bool t_40 = t_38 and t_39;
+
     guardCondition t_40;
     effect
       Receiver.state = 3,
@@ -113,31 +122,34 @@ byte RtoS.n = 0;
       temp int t_42 = t_41 % 4,
       Receiver.n = t_42;
 
-  process Receiver
+  process Receiver 
     guardBlock
       temp bool t_43 = Receiver.state == 9,
       temp bool t_44 = Receiver.m != Receiver.n,
       temp bool t_45 = t_43 and t_44;
+
     guardCondition t_45;
     effect
       Receiver.state = 10;
 
-  process Receiver
+  process Receiver 
     guardBlock
       temp bool t_46 = Receiver.state == 8,
       temp int t_47 = Receiver.m + 1,
       temp int t_48 = t_47 % 4,
       temp bool t_49 = t_48 != Receiver.n,
       temp bool t_50 = t_46 and t_49;
+
     guardCondition t_50;
     effect
       Receiver.state = 4;
 
-  process Receiver
+  process Receiver 
     guardBlock
       temp bool t_51 = Receiver.state == 7,
       temp bool t_52 = Receiver.m == Receiver.n,
       temp bool t_53 = t_51 and t_52;
+
     guardCondition t_53;
     effect
       Receiver.state = 3,
@@ -145,1482 +157,1528 @@ byte RtoS.n = 0;
       temp int t_55 = t_54 % 4,
       Receiver.n = t_55;
 
-  process Receiver
+  process Receiver 
     guardBlock
       temp bool t_56 = Receiver.state == 11,
       temp bool t_57 = Receiver.m == Receiver.n,
       temp bool t_58 = t_56 and t_57;
+
     guardCondition t_58;
     effect
       Receiver.state = 0;
 
-  process Receiver
+  process Receiver 
     guardBlock
       temp bool t_59 = Receiver.state == 11,
       temp bool t_60 = Receiver.m != Receiver.n,
       temp bool t_61 = t_59 and t_60;
+
     guardCondition t_61;
     effect
       Receiver.state = 10;
 
-  process RtoS_Sender
+  process RtoS_Sender 
     guardBlock
       temp bool t_62 = RtoS.state == 0,
       temp bool t_63 = RtoS.buf_act == 0,
       temp bool t_64 = not t_63,
       temp byte t_65 = RtoS.buf[0],
-      temp bool t_66 = t_65 == 0,
-      temp bool t_67 = t_64 and t_66,
-      temp bool t_68 = t_62 and t_67,
-      temp bool t_69 = Sender.state == 0,
-      temp bool t_70 = t_68 and t_69;
-    guardCondition t_70;
+      temp byte t_66 = t_65 % 8,
+      temp bool t_67 = t_66 == 1,
+      temp bool t_68 = t_64 and t_67,
+      temp bool t_69 = t_62 and t_68,
+      temp bool t_70 = Sender.state == 0,
+      temp bool t_71 = t_69 and t_70;
+
+    guardCondition t_71;
     effect
       RtoS.state = 0,
-      temp byte t_71 = RtoS.buf[1],
-      RtoS.buf[0] = t_71,
-      temp byte t_72 = RtoS.buf[2],
-      RtoS.buf[1] = t_72,
-      temp byte t_73 = RtoS.buf[3],
-      RtoS.buf[2] = t_73,
-      temp byte t_74 = RtoS.buf[4],
-      RtoS.buf[3] = t_74,
-      temp byte t_75 = RtoS.buf[5],
-      RtoS.buf[4] = t_75,
-      temp byte t_76 = RtoS.buf[6],
-      RtoS.buf[5] = t_76,
-      temp byte t_77 = RtoS.buf[7],
-      RtoS.buf[6] = t_77,
-      temp byte t_78 = RtoS.buf[8],
-      RtoS.buf[7] = t_78,
-      temp byte t_79 = RtoS.buf[9],
-      RtoS.buf[8] = t_79,
-      temp byte t_80 = RtoS.buf[10],
-      RtoS.buf[9] = t_80,
-      temp byte t_81 = RtoS.buf[11],
-      RtoS.buf[10] = t_81,
-      temp byte t_82 = RtoS.buf[12],
-      RtoS.buf[11] = t_82,
-      temp byte t_83 = RtoS.buf[13],
-      RtoS.buf[12] = t_83,
-      temp byte t_84 = RtoS.buf[14],
-      RtoS.buf[13] = t_84,
+      temp byte t_72 = RtoS.buf[1],
+      RtoS.buf[0] = t_72,
+      temp byte t_73 = RtoS.buf[2],
+      RtoS.buf[1] = t_73,
+      temp byte t_74 = RtoS.buf[3],
+      RtoS.buf[2] = t_74,
+      temp byte t_75 = RtoS.buf[4],
+      RtoS.buf[3] = t_75,
+      temp byte t_76 = RtoS.buf[5],
+      RtoS.buf[4] = t_76,
+      temp byte t_77 = RtoS.buf[6],
+      RtoS.buf[5] = t_77,
+      temp byte t_78 = RtoS.buf[7],
+      RtoS.buf[6] = t_78,
+      temp byte t_79 = RtoS.buf[8],
+      RtoS.buf[7] = t_79,
+      temp byte t_80 = RtoS.buf[9],
+      RtoS.buf[8] = t_80,
+      temp byte t_81 = RtoS.buf[10],
+      RtoS.buf[9] = t_81,
+      temp byte t_82 = RtoS.buf[11],
+      RtoS.buf[10] = t_82,
+      temp byte t_83 = RtoS.buf[12],
+      RtoS.buf[11] = t_83,
+      temp byte t_84 = RtoS.buf[13],
+      RtoS.buf[12] = t_84,
+      temp byte t_85 = RtoS.buf[14],
+      RtoS.buf[13] = t_85,
       RtoS.buf[14] = 0,
-      temp int t_85 = RtoS.buf_act - 1,
-      RtoS.buf_act = t_85,
-      Sender.state = 1;
-
-  process RtoS_Sender
-    guardBlock
-      temp bool t_86 = RtoS.state == 0,
-      temp bool t_87 = RtoS.buf_act == 0,
-      temp bool t_88 = not t_87,
-      temp byte t_89 = RtoS.buf[0],
-      temp bool t_90 = t_89 == 0,
-      temp bool t_91 = t_88 and t_90,
-      temp bool t_92 = t_86 and t_91,
-      temp bool t_93 = Sender.state == 2,
-      temp bool t_94 = t_92 and t_93;
-    guardCondition t_94;
-    effect
-      RtoS.state = 0,
-      temp byte t_95 = RtoS.buf[1],
-      RtoS.buf[0] = t_95,
-      temp byte t_96 = RtoS.buf[2],
-      RtoS.buf[1] = t_96,
-      temp byte t_97 = RtoS.buf[3],
-      RtoS.buf[2] = t_97,
-      temp byte t_98 = RtoS.buf[4],
-      RtoS.buf[3] = t_98,
-      temp byte t_99 = RtoS.buf[5],
-      RtoS.buf[4] = t_99,
-      temp byte t_100 = RtoS.buf[6],
-      RtoS.buf[5] = t_100,
-      temp byte t_101 = RtoS.buf[7],
-      RtoS.buf[6] = t_101,
-      temp byte t_102 = RtoS.buf[8],
-      RtoS.buf[7] = t_102,
-      temp byte t_103 = RtoS.buf[9],
-      RtoS.buf[8] = t_103,
-      temp byte t_104 = RtoS.buf[10],
-      RtoS.buf[9] = t_104,
-      temp byte t_105 = RtoS.buf[11],
-      RtoS.buf[10] = t_105,
-      temp byte t_106 = RtoS.buf[12],
-      RtoS.buf[11] = t_106,
-      temp byte t_107 = RtoS.buf[13],
-      RtoS.buf[12] = t_107,
-      temp byte t_108 = RtoS.buf[14],
-      RtoS.buf[13] = t_108,
-      RtoS.buf[14] = 0,
-      temp int t_109 = RtoS.buf_act - 1,
-      RtoS.buf_act = t_109,
-      Sender.state = 0,
-      Sender.n = -1;
-
-  process RtoS_Sender
-    guardBlock
-      temp bool t_110 = RtoS.state == 0,
-      temp bool t_111 = RtoS.buf_act == 0,
-      temp bool t_112 = not t_111,
-      temp byte t_113 = RtoS.buf[0],
-      temp bool t_114 = t_113 == 0,
-      temp bool t_115 = t_112 and t_114,
-      temp bool t_116 = t_110 and t_115,
-      temp bool t_117 = Sender.state == 4,
-      temp bool t_118 = t_116 and t_117;
-    guardCondition t_118;
-    effect
-      RtoS.state = 0,
-      temp byte t_119 = RtoS.buf[1],
-      RtoS.buf[0] = t_119,
-      temp byte t_120 = RtoS.buf[2],
-      RtoS.buf[1] = t_120,
-      temp byte t_121 = RtoS.buf[3],
-      RtoS.buf[2] = t_121,
-      temp byte t_122 = RtoS.buf[4],
-      RtoS.buf[3] = t_122,
-      temp byte t_123 = RtoS.buf[5],
-      RtoS.buf[4] = t_123,
-      temp byte t_124 = RtoS.buf[6],
-      RtoS.buf[5] = t_124,
-      temp byte t_125 = RtoS.buf[7],
-      RtoS.buf[6] = t_125,
-      temp byte t_126 = RtoS.buf[8],
-      RtoS.buf[7] = t_126,
-      temp byte t_127 = RtoS.buf[9],
-      RtoS.buf[8] = t_127,
-      temp byte t_128 = RtoS.buf[10],
-      RtoS.buf[9] = t_128,
-      temp byte t_129 = RtoS.buf[11],
-      RtoS.buf[10] = t_129,
-      temp byte t_130 = RtoS.buf[12],
-      RtoS.buf[11] = t_130,
-      temp byte t_131 = RtoS.buf[13],
-      RtoS.buf[12] = t_131,
-      temp byte t_132 = RtoS.buf[14],
-      RtoS.buf[13] = t_132,
-      RtoS.buf[14] = 0,
-      temp int t_133 = RtoS.buf_act - 1,
-      RtoS.buf_act = t_133,
-      Sender.state = 1;
-
-  process RtoS_Sender
-    guardBlock
-      temp bool t_134 = RtoS.state == 0,
-      temp bool t_135 = RtoS.buf_act == 0,
-      temp bool t_136 = not t_135,
-      temp byte t_137 = RtoS.buf[0],
-      temp bool t_138 = t_137 == 0,
-      temp bool t_139 = t_136 and t_138,
-      temp bool t_140 = t_134 and t_139,
-      temp bool t_141 = Sender.state == 5,
-      temp bool t_142 = t_140 and t_141;
-    guardCondition t_142;
-    effect
-      RtoS.state = 0,
-      temp byte t_143 = RtoS.buf[1],
-      RtoS.buf[0] = t_143,
-      temp byte t_144 = RtoS.buf[2],
-      RtoS.buf[1] = t_144,
-      temp byte t_145 = RtoS.buf[3],
-      RtoS.buf[2] = t_145,
-      temp byte t_146 = RtoS.buf[4],
-      RtoS.buf[3] = t_146,
-      temp byte t_147 = RtoS.buf[5],
-      RtoS.buf[4] = t_147,
-      temp byte t_148 = RtoS.buf[6],
-      RtoS.buf[5] = t_148,
-      temp byte t_149 = RtoS.buf[7],
-      RtoS.buf[6] = t_149,
-      temp byte t_150 = RtoS.buf[8],
-      RtoS.buf[7] = t_150,
-      temp byte t_151 = RtoS.buf[9],
-      RtoS.buf[8] = t_151,
-      temp byte t_152 = RtoS.buf[10],
-      RtoS.buf[9] = t_152,
-      temp byte t_153 = RtoS.buf[11],
-      RtoS.buf[10] = t_153,
-      temp byte t_154 = RtoS.buf[12],
-      RtoS.buf[11] = t_154,
-      temp byte t_155 = RtoS.buf[13],
-      RtoS.buf[12] = t_155,
-      temp byte t_156 = RtoS.buf[14],
-      RtoS.buf[13] = t_156,
-      RtoS.buf[14] = 0,
-      temp int t_157 = RtoS.buf_act - 1,
-      RtoS.buf_act = t_157,
-      Sender.state = 1;
-
-  process Receiver_RtoS
-    guardBlock
-      temp bool t_158 = Receiver.state == 0,
-      temp bool t_159 = RtoS.state == 0,
-      temp bool t_160 = RtoS.buf_act == 15,
-      temp bool t_161 = not t_160,
-      temp bool t_162 = t_159 and t_161,
-      temp bool t_163 = t_158 and t_162;
-    guardCondition t_163;
-    effect
-      Receiver.state = 5,
-      RtoS.n = Receiver.n,
-      RtoS.state = 0,
-      temp int t_164 = 8 * RtoS.n,
-      temp int t_165 = 1 + t_164,
-      RtoS.buf[RtoS.buf_act] = t_165,
-      temp int t_166 = RtoS.buf_act + 1,
-      RtoS.buf_act = t_166;
-
-  process Receiver_RtoS
-    guardBlock
-      temp bool t_167 = Receiver.state == 3,
-      temp bool t_168 = RtoS.state == 0,
-      temp bool t_169 = RtoS.buf_act == 15,
-      temp bool t_170 = not t_169,
-      temp bool t_171 = t_168 and t_170,
-      temp bool t_172 = t_167 and t_171;
-    guardCondition t_172;
-    effect
-      Receiver.state = 5,
-      RtoS.n = Receiver.n,
-      RtoS.state = 0,
-      temp int t_173 = 8 * RtoS.n,
-      temp int t_174 = 1 + t_173,
-      RtoS.buf[RtoS.buf_act] = t_174,
-      temp int t_175 = RtoS.buf_act + 1,
-      RtoS.buf_act = t_175;
-
-  process Receiver_RtoS
-    guardBlock
-      temp bool t_176 = Receiver.state == 4,
-      temp bool t_177 = RtoS.state == 0,
-      temp bool t_178 = RtoS.buf_act == 15,
-      temp bool t_179 = not t_178,
-      temp bool t_180 = t_177 and t_179,
-      temp bool t_181 = t_176 and t_180;
-    guardCondition t_181;
-    effect
-      Receiver.state = 5,
-      RtoS.n = Receiver.n,
-      RtoS.state = 0,
-      temp int t_182 = 8 * RtoS.n,
-      temp int t_183 = 1 + t_182,
-      RtoS.buf[RtoS.buf_act] = t_183,
-      temp int t_184 = RtoS.buf_act + 1,
-      RtoS.buf_act = t_184;
-
-  process Receiver_RtoS
-    guardBlock
-      temp bool t_185 = Receiver.state == 5,
-      temp bool t_186 = RtoS.state == 0,
-      temp bool t_187 = RtoS.buf_act == 15,
-      temp bool t_188 = not t_187,
-      temp bool t_189 = t_186 and t_188,
-      temp bool t_190 = t_185 and t_189;
-    guardCondition t_190;
-    effect
-      Receiver.state = 5,
-      RtoS.n = Receiver.n,
-      RtoS.state = 0,
-      temp int t_191 = 8 * RtoS.n,
-      temp int t_192 = 1 + t_191,
-      RtoS.buf[RtoS.buf_act] = t_192,
-      temp int t_193 = RtoS.buf_act + 1,
-      RtoS.buf_act = t_193;
-
-  process Receiver_RtoS
-    guardBlock
-      temp bool t_194 = Receiver.state == 7,
-      temp int t_195 = Receiver.m + 1,
-      temp int t_196 = t_195 % 4,
-      temp bool t_197 = t_196 == Receiver.n,
-      temp bool t_198 = t_194 and t_197,
-      temp bool t_199 = RtoS.state == 0,
-      temp bool t_200 = RtoS.buf_act == 15,
-      temp bool t_201 = not t_200,
-      temp bool t_202 = t_199 and t_201,
-      temp bool t_203 = t_198 and t_202;
-    guardCondition t_203;
-    effect
-      Receiver.state = 5,
-      RtoS.n = Receiver.n,
-      RtoS.state = 0,
-      temp int t_204 = 8 * RtoS.n,
-      temp int t_205 = 1 + t_204,
-      RtoS.buf[RtoS.buf_act] = t_205,
-      temp int t_206 = RtoS.buf_act + 1,
-      RtoS.buf_act = t_206;
-
-  process Receiver_RtoS
-    guardBlock
-      temp bool t_207 = Receiver.state == 3,
-      temp bool t_208 = RtoS.state == 0,
-      temp bool t_209 = RtoS.buf_act == 15,
-      temp bool t_210 = not t_209,
-      temp bool t_211 = t_208 and t_210,
-      temp bool t_212 = t_207 and t_211;
-    guardCondition t_212;
-    effect
-      Receiver.state = 4,
-      RtoS.n = Receiver.n,
-      RtoS.state = 0,
-      temp int t_213 = 8 * RtoS.n,
-      temp int t_214 = 2 + t_213,
-      RtoS.buf[RtoS.buf_act] = t_214,
-      temp int t_215 = RtoS.buf_act + 1,
-      RtoS.buf_act = t_215;
-
-  process Receiver_RtoS
-    guardBlock
-      temp bool t_216 = Receiver.state == 8,
-      temp int t_217 = Receiver.m + 1,
-      temp int t_218 = t_217 % 4,
-      temp bool t_219 = t_218 == Receiver.n,
-      temp bool t_220 = t_216 and t_219,
-      temp bool t_221 = RtoS.state == 0,
-      temp bool t_222 = RtoS.buf_act == 15,
-      temp bool t_223 = not t_222,
-      temp bool t_224 = t_221 and t_223,
-      temp bool t_225 = t_220 and t_224;
-    guardCondition t_225;
-    effect
-      Receiver.state = 4,
-      RtoS.n = Receiver.n,
-      RtoS.state = 0,
-      temp int t_226 = 8 * RtoS.n,
-      temp int t_227 = 2 + t_226,
-      RtoS.buf[RtoS.buf_act] = t_227,
-      temp int t_228 = RtoS.buf_act + 1,
-      RtoS.buf_act = t_228;
-
-  process RtoS_Sender
-    guardBlock
-      temp bool t_229 = RtoS.state == 0,
-      temp bool t_230 = RtoS.buf_act == 0,
-      temp bool t_231 = not t_230,
-      temp byte t_232 = RtoS.buf[0],
-      temp int t_233 = t_232 % 8,
-      temp bool t_234 = t_233 == 2,
-      temp bool t_235 = t_231 and t_234,
-      temp bool t_236 = t_229 and t_235,
-      temp bool t_237 = Sender.state == 0,
-      temp bool t_238 = t_236 and t_237;
-    guardCondition t_238;
-    effect
-      RtoS.state = 0,
-      temp byte t_239 = RtoS.buf[1],
-      RtoS.buf[0] = t_239,
-      temp byte t_240 = RtoS.buf[2],
-      RtoS.buf[1] = t_240,
-      temp byte t_241 = RtoS.buf[3],
-      RtoS.buf[2] = t_241,
-      temp byte t_242 = RtoS.buf[4],
-      RtoS.buf[3] = t_242,
-      temp byte t_243 = RtoS.buf[5],
-      RtoS.buf[4] = t_243,
-      temp byte t_244 = RtoS.buf[6],
-      RtoS.buf[5] = t_244,
-      temp byte t_245 = RtoS.buf[7],
-      RtoS.buf[6] = t_245,
-      temp byte t_246 = RtoS.buf[8],
-      RtoS.buf[7] = t_246,
-      temp byte t_247 = RtoS.buf[9],
-      RtoS.buf[8] = t_247,
-      temp byte t_248 = RtoS.buf[10],
-      RtoS.buf[9] = t_248,
-      temp byte t_249 = RtoS.buf[11],
-      RtoS.buf[10] = t_249,
-      temp byte t_250 = RtoS.buf[12],
-      RtoS.buf[11] = t_250,
-      temp byte t_251 = RtoS.buf[13],
-      RtoS.buf[12] = t_251,
-      temp byte t_252 = RtoS.buf[14],
-      RtoS.buf[13] = t_252,
-      RtoS.buf[14] = 0,
-      temp int t_253 = RtoS.buf_act - 1,
-      RtoS.buf_act = t_253,
-      temp byte t_254 = RtoS.buf[0],
-      temp int t_255 = t_254 / 8,
-      Sender.m = t_255,
-      Sender.state = 6;
-
-  process RtoS_Sender
-    guardBlock
-      temp bool t_256 = RtoS.state == 0,
-      temp bool t_257 = RtoS.buf_act == 0,
-      temp bool t_258 = not t_257,
-      temp byte t_259 = RtoS.buf[0],
-      temp int t_260 = t_259 % 8,
-      temp bool t_261 = t_260 == 2,
-      temp bool t_262 = t_258 and t_261,
-      temp bool t_263 = t_256 and t_262,
-      temp bool t_264 = Sender.state == 2,
-      temp bool t_265 = t_263 and t_264;
-    guardCondition t_265;
-    effect
-      RtoS.state = 0,
-      temp byte t_266 = RtoS.buf[1],
-      RtoS.buf[0] = t_266,
-      temp byte t_267 = RtoS.buf[2],
-      RtoS.buf[1] = t_267,
-      temp byte t_268 = RtoS.buf[3],
-      RtoS.buf[2] = t_268,
-      temp byte t_269 = RtoS.buf[4],
-      RtoS.buf[3] = t_269,
-      temp byte t_270 = RtoS.buf[5],
-      RtoS.buf[4] = t_270,
-      temp byte t_271 = RtoS.buf[6],
-      RtoS.buf[5] = t_271,
-      temp byte t_272 = RtoS.buf[7],
-      RtoS.buf[6] = t_272,
-      temp byte t_273 = RtoS.buf[8],
-      RtoS.buf[7] = t_273,
-      temp byte t_274 = RtoS.buf[9],
-      RtoS.buf[8] = t_274,
-      temp byte t_275 = RtoS.buf[10],
-      RtoS.buf[9] = t_275,
-      temp byte t_276 = RtoS.buf[11],
-      RtoS.buf[10] = t_276,
-      temp byte t_277 = RtoS.buf[12],
-      RtoS.buf[11] = t_277,
-      temp byte t_278 = RtoS.buf[13],
-      RtoS.buf[12] = t_278,
-      temp byte t_279 = RtoS.buf[14],
-      RtoS.buf[13] = t_279,
-      RtoS.buf[14] = 0,
-      temp int t_280 = RtoS.buf_act - 1,
-      RtoS.buf_act = t_280,
-      temp byte t_281 = RtoS.buf[0],
-      temp int t_282 = t_281 / 8,
-      Sender.m = t_282,
-      Sender.state = 2;
-
-  process RtoS_Sender
-    guardBlock
-      temp bool t_283 = RtoS.state == 0,
-      temp bool t_284 = RtoS.buf_act == 0,
-      temp bool t_285 = not t_284,
-      temp byte t_286 = RtoS.buf[0],
-      temp int t_287 = t_286 % 8,
-      temp bool t_288 = t_287 == 2,
-      temp bool t_289 = t_285 and t_288,
-      temp bool t_290 = t_283 and t_289,
-      temp bool t_291 = Sender.state == 5,
-      temp bool t_292 = t_290 and t_291;
-    guardCondition t_292;
-    effect
-      RtoS.state = 0,
-      temp byte t_293 = RtoS.buf[1],
-      RtoS.buf[0] = t_293,
-      temp byte t_294 = RtoS.buf[2],
-      RtoS.buf[1] = t_294,
-      temp byte t_295 = RtoS.buf[3],
-      RtoS.buf[2] = t_295,
-      temp byte t_296 = RtoS.buf[4],
-      RtoS.buf[3] = t_296,
-      temp byte t_297 = RtoS.buf[5],
-      RtoS.buf[4] = t_297,
-      temp byte t_298 = RtoS.buf[6],
-      RtoS.buf[5] = t_298,
-      temp byte t_299 = RtoS.buf[7],
-      RtoS.buf[6] = t_299,
-      temp byte t_300 = RtoS.buf[8],
-      RtoS.buf[7] = t_300,
-      temp byte t_301 = RtoS.buf[9],
-      RtoS.buf[8] = t_301,
-      temp byte t_302 = RtoS.buf[10],
-      RtoS.buf[9] = t_302,
-      temp byte t_303 = RtoS.buf[11],
-      RtoS.buf[10] = t_303,
-      temp byte t_304 = RtoS.buf[12],
-      RtoS.buf[11] = t_304,
-      temp byte t_305 = RtoS.buf[13],
-      RtoS.buf[12] = t_305,
-      temp byte t_306 = RtoS.buf[14],
-      RtoS.buf[13] = t_306,
-      RtoS.buf[14] = 0,
-      temp int t_307 = RtoS.buf_act - 1,
-      RtoS.buf_act = t_307,
-      temp byte t_308 = RtoS.buf[0],
-      temp int t_309 = t_308 / 8,
-      Sender.m = t_309,
-      Sender.state = 7;
-
-  process RtoS_Sender
-    guardBlock
-      temp bool t_310 = RtoS.state == 0,
-      temp bool t_311 = RtoS.buf_act == 0,
-      temp bool t_312 = not t_311,
-      temp byte t_313 = RtoS.buf[0],
-      temp int t_314 = t_313 % 8,
-      temp bool t_315 = t_314 == 1,
-      temp bool t_316 = t_312 and t_315,
-      temp bool t_317 = t_310 and t_316,
-      temp bool t_318 = Sender.state == 0,
-      temp bool t_319 = t_317 and t_318;
-    guardCondition t_319;
-    effect
-      RtoS.state = 0,
-      temp byte t_320 = RtoS.buf[1],
-      RtoS.buf[0] = t_320,
-      temp byte t_321 = RtoS.buf[2],
-      RtoS.buf[1] = t_321,
-      temp byte t_322 = RtoS.buf[3],
-      RtoS.buf[2] = t_322,
-      temp byte t_323 = RtoS.buf[4],
-      RtoS.buf[3] = t_323,
-      temp byte t_324 = RtoS.buf[5],
-      RtoS.buf[4] = t_324,
-      temp byte t_325 = RtoS.buf[6],
-      RtoS.buf[5] = t_325,
-      temp byte t_326 = RtoS.buf[7],
-      RtoS.buf[6] = t_326,
-      temp byte t_327 = RtoS.buf[8],
-      RtoS.buf[7] = t_327,
-      temp byte t_328 = RtoS.buf[9],
-      RtoS.buf[8] = t_328,
-      temp byte t_329 = RtoS.buf[10],
-      RtoS.buf[9] = t_329,
-      temp byte t_330 = RtoS.buf[11],
-      RtoS.buf[10] = t_330,
-      temp byte t_331 = RtoS.buf[12],
-      RtoS.buf[11] = t_331,
-      temp byte t_332 = RtoS.buf[13],
-      RtoS.buf[12] = t_332,
-      temp byte t_333 = RtoS.buf[14],
-      RtoS.buf[13] = t_333,
-      RtoS.buf[14] = 0,
-      temp int t_334 = RtoS.buf_act - 1,
-      RtoS.buf_act = t_334,
-      temp byte t_335 = RtoS.buf[0],
-      temp int t_336 = t_335 / 8,
-      Sender.m = t_336,
+      temp byte t_86 = RtoS.buf_act - 1,
+      RtoS.buf_act = t_86,
+      temp byte t_87 = RtoS.buf[0],
+      temp byte t_88 = t_87 / 8,
+      Sender.m = t_88,
       Sender.state = 9;
 
-  process RtoS_Sender
+  process RtoS_Sender 
     guardBlock
-      temp bool t_337 = RtoS.state == 0,
-      temp bool t_338 = RtoS.buf_act == 0,
-      temp bool t_339 = not t_338,
-      temp byte t_340 = RtoS.buf[0],
-      temp int t_341 = t_340 % 8,
-      temp bool t_342 = t_341 == 1,
-      temp bool t_343 = t_339 and t_342,
-      temp bool t_344 = t_337 and t_343,
-      temp bool t_345 = Sender.state == 2,
-      temp bool t_346 = t_344 and t_345;
-    guardCondition t_346;
+      temp bool t_89 = RtoS.state == 0,
+      temp bool t_90 = RtoS.buf_act == 0,
+      temp bool t_91 = not t_90,
+      temp byte t_92 = RtoS.buf[0],
+      temp byte t_93 = t_92 % 8,
+      temp bool t_94 = t_93 == 1,
+      temp bool t_95 = t_91 and t_94,
+      temp bool t_96 = t_89 and t_95,
+      temp bool t_97 = Sender.state == 2,
+      temp bool t_98 = t_96 and t_97;
+
+    guardCondition t_98;
     effect
       RtoS.state = 0,
-      temp byte t_347 = RtoS.buf[1],
-      RtoS.buf[0] = t_347,
-      temp byte t_348 = RtoS.buf[2],
-      RtoS.buf[1] = t_348,
-      temp byte t_349 = RtoS.buf[3],
-      RtoS.buf[2] = t_349,
-      temp byte t_350 = RtoS.buf[4],
-      RtoS.buf[3] = t_350,
-      temp byte t_351 = RtoS.buf[5],
-      RtoS.buf[4] = t_351,
-      temp byte t_352 = RtoS.buf[6],
-      RtoS.buf[5] = t_352,
-      temp byte t_353 = RtoS.buf[7],
-      RtoS.buf[6] = t_353,
-      temp byte t_354 = RtoS.buf[8],
-      RtoS.buf[7] = t_354,
-      temp byte t_355 = RtoS.buf[9],
-      RtoS.buf[8] = t_355,
-      temp byte t_356 = RtoS.buf[10],
-      RtoS.buf[9] = t_356,
-      temp byte t_357 = RtoS.buf[11],
-      RtoS.buf[10] = t_357,
-      temp byte t_358 = RtoS.buf[12],
-      RtoS.buf[11] = t_358,
-      temp byte t_359 = RtoS.buf[13],
-      RtoS.buf[12] = t_359,
-      temp byte t_360 = RtoS.buf[14],
-      RtoS.buf[13] = t_360,
+      temp byte t_99 = RtoS.buf[1],
+      RtoS.buf[0] = t_99,
+      temp byte t_100 = RtoS.buf[2],
+      RtoS.buf[1] = t_100,
+      temp byte t_101 = RtoS.buf[3],
+      RtoS.buf[2] = t_101,
+      temp byte t_102 = RtoS.buf[4],
+      RtoS.buf[3] = t_102,
+      temp byte t_103 = RtoS.buf[5],
+      RtoS.buf[4] = t_103,
+      temp byte t_104 = RtoS.buf[6],
+      RtoS.buf[5] = t_104,
+      temp byte t_105 = RtoS.buf[7],
+      RtoS.buf[6] = t_105,
+      temp byte t_106 = RtoS.buf[8],
+      RtoS.buf[7] = t_106,
+      temp byte t_107 = RtoS.buf[9],
+      RtoS.buf[8] = t_107,
+      temp byte t_108 = RtoS.buf[10],
+      RtoS.buf[9] = t_108,
+      temp byte t_109 = RtoS.buf[11],
+      RtoS.buf[10] = t_109,
+      temp byte t_110 = RtoS.buf[12],
+      RtoS.buf[11] = t_110,
+      temp byte t_111 = RtoS.buf[13],
+      RtoS.buf[12] = t_111,
+      temp byte t_112 = RtoS.buf[14],
+      RtoS.buf[13] = t_112,
       RtoS.buf[14] = 0,
-      temp int t_361 = RtoS.buf_act - 1,
-      RtoS.buf_act = t_361,
-      temp byte t_362 = RtoS.buf[0],
-      temp int t_363 = t_362 / 8,
-      Sender.m = t_363,
+      temp byte t_113 = RtoS.buf_act - 1,
+      RtoS.buf_act = t_113,
+      temp byte t_114 = RtoS.buf[0],
+      temp byte t_115 = t_114 / 8,
+      Sender.m = t_115,
       Sender.state = 2;
 
-  process RtoS_Sender
+  process RtoS_Sender 
     guardBlock
-      temp bool t_364 = RtoS.state == 0,
-      temp bool t_365 = RtoS.buf_act == 0,
-      temp bool t_366 = not t_365,
-      temp byte t_367 = RtoS.buf[0],
-      temp int t_368 = t_367 % 8,
-      temp bool t_369 = t_368 == 1,
-      temp bool t_370 = t_366 and t_369,
-      temp bool t_371 = t_364 and t_370,
-      temp bool t_372 = Sender.state == 4,
-      temp bool t_373 = t_371 and t_372;
-    guardCondition t_373;
+      temp bool t_116 = RtoS.state == 0,
+      temp bool t_117 = RtoS.buf_act == 0,
+      temp bool t_118 = not t_117,
+      temp byte t_119 = RtoS.buf[0],
+      temp byte t_120 = t_119 % 8,
+      temp bool t_121 = t_120 == 1,
+      temp bool t_122 = t_118 and t_121,
+      temp bool t_123 = t_116 and t_122,
+      temp bool t_124 = Sender.state == 4,
+      temp bool t_125 = t_123 and t_124;
+
+    guardCondition t_125;
     effect
       RtoS.state = 0,
-      temp byte t_374 = RtoS.buf[1],
-      RtoS.buf[0] = t_374,
-      temp byte t_375 = RtoS.buf[2],
-      RtoS.buf[1] = t_375,
-      temp byte t_376 = RtoS.buf[3],
-      RtoS.buf[2] = t_376,
-      temp byte t_377 = RtoS.buf[4],
-      RtoS.buf[3] = t_377,
-      temp byte t_378 = RtoS.buf[5],
-      RtoS.buf[4] = t_378,
-      temp byte t_379 = RtoS.buf[6],
-      RtoS.buf[5] = t_379,
-      temp byte t_380 = RtoS.buf[7],
-      RtoS.buf[6] = t_380,
-      temp byte t_381 = RtoS.buf[8],
-      RtoS.buf[7] = t_381,
-      temp byte t_382 = RtoS.buf[9],
-      RtoS.buf[8] = t_382,
-      temp byte t_383 = RtoS.buf[10],
-      RtoS.buf[9] = t_383,
-      temp byte t_384 = RtoS.buf[11],
-      RtoS.buf[10] = t_384,
-      temp byte t_385 = RtoS.buf[12],
-      RtoS.buf[11] = t_385,
-      temp byte t_386 = RtoS.buf[13],
-      RtoS.buf[12] = t_386,
-      temp byte t_387 = RtoS.buf[14],
-      RtoS.buf[13] = t_387,
+      temp byte t_126 = RtoS.buf[1],
+      RtoS.buf[0] = t_126,
+      temp byte t_127 = RtoS.buf[2],
+      RtoS.buf[1] = t_127,
+      temp byte t_128 = RtoS.buf[3],
+      RtoS.buf[2] = t_128,
+      temp byte t_129 = RtoS.buf[4],
+      RtoS.buf[3] = t_129,
+      temp byte t_130 = RtoS.buf[5],
+      RtoS.buf[4] = t_130,
+      temp byte t_131 = RtoS.buf[6],
+      RtoS.buf[5] = t_131,
+      temp byte t_132 = RtoS.buf[7],
+      RtoS.buf[6] = t_132,
+      temp byte t_133 = RtoS.buf[8],
+      RtoS.buf[7] = t_133,
+      temp byte t_134 = RtoS.buf[9],
+      RtoS.buf[8] = t_134,
+      temp byte t_135 = RtoS.buf[10],
+      RtoS.buf[9] = t_135,
+      temp byte t_136 = RtoS.buf[11],
+      RtoS.buf[10] = t_136,
+      temp byte t_137 = RtoS.buf[12],
+      RtoS.buf[11] = t_137,
+      temp byte t_138 = RtoS.buf[13],
+      RtoS.buf[12] = t_138,
+      temp byte t_139 = RtoS.buf[14],
+      RtoS.buf[13] = t_139,
       RtoS.buf[14] = 0,
-      temp int t_388 = RtoS.buf_act - 1,
-      RtoS.buf_act = t_388,
-      temp byte t_389 = RtoS.buf[0],
-      temp int t_390 = t_389 / 8,
-      Sender.m = t_390,
+      temp byte t_140 = RtoS.buf_act - 1,
+      RtoS.buf_act = t_140,
+      temp byte t_141 = RtoS.buf[0],
+      temp byte t_142 = t_141 / 8,
+      Sender.m = t_142,
       Sender.state = 8;
 
-  process RtoS_Sender
+  process RtoS_Sender 
     guardBlock
-      temp bool t_391 = RtoS.state == 0,
-      temp bool t_392 = RtoS.buf_act == 0,
-      temp bool t_393 = not t_392,
-      temp byte t_394 = RtoS.buf[0],
-      temp int t_395 = t_394 % 8,
-      temp bool t_396 = t_395 == 1,
-      temp bool t_397 = t_393 and t_396,
-      temp bool t_398 = t_391 and t_397,
-      temp bool t_399 = Sender.state == 5,
-      temp bool t_400 = t_398 and t_399;
-    guardCondition t_400;
+      temp bool t_143 = RtoS.state == 0,
+      temp bool t_144 = RtoS.buf_act == 0,
+      temp bool t_145 = not t_144,
+      temp byte t_146 = RtoS.buf[0],
+      temp byte t_147 = t_146 % 8,
+      temp bool t_148 = t_147 == 1,
+      temp bool t_149 = t_145 and t_148,
+      temp bool t_150 = t_143 and t_149,
+      temp bool t_151 = Sender.state == 5,
+      temp bool t_152 = t_150 and t_151;
+
+    guardCondition t_152;
     effect
       RtoS.state = 0,
-      temp byte t_401 = RtoS.buf[1],
-      RtoS.buf[0] = t_401,
-      temp byte t_402 = RtoS.buf[2],
-      RtoS.buf[1] = t_402,
-      temp byte t_403 = RtoS.buf[3],
-      RtoS.buf[2] = t_403,
-      temp byte t_404 = RtoS.buf[4],
-      RtoS.buf[3] = t_404,
-      temp byte t_405 = RtoS.buf[5],
-      RtoS.buf[4] = t_405,
-      temp byte t_406 = RtoS.buf[6],
-      RtoS.buf[5] = t_406,
-      temp byte t_407 = RtoS.buf[7],
-      RtoS.buf[6] = t_407,
-      temp byte t_408 = RtoS.buf[8],
-      RtoS.buf[7] = t_408,
-      temp byte t_409 = RtoS.buf[9],
-      RtoS.buf[8] = t_409,
-      temp byte t_410 = RtoS.buf[10],
-      RtoS.buf[9] = t_410,
-      temp byte t_411 = RtoS.buf[11],
-      RtoS.buf[10] = t_411,
-      temp byte t_412 = RtoS.buf[12],
-      RtoS.buf[11] = t_412,
-      temp byte t_413 = RtoS.buf[13],
-      RtoS.buf[12] = t_413,
-      temp byte t_414 = RtoS.buf[14],
-      RtoS.buf[13] = t_414,
+      temp byte t_153 = RtoS.buf[1],
+      RtoS.buf[0] = t_153,
+      temp byte t_154 = RtoS.buf[2],
+      RtoS.buf[1] = t_154,
+      temp byte t_155 = RtoS.buf[3],
+      RtoS.buf[2] = t_155,
+      temp byte t_156 = RtoS.buf[4],
+      RtoS.buf[3] = t_156,
+      temp byte t_157 = RtoS.buf[5],
+      RtoS.buf[4] = t_157,
+      temp byte t_158 = RtoS.buf[6],
+      RtoS.buf[5] = t_158,
+      temp byte t_159 = RtoS.buf[7],
+      RtoS.buf[6] = t_159,
+      temp byte t_160 = RtoS.buf[8],
+      RtoS.buf[7] = t_160,
+      temp byte t_161 = RtoS.buf[9],
+      RtoS.buf[8] = t_161,
+      temp byte t_162 = RtoS.buf[10],
+      RtoS.buf[9] = t_162,
+      temp byte t_163 = RtoS.buf[11],
+      RtoS.buf[10] = t_163,
+      temp byte t_164 = RtoS.buf[12],
+      RtoS.buf[11] = t_164,
+      temp byte t_165 = RtoS.buf[13],
+      RtoS.buf[12] = t_165,
+      temp byte t_166 = RtoS.buf[14],
+      RtoS.buf[13] = t_166,
       RtoS.buf[14] = 0,
-      temp int t_415 = RtoS.buf_act - 1,
-      RtoS.buf_act = t_415,
-      temp byte t_416 = RtoS.buf[0],
-      temp int t_417 = t_416 / 8,
-      Sender.m = t_417,
+      temp byte t_167 = RtoS.buf_act - 1,
+      RtoS.buf_act = t_167,
+      temp byte t_168 = RtoS.buf[0],
+      temp byte t_169 = t_168 / 8,
+      Sender.m = t_169,
       Sender.state = 7;
 
-  process StoR_Receiver
+  process Receiver_RtoS 
     guardBlock
-      temp bool t_418 = StoR.state == 0,
-      temp bool t_419 = StoR.buf_act == 0,
-      temp bool t_420 = not t_419,
-      temp byte t_421 = StoR.buf[0],
-      temp int t_422 = t_421 % 8,
-      temp bool t_423 = t_422 == 4,
-      temp bool t_424 = t_420 and t_423,
-      temp bool t_425 = t_418 and t_424,
-      temp bool t_426 = Receiver.state == 0,
-      temp bool t_427 = t_425 and t_426;
-    guardCondition t_427;
-    effect
-      StoR.state = 0,
-      temp byte t_428 = StoR.buf[1],
-      StoR.buf[0] = t_428,
-      temp byte t_429 = StoR.buf[2],
-      StoR.buf[1] = t_429,
-      temp byte t_430 = StoR.buf[3],
-      StoR.buf[2] = t_430,
-      temp byte t_431 = StoR.buf[4],
-      StoR.buf[3] = t_431,
-      temp byte t_432 = StoR.buf[5],
-      StoR.buf[4] = t_432,
-      temp byte t_433 = StoR.buf[6],
-      StoR.buf[5] = t_433,
-      temp byte t_434 = StoR.buf[7],
-      StoR.buf[6] = t_434,
-      temp byte t_435 = StoR.buf[8],
-      StoR.buf[7] = t_435,
-      temp byte t_436 = StoR.buf[9],
-      StoR.buf[8] = t_436,
-      temp byte t_437 = StoR.buf[10],
-      StoR.buf[9] = t_437,
-      temp byte t_438 = StoR.buf[11],
-      StoR.buf[10] = t_438,
-      temp byte t_439 = StoR.buf[12],
-      StoR.buf[11] = t_439,
-      temp byte t_440 = StoR.buf[13],
-      StoR.buf[12] = t_440,
-      temp byte t_441 = StoR.buf[14],
-      StoR.buf[13] = t_441,
-      StoR.buf[14] = 0,
-      temp int t_442 = StoR.buf_act - 1,
-      StoR.buf_act = t_442,
-      temp byte t_443 = StoR.buf[0],
-      temp int t_444 = t_443 / 8,
-      Receiver.m = t_444,
-      Receiver.state = 6;
+      temp bool t_170 = Receiver.state == 3,
+      temp bool t_171 = RtoS.state == 0,
+      temp bool t_172 = RtoS.buf_act == 15,
+      temp bool t_173 = not t_172,
+      temp bool t_174 = t_171 and t_173,
+      temp bool t_175 = t_170 and t_174;
 
-  process StoR_Receiver
-    guardBlock
-      temp bool t_445 = StoR.state == 0,
-      temp bool t_446 = StoR.buf_act == 0,
-      temp bool t_447 = not t_446,
-      temp byte t_448 = StoR.buf[0],
-      temp int t_449 = t_448 % 8,
-      temp bool t_450 = t_449 == 4,
-      temp bool t_451 = t_447 and t_450,
-      temp bool t_452 = t_445 and t_451,
-      temp bool t_453 = Receiver.state == 2,
-      temp bool t_454 = t_452 and t_453;
-    guardCondition t_454;
+    guardCondition t_175;
     effect
-      StoR.state = 0,
-      temp byte t_455 = StoR.buf[1],
-      StoR.buf[0] = t_455,
-      temp byte t_456 = StoR.buf[2],
-      StoR.buf[1] = t_456,
-      temp byte t_457 = StoR.buf[3],
-      StoR.buf[2] = t_457,
-      temp byte t_458 = StoR.buf[4],
-      StoR.buf[3] = t_458,
-      temp byte t_459 = StoR.buf[5],
-      StoR.buf[4] = t_459,
-      temp byte t_460 = StoR.buf[6],
-      StoR.buf[5] = t_460,
-      temp byte t_461 = StoR.buf[7],
-      StoR.buf[6] = t_461,
-      temp byte t_462 = StoR.buf[8],
-      StoR.buf[7] = t_462,
-      temp byte t_463 = StoR.buf[9],
-      StoR.buf[8] = t_463,
-      temp byte t_464 = StoR.buf[10],
-      StoR.buf[9] = t_464,
-      temp byte t_465 = StoR.buf[11],
-      StoR.buf[10] = t_465,
-      temp byte t_466 = StoR.buf[12],
-      StoR.buf[11] = t_466,
-      temp byte t_467 = StoR.buf[13],
-      StoR.buf[12] = t_467,
-      temp byte t_468 = StoR.buf[14],
-      StoR.buf[13] = t_468,
-      StoR.buf[14] = 0,
-      temp int t_469 = StoR.buf_act - 1,
-      StoR.buf_act = t_469,
-      temp byte t_470 = StoR.buf[0],
-      temp int t_471 = t_470 / 8,
-      Receiver.m = t_471,
-      Receiver.state = 2;
+      Receiver.state = 4,
+      RtoS.n = Receiver.n,
+      RtoS.state = 0,
+      temp byte t_176 = 8 * RtoS.n,
+      temp byte t_177 = 2 + t_176,
+      RtoS.buf[RtoS.buf_act] = t_177,
+      temp byte t_178 = RtoS.buf_act + 1,
+      RtoS.buf_act = t_178;
 
-  process StoR_Receiver
+  process Receiver_RtoS 
     guardBlock
-      temp bool t_472 = StoR.state == 0,
-      temp bool t_473 = StoR.buf_act == 0,
-      temp bool t_474 = not t_473,
-      temp byte t_475 = StoR.buf[0],
-      temp int t_476 = t_475 % 8,
-      temp bool t_477 = t_476 == 4,
-      temp bool t_478 = t_474 and t_477,
-      temp bool t_479 = t_472 and t_478,
-      temp bool t_480 = Receiver.state == 5,
-      temp bool t_481 = t_479 and t_480;
-    guardCondition t_481;
+      temp bool t_179 = Receiver.state == 8,
+      temp int t_180 = Receiver.m + 1,
+      temp int t_181 = t_180 % 4,
+      temp bool t_182 = t_181 == Receiver.n,
+      temp bool t_183 = t_179 and t_182,
+      temp bool t_184 = RtoS.state == 0,
+      temp bool t_185 = RtoS.buf_act == 15,
+      temp bool t_186 = not t_185,
+      temp bool t_187 = t_184 and t_186,
+      temp bool t_188 = t_183 and t_187;
+
+    guardCondition t_188;
     effect
-      StoR.state = 0,
-      temp byte t_482 = StoR.buf[1],
-      StoR.buf[0] = t_482,
-      temp byte t_483 = StoR.buf[2],
-      StoR.buf[1] = t_483,
-      temp byte t_484 = StoR.buf[3],
-      StoR.buf[2] = t_484,
-      temp byte t_485 = StoR.buf[4],
-      StoR.buf[3] = t_485,
-      temp byte t_486 = StoR.buf[5],
-      StoR.buf[4] = t_486,
-      temp byte t_487 = StoR.buf[6],
-      StoR.buf[5] = t_487,
-      temp byte t_488 = StoR.buf[7],
-      StoR.buf[6] = t_488,
-      temp byte t_489 = StoR.buf[8],
-      StoR.buf[7] = t_489,
-      temp byte t_490 = StoR.buf[9],
-      StoR.buf[8] = t_490,
-      temp byte t_491 = StoR.buf[10],
-      StoR.buf[9] = t_491,
-      temp byte t_492 = StoR.buf[11],
-      StoR.buf[10] = t_492,
-      temp byte t_493 = StoR.buf[12],
-      StoR.buf[11] = t_493,
-      temp byte t_494 = StoR.buf[13],
-      StoR.buf[12] = t_494,
-      temp byte t_495 = StoR.buf[14],
-      StoR.buf[13] = t_495,
-      StoR.buf[14] = 0,
-      temp int t_496 = StoR.buf_act - 1,
-      StoR.buf_act = t_496,
-      temp byte t_497 = StoR.buf[0],
-      temp int t_498 = t_497 / 8,
-      Receiver.m = t_498,
-      Receiver.state = 11;
+      Receiver.state = 4,
+      RtoS.n = Receiver.n,
+      RtoS.state = 0,
+      temp byte t_189 = 8 * RtoS.n,
+      temp byte t_190 = 2 + t_189,
+      RtoS.buf[RtoS.buf_act] = t_190,
+      temp byte t_191 = RtoS.buf_act + 1,
+      RtoS.buf_act = t_191;
 
-  process Sender_StoR
+  process Sender_StoR 
     guardBlock
-      temp bool t_499 = Sender.state == 3,
-      temp bool t_500 = StoR.state == 0,
-      temp bool t_501 = StoR.buf_act == 15,
-      temp bool t_502 = not t_501,
-      temp bool t_503 = t_500 and t_502,
-      temp bool t_504 = t_499 and t_503;
-    guardCondition t_504;
+      temp bool t_192 = Sender.state == 3,
+      temp bool t_193 = StoR.state == 0,
+      temp bool t_194 = StoR.buf_act == 15,
+      temp bool t_195 = not t_194,
+      temp bool t_196 = t_193 and t_195,
+      temp bool t_197 = t_192 and t_196;
+
+    guardCondition t_197;
+    effect
+      Sender.state = 5,
+      StoR.n = Sender.n,
+      StoR.state = 0,
+      temp byte t_198 = 8 * StoR.n,
+      temp byte t_199 = 3 + t_198,
+      StoR.buf[StoR.buf_act] = t_199,
+      temp byte t_200 = StoR.buf_act + 1,
+      StoR.buf_act = t_200;
+
+  process Sender_StoR 
+    guardBlock
+      temp bool t_201 = Sender.state == 4,
+      temp bool t_202 = StoR.state == 0,
+      temp bool t_203 = StoR.buf_act == 15,
+      temp bool t_204 = not t_203,
+      temp bool t_205 = t_202 and t_204,
+      temp bool t_206 = t_201 and t_205;
+
+    guardCondition t_206;
+    effect
+      Sender.state = 5,
+      StoR.n = Sender.n,
+      StoR.state = 0,
+      temp byte t_207 = 8 * StoR.n,
+      temp byte t_208 = 3 + t_207,
+      StoR.buf[StoR.buf_act] = t_208,
+      temp byte t_209 = StoR.buf_act + 1,
+      StoR.buf_act = t_209;
+
+  process Sender_StoR 
+    guardBlock
+      temp bool t_210 = Sender.state == 8,
+      temp bool t_211 = Sender.m == Sender.n,
+      temp bool t_212 = t_210 and t_211,
+      temp bool t_213 = StoR.state == 0,
+      temp bool t_214 = StoR.buf_act == 15,
+      temp bool t_215 = not t_214,
+      temp bool t_216 = t_213 and t_215,
+      temp bool t_217 = t_212 and t_216;
+
+    guardCondition t_217;
     effect
       Sender.state = 4,
       StoR.n = Sender.n,
       StoR.state = 0,
-      temp int t_505 = 8 * StoR.n,
-      temp int t_506 = 4 + t_505,
-      StoR.buf[StoR.buf_act] = t_506,
-      temp int t_507 = StoR.buf_act + 1,
-      StoR.buf_act = t_507;
+      temp byte t_218 = 8 * StoR.n,
+      temp byte t_219 = 3 + t_218,
+      StoR.buf[StoR.buf_act] = t_219,
+      temp byte t_220 = StoR.buf_act + 1,
+      StoR.buf_act = t_220;
 
-  process StoR_Receiver
+  process Sender_StoR 
     guardBlock
-      temp bool t_508 = StoR.state == 0,
-      temp bool t_509 = StoR.buf_act == 0,
-      temp bool t_510 = not t_509,
-      temp byte t_511 = StoR.buf[0],
-      temp int t_512 = t_511 % 8,
-      temp bool t_513 = t_512 == 3,
-      temp bool t_514 = t_510 and t_513,
-      temp bool t_515 = t_508 and t_514,
-      temp bool t_516 = Receiver.state == 0,
-      temp bool t_517 = t_515 and t_516;
-    guardCondition t_517;
-    effect
-      StoR.state = 0,
-      temp byte t_518 = StoR.buf[1],
-      StoR.buf[0] = t_518,
-      temp byte t_519 = StoR.buf[2],
-      StoR.buf[1] = t_519,
-      temp byte t_520 = StoR.buf[3],
-      StoR.buf[2] = t_520,
-      temp byte t_521 = StoR.buf[4],
-      StoR.buf[3] = t_521,
-      temp byte t_522 = StoR.buf[5],
-      StoR.buf[4] = t_522,
-      temp byte t_523 = StoR.buf[6],
-      StoR.buf[5] = t_523,
-      temp byte t_524 = StoR.buf[7],
-      StoR.buf[6] = t_524,
-      temp byte t_525 = StoR.buf[8],
-      StoR.buf[7] = t_525,
-      temp byte t_526 = StoR.buf[9],
-      StoR.buf[8] = t_526,
-      temp byte t_527 = StoR.buf[10],
-      StoR.buf[9] = t_527,
-      temp byte t_528 = StoR.buf[11],
-      StoR.buf[10] = t_528,
-      temp byte t_529 = StoR.buf[12],
-      StoR.buf[11] = t_529,
-      temp byte t_530 = StoR.buf[13],
-      StoR.buf[12] = t_530,
-      temp byte t_531 = StoR.buf[14],
-      StoR.buf[13] = t_531,
-      StoR.buf[14] = 0,
-      temp int t_532 = StoR.buf_act - 1,
-      StoR.buf_act = t_532,
-      temp byte t_533 = StoR.buf[0],
-      temp int t_534 = t_533 / 8,
-      Receiver.m = t_534,
-      Receiver.state = 9;
+      temp bool t_221 = Sender.state == 7,
+      temp bool t_222 = Sender.m == Sender.n,
+      temp bool t_223 = t_221 and t_222,
+      temp bool t_224 = StoR.state == 0,
+      temp bool t_225 = StoR.buf_act == 15,
+      temp bool t_226 = not t_225,
+      temp bool t_227 = t_224 and t_226,
+      temp bool t_228 = t_223 and t_227;
 
-  process StoR_Receiver
-    guardBlock
-      temp bool t_535 = StoR.state == 0,
-      temp bool t_536 = StoR.buf_act == 0,
-      temp bool t_537 = not t_536,
-      temp byte t_538 = StoR.buf[0],
-      temp int t_539 = t_538 % 8,
-      temp bool t_540 = t_539 == 3,
-      temp bool t_541 = t_537 and t_540,
-      temp bool t_542 = t_535 and t_541,
-      temp bool t_543 = Receiver.state == 2,
-      temp bool t_544 = t_542 and t_543;
-    guardCondition t_544;
-    effect
-      StoR.state = 0,
-      temp byte t_545 = StoR.buf[1],
-      StoR.buf[0] = t_545,
-      temp byte t_546 = StoR.buf[2],
-      StoR.buf[1] = t_546,
-      temp byte t_547 = StoR.buf[3],
-      StoR.buf[2] = t_547,
-      temp byte t_548 = StoR.buf[4],
-      StoR.buf[3] = t_548,
-      temp byte t_549 = StoR.buf[5],
-      StoR.buf[4] = t_549,
-      temp byte t_550 = StoR.buf[6],
-      StoR.buf[5] = t_550,
-      temp byte t_551 = StoR.buf[7],
-      StoR.buf[6] = t_551,
-      temp byte t_552 = StoR.buf[8],
-      StoR.buf[7] = t_552,
-      temp byte t_553 = StoR.buf[9],
-      StoR.buf[8] = t_553,
-      temp byte t_554 = StoR.buf[10],
-      StoR.buf[9] = t_554,
-      temp byte t_555 = StoR.buf[11],
-      StoR.buf[10] = t_555,
-      temp byte t_556 = StoR.buf[12],
-      StoR.buf[11] = t_556,
-      temp byte t_557 = StoR.buf[13],
-      StoR.buf[12] = t_557,
-      temp byte t_558 = StoR.buf[14],
-      StoR.buf[13] = t_558,
-      StoR.buf[14] = 0,
-      temp int t_559 = StoR.buf_act - 1,
-      StoR.buf_act = t_559,
-      temp byte t_560 = StoR.buf[0],
-      temp int t_561 = t_560 / 8,
-      Receiver.m = t_561,
-      Receiver.state = 2;
-
-  process StoR_Receiver
-    guardBlock
-      temp bool t_562 = StoR.state == 0,
-      temp bool t_563 = StoR.buf_act == 0,
-      temp bool t_564 = not t_563,
-      temp byte t_565 = StoR.buf[0],
-      temp int t_566 = t_565 % 8,
-      temp bool t_567 = t_566 == 3,
-      temp bool t_568 = t_564 and t_567,
-      temp bool t_569 = t_562 and t_568,
-      temp bool t_570 = Receiver.state == 4,
-      temp bool t_571 = t_569 and t_570;
-    guardCondition t_571;
-    effect
-      StoR.state = 0,
-      temp byte t_572 = StoR.buf[1],
-      StoR.buf[0] = t_572,
-      temp byte t_573 = StoR.buf[2],
-      StoR.buf[1] = t_573,
-      temp byte t_574 = StoR.buf[3],
-      StoR.buf[2] = t_574,
-      temp byte t_575 = StoR.buf[4],
-      StoR.buf[3] = t_575,
-      temp byte t_576 = StoR.buf[5],
-      StoR.buf[4] = t_576,
-      temp byte t_577 = StoR.buf[6],
-      StoR.buf[5] = t_577,
-      temp byte t_578 = StoR.buf[7],
-      StoR.buf[6] = t_578,
-      temp byte t_579 = StoR.buf[8],
-      StoR.buf[7] = t_579,
-      temp byte t_580 = StoR.buf[9],
-      StoR.buf[8] = t_580,
-      temp byte t_581 = StoR.buf[10],
-      StoR.buf[9] = t_581,
-      temp byte t_582 = StoR.buf[11],
-      StoR.buf[10] = t_582,
-      temp byte t_583 = StoR.buf[12],
-      StoR.buf[11] = t_583,
-      temp byte t_584 = StoR.buf[13],
-      StoR.buf[12] = t_584,
-      temp byte t_585 = StoR.buf[14],
-      StoR.buf[13] = t_585,
-      StoR.buf[14] = 0,
-      temp int t_586 = StoR.buf_act - 1,
-      StoR.buf_act = t_586,
-      temp byte t_587 = StoR.buf[0],
-      temp int t_588 = t_587 / 8,
-      Receiver.m = t_588,
-      Receiver.state = 8;
-
-  process StoR_Receiver
-    guardBlock
-      temp bool t_589 = StoR.state == 0,
-      temp bool t_590 = StoR.buf_act == 0,
-      temp bool t_591 = not t_590,
-      temp byte t_592 = StoR.buf[0],
-      temp int t_593 = t_592 % 8,
-      temp bool t_594 = t_593 == 3,
-      temp bool t_595 = t_591 and t_594,
-      temp bool t_596 = t_589 and t_595,
-      temp bool t_597 = Receiver.state == 5,
-      temp bool t_598 = t_596 and t_597;
-    guardCondition t_598;
-    effect
-      StoR.state = 0,
-      temp byte t_599 = StoR.buf[1],
-      StoR.buf[0] = t_599,
-      temp byte t_600 = StoR.buf[2],
-      StoR.buf[1] = t_600,
-      temp byte t_601 = StoR.buf[3],
-      StoR.buf[2] = t_601,
-      temp byte t_602 = StoR.buf[4],
-      StoR.buf[3] = t_602,
-      temp byte t_603 = StoR.buf[5],
-      StoR.buf[4] = t_603,
-      temp byte t_604 = StoR.buf[6],
-      StoR.buf[5] = t_604,
-      temp byte t_605 = StoR.buf[7],
-      StoR.buf[6] = t_605,
-      temp byte t_606 = StoR.buf[8],
-      StoR.buf[7] = t_606,
-      temp byte t_607 = StoR.buf[9],
-      StoR.buf[8] = t_607,
-      temp byte t_608 = StoR.buf[10],
-      StoR.buf[9] = t_608,
-      temp byte t_609 = StoR.buf[11],
-      StoR.buf[10] = t_609,
-      temp byte t_610 = StoR.buf[12],
-      StoR.buf[11] = t_610,
-      temp byte t_611 = StoR.buf[13],
-      StoR.buf[12] = t_611,
-      temp byte t_612 = StoR.buf[14],
-      StoR.buf[13] = t_612,
-      StoR.buf[14] = 0,
-      temp int t_613 = StoR.buf_act - 1,
-      StoR.buf_act = t_613,
-      temp byte t_614 = StoR.buf[0],
-      temp int t_615 = t_614 / 8,
-      Receiver.m = t_615,
-      Receiver.state = 7;
-
-  process StoR_Receiver
-    guardBlock
-      temp bool t_616 = StoR.state == 0,
-      temp bool t_617 = StoR.buf_act == 0,
-      temp bool t_618 = not t_617,
-      temp byte t_619 = StoR.buf[0],
-      temp bool t_620 = t_619 == 0,
-      temp bool t_621 = t_618 and t_620,
-      temp bool t_622 = t_616 and t_621,
-      temp bool t_623 = Receiver.state == 0,
-      temp bool t_624 = t_622 and t_623;
-    guardCondition t_624;
-    effect
-      StoR.state = 0,
-      temp byte t_625 = StoR.buf[1],
-      StoR.buf[0] = t_625,
-      temp byte t_626 = StoR.buf[2],
-      StoR.buf[1] = t_626,
-      temp byte t_627 = StoR.buf[3],
-      StoR.buf[2] = t_627,
-      temp byte t_628 = StoR.buf[4],
-      StoR.buf[3] = t_628,
-      temp byte t_629 = StoR.buf[5],
-      StoR.buf[4] = t_629,
-      temp byte t_630 = StoR.buf[6],
-      StoR.buf[5] = t_630,
-      temp byte t_631 = StoR.buf[7],
-      StoR.buf[6] = t_631,
-      temp byte t_632 = StoR.buf[8],
-      StoR.buf[7] = t_632,
-      temp byte t_633 = StoR.buf[9],
-      StoR.buf[8] = t_633,
-      temp byte t_634 = StoR.buf[10],
-      StoR.buf[9] = t_634,
-      temp byte t_635 = StoR.buf[11],
-      StoR.buf[10] = t_635,
-      temp byte t_636 = StoR.buf[12],
-      StoR.buf[11] = t_636,
-      temp byte t_637 = StoR.buf[13],
-      StoR.buf[12] = t_637,
-      temp byte t_638 = StoR.buf[14],
-      StoR.buf[13] = t_638,
-      StoR.buf[14] = 0,
-      temp int t_639 = StoR.buf_act - 1,
-      StoR.buf_act = t_639,
-      Receiver.state = 1;
-
-  process StoR_Receiver
-    guardBlock
-      temp bool t_640 = StoR.state == 0,
-      temp bool t_641 = StoR.buf_act == 0,
-      temp bool t_642 = not t_641,
-      temp byte t_643 = StoR.buf[0],
-      temp bool t_644 = t_643 == 0,
-      temp bool t_645 = t_642 and t_644,
-      temp bool t_646 = t_640 and t_645,
-      temp bool t_647 = Receiver.state == 2,
-      temp bool t_648 = t_646 and t_647;
-    guardCondition t_648;
-    effect
-      StoR.state = 0,
-      temp byte t_649 = StoR.buf[1],
-      StoR.buf[0] = t_649,
-      temp byte t_650 = StoR.buf[2],
-      StoR.buf[1] = t_650,
-      temp byte t_651 = StoR.buf[3],
-      StoR.buf[2] = t_651,
-      temp byte t_652 = StoR.buf[4],
-      StoR.buf[3] = t_652,
-      temp byte t_653 = StoR.buf[5],
-      StoR.buf[4] = t_653,
-      temp byte t_654 = StoR.buf[6],
-      StoR.buf[5] = t_654,
-      temp byte t_655 = StoR.buf[7],
-      StoR.buf[6] = t_655,
-      temp byte t_656 = StoR.buf[8],
-      StoR.buf[7] = t_656,
-      temp byte t_657 = StoR.buf[9],
-      StoR.buf[8] = t_657,
-      temp byte t_658 = StoR.buf[10],
-      StoR.buf[9] = t_658,
-      temp byte t_659 = StoR.buf[11],
-      StoR.buf[10] = t_659,
-      temp byte t_660 = StoR.buf[12],
-      StoR.buf[11] = t_660,
-      temp byte t_661 = StoR.buf[13],
-      StoR.buf[12] = t_661,
-      temp byte t_662 = StoR.buf[14],
-      StoR.buf[13] = t_662,
-      StoR.buf[14] = 0,
-      temp int t_663 = StoR.buf_act - 1,
-      StoR.buf_act = t_663,
-      Receiver.state = 0,
-      Receiver.n = 0;
-
-  process StoR_Receiver
-    guardBlock
-      temp bool t_664 = StoR.state == 0,
-      temp bool t_665 = StoR.buf_act == 0,
-      temp bool t_666 = not t_665,
-      temp byte t_667 = StoR.buf[0],
-      temp bool t_668 = t_667 == 0,
-      temp bool t_669 = t_666 and t_668,
-      temp bool t_670 = t_664 and t_669,
-      temp bool t_671 = Receiver.state == 4,
-      temp bool t_672 = t_670 and t_671;
-    guardCondition t_672;
-    effect
-      StoR.state = 0,
-      temp byte t_673 = StoR.buf[1],
-      StoR.buf[0] = t_673,
-      temp byte t_674 = StoR.buf[2],
-      StoR.buf[1] = t_674,
-      temp byte t_675 = StoR.buf[3],
-      StoR.buf[2] = t_675,
-      temp byte t_676 = StoR.buf[4],
-      StoR.buf[3] = t_676,
-      temp byte t_677 = StoR.buf[5],
-      StoR.buf[4] = t_677,
-      temp byte t_678 = StoR.buf[6],
-      StoR.buf[5] = t_678,
-      temp byte t_679 = StoR.buf[7],
-      StoR.buf[6] = t_679,
-      temp byte t_680 = StoR.buf[8],
-      StoR.buf[7] = t_680,
-      temp byte t_681 = StoR.buf[9],
-      StoR.buf[8] = t_681,
-      temp byte t_682 = StoR.buf[10],
-      StoR.buf[9] = t_682,
-      temp byte t_683 = StoR.buf[11],
-      StoR.buf[10] = t_683,
-      temp byte t_684 = StoR.buf[12],
-      StoR.buf[11] = t_684,
-      temp byte t_685 = StoR.buf[13],
-      StoR.buf[12] = t_685,
-      temp byte t_686 = StoR.buf[14],
-      StoR.buf[13] = t_686,
-      StoR.buf[14] = 0,
-      temp int t_687 = StoR.buf_act - 1,
-      StoR.buf_act = t_687,
-      Receiver.state = 1;
-
-  process StoR_Receiver
-    guardBlock
-      temp bool t_688 = StoR.state == 0,
-      temp bool t_689 = StoR.buf_act == 0,
-      temp bool t_690 = not t_689,
-      temp byte t_691 = StoR.buf[0],
-      temp bool t_692 = t_691 == 0,
-      temp bool t_693 = t_690 and t_692,
-      temp bool t_694 = t_688 and t_693,
-      temp bool t_695 = Receiver.state == 5,
-      temp bool t_696 = t_694 and t_695;
-    guardCondition t_696;
-    effect
-      StoR.state = 0,
-      temp byte t_697 = StoR.buf[1],
-      StoR.buf[0] = t_697,
-      temp byte t_698 = StoR.buf[2],
-      StoR.buf[1] = t_698,
-      temp byte t_699 = StoR.buf[3],
-      StoR.buf[2] = t_699,
-      temp byte t_700 = StoR.buf[4],
-      StoR.buf[3] = t_700,
-      temp byte t_701 = StoR.buf[5],
-      StoR.buf[4] = t_701,
-      temp byte t_702 = StoR.buf[6],
-      StoR.buf[5] = t_702,
-      temp byte t_703 = StoR.buf[7],
-      StoR.buf[6] = t_703,
-      temp byte t_704 = StoR.buf[8],
-      StoR.buf[7] = t_704,
-      temp byte t_705 = StoR.buf[9],
-      StoR.buf[8] = t_705,
-      temp byte t_706 = StoR.buf[10],
-      StoR.buf[9] = t_706,
-      temp byte t_707 = StoR.buf[11],
-      StoR.buf[10] = t_707,
-      temp byte t_708 = StoR.buf[12],
-      StoR.buf[11] = t_708,
-      temp byte t_709 = StoR.buf[13],
-      StoR.buf[12] = t_709,
-      temp byte t_710 = StoR.buf[14],
-      StoR.buf[13] = t_710,
-      StoR.buf[14] = 0,
-      temp int t_711 = StoR.buf_act - 1,
-      StoR.buf_act = t_711,
-      Receiver.state = 1;
-
-  process Sender_StoR
-    guardBlock
-      temp bool t_712 = Sender.state == 3,
-      temp bool t_713 = StoR.state == 0,
-      temp bool t_714 = StoR.buf_act == 15,
-      temp bool t_715 = not t_714,
-      temp bool t_716 = t_713 and t_715,
-      temp bool t_717 = t_712 and t_716;
-    guardCondition t_717;
+    guardCondition t_228;
     effect
       Sender.state = 5,
       StoR.n = Sender.n,
       StoR.state = 0,
-      temp int t_718 = 8 * StoR.n,
-      temp int t_719 = 3 + t_718,
-      StoR.buf[StoR.buf_act] = t_719,
-      temp int t_720 = StoR.buf_act + 1,
-      StoR.buf_act = t_720;
+      temp byte t_229 = 8 * StoR.n,
+      temp byte t_230 = 3 + t_229,
+      StoR.buf[StoR.buf_act] = t_230,
+      temp byte t_231 = StoR.buf_act + 1,
+      StoR.buf_act = t_231;
 
-  process Sender_StoR
+  process Sender_StoR 
     guardBlock
-      temp bool t_721 = Sender.state == 4,
-      temp bool t_722 = StoR.state == 0,
-      temp bool t_723 = StoR.buf_act == 15,
-      temp bool t_724 = not t_723,
-      temp bool t_725 = t_722 and t_724,
-      temp bool t_726 = t_721 and t_725;
-    guardCondition t_726;
-    effect
-      Sender.state = 5,
-      StoR.n = Sender.n,
-      StoR.state = 0,
-      temp int t_727 = 8 * StoR.n,
-      temp int t_728 = 3 + t_727,
-      StoR.buf[StoR.buf_act] = t_728,
-      temp int t_729 = StoR.buf_act + 1,
-      StoR.buf_act = t_729;
+      temp bool t_232 = Sender.state == 3,
+      temp bool t_233 = StoR.state == 0,
+      temp bool t_234 = StoR.buf_act == 15,
+      temp bool t_235 = not t_234,
+      temp bool t_236 = t_233 and t_235,
+      temp bool t_237 = t_232 and t_236;
 
-  process Sender_StoR
-    guardBlock
-      temp bool t_730 = Sender.state == 8,
-      temp bool t_731 = Sender.m == Sender.n,
-      temp bool t_732 = t_730 and t_731,
-      temp bool t_733 = StoR.state == 0,
-      temp bool t_734 = StoR.buf_act == 15,
-      temp bool t_735 = not t_734,
-      temp bool t_736 = t_733 and t_735,
-      temp bool t_737 = t_732 and t_736;
-    guardCondition t_737;
+    guardCondition t_237;
     effect
       Sender.state = 4,
       StoR.n = Sender.n,
       StoR.state = 0,
-      temp int t_738 = 8 * StoR.n,
-      temp int t_739 = 3 + t_738,
-      StoR.buf[StoR.buf_act] = t_739,
-      temp int t_740 = StoR.buf_act + 1,
-      StoR.buf_act = t_740;
+      temp byte t_238 = 8 * StoR.n,
+      temp byte t_239 = 4 + t_238,
+      StoR.buf[StoR.buf_act] = t_239,
+      temp byte t_240 = StoR.buf_act + 1,
+      StoR.buf_act = t_240;
 
-  process Sender_StoR
+  process RtoS_Sender 
     guardBlock
-      temp bool t_741 = Sender.state == 7,
-      temp bool t_742 = Sender.m == Sender.n,
-      temp bool t_743 = t_741 and t_742,
-      temp bool t_744 = StoR.state == 0,
-      temp bool t_745 = StoR.buf_act == 15,
-      temp bool t_746 = not t_745,
-      temp bool t_747 = t_744 and t_746,
-      temp bool t_748 = t_743 and t_747;
-    guardCondition t_748;
+      temp bool t_241 = RtoS.state == 0,
+      temp bool t_242 = RtoS.buf_act == 0,
+      temp bool t_243 = not t_242,
+      temp byte t_244 = RtoS.buf[0],
+      temp byte t_245 = t_244 % 8,
+      temp bool t_246 = t_245 == 2,
+      temp bool t_247 = t_243 and t_246,
+      temp bool t_248 = t_241 and t_247,
+      temp bool t_249 = Sender.state == 0,
+      temp bool t_250 = t_248 and t_249;
+
+    guardCondition t_250;
     effect
-      Sender.state = 5,
-      StoR.n = Sender.n,
-      StoR.state = 0,
-      temp int t_749 = 8 * StoR.n,
-      temp int t_750 = 3 + t_749,
-      StoR.buf[StoR.buf_act] = t_750,
-      temp int t_751 = StoR.buf_act + 1,
-      StoR.buf_act = t_751;
+      RtoS.state = 0,
+      temp byte t_251 = RtoS.buf[1],
+      RtoS.buf[0] = t_251,
+      temp byte t_252 = RtoS.buf[2],
+      RtoS.buf[1] = t_252,
+      temp byte t_253 = RtoS.buf[3],
+      RtoS.buf[2] = t_253,
+      temp byte t_254 = RtoS.buf[4],
+      RtoS.buf[3] = t_254,
+      temp byte t_255 = RtoS.buf[5],
+      RtoS.buf[4] = t_255,
+      temp byte t_256 = RtoS.buf[6],
+      RtoS.buf[5] = t_256,
+      temp byte t_257 = RtoS.buf[7],
+      RtoS.buf[6] = t_257,
+      temp byte t_258 = RtoS.buf[8],
+      RtoS.buf[7] = t_258,
+      temp byte t_259 = RtoS.buf[9],
+      RtoS.buf[8] = t_259,
+      temp byte t_260 = RtoS.buf[10],
+      RtoS.buf[9] = t_260,
+      temp byte t_261 = RtoS.buf[11],
+      RtoS.buf[10] = t_261,
+      temp byte t_262 = RtoS.buf[12],
+      RtoS.buf[11] = t_262,
+      temp byte t_263 = RtoS.buf[13],
+      RtoS.buf[12] = t_263,
+      temp byte t_264 = RtoS.buf[14],
+      RtoS.buf[13] = t_264,
+      RtoS.buf[14] = 0,
+      temp byte t_265 = RtoS.buf_act - 1,
+      RtoS.buf_act = t_265,
+      temp byte t_266 = RtoS.buf[0],
+      temp byte t_267 = t_266 / 8,
+      Sender.m = t_267,
+      Sender.state = 6;
 
-  process Receiver_RtoS
+  process RtoS_Sender 
     guardBlock
-      temp bool t_752 = Receiver.state == 0,
-      temp bool t_753 = RtoS.state == 0,
-      temp bool t_754 = RtoS.buf_act == 15,
-      temp bool t_755 = not t_754,
-      temp bool t_756 = t_753 and t_755,
-      temp bool t_757 = t_752 and t_756;
-    guardCondition t_757;
+      temp bool t_268 = RtoS.state == 0,
+      temp bool t_269 = RtoS.buf_act == 0,
+      temp bool t_270 = not t_269,
+      temp byte t_271 = RtoS.buf[0],
+      temp byte t_272 = t_271 % 8,
+      temp bool t_273 = t_272 == 2,
+      temp bool t_274 = t_270 and t_273,
+      temp bool t_275 = t_268 and t_274,
+      temp bool t_276 = Sender.state == 2,
+      temp bool t_277 = t_275 and t_276;
+
+    guardCondition t_277;
+    effect
+      RtoS.state = 0,
+      temp byte t_278 = RtoS.buf[1],
+      RtoS.buf[0] = t_278,
+      temp byte t_279 = RtoS.buf[2],
+      RtoS.buf[1] = t_279,
+      temp byte t_280 = RtoS.buf[3],
+      RtoS.buf[2] = t_280,
+      temp byte t_281 = RtoS.buf[4],
+      RtoS.buf[3] = t_281,
+      temp byte t_282 = RtoS.buf[5],
+      RtoS.buf[4] = t_282,
+      temp byte t_283 = RtoS.buf[6],
+      RtoS.buf[5] = t_283,
+      temp byte t_284 = RtoS.buf[7],
+      RtoS.buf[6] = t_284,
+      temp byte t_285 = RtoS.buf[8],
+      RtoS.buf[7] = t_285,
+      temp byte t_286 = RtoS.buf[9],
+      RtoS.buf[8] = t_286,
+      temp byte t_287 = RtoS.buf[10],
+      RtoS.buf[9] = t_287,
+      temp byte t_288 = RtoS.buf[11],
+      RtoS.buf[10] = t_288,
+      temp byte t_289 = RtoS.buf[12],
+      RtoS.buf[11] = t_289,
+      temp byte t_290 = RtoS.buf[13],
+      RtoS.buf[12] = t_290,
+      temp byte t_291 = RtoS.buf[14],
+      RtoS.buf[13] = t_291,
+      RtoS.buf[14] = 0,
+      temp byte t_292 = RtoS.buf_act - 1,
+      RtoS.buf_act = t_292,
+      temp byte t_293 = RtoS.buf[0],
+      temp byte t_294 = t_293 / 8,
+      Sender.m = t_294,
+      Sender.state = 2;
+
+  process RtoS_Sender 
+    guardBlock
+      temp bool t_295 = RtoS.state == 0,
+      temp bool t_296 = RtoS.buf_act == 0,
+      temp bool t_297 = not t_296,
+      temp byte t_298 = RtoS.buf[0],
+      temp byte t_299 = t_298 % 8,
+      temp bool t_300 = t_299 == 2,
+      temp bool t_301 = t_297 and t_300,
+      temp bool t_302 = t_295 and t_301,
+      temp bool t_303 = Sender.state == 5,
+      temp bool t_304 = t_302 and t_303;
+
+    guardCondition t_304;
+    effect
+      RtoS.state = 0,
+      temp byte t_305 = RtoS.buf[1],
+      RtoS.buf[0] = t_305,
+      temp byte t_306 = RtoS.buf[2],
+      RtoS.buf[1] = t_306,
+      temp byte t_307 = RtoS.buf[3],
+      RtoS.buf[2] = t_307,
+      temp byte t_308 = RtoS.buf[4],
+      RtoS.buf[3] = t_308,
+      temp byte t_309 = RtoS.buf[5],
+      RtoS.buf[4] = t_309,
+      temp byte t_310 = RtoS.buf[6],
+      RtoS.buf[5] = t_310,
+      temp byte t_311 = RtoS.buf[7],
+      RtoS.buf[6] = t_311,
+      temp byte t_312 = RtoS.buf[8],
+      RtoS.buf[7] = t_312,
+      temp byte t_313 = RtoS.buf[9],
+      RtoS.buf[8] = t_313,
+      temp byte t_314 = RtoS.buf[10],
+      RtoS.buf[9] = t_314,
+      temp byte t_315 = RtoS.buf[11],
+      RtoS.buf[10] = t_315,
+      temp byte t_316 = RtoS.buf[12],
+      RtoS.buf[11] = t_316,
+      temp byte t_317 = RtoS.buf[13],
+      RtoS.buf[12] = t_317,
+      temp byte t_318 = RtoS.buf[14],
+      RtoS.buf[13] = t_318,
+      RtoS.buf[14] = 0,
+      temp byte t_319 = RtoS.buf_act - 1,
+      RtoS.buf_act = t_319,
+      temp byte t_320 = RtoS.buf[0],
+      temp byte t_321 = t_320 / 8,
+      Sender.m = t_321,
+      Sender.state = 7;
+
+  process Receiver_RtoS 
+    guardBlock
+      temp bool t_322 = Receiver.state == 0,
+      temp bool t_323 = RtoS.state == 0,
+      temp bool t_324 = RtoS.buf_act == 15,
+      temp bool t_325 = not t_324,
+      temp bool t_326 = t_323 and t_325,
+      temp bool t_327 = t_322 and t_326;
+
+    guardCondition t_327;
+    effect
+      Receiver.state = 5,
+      RtoS.n = Receiver.n,
+      RtoS.state = 0,
+      temp byte t_328 = 8 * RtoS.n,
+      temp byte t_329 = 1 + t_328,
+      RtoS.buf[RtoS.buf_act] = t_329,
+      temp byte t_330 = RtoS.buf_act + 1,
+      RtoS.buf_act = t_330;
+
+  process Receiver_RtoS 
+    guardBlock
+      temp bool t_331 = Receiver.state == 3,
+      temp bool t_332 = RtoS.state == 0,
+      temp bool t_333 = RtoS.buf_act == 15,
+      temp bool t_334 = not t_333,
+      temp bool t_335 = t_332 and t_334,
+      temp bool t_336 = t_331 and t_335;
+
+    guardCondition t_336;
+    effect
+      Receiver.state = 5,
+      RtoS.n = Receiver.n,
+      RtoS.state = 0,
+      temp byte t_337 = 8 * RtoS.n,
+      temp byte t_338 = 1 + t_337,
+      RtoS.buf[RtoS.buf_act] = t_338,
+      temp byte t_339 = RtoS.buf_act + 1,
+      RtoS.buf_act = t_339;
+
+  process Receiver_RtoS 
+    guardBlock
+      temp bool t_340 = Receiver.state == 4,
+      temp bool t_341 = RtoS.state == 0,
+      temp bool t_342 = RtoS.buf_act == 15,
+      temp bool t_343 = not t_342,
+      temp bool t_344 = t_341 and t_343,
+      temp bool t_345 = t_340 and t_344;
+
+    guardCondition t_345;
+    effect
+      Receiver.state = 5,
+      RtoS.n = Receiver.n,
+      RtoS.state = 0,
+      temp byte t_346 = 8 * RtoS.n,
+      temp byte t_347 = 1 + t_346,
+      RtoS.buf[RtoS.buf_act] = t_347,
+      temp byte t_348 = RtoS.buf_act + 1,
+      RtoS.buf_act = t_348;
+
+  process Receiver_RtoS 
+    guardBlock
+      temp bool t_349 = Receiver.state == 5,
+      temp bool t_350 = RtoS.state == 0,
+      temp bool t_351 = RtoS.buf_act == 15,
+      temp bool t_352 = not t_351,
+      temp bool t_353 = t_350 and t_352,
+      temp bool t_354 = t_349 and t_353;
+
+    guardCondition t_354;
+    effect
+      Receiver.state = 5,
+      RtoS.n = Receiver.n,
+      RtoS.state = 0,
+      temp byte t_355 = 8 * RtoS.n,
+      temp byte t_356 = 1 + t_355,
+      RtoS.buf[RtoS.buf_act] = t_356,
+      temp byte t_357 = RtoS.buf_act + 1,
+      RtoS.buf_act = t_357;
+
+  process Receiver_RtoS 
+    guardBlock
+      temp bool t_358 = Receiver.state == 7,
+      temp int t_359 = Receiver.m + 1,
+      temp int t_360 = t_359 % 4,
+      temp bool t_361 = t_360 == Receiver.n,
+      temp bool t_362 = t_358 and t_361,
+      temp bool t_363 = RtoS.state == 0,
+      temp bool t_364 = RtoS.buf_act == 15,
+      temp bool t_365 = not t_364,
+      temp bool t_366 = t_363 and t_365,
+      temp bool t_367 = t_362 and t_366;
+
+    guardCondition t_367;
+    effect
+      Receiver.state = 5,
+      RtoS.n = Receiver.n,
+      RtoS.state = 0,
+      temp byte t_368 = 8 * RtoS.n,
+      temp byte t_369 = 1 + t_368,
+      RtoS.buf[RtoS.buf_act] = t_369,
+      temp byte t_370 = RtoS.buf_act + 1,
+      RtoS.buf_act = t_370;
+
+  process Receiver_RtoS 
+    guardBlock
+      temp bool t_371 = Receiver.state == 0,
+      temp bool t_372 = RtoS.state == 0,
+      temp bool t_373 = RtoS.buf_act == 15,
+      temp bool t_374 = not t_373,
+      temp bool t_375 = t_372 and t_374,
+      temp bool t_376 = t_371 and t_375;
+
+    guardCondition t_376;
     effect
       Receiver.state = 2,
       RtoS.state = 0,
       RtoS.buf[RtoS.buf_act] = 0,
-      temp int t_758 = RtoS.buf_act + 1,
-      RtoS.buf_act = t_758;
+      temp byte t_377 = RtoS.buf_act + 1,
+      RtoS.buf_act = t_377;
 
-  process Receiver_RtoS
+  process Receiver_RtoS 
     guardBlock
-      temp bool t_759 = Receiver.state == 1,
-      temp bool t_760 = RtoS.state == 0,
-      temp bool t_761 = RtoS.buf_act == 15,
-      temp bool t_762 = not t_761,
-      temp bool t_763 = t_760 and t_762,
-      temp bool t_764 = t_759 and t_763;
-    guardCondition t_764;
+      temp bool t_378 = Receiver.state == 1,
+      temp bool t_379 = RtoS.state == 0,
+      temp bool t_380 = RtoS.buf_act == 15,
+      temp bool t_381 = not t_380,
+      temp bool t_382 = t_379 and t_381,
+      temp bool t_383 = t_378 and t_382;
+
+    guardCondition t_383;
     effect
       Receiver.state = 0,
       Receiver.n = 0,
       RtoS.state = 0,
       RtoS.buf[RtoS.buf_act] = 0,
-      temp int t_765 = RtoS.buf_act + 1,
-      RtoS.buf_act = t_765;
+      temp byte t_384 = RtoS.buf_act + 1,
+      RtoS.buf_act = t_384;
 
-  process Receiver_RtoS
+  process Receiver_RtoS 
     guardBlock
-      temp bool t_766 = Receiver.state == 4,
-      temp bool t_767 = RtoS.state == 0,
-      temp bool t_768 = RtoS.buf_act == 15,
-      temp bool t_769 = not t_768,
-      temp bool t_770 = t_767 and t_769,
-      temp bool t_771 = t_766 and t_770;
-    guardCondition t_771;
+      temp bool t_385 = Receiver.state == 4,
+      temp bool t_386 = RtoS.state == 0,
+      temp bool t_387 = RtoS.buf_act == 15,
+      temp bool t_388 = not t_387,
+      temp bool t_389 = t_386 and t_388,
+      temp bool t_390 = t_385 and t_389;
+
+    guardCondition t_390;
     effect
       Receiver.state = 2,
       RtoS.state = 0,
       RtoS.buf[RtoS.buf_act] = 0,
-      temp int t_772 = RtoS.buf_act + 1,
-      RtoS.buf_act = t_772;
+      temp byte t_391 = RtoS.buf_act + 1,
+      RtoS.buf_act = t_391;
 
-  process Receiver_RtoS
+  process Receiver_RtoS 
     guardBlock
-      temp bool t_773 = Receiver.state == 5,
-      temp bool t_774 = RtoS.state == 0,
-      temp bool t_775 = RtoS.buf_act == 15,
-      temp bool t_776 = not t_775,
-      temp bool t_777 = t_774 and t_776,
-      temp bool t_778 = t_773 and t_777;
-    guardCondition t_778;
+      temp bool t_392 = Receiver.state == 5,
+      temp bool t_393 = RtoS.state == 0,
+      temp bool t_394 = RtoS.buf_act == 15,
+      temp bool t_395 = not t_394,
+      temp bool t_396 = t_393 and t_395,
+      temp bool t_397 = t_392 and t_396;
+
+    guardCondition t_397;
     effect
       Receiver.state = 2,
       RtoS.state = 0,
       RtoS.buf[RtoS.buf_act] = 0,
-      temp int t_779 = RtoS.buf_act + 1,
-      RtoS.buf_act = t_779;
+      temp byte t_398 = RtoS.buf_act + 1,
+      RtoS.buf_act = t_398;
 
-  process Sender_StoR
+  process StoR_Receiver 
     guardBlock
-      temp bool t_780 = Sender.state == 0,
-      temp bool t_781 = StoR.state == 0,
-      temp bool t_782 = StoR.buf_act == 15,
-      temp bool t_783 = not t_782,
-      temp bool t_784 = t_781 and t_783,
-      temp bool t_785 = t_780 and t_784;
-    guardCondition t_785;
+      temp bool t_399 = StoR.state == 0,
+      temp bool t_400 = StoR.buf_act == 0,
+      temp bool t_401 = not t_400,
+      temp byte t_402 = StoR.buf[0],
+      temp byte t_403 = t_402 % 8,
+      temp bool t_404 = t_403 == 4,
+      temp bool t_405 = t_401 and t_404,
+      temp bool t_406 = t_399 and t_405,
+      temp bool t_407 = Receiver.state == 0,
+      temp bool t_408 = t_406 and t_407;
+
+    guardCondition t_408;
+    effect
+      StoR.state = 0,
+      temp byte t_409 = StoR.buf[1],
+      StoR.buf[0] = t_409,
+      temp byte t_410 = StoR.buf[2],
+      StoR.buf[1] = t_410,
+      temp byte t_411 = StoR.buf[3],
+      StoR.buf[2] = t_411,
+      temp byte t_412 = StoR.buf[4],
+      StoR.buf[3] = t_412,
+      temp byte t_413 = StoR.buf[5],
+      StoR.buf[4] = t_413,
+      temp byte t_414 = StoR.buf[6],
+      StoR.buf[5] = t_414,
+      temp byte t_415 = StoR.buf[7],
+      StoR.buf[6] = t_415,
+      temp byte t_416 = StoR.buf[8],
+      StoR.buf[7] = t_416,
+      temp byte t_417 = StoR.buf[9],
+      StoR.buf[8] = t_417,
+      temp byte t_418 = StoR.buf[10],
+      StoR.buf[9] = t_418,
+      temp byte t_419 = StoR.buf[11],
+      StoR.buf[10] = t_419,
+      temp byte t_420 = StoR.buf[12],
+      StoR.buf[11] = t_420,
+      temp byte t_421 = StoR.buf[13],
+      StoR.buf[12] = t_421,
+      temp byte t_422 = StoR.buf[14],
+      StoR.buf[13] = t_422,
+      StoR.buf[14] = 0,
+      temp byte t_423 = StoR.buf_act - 1,
+      StoR.buf_act = t_423,
+      temp byte t_424 = StoR.buf[0],
+      temp byte t_425 = t_424 / 8,
+      Receiver.m = t_425,
+      Receiver.state = 6;
+
+  process StoR_Receiver 
+    guardBlock
+      temp bool t_426 = StoR.state == 0,
+      temp bool t_427 = StoR.buf_act == 0,
+      temp bool t_428 = not t_427,
+      temp byte t_429 = StoR.buf[0],
+      temp byte t_430 = t_429 % 8,
+      temp bool t_431 = t_430 == 4,
+      temp bool t_432 = t_428 and t_431,
+      temp bool t_433 = t_426 and t_432,
+      temp bool t_434 = Receiver.state == 2,
+      temp bool t_435 = t_433 and t_434;
+
+    guardCondition t_435;
+    effect
+      StoR.state = 0,
+      temp byte t_436 = StoR.buf[1],
+      StoR.buf[0] = t_436,
+      temp byte t_437 = StoR.buf[2],
+      StoR.buf[1] = t_437,
+      temp byte t_438 = StoR.buf[3],
+      StoR.buf[2] = t_438,
+      temp byte t_439 = StoR.buf[4],
+      StoR.buf[3] = t_439,
+      temp byte t_440 = StoR.buf[5],
+      StoR.buf[4] = t_440,
+      temp byte t_441 = StoR.buf[6],
+      StoR.buf[5] = t_441,
+      temp byte t_442 = StoR.buf[7],
+      StoR.buf[6] = t_442,
+      temp byte t_443 = StoR.buf[8],
+      StoR.buf[7] = t_443,
+      temp byte t_444 = StoR.buf[9],
+      StoR.buf[8] = t_444,
+      temp byte t_445 = StoR.buf[10],
+      StoR.buf[9] = t_445,
+      temp byte t_446 = StoR.buf[11],
+      StoR.buf[10] = t_446,
+      temp byte t_447 = StoR.buf[12],
+      StoR.buf[11] = t_447,
+      temp byte t_448 = StoR.buf[13],
+      StoR.buf[12] = t_448,
+      temp byte t_449 = StoR.buf[14],
+      StoR.buf[13] = t_449,
+      StoR.buf[14] = 0,
+      temp byte t_450 = StoR.buf_act - 1,
+      StoR.buf_act = t_450,
+      temp byte t_451 = StoR.buf[0],
+      temp byte t_452 = t_451 / 8,
+      Receiver.m = t_452,
+      Receiver.state = 2;
+
+  process StoR_Receiver 
+    guardBlock
+      temp bool t_453 = StoR.state == 0,
+      temp bool t_454 = StoR.buf_act == 0,
+      temp bool t_455 = not t_454,
+      temp byte t_456 = StoR.buf[0],
+      temp byte t_457 = t_456 % 8,
+      temp bool t_458 = t_457 == 4,
+      temp bool t_459 = t_455 and t_458,
+      temp bool t_460 = t_453 and t_459,
+      temp bool t_461 = Receiver.state == 5,
+      temp bool t_462 = t_460 and t_461;
+
+    guardCondition t_462;
+    effect
+      StoR.state = 0,
+      temp byte t_463 = StoR.buf[1],
+      StoR.buf[0] = t_463,
+      temp byte t_464 = StoR.buf[2],
+      StoR.buf[1] = t_464,
+      temp byte t_465 = StoR.buf[3],
+      StoR.buf[2] = t_465,
+      temp byte t_466 = StoR.buf[4],
+      StoR.buf[3] = t_466,
+      temp byte t_467 = StoR.buf[5],
+      StoR.buf[4] = t_467,
+      temp byte t_468 = StoR.buf[6],
+      StoR.buf[5] = t_468,
+      temp byte t_469 = StoR.buf[7],
+      StoR.buf[6] = t_469,
+      temp byte t_470 = StoR.buf[8],
+      StoR.buf[7] = t_470,
+      temp byte t_471 = StoR.buf[9],
+      StoR.buf[8] = t_471,
+      temp byte t_472 = StoR.buf[10],
+      StoR.buf[9] = t_472,
+      temp byte t_473 = StoR.buf[11],
+      StoR.buf[10] = t_473,
+      temp byte t_474 = StoR.buf[12],
+      StoR.buf[11] = t_474,
+      temp byte t_475 = StoR.buf[13],
+      StoR.buf[12] = t_475,
+      temp byte t_476 = StoR.buf[14],
+      StoR.buf[13] = t_476,
+      StoR.buf[14] = 0,
+      temp byte t_477 = StoR.buf_act - 1,
+      StoR.buf_act = t_477,
+      temp byte t_478 = StoR.buf[0],
+      temp byte t_479 = t_478 / 8,
+      Receiver.m = t_479,
+      Receiver.state = 11;
+
+  process RtoS_Sender 
+    guardBlock
+      temp bool t_480 = RtoS.state == 0,
+      temp bool t_481 = RtoS.buf_act == 0,
+      temp bool t_482 = not t_481,
+      temp byte t_483 = RtoS.buf[0],
+      temp bool t_484 = t_483 == 0,
+      temp bool t_485 = t_482 and t_484,
+      temp bool t_486 = t_480 and t_485,
+      temp bool t_487 = Sender.state == 0,
+      temp bool t_488 = t_486 and t_487;
+
+    guardCondition t_488;
+    effect
+      RtoS.state = 0,
+      temp byte t_489 = RtoS.buf[1],
+      RtoS.buf[0] = t_489,
+      temp byte t_490 = RtoS.buf[2],
+      RtoS.buf[1] = t_490,
+      temp byte t_491 = RtoS.buf[3],
+      RtoS.buf[2] = t_491,
+      temp byte t_492 = RtoS.buf[4],
+      RtoS.buf[3] = t_492,
+      temp byte t_493 = RtoS.buf[5],
+      RtoS.buf[4] = t_493,
+      temp byte t_494 = RtoS.buf[6],
+      RtoS.buf[5] = t_494,
+      temp byte t_495 = RtoS.buf[7],
+      RtoS.buf[6] = t_495,
+      temp byte t_496 = RtoS.buf[8],
+      RtoS.buf[7] = t_496,
+      temp byte t_497 = RtoS.buf[9],
+      RtoS.buf[8] = t_497,
+      temp byte t_498 = RtoS.buf[10],
+      RtoS.buf[9] = t_498,
+      temp byte t_499 = RtoS.buf[11],
+      RtoS.buf[10] = t_499,
+      temp byte t_500 = RtoS.buf[12],
+      RtoS.buf[11] = t_500,
+      temp byte t_501 = RtoS.buf[13],
+      RtoS.buf[12] = t_501,
+      temp byte t_502 = RtoS.buf[14],
+      RtoS.buf[13] = t_502,
+      RtoS.buf[14] = 0,
+      temp byte t_503 = RtoS.buf_act - 1,
+      RtoS.buf_act = t_503,
+      Sender.state = 1;
+
+  process RtoS_Sender 
+    guardBlock
+      temp bool t_504 = RtoS.state == 0,
+      temp bool t_505 = RtoS.buf_act == 0,
+      temp bool t_506 = not t_505,
+      temp byte t_507 = RtoS.buf[0],
+      temp bool t_508 = t_507 == 0,
+      temp bool t_509 = t_506 and t_508,
+      temp bool t_510 = t_504 and t_509,
+      temp bool t_511 = Sender.state == 2,
+      temp bool t_512 = t_510 and t_511;
+
+    guardCondition t_512;
+    effect
+      RtoS.state = 0,
+      temp byte t_513 = RtoS.buf[1],
+      RtoS.buf[0] = t_513,
+      temp byte t_514 = RtoS.buf[2],
+      RtoS.buf[1] = t_514,
+      temp byte t_515 = RtoS.buf[3],
+      RtoS.buf[2] = t_515,
+      temp byte t_516 = RtoS.buf[4],
+      RtoS.buf[3] = t_516,
+      temp byte t_517 = RtoS.buf[5],
+      RtoS.buf[4] = t_517,
+      temp byte t_518 = RtoS.buf[6],
+      RtoS.buf[5] = t_518,
+      temp byte t_519 = RtoS.buf[7],
+      RtoS.buf[6] = t_519,
+      temp byte t_520 = RtoS.buf[8],
+      RtoS.buf[7] = t_520,
+      temp byte t_521 = RtoS.buf[9],
+      RtoS.buf[8] = t_521,
+      temp byte t_522 = RtoS.buf[10],
+      RtoS.buf[9] = t_522,
+      temp byte t_523 = RtoS.buf[11],
+      RtoS.buf[10] = t_523,
+      temp byte t_524 = RtoS.buf[12],
+      RtoS.buf[11] = t_524,
+      temp byte t_525 = RtoS.buf[13],
+      RtoS.buf[12] = t_525,
+      temp byte t_526 = RtoS.buf[14],
+      RtoS.buf[13] = t_526,
+      RtoS.buf[14] = 0,
+      temp byte t_527 = RtoS.buf_act - 1,
+      RtoS.buf_act = t_527,
+      Sender.state = 0,
+      Sender.n = -1;
+
+  process RtoS_Sender 
+    guardBlock
+      temp bool t_528 = RtoS.state == 0,
+      temp bool t_529 = RtoS.buf_act == 0,
+      temp bool t_530 = not t_529,
+      temp byte t_531 = RtoS.buf[0],
+      temp bool t_532 = t_531 == 0,
+      temp bool t_533 = t_530 and t_532,
+      temp bool t_534 = t_528 and t_533,
+      temp bool t_535 = Sender.state == 4,
+      temp bool t_536 = t_534 and t_535;
+
+    guardCondition t_536;
+    effect
+      RtoS.state = 0,
+      temp byte t_537 = RtoS.buf[1],
+      RtoS.buf[0] = t_537,
+      temp byte t_538 = RtoS.buf[2],
+      RtoS.buf[1] = t_538,
+      temp byte t_539 = RtoS.buf[3],
+      RtoS.buf[2] = t_539,
+      temp byte t_540 = RtoS.buf[4],
+      RtoS.buf[3] = t_540,
+      temp byte t_541 = RtoS.buf[5],
+      RtoS.buf[4] = t_541,
+      temp byte t_542 = RtoS.buf[6],
+      RtoS.buf[5] = t_542,
+      temp byte t_543 = RtoS.buf[7],
+      RtoS.buf[6] = t_543,
+      temp byte t_544 = RtoS.buf[8],
+      RtoS.buf[7] = t_544,
+      temp byte t_545 = RtoS.buf[9],
+      RtoS.buf[8] = t_545,
+      temp byte t_546 = RtoS.buf[10],
+      RtoS.buf[9] = t_546,
+      temp byte t_547 = RtoS.buf[11],
+      RtoS.buf[10] = t_547,
+      temp byte t_548 = RtoS.buf[12],
+      RtoS.buf[11] = t_548,
+      temp byte t_549 = RtoS.buf[13],
+      RtoS.buf[12] = t_549,
+      temp byte t_550 = RtoS.buf[14],
+      RtoS.buf[13] = t_550,
+      RtoS.buf[14] = 0,
+      temp byte t_551 = RtoS.buf_act - 1,
+      RtoS.buf_act = t_551,
+      Sender.state = 1;
+
+  process RtoS_Sender 
+    guardBlock
+      temp bool t_552 = RtoS.state == 0,
+      temp bool t_553 = RtoS.buf_act == 0,
+      temp bool t_554 = not t_553,
+      temp byte t_555 = RtoS.buf[0],
+      temp bool t_556 = t_555 == 0,
+      temp bool t_557 = t_554 and t_556,
+      temp bool t_558 = t_552 and t_557,
+      temp bool t_559 = Sender.state == 5,
+      temp bool t_560 = t_558 and t_559;
+
+    guardCondition t_560;
+    effect
+      RtoS.state = 0,
+      temp byte t_561 = RtoS.buf[1],
+      RtoS.buf[0] = t_561,
+      temp byte t_562 = RtoS.buf[2],
+      RtoS.buf[1] = t_562,
+      temp byte t_563 = RtoS.buf[3],
+      RtoS.buf[2] = t_563,
+      temp byte t_564 = RtoS.buf[4],
+      RtoS.buf[3] = t_564,
+      temp byte t_565 = RtoS.buf[5],
+      RtoS.buf[4] = t_565,
+      temp byte t_566 = RtoS.buf[6],
+      RtoS.buf[5] = t_566,
+      temp byte t_567 = RtoS.buf[7],
+      RtoS.buf[6] = t_567,
+      temp byte t_568 = RtoS.buf[8],
+      RtoS.buf[7] = t_568,
+      temp byte t_569 = RtoS.buf[9],
+      RtoS.buf[8] = t_569,
+      temp byte t_570 = RtoS.buf[10],
+      RtoS.buf[9] = t_570,
+      temp byte t_571 = RtoS.buf[11],
+      RtoS.buf[10] = t_571,
+      temp byte t_572 = RtoS.buf[12],
+      RtoS.buf[11] = t_572,
+      temp byte t_573 = RtoS.buf[13],
+      RtoS.buf[12] = t_573,
+      temp byte t_574 = RtoS.buf[14],
+      RtoS.buf[13] = t_574,
+      RtoS.buf[14] = 0,
+      temp byte t_575 = RtoS.buf_act - 1,
+      RtoS.buf_act = t_575,
+      Sender.state = 1;
+
+  process Sender_StoR 
+    guardBlock
+      temp bool t_576 = Sender.state == 0,
+      temp bool t_577 = StoR.state == 0,
+      temp bool t_578 = StoR.buf_act == 15,
+      temp bool t_579 = not t_578,
+      temp bool t_580 = t_577 and t_579,
+      temp bool t_581 = t_576 and t_580;
+
+    guardCondition t_581;
     effect
       Sender.state = 2,
       StoR.state = 0,
       StoR.buf[StoR.buf_act] = 0,
-      temp int t_786 = StoR.buf_act + 1,
-      StoR.buf_act = t_786;
+      temp byte t_582 = StoR.buf_act + 1,
+      StoR.buf_act = t_582;
 
-  process Sender_StoR
+  process Sender_StoR 
     guardBlock
-      temp bool t_787 = Sender.state == 1,
-      temp bool t_788 = StoR.state == 0,
-      temp bool t_789 = StoR.buf_act == 15,
-      temp bool t_790 = not t_789,
-      temp bool t_791 = t_788 and t_790,
-      temp bool t_792 = t_787 and t_791;
-    guardCondition t_792;
+      temp bool t_583 = Sender.state == 1,
+      temp bool t_584 = StoR.state == 0,
+      temp bool t_585 = StoR.buf_act == 15,
+      temp bool t_586 = not t_585,
+      temp bool t_587 = t_584 and t_586,
+      temp bool t_588 = t_583 and t_587;
+
+    guardCondition t_588;
     effect
       Sender.state = 0,
       Sender.n = -1,
       StoR.state = 0,
       StoR.buf[StoR.buf_act] = 0,
-      temp int t_793 = StoR.buf_act + 1,
-      StoR.buf_act = t_793;
+      temp byte t_589 = StoR.buf_act + 1,
+      StoR.buf_act = t_589;
 
-  process Sender_StoR
+  process Sender_StoR 
     guardBlock
-      temp bool t_794 = Sender.state == 4,
-      temp bool t_795 = StoR.state == 0,
-      temp bool t_796 = StoR.buf_act == 15,
-      temp bool t_797 = not t_796,
-      temp bool t_798 = t_795 and t_797,
-      temp bool t_799 = t_794 and t_798;
-    guardCondition t_799;
+      temp bool t_590 = Sender.state == 4,
+      temp bool t_591 = StoR.state == 0,
+      temp bool t_592 = StoR.buf_act == 15,
+      temp bool t_593 = not t_592,
+      temp bool t_594 = t_591 and t_593,
+      temp bool t_595 = t_590 and t_594;
+
+    guardCondition t_595;
     effect
       Sender.state = 2,
       StoR.state = 0,
       StoR.buf[StoR.buf_act] = 0,
-      temp int t_800 = StoR.buf_act + 1,
-      StoR.buf_act = t_800;
+      temp byte t_596 = StoR.buf_act + 1,
+      StoR.buf_act = t_596;
 
-  process Sender_StoR
+  process Sender_StoR 
     guardBlock
-      temp bool t_801 = Sender.state == 5,
-      temp bool t_802 = StoR.state == 0,
-      temp bool t_803 = StoR.buf_act == 15,
-      temp bool t_804 = not t_803,
-      temp bool t_805 = t_802 and t_804,
-      temp bool t_806 = t_801 and t_805;
-    guardCondition t_806;
+      temp bool t_597 = Sender.state == 5,
+      temp bool t_598 = StoR.state == 0,
+      temp bool t_599 = StoR.buf_act == 15,
+      temp bool t_600 = not t_599,
+      temp bool t_601 = t_598 and t_600,
+      temp bool t_602 = t_597 and t_601;
+
+    guardCondition t_602;
     effect
       Sender.state = 2,
       StoR.state = 0,
       StoR.buf[StoR.buf_act] = 0,
-      temp int t_807 = StoR.buf_act + 1,
-      StoR.buf_act = t_807;
+      temp byte t_603 = StoR.buf_act + 1,
+      StoR.buf_act = t_603;
+
+  process StoR_Receiver 
+    guardBlock
+      temp bool t_604 = StoR.state == 0,
+      temp bool t_605 = StoR.buf_act == 0,
+      temp bool t_606 = not t_605,
+      temp byte t_607 = StoR.buf[0],
+      temp byte t_608 = t_607 % 8,
+      temp bool t_609 = t_608 == 3,
+      temp bool t_610 = t_606 and t_609,
+      temp bool t_611 = t_604 and t_610,
+      temp bool t_612 = Receiver.state == 0,
+      temp bool t_613 = t_611 and t_612;
+
+    guardCondition t_613;
+    effect
+      StoR.state = 0,
+      temp byte t_614 = StoR.buf[1],
+      StoR.buf[0] = t_614,
+      temp byte t_615 = StoR.buf[2],
+      StoR.buf[1] = t_615,
+      temp byte t_616 = StoR.buf[3],
+      StoR.buf[2] = t_616,
+      temp byte t_617 = StoR.buf[4],
+      StoR.buf[3] = t_617,
+      temp byte t_618 = StoR.buf[5],
+      StoR.buf[4] = t_618,
+      temp byte t_619 = StoR.buf[6],
+      StoR.buf[5] = t_619,
+      temp byte t_620 = StoR.buf[7],
+      StoR.buf[6] = t_620,
+      temp byte t_621 = StoR.buf[8],
+      StoR.buf[7] = t_621,
+      temp byte t_622 = StoR.buf[9],
+      StoR.buf[8] = t_622,
+      temp byte t_623 = StoR.buf[10],
+      StoR.buf[9] = t_623,
+      temp byte t_624 = StoR.buf[11],
+      StoR.buf[10] = t_624,
+      temp byte t_625 = StoR.buf[12],
+      StoR.buf[11] = t_625,
+      temp byte t_626 = StoR.buf[13],
+      StoR.buf[12] = t_626,
+      temp byte t_627 = StoR.buf[14],
+      StoR.buf[13] = t_627,
+      StoR.buf[14] = 0,
+      temp byte t_628 = StoR.buf_act - 1,
+      StoR.buf_act = t_628,
+      temp byte t_629 = StoR.buf[0],
+      temp byte t_630 = t_629 / 8,
+      Receiver.m = t_630,
+      Receiver.state = 9;
+
+  process StoR_Receiver 
+    guardBlock
+      temp bool t_631 = StoR.state == 0,
+      temp bool t_632 = StoR.buf_act == 0,
+      temp bool t_633 = not t_632,
+      temp byte t_634 = StoR.buf[0],
+      temp byte t_635 = t_634 % 8,
+      temp bool t_636 = t_635 == 3,
+      temp bool t_637 = t_633 and t_636,
+      temp bool t_638 = t_631 and t_637,
+      temp bool t_639 = Receiver.state == 2,
+      temp bool t_640 = t_638 and t_639;
+
+    guardCondition t_640;
+    effect
+      StoR.state = 0,
+      temp byte t_641 = StoR.buf[1],
+      StoR.buf[0] = t_641,
+      temp byte t_642 = StoR.buf[2],
+      StoR.buf[1] = t_642,
+      temp byte t_643 = StoR.buf[3],
+      StoR.buf[2] = t_643,
+      temp byte t_644 = StoR.buf[4],
+      StoR.buf[3] = t_644,
+      temp byte t_645 = StoR.buf[5],
+      StoR.buf[4] = t_645,
+      temp byte t_646 = StoR.buf[6],
+      StoR.buf[5] = t_646,
+      temp byte t_647 = StoR.buf[7],
+      StoR.buf[6] = t_647,
+      temp byte t_648 = StoR.buf[8],
+      StoR.buf[7] = t_648,
+      temp byte t_649 = StoR.buf[9],
+      StoR.buf[8] = t_649,
+      temp byte t_650 = StoR.buf[10],
+      StoR.buf[9] = t_650,
+      temp byte t_651 = StoR.buf[11],
+      StoR.buf[10] = t_651,
+      temp byte t_652 = StoR.buf[12],
+      StoR.buf[11] = t_652,
+      temp byte t_653 = StoR.buf[13],
+      StoR.buf[12] = t_653,
+      temp byte t_654 = StoR.buf[14],
+      StoR.buf[13] = t_654,
+      StoR.buf[14] = 0,
+      temp byte t_655 = StoR.buf_act - 1,
+      StoR.buf_act = t_655,
+      temp byte t_656 = StoR.buf[0],
+      temp byte t_657 = t_656 / 8,
+      Receiver.m = t_657,
+      Receiver.state = 2;
+
+  process StoR_Receiver 
+    guardBlock
+      temp bool t_658 = StoR.state == 0,
+      temp bool t_659 = StoR.buf_act == 0,
+      temp bool t_660 = not t_659,
+      temp byte t_661 = StoR.buf[0],
+      temp byte t_662 = t_661 % 8,
+      temp bool t_663 = t_662 == 3,
+      temp bool t_664 = t_660 and t_663,
+      temp bool t_665 = t_658 and t_664,
+      temp bool t_666 = Receiver.state == 4,
+      temp bool t_667 = t_665 and t_666;
+
+    guardCondition t_667;
+    effect
+      StoR.state = 0,
+      temp byte t_668 = StoR.buf[1],
+      StoR.buf[0] = t_668,
+      temp byte t_669 = StoR.buf[2],
+      StoR.buf[1] = t_669,
+      temp byte t_670 = StoR.buf[3],
+      StoR.buf[2] = t_670,
+      temp byte t_671 = StoR.buf[4],
+      StoR.buf[3] = t_671,
+      temp byte t_672 = StoR.buf[5],
+      StoR.buf[4] = t_672,
+      temp byte t_673 = StoR.buf[6],
+      StoR.buf[5] = t_673,
+      temp byte t_674 = StoR.buf[7],
+      StoR.buf[6] = t_674,
+      temp byte t_675 = StoR.buf[8],
+      StoR.buf[7] = t_675,
+      temp byte t_676 = StoR.buf[9],
+      StoR.buf[8] = t_676,
+      temp byte t_677 = StoR.buf[10],
+      StoR.buf[9] = t_677,
+      temp byte t_678 = StoR.buf[11],
+      StoR.buf[10] = t_678,
+      temp byte t_679 = StoR.buf[12],
+      StoR.buf[11] = t_679,
+      temp byte t_680 = StoR.buf[13],
+      StoR.buf[12] = t_680,
+      temp byte t_681 = StoR.buf[14],
+      StoR.buf[13] = t_681,
+      StoR.buf[14] = 0,
+      temp byte t_682 = StoR.buf_act - 1,
+      StoR.buf_act = t_682,
+      temp byte t_683 = StoR.buf[0],
+      temp byte t_684 = t_683 / 8,
+      Receiver.m = t_684,
+      Receiver.state = 8;
+
+  process StoR_Receiver 
+    guardBlock
+      temp bool t_685 = StoR.state == 0,
+      temp bool t_686 = StoR.buf_act == 0,
+      temp bool t_687 = not t_686,
+      temp byte t_688 = StoR.buf[0],
+      temp byte t_689 = t_688 % 8,
+      temp bool t_690 = t_689 == 3,
+      temp bool t_691 = t_687 and t_690,
+      temp bool t_692 = t_685 and t_691,
+      temp bool t_693 = Receiver.state == 5,
+      temp bool t_694 = t_692 and t_693;
+
+    guardCondition t_694;
+    effect
+      StoR.state = 0,
+      temp byte t_695 = StoR.buf[1],
+      StoR.buf[0] = t_695,
+      temp byte t_696 = StoR.buf[2],
+      StoR.buf[1] = t_696,
+      temp byte t_697 = StoR.buf[3],
+      StoR.buf[2] = t_697,
+      temp byte t_698 = StoR.buf[4],
+      StoR.buf[3] = t_698,
+      temp byte t_699 = StoR.buf[5],
+      StoR.buf[4] = t_699,
+      temp byte t_700 = StoR.buf[6],
+      StoR.buf[5] = t_700,
+      temp byte t_701 = StoR.buf[7],
+      StoR.buf[6] = t_701,
+      temp byte t_702 = StoR.buf[8],
+      StoR.buf[7] = t_702,
+      temp byte t_703 = StoR.buf[9],
+      StoR.buf[8] = t_703,
+      temp byte t_704 = StoR.buf[10],
+      StoR.buf[9] = t_704,
+      temp byte t_705 = StoR.buf[11],
+      StoR.buf[10] = t_705,
+      temp byte t_706 = StoR.buf[12],
+      StoR.buf[11] = t_706,
+      temp byte t_707 = StoR.buf[13],
+      StoR.buf[12] = t_707,
+      temp byte t_708 = StoR.buf[14],
+      StoR.buf[13] = t_708,
+      StoR.buf[14] = 0,
+      temp byte t_709 = StoR.buf_act - 1,
+      StoR.buf_act = t_709,
+      temp byte t_710 = StoR.buf[0],
+      temp byte t_711 = t_710 / 8,
+      Receiver.m = t_711,
+      Receiver.state = 7;
+
+  process StoR_Receiver 
+    guardBlock
+      temp bool t_712 = StoR.state == 0,
+      temp bool t_713 = StoR.buf_act == 0,
+      temp bool t_714 = not t_713,
+      temp byte t_715 = StoR.buf[0],
+      temp bool t_716 = t_715 == 0,
+      temp bool t_717 = t_714 and t_716,
+      temp bool t_718 = t_712 and t_717,
+      temp bool t_719 = Receiver.state == 0,
+      temp bool t_720 = t_718 and t_719;
+
+    guardCondition t_720;
+    effect
+      StoR.state = 0,
+      temp byte t_721 = StoR.buf[1],
+      StoR.buf[0] = t_721,
+      temp byte t_722 = StoR.buf[2],
+      StoR.buf[1] = t_722,
+      temp byte t_723 = StoR.buf[3],
+      StoR.buf[2] = t_723,
+      temp byte t_724 = StoR.buf[4],
+      StoR.buf[3] = t_724,
+      temp byte t_725 = StoR.buf[5],
+      StoR.buf[4] = t_725,
+      temp byte t_726 = StoR.buf[6],
+      StoR.buf[5] = t_726,
+      temp byte t_727 = StoR.buf[7],
+      StoR.buf[6] = t_727,
+      temp byte t_728 = StoR.buf[8],
+      StoR.buf[7] = t_728,
+      temp byte t_729 = StoR.buf[9],
+      StoR.buf[8] = t_729,
+      temp byte t_730 = StoR.buf[10],
+      StoR.buf[9] = t_730,
+      temp byte t_731 = StoR.buf[11],
+      StoR.buf[10] = t_731,
+      temp byte t_732 = StoR.buf[12],
+      StoR.buf[11] = t_732,
+      temp byte t_733 = StoR.buf[13],
+      StoR.buf[12] = t_733,
+      temp byte t_734 = StoR.buf[14],
+      StoR.buf[13] = t_734,
+      StoR.buf[14] = 0,
+      temp byte t_735 = StoR.buf_act - 1,
+      StoR.buf_act = t_735,
+      Receiver.state = 1;
+
+  process StoR_Receiver 
+    guardBlock
+      temp bool t_736 = StoR.state == 0,
+      temp bool t_737 = StoR.buf_act == 0,
+      temp bool t_738 = not t_737,
+      temp byte t_739 = StoR.buf[0],
+      temp bool t_740 = t_739 == 0,
+      temp bool t_741 = t_738 and t_740,
+      temp bool t_742 = t_736 and t_741,
+      temp bool t_743 = Receiver.state == 2,
+      temp bool t_744 = t_742 and t_743;
+
+    guardCondition t_744;
+    effect
+      StoR.state = 0,
+      temp byte t_745 = StoR.buf[1],
+      StoR.buf[0] = t_745,
+      temp byte t_746 = StoR.buf[2],
+      StoR.buf[1] = t_746,
+      temp byte t_747 = StoR.buf[3],
+      StoR.buf[2] = t_747,
+      temp byte t_748 = StoR.buf[4],
+      StoR.buf[3] = t_748,
+      temp byte t_749 = StoR.buf[5],
+      StoR.buf[4] = t_749,
+      temp byte t_750 = StoR.buf[6],
+      StoR.buf[5] = t_750,
+      temp byte t_751 = StoR.buf[7],
+      StoR.buf[6] = t_751,
+      temp byte t_752 = StoR.buf[8],
+      StoR.buf[7] = t_752,
+      temp byte t_753 = StoR.buf[9],
+      StoR.buf[8] = t_753,
+      temp byte t_754 = StoR.buf[10],
+      StoR.buf[9] = t_754,
+      temp byte t_755 = StoR.buf[11],
+      StoR.buf[10] = t_755,
+      temp byte t_756 = StoR.buf[12],
+      StoR.buf[11] = t_756,
+      temp byte t_757 = StoR.buf[13],
+      StoR.buf[12] = t_757,
+      temp byte t_758 = StoR.buf[14],
+      StoR.buf[13] = t_758,
+      StoR.buf[14] = 0,
+      temp byte t_759 = StoR.buf_act - 1,
+      StoR.buf_act = t_759,
+      Receiver.state = 0,
+      Receiver.n = 0;
+
+  process StoR_Receiver 
+    guardBlock
+      temp bool t_760 = StoR.state == 0,
+      temp bool t_761 = StoR.buf_act == 0,
+      temp bool t_762 = not t_761,
+      temp byte t_763 = StoR.buf[0],
+      temp bool t_764 = t_763 == 0,
+      temp bool t_765 = t_762 and t_764,
+      temp bool t_766 = t_760 and t_765,
+      temp bool t_767 = Receiver.state == 4,
+      temp bool t_768 = t_766 and t_767;
+
+    guardCondition t_768;
+    effect
+      StoR.state = 0,
+      temp byte t_769 = StoR.buf[1],
+      StoR.buf[0] = t_769,
+      temp byte t_770 = StoR.buf[2],
+      StoR.buf[1] = t_770,
+      temp byte t_771 = StoR.buf[3],
+      StoR.buf[2] = t_771,
+      temp byte t_772 = StoR.buf[4],
+      StoR.buf[3] = t_772,
+      temp byte t_773 = StoR.buf[5],
+      StoR.buf[4] = t_773,
+      temp byte t_774 = StoR.buf[6],
+      StoR.buf[5] = t_774,
+      temp byte t_775 = StoR.buf[7],
+      StoR.buf[6] = t_775,
+      temp byte t_776 = StoR.buf[8],
+      StoR.buf[7] = t_776,
+      temp byte t_777 = StoR.buf[9],
+      StoR.buf[8] = t_777,
+      temp byte t_778 = StoR.buf[10],
+      StoR.buf[9] = t_778,
+      temp byte t_779 = StoR.buf[11],
+      StoR.buf[10] = t_779,
+      temp byte t_780 = StoR.buf[12],
+      StoR.buf[11] = t_780,
+      temp byte t_781 = StoR.buf[13],
+      StoR.buf[12] = t_781,
+      temp byte t_782 = StoR.buf[14],
+      StoR.buf[13] = t_782,
+      StoR.buf[14] = 0,
+      temp byte t_783 = StoR.buf_act - 1,
+      StoR.buf_act = t_783,
+      Receiver.state = 1;
+
+  process StoR_Receiver 
+    guardBlock
+      temp bool t_784 = StoR.state == 0,
+      temp bool t_785 = StoR.buf_act == 0,
+      temp bool t_786 = not t_785,
+      temp byte t_787 = StoR.buf[0],
+      temp bool t_788 = t_787 == 0,
+      temp bool t_789 = t_786 and t_788,
+      temp bool t_790 = t_784 and t_789,
+      temp bool t_791 = Receiver.state == 5,
+      temp bool t_792 = t_790 and t_791;
+
+    guardCondition t_792;
+    effect
+      StoR.state = 0,
+      temp byte t_793 = StoR.buf[1],
+      StoR.buf[0] = t_793,
+      temp byte t_794 = StoR.buf[2],
+      StoR.buf[1] = t_794,
+      temp byte t_795 = StoR.buf[3],
+      StoR.buf[2] = t_795,
+      temp byte t_796 = StoR.buf[4],
+      StoR.buf[3] = t_796,
+      temp byte t_797 = StoR.buf[5],
+      StoR.buf[4] = t_797,
+      temp byte t_798 = StoR.buf[6],
+      StoR.buf[5] = t_798,
+      temp byte t_799 = StoR.buf[7],
+      StoR.buf[6] = t_799,
+      temp byte t_800 = StoR.buf[8],
+      StoR.buf[7] = t_800,
+      temp byte t_801 = StoR.buf[9],
+      StoR.buf[8] = t_801,
+      temp byte t_802 = StoR.buf[10],
+      StoR.buf[9] = t_802,
+      temp byte t_803 = StoR.buf[11],
+      StoR.buf[10] = t_803,
+      temp byte t_804 = StoR.buf[12],
+      StoR.buf[11] = t_804,
+      temp byte t_805 = StoR.buf[13],
+      StoR.buf[12] = t_805,
+      temp byte t_806 = StoR.buf[14],
+      StoR.buf[13] = t_806,
+      StoR.buf[14] = 0,
+      temp byte t_807 = StoR.buf_act - 1,
+      StoR.buf_act = t_807,
+      Receiver.state = 1;
+
+

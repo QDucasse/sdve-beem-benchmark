@@ -19,155 +19,178 @@ byte scheduler_3.ready = 0;
 byte scheduler_4.done = 0;
 byte scheduler_4.ready = 0;
 
-  process scheduler_0
+  process scheduler_0 
     guardBlock
       temp bool t_0 = scheduler_0.state == 3,
       temp bool t_1 = scheduler_0.ready == 1,
       temp bool t_2 = t_0 and t_1;
+
     guardCondition t_2;
     effect
       scheduler_0.state = 1;
 
-  process scheduler_1
+  process scheduler_1 
     guardBlock
       temp bool t_3 = scheduler_1.state == 3,
       temp bool t_4 = scheduler_1.ready == 1,
       temp bool t_5 = t_3 and t_4;
+
     guardCondition t_5;
     effect
       scheduler_1.state = 1;
 
-  process scheduler_2
+  process scheduler_2 
     guardBlock
       temp bool t_6 = scheduler_2.state == 3,
       temp bool t_7 = scheduler_2.ready == 1,
       temp bool t_8 = t_6 and t_7;
+
     guardCondition t_8;
     effect
       scheduler_2.state = 1;
 
-  process scheduler_3
+  process scheduler_3 
     guardBlock
       temp bool t_9 = scheduler_3.state == 3,
       temp bool t_10 = scheduler_3.ready == 1,
       temp bool t_11 = t_9 and t_10;
+
     guardCondition t_11;
     effect
       scheduler_3.state = 1;
 
-  process scheduler_4
+  process scheduler_4 
     guardBlock
       temp bool t_12 = scheduler_4.state == 3,
       temp bool t_13 = scheduler_4.ready == 1,
       temp bool t_14 = t_12 and t_13;
+
     guardCondition t_14;
     effect
       scheduler_4.state = 1;
 
-  process customer_4_scheduler_4
+  process scheduler_0_customer_0 
     guardBlock
-      temp bool t_15 = customer_4.state == 1,
-      temp bool t_16 = scheduler_4.state == 3,
-      temp bool t_17 = scheduler_4.done == 0,
-      temp bool t_18 = t_16 and t_17,
-      temp bool t_19 = t_15 and t_18;
-    guardCondition t_19;
-    effect
-      customer_4.state = 0,
-      scheduler_4.state = 3,
-      scheduler_4.done = 1;
+      temp bool t_15 = scheduler_0.state == 1,
+      temp bool t_16 = customer_0.state == 0,
+      temp bool t_17 = t_15 and t_16;
 
-  process scheduler_0_customer_0
-    guardBlock
-      temp bool t_20 = scheduler_0.state == 1,
-      temp bool t_21 = customer_0.state == 0,
-      temp bool t_22 = t_20 and t_21;
-    guardCondition t_22;
+    guardCondition t_17;
     effect
       scheduler_0.state = 2,
       customer_0.state = 1;
 
-  process scheduler_0_customer_0
+  process scheduler_0_customer_0 
     guardBlock
-      temp bool t_23 = scheduler_0.state == 1,
-      temp bool t_24 = customer_0.state == 1,
-      temp bool t_25 = t_23 and t_24;
-    guardCondition t_25;
+      temp bool t_18 = scheduler_0.state == 1,
+      temp bool t_19 = customer_0.state == 1,
+      temp bool t_20 = t_18 and t_19;
+
+    guardCondition t_20;
     effect
       scheduler_0.state = 2,
       customer_0.state = 2;
 
-  process customer_1_scheduler_1
+  process customer_0_scheduler_0 
     guardBlock
-      temp bool t_26 = customer_1.state == 1,
-      temp bool t_27 = scheduler_1.state == 3,
-      temp bool t_28 = scheduler_1.done == 0,
-      temp bool t_29 = t_27 and t_28,
-      temp bool t_30 = t_26 and t_29;
-    guardCondition t_30;
-    effect
-      customer_1.state = 0,
-      scheduler_1.state = 3,
-      scheduler_1.done = 1;
+      temp bool t_21 = customer_0.state == 1,
+      temp bool t_22 = scheduler_0.state == 3,
+      temp bool t_23 = scheduler_0.done == 0,
+      temp bool t_24 = t_22 and t_23,
+      temp bool t_25 = t_21 and t_24;
 
-  process customer_0_scheduler_0
-    guardBlock
-      temp bool t_31 = customer_0.state == 1,
-      temp bool t_32 = scheduler_0.state == 3,
-      temp bool t_33 = scheduler_0.done == 0,
-      temp bool t_34 = t_32 and t_33,
-      temp bool t_35 = t_31 and t_34;
-    guardCondition t_35;
+    guardCondition t_25;
     effect
       customer_0.state = 0,
       scheduler_0.state = 3,
       scheduler_0.done = 1;
 
-  process customer_3_scheduler_3
+  process scheduler_2_customer_2 
     guardBlock
-      temp bool t_36 = customer_3.state == 1,
-      temp bool t_37 = scheduler_3.state == 3,
-      temp bool t_38 = scheduler_3.done == 0,
-      temp bool t_39 = t_37 and t_38,
-      temp bool t_40 = t_36 and t_39;
+      temp bool t_26 = scheduler_2.state == 1,
+      temp bool t_27 = customer_2.state == 0,
+      temp bool t_28 = t_26 and t_27;
+
+    guardCondition t_28;
+    effect
+      scheduler_2.state = 2,
+      customer_2.state = 1;
+
+  process scheduler_2_customer_2 
+    guardBlock
+      temp bool t_29 = scheduler_2.state == 1,
+      temp bool t_30 = customer_2.state == 1,
+      temp bool t_31 = t_29 and t_30;
+
+    guardCondition t_31;
+    effect
+      scheduler_2.state = 2,
+      customer_2.state = 2;
+
+  process scheduler_4_customer_4 
+    guardBlock
+      temp bool t_32 = scheduler_4.state == 1,
+      temp bool t_33 = customer_4.state == 0,
+      temp bool t_34 = t_32 and t_33;
+
+    guardCondition t_34;
+    effect
+      scheduler_4.state = 2,
+      customer_4.state = 1;
+
+  process scheduler_4_customer_4 
+    guardBlock
+      temp bool t_35 = scheduler_4.state == 1,
+      temp bool t_36 = customer_4.state == 1,
+      temp bool t_37 = t_35 and t_36;
+
+    guardCondition t_37;
+    effect
+      scheduler_4.state = 2,
+      customer_4.state = 2;
+
+  process scheduler_1_customer_1 
+    guardBlock
+      temp bool t_38 = scheduler_1.state == 1,
+      temp bool t_39 = customer_1.state == 0,
+      temp bool t_40 = t_38 and t_39;
+
     guardCondition t_40;
     effect
-      customer_3.state = 0,
-      scheduler_3.state = 3,
-      scheduler_3.done = 1;
+      scheduler_1.state = 2,
+      customer_1.state = 1;
 
-  process scheduler_1_scheduler_2
+  process scheduler_1_customer_1 
     guardBlock
-      temp bool t_41 = scheduler_1.state == 2,
-      temp bool t_42 = scheduler_2.state == 0,
+      temp bool t_41 = scheduler_1.state == 1,
+      temp bool t_42 = customer_1.state == 1,
       temp bool t_43 = t_41 and t_42;
+
     guardCondition t_43;
     effect
-      scheduler_1.state = 3,
-      scheduler_1.done = 0,
-      scheduler_1.ready = 0,
-      scheduler_2.state = 1;
+      scheduler_1.state = 2,
+      customer_1.state = 2;
 
-  process scheduler_1_scheduler_2
+  process customer_4_scheduler_4 
     guardBlock
-      temp bool t_44 = scheduler_1.state == 2,
-      temp bool t_45 = scheduler_2.state == 3,
-      temp bool t_46 = scheduler_2.ready == 0,
+      temp bool t_44 = customer_4.state == 1,
+      temp bool t_45 = scheduler_4.state == 3,
+      temp bool t_46 = scheduler_4.done == 0,
       temp bool t_47 = t_45 and t_46,
       temp bool t_48 = t_44 and t_47;
+
     guardCondition t_48;
     effect
-      scheduler_1.state = 3,
-      scheduler_1.done = 0,
-      scheduler_1.ready = 0,
-      scheduler_2.state = 3,
-      scheduler_2.ready = 1;
+      customer_4.state = 0,
+      scheduler_4.state = 3,
+      scheduler_4.done = 1;
 
-  process scheduler_4_scheduler_0
+  process scheduler_4_scheduler_0 
     guardBlock
       temp bool t_49 = scheduler_4.state == 2,
       temp bool t_50 = scheduler_0.state == 0,
       temp bool t_51 = t_49 and t_50;
+
     guardCondition t_51;
     effect
       scheduler_4.state = 3,
@@ -175,13 +198,14 @@ byte scheduler_4.ready = 0;
       scheduler_4.ready = 0,
       scheduler_0.state = 1;
 
-  process scheduler_4_scheduler_0
+  process scheduler_4_scheduler_0 
     guardBlock
       temp bool t_52 = scheduler_4.state == 2,
       temp bool t_53 = scheduler_0.state == 3,
       temp bool t_54 = scheduler_0.ready == 0,
       temp bool t_55 = t_53 and t_54,
       temp bool t_56 = t_52 and t_55;
+
     guardCondition t_56;
     effect
       scheduler_4.state = 3,
@@ -190,11 +214,12 @@ byte scheduler_4.ready = 0;
       scheduler_0.state = 3,
       scheduler_0.ready = 1;
 
-  process scheduler_2_scheduler_3
+  process scheduler_2_scheduler_3 
     guardBlock
       temp bool t_57 = scheduler_2.state == 2,
       temp bool t_58 = scheduler_3.state == 0,
       temp bool t_59 = t_57 and t_58;
+
     guardCondition t_59;
     effect
       scheduler_2.state = 3,
@@ -202,13 +227,14 @@ byte scheduler_4.ready = 0;
       scheduler_2.ready = 0,
       scheduler_3.state = 1;
 
-  process scheduler_2_scheduler_3
+  process scheduler_2_scheduler_3 
     guardBlock
       temp bool t_60 = scheduler_2.state == 2,
       temp bool t_61 = scheduler_3.state == 3,
       temp bool t_62 = scheduler_3.ready == 0,
       temp bool t_63 = t_61 and t_62,
       temp bool t_64 = t_60 and t_63;
+
     guardCondition t_64;
     effect
       scheduler_2.state = 3,
@@ -217,126 +243,28 @@ byte scheduler_4.ready = 0;
       scheduler_3.state = 3,
       scheduler_3.ready = 1;
 
-  process scheduler_1_customer_1
+  process scheduler_0_scheduler_1 
     guardBlock
-      temp bool t_65 = scheduler_1.state == 1,
-      temp bool t_66 = customer_1.state == 0,
+      temp bool t_65 = scheduler_0.state == 2,
+      temp bool t_66 = scheduler_1.state == 0,
       temp bool t_67 = t_65 and t_66;
+
     guardCondition t_67;
-    effect
-      scheduler_1.state = 2,
-      customer_1.state = 1;
-
-  process scheduler_1_customer_1
-    guardBlock
-      temp bool t_68 = scheduler_1.state == 1,
-      temp bool t_69 = customer_1.state == 1,
-      temp bool t_70 = t_68 and t_69;
-    guardCondition t_70;
-    effect
-      scheduler_1.state = 2,
-      customer_1.state = 2;
-
-  process scheduler_3_scheduler_4
-    guardBlock
-      temp bool t_71 = scheduler_3.state == 2,
-      temp bool t_72 = scheduler_4.state == 0,
-      temp bool t_73 = t_71 and t_72;
-    guardCondition t_73;
-    effect
-      scheduler_3.state = 3,
-      scheduler_3.done = 0,
-      scheduler_3.ready = 0,
-      scheduler_4.state = 1;
-
-  process scheduler_3_scheduler_4
-    guardBlock
-      temp bool t_74 = scheduler_3.state == 2,
-      temp bool t_75 = scheduler_4.state == 3,
-      temp bool t_76 = scheduler_4.ready == 0,
-      temp bool t_77 = t_75 and t_76,
-      temp bool t_78 = t_74 and t_77;
-    guardCondition t_78;
-    effect
-      scheduler_3.state = 3,
-      scheduler_3.done = 0,
-      scheduler_3.ready = 0,
-      scheduler_4.state = 3,
-      scheduler_4.ready = 1;
-
-  process scheduler_4_customer_4
-    guardBlock
-      temp bool t_79 = scheduler_4.state == 1,
-      temp bool t_80 = customer_4.state == 0,
-      temp bool t_81 = t_79 and t_80;
-    guardCondition t_81;
-    effect
-      scheduler_4.state = 2,
-      customer_4.state = 1;
-
-  process scheduler_4_customer_4
-    guardBlock
-      temp bool t_82 = scheduler_4.state == 1,
-      temp bool t_83 = customer_4.state == 1,
-      temp bool t_84 = t_82 and t_83;
-    guardCondition t_84;
-    effect
-      scheduler_4.state = 2,
-      customer_4.state = 2;
-
-  process scheduler_3_customer_3
-    guardBlock
-      temp bool t_85 = scheduler_3.state == 1,
-      temp bool t_86 = customer_3.state == 0,
-      temp bool t_87 = t_85 and t_86;
-    guardCondition t_87;
-    effect
-      scheduler_3.state = 2,
-      customer_3.state = 1;
-
-  process scheduler_3_customer_3
-    guardBlock
-      temp bool t_88 = scheduler_3.state == 1,
-      temp bool t_89 = customer_3.state == 1,
-      temp bool t_90 = t_88 and t_89;
-    guardCondition t_90;
-    effect
-      scheduler_3.state = 2,
-      customer_3.state = 2;
-
-  process customer_2_scheduler_2
-    guardBlock
-      temp bool t_91 = customer_2.state == 1,
-      temp bool t_92 = scheduler_2.state == 3,
-      temp bool t_93 = scheduler_2.done == 0,
-      temp bool t_94 = t_92 and t_93,
-      temp bool t_95 = t_91 and t_94;
-    guardCondition t_95;
-    effect
-      customer_2.state = 0,
-      scheduler_2.state = 3,
-      scheduler_2.done = 1;
-
-  process scheduler_0_scheduler_1
-    guardBlock
-      temp bool t_96 = scheduler_0.state == 2,
-      temp bool t_97 = scheduler_1.state == 0,
-      temp bool t_98 = t_96 and t_97;
-    guardCondition t_98;
     effect
       scheduler_0.state = 3,
       scheduler_0.done = 0,
       scheduler_0.ready = 0,
       scheduler_1.state = 1;
 
-  process scheduler_0_scheduler_1
+  process scheduler_0_scheduler_1 
     guardBlock
-      temp bool t_99 = scheduler_0.state == 2,
-      temp bool t_100 = scheduler_1.state == 3,
-      temp bool t_101 = scheduler_1.ready == 0,
-      temp bool t_102 = t_100 and t_101,
-      temp bool t_103 = t_99 and t_102;
-    guardCondition t_103;
+      temp bool t_68 = scheduler_0.state == 2,
+      temp bool t_69 = scheduler_1.state == 3,
+      temp bool t_70 = scheduler_1.ready == 0,
+      temp bool t_71 = t_69 and t_70,
+      temp bool t_72 = t_68 and t_71;
+
+    guardCondition t_72;
     effect
       scheduler_0.state = 3,
       scheduler_0.done = 0,
@@ -344,22 +272,126 @@ byte scheduler_4.ready = 0;
       scheduler_1.state = 3,
       scheduler_1.ready = 1;
 
-  process scheduler_2_customer_2
+  process scheduler_3_customer_3 
     guardBlock
-      temp bool t_104 = scheduler_2.state == 1,
-      temp bool t_105 = customer_2.state == 0,
-      temp bool t_106 = t_104 and t_105;
-    guardCondition t_106;
-    effect
-      scheduler_2.state = 2,
-      customer_2.state = 1;
+      temp bool t_73 = scheduler_3.state == 1,
+      temp bool t_74 = customer_3.state == 0,
+      temp bool t_75 = t_73 and t_74;
 
-  process scheduler_2_customer_2
+    guardCondition t_75;
+    effect
+      scheduler_3.state = 2,
+      customer_3.state = 1;
+
+  process scheduler_3_customer_3 
     guardBlock
-      temp bool t_107 = scheduler_2.state == 1,
-      temp bool t_108 = customer_2.state == 1,
-      temp bool t_109 = t_107 and t_108;
+      temp bool t_76 = scheduler_3.state == 1,
+      temp bool t_77 = customer_3.state == 1,
+      temp bool t_78 = t_76 and t_77;
+
+    guardCondition t_78;
+    effect
+      scheduler_3.state = 2,
+      customer_3.state = 2;
+
+  process customer_1_scheduler_1 
+    guardBlock
+      temp bool t_79 = customer_1.state == 1,
+      temp bool t_80 = scheduler_1.state == 3,
+      temp bool t_81 = scheduler_1.done == 0,
+      temp bool t_82 = t_80 and t_81,
+      temp bool t_83 = t_79 and t_82;
+
+    guardCondition t_83;
+    effect
+      customer_1.state = 0,
+      scheduler_1.state = 3,
+      scheduler_1.done = 1;
+
+  process customer_2_scheduler_2 
+    guardBlock
+      temp bool t_84 = customer_2.state == 1,
+      temp bool t_85 = scheduler_2.state == 3,
+      temp bool t_86 = scheduler_2.done == 0,
+      temp bool t_87 = t_85 and t_86,
+      temp bool t_88 = t_84 and t_87;
+
+    guardCondition t_88;
+    effect
+      customer_2.state = 0,
+      scheduler_2.state = 3,
+      scheduler_2.done = 1;
+
+  process customer_3_scheduler_3 
+    guardBlock
+      temp bool t_89 = customer_3.state == 1,
+      temp bool t_90 = scheduler_3.state == 3,
+      temp bool t_91 = scheduler_3.done == 0,
+      temp bool t_92 = t_90 and t_91,
+      temp bool t_93 = t_89 and t_92;
+
+    guardCondition t_93;
+    effect
+      customer_3.state = 0,
+      scheduler_3.state = 3,
+      scheduler_3.done = 1;
+
+  process scheduler_1_scheduler_2 
+    guardBlock
+      temp bool t_94 = scheduler_1.state == 2,
+      temp bool t_95 = scheduler_2.state == 0,
+      temp bool t_96 = t_94 and t_95;
+
+    guardCondition t_96;
+    effect
+      scheduler_1.state = 3,
+      scheduler_1.done = 0,
+      scheduler_1.ready = 0,
+      scheduler_2.state = 1;
+
+  process scheduler_1_scheduler_2 
+    guardBlock
+      temp bool t_97 = scheduler_1.state == 2,
+      temp bool t_98 = scheduler_2.state == 3,
+      temp bool t_99 = scheduler_2.ready == 0,
+      temp bool t_100 = t_98 and t_99,
+      temp bool t_101 = t_97 and t_100;
+
+    guardCondition t_101;
+    effect
+      scheduler_1.state = 3,
+      scheduler_1.done = 0,
+      scheduler_1.ready = 0,
+      scheduler_2.state = 3,
+      scheduler_2.ready = 1;
+
+  process scheduler_3_scheduler_4 
+    guardBlock
+      temp bool t_102 = scheduler_3.state == 2,
+      temp bool t_103 = scheduler_4.state == 0,
+      temp bool t_104 = t_102 and t_103;
+
+    guardCondition t_104;
+    effect
+      scheduler_3.state = 3,
+      scheduler_3.done = 0,
+      scheduler_3.ready = 0,
+      scheduler_4.state = 1;
+
+  process scheduler_3_scheduler_4 
+    guardBlock
+      temp bool t_105 = scheduler_3.state == 2,
+      temp bool t_106 = scheduler_4.state == 3,
+      temp bool t_107 = scheduler_4.ready == 0,
+      temp bool t_108 = t_106 and t_107,
+      temp bool t_109 = t_105 and t_108;
+
     guardCondition t_109;
     effect
-      scheduler_2.state = 2,
-      customer_2.state = 2;
+      scheduler_3.state = 3,
+      scheduler_3.done = 0,
+      scheduler_3.ready = 0,
+      scheduler_4.state = 3,
+      scheduler_4.ready = 1;
+
+

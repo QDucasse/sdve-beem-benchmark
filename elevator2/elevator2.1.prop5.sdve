@@ -3,131 +3,141 @@ int p = 0;
 state {idle(0), mov(1), open(2)} cabin.state = 0;
 state {read(0)} environment.state = 0;
 state {wait(0), work(1), done(2)} controller.state = 0;
-state {q1(0), q2(1)} LTL_property.state = 1;
-byte req[5] =  {0, 0, 0, 0};
+byte req[4] = {0, 0, 0, 0};
 byte v = 0;
 byte controller.ldir = 0;
 
-  process cabin
+  process cabin 
     guardBlock
       temp bool t_0 = cabin.state == 0,
       temp bool t_1 = v > 0,
       temp bool t_2 = t_0 and t_1;
+
     guardCondition t_2;
     effect
       cabin.state = 1;
 
-  process cabin
+  process cabin 
     guardBlock
       temp bool t_3 = cabin.state == 1,
       temp bool t_4 = t == p,
       temp bool t_5 = t_3 and t_4;
+
     guardCondition t_5;
     effect
       cabin.state = 2;
 
-  process cabin
+  process cabin 
     guardBlock
       temp bool t_6 = cabin.state == 1,
       temp bool t_7 = t < p,
       temp bool t_8 = t_6 and t_7;
+
     guardCondition t_8;
     effect
       cabin.state = 1,
       temp int t_9 = p - 1,
       p = t_9;
 
-  process cabin
+  process cabin 
     guardBlock
       temp bool t_10 = cabin.state == 1,
       temp bool t_11 = t > p,
       temp bool t_12 = t_10 and t_11;
+
     guardCondition t_12;
     effect
       cabin.state = 1,
       temp int t_13 = p + 1,
       p = t_13;
 
-  process cabin
+  process cabin 
     guardBlock
       temp bool t_14 = cabin.state == 2;
+
     guardCondition t_14;
     effect
       cabin.state = 0,
       req[p] = 0,
       v = 0;
 
-  process environment
+  process environment 
     guardBlock
       temp bool t_15 = environment.state == 0,
       temp byte t_16 = req[0],
       temp bool t_17 = t_16 == 0,
       temp bool t_18 = t_15 and t_17;
+
     guardCondition t_18;
     effect
       environment.state = 0,
       req[0] = 1;
 
-  process environment
+  process environment 
     guardBlock
       temp bool t_19 = environment.state == 0,
       temp byte t_20 = req[1],
       temp bool t_21 = t_20 == 0,
       temp bool t_22 = t_19 and t_21;
+
     guardCondition t_22;
     effect
       environment.state = 0,
       req[1] = 1;
 
-  process environment
+  process environment 
     guardBlock
       temp bool t_23 = environment.state == 0,
       temp byte t_24 = req[2],
       temp bool t_25 = t_24 == 0,
       temp bool t_26 = t_23 and t_25;
+
     guardCondition t_26;
     effect
       environment.state = 0,
       req[2] = 1;
 
-  process environment
+  process environment 
     guardBlock
       temp bool t_27 = environment.state == 0,
       temp byte t_28 = req[3],
       temp bool t_29 = t_28 == 0,
       temp bool t_30 = t_27 and t_29;
+
     guardCondition t_30;
     effect
       environment.state = 0,
       req[3] = 1;
 
-  process controller
+  process controller 
     guardBlock
       temp bool t_31 = controller.state == 0,
       temp bool t_32 = v == 0,
       temp bool t_33 = t_31 and t_32;
+
     guardCondition t_33;
     effect
       controller.state = 1,
-      temp int t_34 = 2 * controller.ldir,
+      temp byte t_34 = 2 * controller.ldir,
       temp int t_35 = t + t_34,
       temp int t_36 = t_35 - 1,
       t = t_36;
 
-  process controller
+  process controller 
     guardBlock
       temp bool t_37 = controller.state == 1,
       temp bool t_38 = t < 0,
       temp bool t_39 = t == 4,
       temp bool t_40 = t_38 or t_39,
       temp bool t_41 = t_37 and t_40;
+
     guardCondition t_41;
     effect
       controller.state = 0,
-      temp int t_42 = 1 - controller.ldir,
+      temp byte t_42 = 1 - controller.ldir,
       controller.ldir = t_42;
 
-  process controller
+  process controller 
     guardBlock
       temp bool t_43 = controller.state == 1,
       temp bool t_44 = t >= 0,
@@ -137,11 +147,12 @@ byte controller.ldir = 0;
       temp bool t_48 = t_47 == 1,
       temp bool t_49 = t_46 and t_48,
       temp bool t_50 = t_43 and t_49;
+
     guardCondition t_50;
     effect
       controller.state = 2;
 
-  process controller
+  process controller 
     guardBlock
       temp bool t_51 = controller.state == 1,
       temp bool t_52 = t >= 0,
@@ -151,54 +162,62 @@ byte controller.ldir = 0;
       temp bool t_56 = t_55 == 0,
       temp bool t_57 = t_54 and t_56,
       temp bool t_58 = t_51 and t_57;
+
     guardCondition t_58;
     effect
       controller.state = 1,
-      temp int t_59 = 2 * controller.ldir,
+      temp byte t_59 = 2 * controller.ldir,
       temp int t_60 = t + t_59,
       temp int t_61 = t_60 - 1,
       t = t_61;
 
-  process controller
+  process controller 
     guardBlock
       temp bool t_62 = controller.state == 2;
+
     guardCondition t_62;
     effect
       controller.state = 0,
       v = 1;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_63 = LTL_property.state == 0;
+
     guardCondition t_63;
     effect
       LTL_property.state = 0;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_64 = LTL_property.state == 0,
       temp bool t_65 = p == 1,
       temp bool t_66 = not t_65,
       temp bool t_67 = t_64 and t_66;
+
     guardCondition t_67;
     effect
       LTL_property.state = 1;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_68 = LTL_property.state == 1;
+
     guardCondition t_68;
     effect
       LTL_property.state = 0;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_69 = LTL_property.state == 1,
       temp bool t_70 = p == 1,
       temp bool t_71 = not t_70,
       temp bool t_72 = t_69 and t_71;
+
     guardCondition t_72;
     effect
       LTL_property.state = 1;
-      // accepting conditions
-      // LTL_property.state == 1
+
+accepting conditions
+  LTL_property.state == 1
+

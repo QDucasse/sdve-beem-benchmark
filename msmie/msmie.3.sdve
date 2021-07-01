@@ -11,66 +11,71 @@ state {idle(0), q0(1), no_master(2), master(3), reading(4), r0(5), no_readers(6)
 state {idle(0), q0(1), no_master(2), master(3), reading(4), r0(5), no_readers(6), change(7), r1(8)} master_4.state = 0;
 state {idle(0), q0(1), no_master(2), master(3), reading(4), r0(5), no_readers(6), change(7), r1(8)} master_5.state = 0;
 state {idle(0), q0(1), no_master(2), master(3), reading(4), r0(5), no_readers(6), change(7), r1(8)} master_6.state = 0;
-byte b[5] =  {0, 0, 0, 2};
+byte b[4] = {0, 0, 0, 2};
 byte readers = 0;
 byte sem = 1;
 byte change_to = 0;
 
-  process slave_1
+  process slave_1 
     guardBlock
       temp bool t_0 = slave_1.state == 0,
       temp bool t_1 = sem == 1,
       temp bool t_2 = t_0 and t_1;
+
     guardCondition t_2;
     effect
       slave_1.state = 1,
       sem = 0;
 
-  process slave_1
+  process slave_1 
     guardBlock
       temp bool t_3 = slave_1.state == 1,
       temp byte t_4 = b[0],
       temp bool t_5 = t_4 == 1,
       temp bool t_6 = t_3 and t_5;
+
     guardCondition t_6;
     effect
       slave_1.state = 2,
       b[0] = 0;
 
-  process slave_1
+  process slave_1 
     guardBlock
       temp bool t_7 = slave_1.state == 1,
       temp byte t_8 = b[1],
       temp bool t_9 = t_8 == 1,
       temp bool t_10 = t_7 and t_9;
+
     guardCondition t_10;
     effect
       slave_1.state = 2,
       b[1] = 0;
 
-  process slave_1
+  process slave_1 
     guardBlock
       temp bool t_11 = slave_1.state == 1,
       temp byte t_12 = b[2],
       temp bool t_13 = t_12 == 1,
       temp bool t_14 = t_11 and t_13;
+
     guardCondition t_14;
     effect
       slave_1.state = 2,
       b[2] = 0;
 
-  process slave_1
+  process slave_1 
     guardBlock
       temp bool t_15 = slave_1.state == 1,
       temp byte t_16 = b[3],
       temp bool t_17 = t_16 == 1,
       temp bool t_18 = t_15 and t_17;
+
     guardCondition t_18;
     effect
       slave_1.state = 2,
       b[3] = 0;
 
-  process slave_1
+  process slave_1 
     guardBlock
       temp bool t_19 = slave_1.state == 1,
       temp byte t_20 = b[0],
@@ -85,55 +90,60 @@ byte change_to = 0;
       temp bool t_29 = t_28 != 1,
       temp bool t_30 = t_27 and t_29,
       temp bool t_31 = t_19 and t_30;
+
     guardCondition t_31;
     effect
       slave_1.state = 2;
 
-  process slave_1
+  process slave_1 
     guardBlock
       temp bool t_32 = slave_1.state == 2,
       temp byte t_33 = b[0],
       temp bool t_34 = t_33 == 2,
       temp bool t_35 = t_32 and t_34;
+
     guardCondition t_35;
     effect
       slave_1.state = 3,
       b[0] = 1;
 
-  process slave_1
+  process slave_1 
     guardBlock
       temp bool t_36 = slave_1.state == 2,
       temp byte t_37 = b[1],
       temp bool t_38 = t_37 == 2,
       temp bool t_39 = t_36 and t_38;
+
     guardCondition t_39;
     effect
       slave_1.state = 3,
       b[1] = 1;
 
-  process slave_1
+  process slave_1 
     guardBlock
       temp bool t_40 = slave_1.state == 2,
       temp byte t_41 = b[2],
       temp bool t_42 = t_41 == 2,
       temp bool t_43 = t_40 and t_42;
+
     guardCondition t_43;
     effect
       slave_1.state = 3,
       b[2] = 1;
 
-  process slave_1
+  process slave_1 
     guardBlock
       temp bool t_44 = slave_1.state == 2,
       temp byte t_45 = b[3],
       temp bool t_46 = t_45 == 2,
       temp bool t_47 = t_44 and t_46;
+
     guardCondition t_47;
     effect
       slave_1.state = 3,
       b[3] = 1;
 
-  process slave_1
+  process slave_1 
     guardBlock
       temp bool t_48 = slave_1.state == 2,
       temp byte t_49 = b[0],
@@ -148,55 +158,60 @@ byte change_to = 0;
       temp bool t_58 = t_57 != 2,
       temp bool t_59 = t_56 and t_58,
       temp bool t_60 = t_48 and t_59;
+
     guardCondition t_60;
     effect
       slave_1.state = 5;
 
-  process slave_1
+  process slave_1 
     guardBlock
       temp bool t_61 = slave_1.state == 3,
       temp byte t_62 = b[0],
       temp bool t_63 = t_62 == 0,
       temp bool t_64 = t_61 and t_63;
+
     guardCondition t_64;
     effect
       slave_1.state = 4,
       b[0] = 2;
 
-  process slave_1
+  process slave_1 
     guardBlock
       temp bool t_65 = slave_1.state == 3,
       temp byte t_66 = b[1],
       temp bool t_67 = t_66 == 0,
       temp bool t_68 = t_65 and t_67;
+
     guardCondition t_68;
     effect
       slave_1.state = 4,
       b[1] = 2;
 
-  process slave_1
+  process slave_1 
     guardBlock
       temp bool t_69 = slave_1.state == 3,
       temp byte t_70 = b[2],
       temp bool t_71 = t_70 == 0,
       temp bool t_72 = t_69 and t_71;
+
     guardCondition t_72;
     effect
       slave_1.state = 4,
       b[2] = 2;
 
-  process slave_1
+  process slave_1 
     guardBlock
       temp bool t_73 = slave_1.state == 3,
       temp byte t_74 = b[3],
       temp bool t_75 = t_74 == 0,
       temp bool t_76 = t_73 and t_75;
+
     guardCondition t_76;
     effect
       slave_1.state = 4,
       b[3] = 2;
 
-  process slave_1
+  process slave_1 
     guardBlock
       temp bool t_77 = slave_1.state == 3,
       temp byte t_78 = b[0],
@@ -211,73 +226,80 @@ byte change_to = 0;
       temp bool t_87 = t_86 != 0,
       temp bool t_88 = t_85 and t_87,
       temp bool t_89 = t_77 and t_88;
+
     guardCondition t_89;
     effect
       slave_1.state = 5;
 
-  process slave_1
+  process slave_1 
     guardBlock
       temp bool t_90 = slave_1.state == 4;
+
     guardCondition t_90;
     effect
       slave_1.state = 0,
       sem = 1;
 
-  process slave_2
+  process slave_2 
     guardBlock
       temp bool t_91 = slave_2.state == 0,
       temp bool t_92 = sem == 1,
       temp bool t_93 = t_91 and t_92;
+
     guardCondition t_93;
     effect
       slave_2.state = 1,
       sem = 0;
 
-  process slave_2
+  process slave_2 
     guardBlock
       temp bool t_94 = slave_2.state == 1,
       temp byte t_95 = b[0],
       temp bool t_96 = t_95 == 1,
       temp bool t_97 = t_94 and t_96;
+
     guardCondition t_97;
     effect
       slave_2.state = 2,
       b[0] = 0;
 
-  process slave_2
+  process slave_2 
     guardBlock
       temp bool t_98 = slave_2.state == 1,
       temp byte t_99 = b[1],
       temp bool t_100 = t_99 == 1,
       temp bool t_101 = t_98 and t_100;
+
     guardCondition t_101;
     effect
       slave_2.state = 2,
       b[1] = 0;
 
-  process slave_2
+  process slave_2 
     guardBlock
       temp bool t_102 = slave_2.state == 1,
       temp byte t_103 = b[2],
       temp bool t_104 = t_103 == 1,
       temp bool t_105 = t_102 and t_104;
+
     guardCondition t_105;
     effect
       slave_2.state = 2,
       b[2] = 0;
 
-  process slave_2
+  process slave_2 
     guardBlock
       temp bool t_106 = slave_2.state == 1,
       temp byte t_107 = b[3],
       temp bool t_108 = t_107 == 1,
       temp bool t_109 = t_106 and t_108;
+
     guardCondition t_109;
     effect
       slave_2.state = 2,
       b[3] = 0;
 
-  process slave_2
+  process slave_2 
     guardBlock
       temp bool t_110 = slave_2.state == 1,
       temp byte t_111 = b[0],
@@ -292,55 +314,60 @@ byte change_to = 0;
       temp bool t_120 = t_119 != 1,
       temp bool t_121 = t_118 and t_120,
       temp bool t_122 = t_110 and t_121;
+
     guardCondition t_122;
     effect
       slave_2.state = 2;
 
-  process slave_2
+  process slave_2 
     guardBlock
       temp bool t_123 = slave_2.state == 2,
       temp byte t_124 = b[0],
       temp bool t_125 = t_124 == 2,
       temp bool t_126 = t_123 and t_125;
+
     guardCondition t_126;
     effect
       slave_2.state = 3,
       b[0] = 1;
 
-  process slave_2
+  process slave_2 
     guardBlock
       temp bool t_127 = slave_2.state == 2,
       temp byte t_128 = b[1],
       temp bool t_129 = t_128 == 2,
       temp bool t_130 = t_127 and t_129;
+
     guardCondition t_130;
     effect
       slave_2.state = 3,
       b[1] = 1;
 
-  process slave_2
+  process slave_2 
     guardBlock
       temp bool t_131 = slave_2.state == 2,
       temp byte t_132 = b[2],
       temp bool t_133 = t_132 == 2,
       temp bool t_134 = t_131 and t_133;
+
     guardCondition t_134;
     effect
       slave_2.state = 3,
       b[2] = 1;
 
-  process slave_2
+  process slave_2 
     guardBlock
       temp bool t_135 = slave_2.state == 2,
       temp byte t_136 = b[3],
       temp bool t_137 = t_136 == 2,
       temp bool t_138 = t_135 and t_137;
+
     guardCondition t_138;
     effect
       slave_2.state = 3,
       b[3] = 1;
 
-  process slave_2
+  process slave_2 
     guardBlock
       temp bool t_139 = slave_2.state == 2,
       temp byte t_140 = b[0],
@@ -355,55 +382,60 @@ byte change_to = 0;
       temp bool t_149 = t_148 != 2,
       temp bool t_150 = t_147 and t_149,
       temp bool t_151 = t_139 and t_150;
+
     guardCondition t_151;
     effect
       slave_2.state = 5;
 
-  process slave_2
+  process slave_2 
     guardBlock
       temp bool t_152 = slave_2.state == 3,
       temp byte t_153 = b[0],
       temp bool t_154 = t_153 == 0,
       temp bool t_155 = t_152 and t_154;
+
     guardCondition t_155;
     effect
       slave_2.state = 4,
       b[0] = 2;
 
-  process slave_2
+  process slave_2 
     guardBlock
       temp bool t_156 = slave_2.state == 3,
       temp byte t_157 = b[1],
       temp bool t_158 = t_157 == 0,
       temp bool t_159 = t_156 and t_158;
+
     guardCondition t_159;
     effect
       slave_2.state = 4,
       b[1] = 2;
 
-  process slave_2
+  process slave_2 
     guardBlock
       temp bool t_160 = slave_2.state == 3,
       temp byte t_161 = b[2],
       temp bool t_162 = t_161 == 0,
       temp bool t_163 = t_160 and t_162;
+
     guardCondition t_163;
     effect
       slave_2.state = 4,
       b[2] = 2;
 
-  process slave_2
+  process slave_2 
     guardBlock
       temp bool t_164 = slave_2.state == 3,
       temp byte t_165 = b[3],
       temp bool t_166 = t_165 == 0,
       temp bool t_167 = t_164 and t_166;
+
     guardCondition t_167;
     effect
       slave_2.state = 4,
       b[3] = 2;
 
-  process slave_2
+  process slave_2 
     guardBlock
       temp bool t_168 = slave_2.state == 3,
       temp byte t_169 = b[0],
@@ -418,73 +450,80 @@ byte change_to = 0;
       temp bool t_178 = t_177 != 0,
       temp bool t_179 = t_176 and t_178,
       temp bool t_180 = t_168 and t_179;
+
     guardCondition t_180;
     effect
       slave_2.state = 5;
 
-  process slave_2
+  process slave_2 
     guardBlock
       temp bool t_181 = slave_2.state == 4;
+
     guardCondition t_181;
     effect
       slave_2.state = 0,
       sem = 1;
 
-  process slave_3
+  process slave_3 
     guardBlock
       temp bool t_182 = slave_3.state == 0,
       temp bool t_183 = sem == 1,
       temp bool t_184 = t_182 and t_183;
+
     guardCondition t_184;
     effect
       slave_3.state = 1,
       sem = 0;
 
-  process slave_3
+  process slave_3 
     guardBlock
       temp bool t_185 = slave_3.state == 1,
       temp byte t_186 = b[0],
       temp bool t_187 = t_186 == 1,
       temp bool t_188 = t_185 and t_187;
+
     guardCondition t_188;
     effect
       slave_3.state = 2,
       b[0] = 0;
 
-  process slave_3
+  process slave_3 
     guardBlock
       temp bool t_189 = slave_3.state == 1,
       temp byte t_190 = b[1],
       temp bool t_191 = t_190 == 1,
       temp bool t_192 = t_189 and t_191;
+
     guardCondition t_192;
     effect
       slave_3.state = 2,
       b[1] = 0;
 
-  process slave_3
+  process slave_3 
     guardBlock
       temp bool t_193 = slave_3.state == 1,
       temp byte t_194 = b[2],
       temp bool t_195 = t_194 == 1,
       temp bool t_196 = t_193 and t_195;
+
     guardCondition t_196;
     effect
       slave_3.state = 2,
       b[2] = 0;
 
-  process slave_3
+  process slave_3 
     guardBlock
       temp bool t_197 = slave_3.state == 1,
       temp byte t_198 = b[3],
       temp bool t_199 = t_198 == 1,
       temp bool t_200 = t_197 and t_199;
+
     guardCondition t_200;
     effect
       slave_3.state = 2,
       b[3] = 0;
 
-  process slave_3
+  process slave_3 
     guardBlock
       temp bool t_201 = slave_3.state == 1,
       temp byte t_202 = b[0],
@@ -499,55 +538,60 @@ byte change_to = 0;
       temp bool t_211 = t_210 != 1,
       temp bool t_212 = t_209 and t_211,
       temp bool t_213 = t_201 and t_212;
+
     guardCondition t_213;
     effect
       slave_3.state = 2;
 
-  process slave_3
+  process slave_3 
     guardBlock
       temp bool t_214 = slave_3.state == 2,
       temp byte t_215 = b[0],
       temp bool t_216 = t_215 == 2,
       temp bool t_217 = t_214 and t_216;
+
     guardCondition t_217;
     effect
       slave_3.state = 3,
       b[0] = 1;
 
-  process slave_3
+  process slave_3 
     guardBlock
       temp bool t_218 = slave_3.state == 2,
       temp byte t_219 = b[1],
       temp bool t_220 = t_219 == 2,
       temp bool t_221 = t_218 and t_220;
+
     guardCondition t_221;
     effect
       slave_3.state = 3,
       b[1] = 1;
 
-  process slave_3
+  process slave_3 
     guardBlock
       temp bool t_222 = slave_3.state == 2,
       temp byte t_223 = b[2],
       temp bool t_224 = t_223 == 2,
       temp bool t_225 = t_222 and t_224;
+
     guardCondition t_225;
     effect
       slave_3.state = 3,
       b[2] = 1;
 
-  process slave_3
+  process slave_3 
     guardBlock
       temp bool t_226 = slave_3.state == 2,
       temp byte t_227 = b[3],
       temp bool t_228 = t_227 == 2,
       temp bool t_229 = t_226 and t_228;
+
     guardCondition t_229;
     effect
       slave_3.state = 3,
       b[3] = 1;
 
-  process slave_3
+  process slave_3 
     guardBlock
       temp bool t_230 = slave_3.state == 2,
       temp byte t_231 = b[0],
@@ -562,55 +606,60 @@ byte change_to = 0;
       temp bool t_240 = t_239 != 2,
       temp bool t_241 = t_238 and t_240,
       temp bool t_242 = t_230 and t_241;
+
     guardCondition t_242;
     effect
       slave_3.state = 5;
 
-  process slave_3
+  process slave_3 
     guardBlock
       temp bool t_243 = slave_3.state == 3,
       temp byte t_244 = b[0],
       temp bool t_245 = t_244 == 0,
       temp bool t_246 = t_243 and t_245;
+
     guardCondition t_246;
     effect
       slave_3.state = 4,
       b[0] = 2;
 
-  process slave_3
+  process slave_3 
     guardBlock
       temp bool t_247 = slave_3.state == 3,
       temp byte t_248 = b[1],
       temp bool t_249 = t_248 == 0,
       temp bool t_250 = t_247 and t_249;
+
     guardCondition t_250;
     effect
       slave_3.state = 4,
       b[1] = 2;
 
-  process slave_3
+  process slave_3 
     guardBlock
       temp bool t_251 = slave_3.state == 3,
       temp byte t_252 = b[2],
       temp bool t_253 = t_252 == 0,
       temp bool t_254 = t_251 and t_253;
+
     guardCondition t_254;
     effect
       slave_3.state = 4,
       b[2] = 2;
 
-  process slave_3
+  process slave_3 
     guardBlock
       temp bool t_255 = slave_3.state == 3,
       temp byte t_256 = b[3],
       temp bool t_257 = t_256 == 0,
       temp bool t_258 = t_255 and t_257;
+
     guardCondition t_258;
     effect
       slave_3.state = 4,
       b[3] = 2;
 
-  process slave_3
+  process slave_3 
     guardBlock
       temp bool t_259 = slave_3.state == 3,
       temp byte t_260 = b[0],
@@ -625,73 +674,80 @@ byte change_to = 0;
       temp bool t_269 = t_268 != 0,
       temp bool t_270 = t_267 and t_269,
       temp bool t_271 = t_259 and t_270;
+
     guardCondition t_271;
     effect
       slave_3.state = 5;
 
-  process slave_3
+  process slave_3 
     guardBlock
       temp bool t_272 = slave_3.state == 4;
+
     guardCondition t_272;
     effect
       slave_3.state = 0,
       sem = 1;
 
-  process slave_4
+  process slave_4 
     guardBlock
       temp bool t_273 = slave_4.state == 0,
       temp bool t_274 = sem == 1,
       temp bool t_275 = t_273 and t_274;
+
     guardCondition t_275;
     effect
       slave_4.state = 1,
       sem = 0;
 
-  process slave_4
+  process slave_4 
     guardBlock
       temp bool t_276 = slave_4.state == 1,
       temp byte t_277 = b[0],
       temp bool t_278 = t_277 == 1,
       temp bool t_279 = t_276 and t_278;
+
     guardCondition t_279;
     effect
       slave_4.state = 2,
       b[0] = 0;
 
-  process slave_4
+  process slave_4 
     guardBlock
       temp bool t_280 = slave_4.state == 1,
       temp byte t_281 = b[1],
       temp bool t_282 = t_281 == 1,
       temp bool t_283 = t_280 and t_282;
+
     guardCondition t_283;
     effect
       slave_4.state = 2,
       b[1] = 0;
 
-  process slave_4
+  process slave_4 
     guardBlock
       temp bool t_284 = slave_4.state == 1,
       temp byte t_285 = b[2],
       temp bool t_286 = t_285 == 1,
       temp bool t_287 = t_284 and t_286;
+
     guardCondition t_287;
     effect
       slave_4.state = 2,
       b[2] = 0;
 
-  process slave_4
+  process slave_4 
     guardBlock
       temp bool t_288 = slave_4.state == 1,
       temp byte t_289 = b[3],
       temp bool t_290 = t_289 == 1,
       temp bool t_291 = t_288 and t_290;
+
     guardCondition t_291;
     effect
       slave_4.state = 2,
       b[3] = 0;
 
-  process slave_4
+  process slave_4 
     guardBlock
       temp bool t_292 = slave_4.state == 1,
       temp byte t_293 = b[0],
@@ -706,55 +762,60 @@ byte change_to = 0;
       temp bool t_302 = t_301 != 1,
       temp bool t_303 = t_300 and t_302,
       temp bool t_304 = t_292 and t_303;
+
     guardCondition t_304;
     effect
       slave_4.state = 2;
 
-  process slave_4
+  process slave_4 
     guardBlock
       temp bool t_305 = slave_4.state == 2,
       temp byte t_306 = b[0],
       temp bool t_307 = t_306 == 2,
       temp bool t_308 = t_305 and t_307;
+
     guardCondition t_308;
     effect
       slave_4.state = 3,
       b[0] = 1;
 
-  process slave_4
+  process slave_4 
     guardBlock
       temp bool t_309 = slave_4.state == 2,
       temp byte t_310 = b[1],
       temp bool t_311 = t_310 == 2,
       temp bool t_312 = t_309 and t_311;
+
     guardCondition t_312;
     effect
       slave_4.state = 3,
       b[1] = 1;
 
-  process slave_4
+  process slave_4 
     guardBlock
       temp bool t_313 = slave_4.state == 2,
       temp byte t_314 = b[2],
       temp bool t_315 = t_314 == 2,
       temp bool t_316 = t_313 and t_315;
+
     guardCondition t_316;
     effect
       slave_4.state = 3,
       b[2] = 1;
 
-  process slave_4
+  process slave_4 
     guardBlock
       temp bool t_317 = slave_4.state == 2,
       temp byte t_318 = b[3],
       temp bool t_319 = t_318 == 2,
       temp bool t_320 = t_317 and t_319;
+
     guardCondition t_320;
     effect
       slave_4.state = 3,
       b[3] = 1;
 
-  process slave_4
+  process slave_4 
     guardBlock
       temp bool t_321 = slave_4.state == 2,
       temp byte t_322 = b[0],
@@ -769,55 +830,60 @@ byte change_to = 0;
       temp bool t_331 = t_330 != 2,
       temp bool t_332 = t_329 and t_331,
       temp bool t_333 = t_321 and t_332;
+
     guardCondition t_333;
     effect
       slave_4.state = 5;
 
-  process slave_4
+  process slave_4 
     guardBlock
       temp bool t_334 = slave_4.state == 3,
       temp byte t_335 = b[0],
       temp bool t_336 = t_335 == 0,
       temp bool t_337 = t_334 and t_336;
+
     guardCondition t_337;
     effect
       slave_4.state = 4,
       b[0] = 2;
 
-  process slave_4
+  process slave_4 
     guardBlock
       temp bool t_338 = slave_4.state == 3,
       temp byte t_339 = b[1],
       temp bool t_340 = t_339 == 0,
       temp bool t_341 = t_338 and t_340;
+
     guardCondition t_341;
     effect
       slave_4.state = 4,
       b[1] = 2;
 
-  process slave_4
+  process slave_4 
     guardBlock
       temp bool t_342 = slave_4.state == 3,
       temp byte t_343 = b[2],
       temp bool t_344 = t_343 == 0,
       temp bool t_345 = t_342 and t_344;
+
     guardCondition t_345;
     effect
       slave_4.state = 4,
       b[2] = 2;
 
-  process slave_4
+  process slave_4 
     guardBlock
       temp bool t_346 = slave_4.state == 3,
       temp byte t_347 = b[3],
       temp bool t_348 = t_347 == 0,
       temp bool t_349 = t_346 and t_348;
+
     guardCondition t_349;
     effect
       slave_4.state = 4,
       b[3] = 2;
 
-  process slave_4
+  process slave_4 
     guardBlock
       temp bool t_350 = slave_4.state == 3,
       temp byte t_351 = b[0],
@@ -832,73 +898,80 @@ byte change_to = 0;
       temp bool t_360 = t_359 != 0,
       temp bool t_361 = t_358 and t_360,
       temp bool t_362 = t_350 and t_361;
+
     guardCondition t_362;
     effect
       slave_4.state = 5;
 
-  process slave_4
+  process slave_4 
     guardBlock
       temp bool t_363 = slave_4.state == 4;
+
     guardCondition t_363;
     effect
       slave_4.state = 0,
       sem = 1;
 
-  process slave_5
+  process slave_5 
     guardBlock
       temp bool t_364 = slave_5.state == 0,
       temp bool t_365 = sem == 1,
       temp bool t_366 = t_364 and t_365;
+
     guardCondition t_366;
     effect
       slave_5.state = 1,
       sem = 0;
 
-  process slave_5
+  process slave_5 
     guardBlock
       temp bool t_367 = slave_5.state == 1,
       temp byte t_368 = b[0],
       temp bool t_369 = t_368 == 1,
       temp bool t_370 = t_367 and t_369;
+
     guardCondition t_370;
     effect
       slave_5.state = 2,
       b[0] = 0;
 
-  process slave_5
+  process slave_5 
     guardBlock
       temp bool t_371 = slave_5.state == 1,
       temp byte t_372 = b[1],
       temp bool t_373 = t_372 == 1,
       temp bool t_374 = t_371 and t_373;
+
     guardCondition t_374;
     effect
       slave_5.state = 2,
       b[1] = 0;
 
-  process slave_5
+  process slave_5 
     guardBlock
       temp bool t_375 = slave_5.state == 1,
       temp byte t_376 = b[2],
       temp bool t_377 = t_376 == 1,
       temp bool t_378 = t_375 and t_377;
+
     guardCondition t_378;
     effect
       slave_5.state = 2,
       b[2] = 0;
 
-  process slave_5
+  process slave_5 
     guardBlock
       temp bool t_379 = slave_5.state == 1,
       temp byte t_380 = b[3],
       temp bool t_381 = t_380 == 1,
       temp bool t_382 = t_379 and t_381;
+
     guardCondition t_382;
     effect
       slave_5.state = 2,
       b[3] = 0;
 
-  process slave_5
+  process slave_5 
     guardBlock
       temp bool t_383 = slave_5.state == 1,
       temp byte t_384 = b[0],
@@ -913,55 +986,60 @@ byte change_to = 0;
       temp bool t_393 = t_392 != 1,
       temp bool t_394 = t_391 and t_393,
       temp bool t_395 = t_383 and t_394;
+
     guardCondition t_395;
     effect
       slave_5.state = 2;
 
-  process slave_5
+  process slave_5 
     guardBlock
       temp bool t_396 = slave_5.state == 2,
       temp byte t_397 = b[0],
       temp bool t_398 = t_397 == 2,
       temp bool t_399 = t_396 and t_398;
+
     guardCondition t_399;
     effect
       slave_5.state = 3,
       b[0] = 1;
 
-  process slave_5
+  process slave_5 
     guardBlock
       temp bool t_400 = slave_5.state == 2,
       temp byte t_401 = b[1],
       temp bool t_402 = t_401 == 2,
       temp bool t_403 = t_400 and t_402;
+
     guardCondition t_403;
     effect
       slave_5.state = 3,
       b[1] = 1;
 
-  process slave_5
+  process slave_5 
     guardBlock
       temp bool t_404 = slave_5.state == 2,
       temp byte t_405 = b[2],
       temp bool t_406 = t_405 == 2,
       temp bool t_407 = t_404 and t_406;
+
     guardCondition t_407;
     effect
       slave_5.state = 3,
       b[2] = 1;
 
-  process slave_5
+  process slave_5 
     guardBlock
       temp bool t_408 = slave_5.state == 2,
       temp byte t_409 = b[3],
       temp bool t_410 = t_409 == 2,
       temp bool t_411 = t_408 and t_410;
+
     guardCondition t_411;
     effect
       slave_5.state = 3,
       b[3] = 1;
 
-  process slave_5
+  process slave_5 
     guardBlock
       temp bool t_412 = slave_5.state == 2,
       temp byte t_413 = b[0],
@@ -976,55 +1054,60 @@ byte change_to = 0;
       temp bool t_422 = t_421 != 2,
       temp bool t_423 = t_420 and t_422,
       temp bool t_424 = t_412 and t_423;
+
     guardCondition t_424;
     effect
       slave_5.state = 5;
 
-  process slave_5
+  process slave_5 
     guardBlock
       temp bool t_425 = slave_5.state == 3,
       temp byte t_426 = b[0],
       temp bool t_427 = t_426 == 0,
       temp bool t_428 = t_425 and t_427;
+
     guardCondition t_428;
     effect
       slave_5.state = 4,
       b[0] = 2;
 
-  process slave_5
+  process slave_5 
     guardBlock
       temp bool t_429 = slave_5.state == 3,
       temp byte t_430 = b[1],
       temp bool t_431 = t_430 == 0,
       temp bool t_432 = t_429 and t_431;
+
     guardCondition t_432;
     effect
       slave_5.state = 4,
       b[1] = 2;
 
-  process slave_5
+  process slave_5 
     guardBlock
       temp bool t_433 = slave_5.state == 3,
       temp byte t_434 = b[2],
       temp bool t_435 = t_434 == 0,
       temp bool t_436 = t_433 and t_435;
+
     guardCondition t_436;
     effect
       slave_5.state = 4,
       b[2] = 2;
 
-  process slave_5
+  process slave_5 
     guardBlock
       temp bool t_437 = slave_5.state == 3,
       temp byte t_438 = b[3],
       temp bool t_439 = t_438 == 0,
       temp bool t_440 = t_437 and t_439;
+
     guardCondition t_440;
     effect
       slave_5.state = 4,
       b[3] = 2;
 
-  process slave_5
+  process slave_5 
     guardBlock
       temp bool t_441 = slave_5.state == 3,
       temp byte t_442 = b[0],
@@ -1039,73 +1122,80 @@ byte change_to = 0;
       temp bool t_451 = t_450 != 0,
       temp bool t_452 = t_449 and t_451,
       temp bool t_453 = t_441 and t_452;
+
     guardCondition t_453;
     effect
       slave_5.state = 5;
 
-  process slave_5
+  process slave_5 
     guardBlock
       temp bool t_454 = slave_5.state == 4;
+
     guardCondition t_454;
     effect
       slave_5.state = 0,
       sem = 1;
 
-  process slave_6
+  process slave_6 
     guardBlock
       temp bool t_455 = slave_6.state == 0,
       temp bool t_456 = sem == 1,
       temp bool t_457 = t_455 and t_456;
+
     guardCondition t_457;
     effect
       slave_6.state = 1,
       sem = 0;
 
-  process slave_6
+  process slave_6 
     guardBlock
       temp bool t_458 = slave_6.state == 1,
       temp byte t_459 = b[0],
       temp bool t_460 = t_459 == 1,
       temp bool t_461 = t_458 and t_460;
+
     guardCondition t_461;
     effect
       slave_6.state = 2,
       b[0] = 0;
 
-  process slave_6
+  process slave_6 
     guardBlock
       temp bool t_462 = slave_6.state == 1,
       temp byte t_463 = b[1],
       temp bool t_464 = t_463 == 1,
       temp bool t_465 = t_462 and t_464;
+
     guardCondition t_465;
     effect
       slave_6.state = 2,
       b[1] = 0;
 
-  process slave_6
+  process slave_6 
     guardBlock
       temp bool t_466 = slave_6.state == 1,
       temp byte t_467 = b[2],
       temp bool t_468 = t_467 == 1,
       temp bool t_469 = t_466 and t_468;
+
     guardCondition t_469;
     effect
       slave_6.state = 2,
       b[2] = 0;
 
-  process slave_6
+  process slave_6 
     guardBlock
       temp bool t_470 = slave_6.state == 1,
       temp byte t_471 = b[3],
       temp bool t_472 = t_471 == 1,
       temp bool t_473 = t_470 and t_472;
+
     guardCondition t_473;
     effect
       slave_6.state = 2,
       b[3] = 0;
 
-  process slave_6
+  process slave_6 
     guardBlock
       temp bool t_474 = slave_6.state == 1,
       temp byte t_475 = b[0],
@@ -1120,55 +1210,60 @@ byte change_to = 0;
       temp bool t_484 = t_483 != 1,
       temp bool t_485 = t_482 and t_484,
       temp bool t_486 = t_474 and t_485;
+
     guardCondition t_486;
     effect
       slave_6.state = 2;
 
-  process slave_6
+  process slave_6 
     guardBlock
       temp bool t_487 = slave_6.state == 2,
       temp byte t_488 = b[0],
       temp bool t_489 = t_488 == 2,
       temp bool t_490 = t_487 and t_489;
+
     guardCondition t_490;
     effect
       slave_6.state = 3,
       b[0] = 1;
 
-  process slave_6
+  process slave_6 
     guardBlock
       temp bool t_491 = slave_6.state == 2,
       temp byte t_492 = b[1],
       temp bool t_493 = t_492 == 2,
       temp bool t_494 = t_491 and t_493;
+
     guardCondition t_494;
     effect
       slave_6.state = 3,
       b[1] = 1;
 
-  process slave_6
+  process slave_6 
     guardBlock
       temp bool t_495 = slave_6.state == 2,
       temp byte t_496 = b[2],
       temp bool t_497 = t_496 == 2,
       temp bool t_498 = t_495 and t_497;
+
     guardCondition t_498;
     effect
       slave_6.state = 3,
       b[2] = 1;
 
-  process slave_6
+  process slave_6 
     guardBlock
       temp bool t_499 = slave_6.state == 2,
       temp byte t_500 = b[3],
       temp bool t_501 = t_500 == 2,
       temp bool t_502 = t_499 and t_501;
+
     guardCondition t_502;
     effect
       slave_6.state = 3,
       b[3] = 1;
 
-  process slave_6
+  process slave_6 
     guardBlock
       temp bool t_503 = slave_6.state == 2,
       temp byte t_504 = b[0],
@@ -1183,55 +1278,60 @@ byte change_to = 0;
       temp bool t_513 = t_512 != 2,
       temp bool t_514 = t_511 and t_513,
       temp bool t_515 = t_503 and t_514;
+
     guardCondition t_515;
     effect
       slave_6.state = 5;
 
-  process slave_6
+  process slave_6 
     guardBlock
       temp bool t_516 = slave_6.state == 3,
       temp byte t_517 = b[0],
       temp bool t_518 = t_517 == 0,
       temp bool t_519 = t_516 and t_518;
+
     guardCondition t_519;
     effect
       slave_6.state = 4,
       b[0] = 2;
 
-  process slave_6
+  process slave_6 
     guardBlock
       temp bool t_520 = slave_6.state == 3,
       temp byte t_521 = b[1],
       temp bool t_522 = t_521 == 0,
       temp bool t_523 = t_520 and t_522;
+
     guardCondition t_523;
     effect
       slave_6.state = 4,
       b[1] = 2;
 
-  process slave_6
+  process slave_6 
     guardBlock
       temp bool t_524 = slave_6.state == 3,
       temp byte t_525 = b[2],
       temp bool t_526 = t_525 == 0,
       temp bool t_527 = t_524 and t_526;
+
     guardCondition t_527;
     effect
       slave_6.state = 4,
       b[2] = 2;
 
-  process slave_6
+  process slave_6 
     guardBlock
       temp bool t_528 = slave_6.state == 3,
       temp byte t_529 = b[3],
       temp bool t_530 = t_529 == 0,
       temp bool t_531 = t_528 and t_530;
+
     guardCondition t_531;
     effect
       slave_6.state = 4,
       b[3] = 2;
 
-  process slave_6
+  process slave_6 
     guardBlock
       temp bool t_532 = slave_6.state == 3,
       temp byte t_533 = b[0],
@@ -1246,73 +1346,80 @@ byte change_to = 0;
       temp bool t_542 = t_541 != 0,
       temp bool t_543 = t_540 and t_542,
       temp bool t_544 = t_532 and t_543;
+
     guardCondition t_544;
     effect
       slave_6.state = 5;
 
-  process slave_6
+  process slave_6 
     guardBlock
       temp bool t_545 = slave_6.state == 4;
+
     guardCondition t_545;
     effect
       slave_6.state = 0,
       sem = 1;
 
-  process slave_7
+  process slave_7 
     guardBlock
       temp bool t_546 = slave_7.state == 0,
       temp bool t_547 = sem == 1,
       temp bool t_548 = t_546 and t_547;
+
     guardCondition t_548;
     effect
       slave_7.state = 1,
       sem = 0;
 
-  process slave_7
+  process slave_7 
     guardBlock
       temp bool t_549 = slave_7.state == 1,
       temp byte t_550 = b[0],
       temp bool t_551 = t_550 == 1,
       temp bool t_552 = t_549 and t_551;
+
     guardCondition t_552;
     effect
       slave_7.state = 2,
       b[0] = 0;
 
-  process slave_7
+  process slave_7 
     guardBlock
       temp bool t_553 = slave_7.state == 1,
       temp byte t_554 = b[1],
       temp bool t_555 = t_554 == 1,
       temp bool t_556 = t_553 and t_555;
+
     guardCondition t_556;
     effect
       slave_7.state = 2,
       b[1] = 0;
 
-  process slave_7
+  process slave_7 
     guardBlock
       temp bool t_557 = slave_7.state == 1,
       temp byte t_558 = b[2],
       temp bool t_559 = t_558 == 1,
       temp bool t_560 = t_557 and t_559;
+
     guardCondition t_560;
     effect
       slave_7.state = 2,
       b[2] = 0;
 
-  process slave_7
+  process slave_7 
     guardBlock
       temp bool t_561 = slave_7.state == 1,
       temp byte t_562 = b[3],
       temp bool t_563 = t_562 == 1,
       temp bool t_564 = t_561 and t_563;
+
     guardCondition t_564;
     effect
       slave_7.state = 2,
       b[3] = 0;
 
-  process slave_7
+  process slave_7 
     guardBlock
       temp bool t_565 = slave_7.state == 1,
       temp byte t_566 = b[0],
@@ -1327,55 +1434,60 @@ byte change_to = 0;
       temp bool t_575 = t_574 != 1,
       temp bool t_576 = t_573 and t_575,
       temp bool t_577 = t_565 and t_576;
+
     guardCondition t_577;
     effect
       slave_7.state = 2;
 
-  process slave_7
+  process slave_7 
     guardBlock
       temp bool t_578 = slave_7.state == 2,
       temp byte t_579 = b[0],
       temp bool t_580 = t_579 == 2,
       temp bool t_581 = t_578 and t_580;
+
     guardCondition t_581;
     effect
       slave_7.state = 3,
       b[0] = 1;
 
-  process slave_7
+  process slave_7 
     guardBlock
       temp bool t_582 = slave_7.state == 2,
       temp byte t_583 = b[1],
       temp bool t_584 = t_583 == 2,
       temp bool t_585 = t_582 and t_584;
+
     guardCondition t_585;
     effect
       slave_7.state = 3,
       b[1] = 1;
 
-  process slave_7
+  process slave_7 
     guardBlock
       temp bool t_586 = slave_7.state == 2,
       temp byte t_587 = b[2],
       temp bool t_588 = t_587 == 2,
       temp bool t_589 = t_586 and t_588;
+
     guardCondition t_589;
     effect
       slave_7.state = 3,
       b[2] = 1;
 
-  process slave_7
+  process slave_7 
     guardBlock
       temp bool t_590 = slave_7.state == 2,
       temp byte t_591 = b[3],
       temp bool t_592 = t_591 == 2,
       temp bool t_593 = t_590 and t_592;
+
     guardCondition t_593;
     effect
       slave_7.state = 3,
       b[3] = 1;
 
-  process slave_7
+  process slave_7 
     guardBlock
       temp bool t_594 = slave_7.state == 2,
       temp byte t_595 = b[0],
@@ -1390,55 +1502,60 @@ byte change_to = 0;
       temp bool t_604 = t_603 != 2,
       temp bool t_605 = t_602 and t_604,
       temp bool t_606 = t_594 and t_605;
+
     guardCondition t_606;
     effect
       slave_7.state = 5;
 
-  process slave_7
+  process slave_7 
     guardBlock
       temp bool t_607 = slave_7.state == 3,
       temp byte t_608 = b[0],
       temp bool t_609 = t_608 == 0,
       temp bool t_610 = t_607 and t_609;
+
     guardCondition t_610;
     effect
       slave_7.state = 4,
       b[0] = 2;
 
-  process slave_7
+  process slave_7 
     guardBlock
       temp bool t_611 = slave_7.state == 3,
       temp byte t_612 = b[1],
       temp bool t_613 = t_612 == 0,
       temp bool t_614 = t_611 and t_613;
+
     guardCondition t_614;
     effect
       slave_7.state = 4,
       b[1] = 2;
 
-  process slave_7
+  process slave_7 
     guardBlock
       temp bool t_615 = slave_7.state == 3,
       temp byte t_616 = b[2],
       temp bool t_617 = t_616 == 0,
       temp bool t_618 = t_615 and t_617;
+
     guardCondition t_618;
     effect
       slave_7.state = 4,
       b[2] = 2;
 
-  process slave_7
+  process slave_7 
     guardBlock
       temp bool t_619 = slave_7.state == 3,
       temp byte t_620 = b[3],
       temp bool t_621 = t_620 == 0,
       temp bool t_622 = t_619 and t_621;
+
     guardCondition t_622;
     effect
       slave_7.state = 4,
       b[3] = 2;
 
-  process slave_7
+  process slave_7 
     guardBlock
       temp bool t_623 = slave_7.state == 3,
       temp byte t_624 = b[0],
@@ -1453,69 +1570,76 @@ byte change_to = 0;
       temp bool t_633 = t_632 != 0,
       temp bool t_634 = t_631 and t_633,
       temp bool t_635 = t_623 and t_634;
+
     guardCondition t_635;
     effect
       slave_7.state = 5;
 
-  process slave_7
+  process slave_7 
     guardBlock
       temp bool t_636 = slave_7.state == 4;
+
     guardCondition t_636;
     effect
       slave_7.state = 0,
       sem = 1;
 
-  process master_1
+  process master_1 
     guardBlock
       temp bool t_637 = master_1.state == 0,
       temp bool t_638 = sem == 1,
       temp bool t_639 = t_637 and t_638;
+
     guardCondition t_639;
     effect
       master_1.state = 1,
       sem = 0;
 
-  process master_1
+  process master_1 
     guardBlock
       temp bool t_640 = master_1.state == 1,
       temp byte t_641 = b[0],
       temp bool t_642 = t_641 == 3,
       temp bool t_643 = t_640 and t_642;
+
     guardCondition t_643;
     effect
       master_1.state = 3;
 
-  process master_1
+  process master_1 
     guardBlock
       temp bool t_644 = master_1.state == 1,
       temp byte t_645 = b[1],
       temp bool t_646 = t_645 == 3,
       temp bool t_647 = t_644 and t_646;
+
     guardCondition t_647;
     effect
       master_1.state = 3;
 
-  process master_1
+  process master_1 
     guardBlock
       temp bool t_648 = master_1.state == 1,
       temp byte t_649 = b[2],
       temp bool t_650 = t_649 == 3,
       temp bool t_651 = t_648 and t_650;
+
     guardCondition t_651;
     effect
       master_1.state = 3;
 
-  process master_1
+  process master_1 
     guardBlock
       temp bool t_652 = master_1.state == 1,
       temp byte t_653 = b[3],
       temp bool t_654 = t_653 == 3,
       temp bool t_655 = t_652 and t_654;
+
     guardCondition t_655;
     effect
       master_1.state = 3;
 
-  process master_1
+  process master_1 
     guardBlock
       temp bool t_656 = master_1.state == 1,
       temp byte t_657 = b[0],
@@ -1530,55 +1654,60 @@ byte change_to = 0;
       temp bool t_666 = t_665 != 3,
       temp bool t_667 = t_664 and t_666,
       temp bool t_668 = t_656 and t_667;
+
     guardCondition t_668;
     effect
       master_1.state = 2;
 
-  process master_1
+  process master_1 
     guardBlock
       temp bool t_669 = master_1.state == 2,
       temp byte t_670 = b[0],
       temp bool t_671 = t_670 == 1,
       temp bool t_672 = t_669 and t_671;
+
     guardCondition t_672;
     effect
       master_1.state = 3,
       b[0] = 3;
 
-  process master_1
+  process master_1 
     guardBlock
       temp bool t_673 = master_1.state == 2,
       temp byte t_674 = b[1],
       temp bool t_675 = t_674 == 1,
       temp bool t_676 = t_673 and t_675;
+
     guardCondition t_676;
     effect
       master_1.state = 3,
       b[1] = 3;
 
-  process master_1
+  process master_1 
     guardBlock
       temp bool t_677 = master_1.state == 2,
       temp byte t_678 = b[2],
       temp bool t_679 = t_678 == 1,
       temp bool t_680 = t_677 and t_679;
+
     guardCondition t_680;
     effect
       master_1.state = 3,
       b[2] = 3;
 
-  process master_1
+  process master_1 
     guardBlock
       temp bool t_681 = master_1.state == 2,
       temp byte t_682 = b[3],
       temp bool t_683 = t_682 == 1,
       temp bool t_684 = t_681 and t_683;
+
     guardCondition t_684;
     effect
       master_1.state = 3,
       b[3] = 3;
 
-  process master_1
+  process master_1 
     guardBlock
       temp bool t_685 = master_1.state == 2,
       temp byte t_686 = b[0],
@@ -1593,52 +1722,57 @@ byte change_to = 0;
       temp bool t_695 = t_694 != 1,
       temp bool t_696 = t_693 and t_695,
       temp bool t_697 = t_685 and t_696;
+
     guardCondition t_697;
     effect
       master_1.state = 0,
       sem = 1;
 
-  process master_1
+  process master_1 
     guardBlock
       temp bool t_698 = master_1.state == 3;
+
     guardCondition t_698;
     effect
       master_1.state = 4,
-      temp int t_699 = readers + 1,
+      temp byte t_699 = readers + 1,
       readers = t_699,
       sem = 1;
 
-  process master_1
+  process master_1 
     guardBlock
       temp bool t_700 = master_1.state == 4,
       temp bool t_701 = sem == 1,
       temp bool t_702 = t_700 and t_701;
+
     guardCondition t_702;
     effect
       master_1.state = 5,
       sem = 0,
-      temp int t_703 = readers - 1,
+      temp byte t_703 = readers - 1,
       readers = t_703;
 
-  process master_1
+  process master_1 
     guardBlock
       temp bool t_704 = master_1.state == 5,
       temp bool t_705 = readers == 0,
       temp bool t_706 = t_704 and t_705;
+
     guardCondition t_706;
     effect
       master_1.state = 6;
 
-  process master_1
+  process master_1 
     guardBlock
       temp bool t_707 = master_1.state == 5,
       temp bool t_708 = readers > 0,
       temp bool t_709 = t_707 and t_708;
+
     guardCondition t_709;
     effect
       master_1.state = 8;
 
-  process master_1
+  process master_1 
     guardBlock
       temp bool t_710 = master_1.state == 6,
       temp byte t_711 = b[0],
@@ -1653,12 +1787,13 @@ byte change_to = 0;
       temp bool t_720 = t_719 == 1,
       temp bool t_721 = t_718 or t_720,
       temp bool t_722 = t_710 and t_721;
+
     guardCondition t_722;
     effect
       master_1.state = 7,
       change_to = 0;
 
-  process master_1
+  process master_1 
     guardBlock
       temp bool t_723 = master_1.state == 6,
       temp byte t_724 = b[0],
@@ -1673,114 +1808,125 @@ byte change_to = 0;
       temp bool t_733 = t_732 != 1,
       temp bool t_734 = t_731 and t_733,
       temp bool t_735 = t_723 and t_734;
+
     guardCondition t_735;
     effect
       master_1.state = 7,
       change_to = 1;
 
-  process master_1
+  process master_1 
     guardBlock
       temp bool t_736 = master_1.state == 7,
       temp byte t_737 = b[0],
       temp bool t_738 = t_737 == 3,
       temp bool t_739 = t_736 and t_738;
+
     guardCondition t_739;
     effect
       master_1.state = 8,
       b[0] = change_to;
 
-  process master_1
+  process master_1 
     guardBlock
       temp bool t_740 = master_1.state == 7,
       temp byte t_741 = b[0],
       temp bool t_742 = t_741 == 3,
       temp bool t_743 = t_740 and t_742;
+
     guardCondition t_743;
     effect
       master_1.state = 8,
       b[0] = change_to;
 
-  process master_1
+  process master_1 
     guardBlock
       temp bool t_744 = master_1.state == 7,
       temp byte t_745 = b[0],
       temp bool t_746 = t_745 == 3,
       temp bool t_747 = t_744 and t_746;
+
     guardCondition t_747;
     effect
       master_1.state = 8,
       b[0] = change_to;
 
-  process master_1
+  process master_1 
     guardBlock
       temp bool t_748 = master_1.state == 7,
       temp byte t_749 = b[0],
       temp bool t_750 = t_749 == 3,
       temp bool t_751 = t_748 and t_750;
+
     guardCondition t_751;
     effect
       master_1.state = 8,
       b[0] = change_to;
 
-  process master_1
+  process master_1 
     guardBlock
       temp bool t_752 = master_1.state == 8;
+
     guardCondition t_752;
     effect
       master_1.state = 0,
       sem = 1;
 
-  process master_2
+  process master_2 
     guardBlock
       temp bool t_753 = master_2.state == 0,
       temp bool t_754 = sem == 1,
       temp bool t_755 = t_753 and t_754;
+
     guardCondition t_755;
     effect
       master_2.state = 1,
       sem = 0;
 
-  process master_2
+  process master_2 
     guardBlock
       temp bool t_756 = master_2.state == 1,
       temp byte t_757 = b[0],
       temp bool t_758 = t_757 == 3,
       temp bool t_759 = t_756 and t_758;
+
     guardCondition t_759;
     effect
       master_2.state = 3;
 
-  process master_2
+  process master_2 
     guardBlock
       temp bool t_760 = master_2.state == 1,
       temp byte t_761 = b[1],
       temp bool t_762 = t_761 == 3,
       temp bool t_763 = t_760 and t_762;
+
     guardCondition t_763;
     effect
       master_2.state = 3;
 
-  process master_2
+  process master_2 
     guardBlock
       temp bool t_764 = master_2.state == 1,
       temp byte t_765 = b[2],
       temp bool t_766 = t_765 == 3,
       temp bool t_767 = t_764 and t_766;
+
     guardCondition t_767;
     effect
       master_2.state = 3;
 
-  process master_2
+  process master_2 
     guardBlock
       temp bool t_768 = master_2.state == 1,
       temp byte t_769 = b[3],
       temp bool t_770 = t_769 == 3,
       temp bool t_771 = t_768 and t_770;
+
     guardCondition t_771;
     effect
       master_2.state = 3;
 
-  process master_2
+  process master_2 
     guardBlock
       temp bool t_772 = master_2.state == 1,
       temp byte t_773 = b[0],
@@ -1795,55 +1941,60 @@ byte change_to = 0;
       temp bool t_782 = t_781 != 3,
       temp bool t_783 = t_780 and t_782,
       temp bool t_784 = t_772 and t_783;
+
     guardCondition t_784;
     effect
       master_2.state = 2;
 
-  process master_2
+  process master_2 
     guardBlock
       temp bool t_785 = master_2.state == 2,
       temp byte t_786 = b[0],
       temp bool t_787 = t_786 == 1,
       temp bool t_788 = t_785 and t_787;
+
     guardCondition t_788;
     effect
       master_2.state = 3,
       b[0] = 3;
 
-  process master_2
+  process master_2 
     guardBlock
       temp bool t_789 = master_2.state == 2,
       temp byte t_790 = b[1],
       temp bool t_791 = t_790 == 1,
       temp bool t_792 = t_789 and t_791;
+
     guardCondition t_792;
     effect
       master_2.state = 3,
       b[1] = 3;
 
-  process master_2
+  process master_2 
     guardBlock
       temp bool t_793 = master_2.state == 2,
       temp byte t_794 = b[2],
       temp bool t_795 = t_794 == 1,
       temp bool t_796 = t_793 and t_795;
+
     guardCondition t_796;
     effect
       master_2.state = 3,
       b[2] = 3;
 
-  process master_2
+  process master_2 
     guardBlock
       temp bool t_797 = master_2.state == 2,
       temp byte t_798 = b[3],
       temp bool t_799 = t_798 == 1,
       temp bool t_800 = t_797 and t_799;
+
     guardCondition t_800;
     effect
       master_2.state = 3,
       b[3] = 3;
 
-  process master_2
+  process master_2 
     guardBlock
       temp bool t_801 = master_2.state == 2,
       temp byte t_802 = b[0],
@@ -1858,52 +2009,57 @@ byte change_to = 0;
       temp bool t_811 = t_810 != 1,
       temp bool t_812 = t_809 and t_811,
       temp bool t_813 = t_801 and t_812;
+
     guardCondition t_813;
     effect
       master_2.state = 0,
       sem = 1;
 
-  process master_2
+  process master_2 
     guardBlock
       temp bool t_814 = master_2.state == 3;
+
     guardCondition t_814;
     effect
       master_2.state = 4,
-      temp int t_815 = readers + 1,
+      temp byte t_815 = readers + 1,
       readers = t_815,
       sem = 1;
 
-  process master_2
+  process master_2 
     guardBlock
       temp bool t_816 = master_2.state == 4,
       temp bool t_817 = sem == 1,
       temp bool t_818 = t_816 and t_817;
+
     guardCondition t_818;
     effect
       master_2.state = 5,
       sem = 0,
-      temp int t_819 = readers - 1,
+      temp byte t_819 = readers - 1,
       readers = t_819;
 
-  process master_2
+  process master_2 
     guardBlock
       temp bool t_820 = master_2.state == 5,
       temp bool t_821 = readers == 0,
       temp bool t_822 = t_820 and t_821;
+
     guardCondition t_822;
     effect
       master_2.state = 6;
 
-  process master_2
+  process master_2 
     guardBlock
       temp bool t_823 = master_2.state == 5,
       temp bool t_824 = readers > 0,
       temp bool t_825 = t_823 and t_824;
+
     guardCondition t_825;
     effect
       master_2.state = 8;
 
-  process master_2
+  process master_2 
     guardBlock
       temp bool t_826 = master_2.state == 6,
       temp byte t_827 = b[0],
@@ -1918,12 +2074,13 @@ byte change_to = 0;
       temp bool t_836 = t_835 == 1,
       temp bool t_837 = t_834 or t_836,
       temp bool t_838 = t_826 and t_837;
+
     guardCondition t_838;
     effect
       master_2.state = 7,
       change_to = 0;
 
-  process master_2
+  process master_2 
     guardBlock
       temp bool t_839 = master_2.state == 6,
       temp byte t_840 = b[0],
@@ -1938,114 +2095,125 @@ byte change_to = 0;
       temp bool t_849 = t_848 != 1,
       temp bool t_850 = t_847 and t_849,
       temp bool t_851 = t_839 and t_850;
+
     guardCondition t_851;
     effect
       master_2.state = 7,
       change_to = 1;
 
-  process master_2
+  process master_2 
     guardBlock
       temp bool t_852 = master_2.state == 7,
       temp byte t_853 = b[0],
       temp bool t_854 = t_853 == 3,
       temp bool t_855 = t_852 and t_854;
+
     guardCondition t_855;
     effect
       master_2.state = 8,
       b[0] = change_to;
 
-  process master_2
+  process master_2 
     guardBlock
       temp bool t_856 = master_2.state == 7,
       temp byte t_857 = b[0],
       temp bool t_858 = t_857 == 3,
       temp bool t_859 = t_856 and t_858;
+
     guardCondition t_859;
     effect
       master_2.state = 8,
       b[0] = change_to;
 
-  process master_2
+  process master_2 
     guardBlock
       temp bool t_860 = master_2.state == 7,
       temp byte t_861 = b[0],
       temp bool t_862 = t_861 == 3,
       temp bool t_863 = t_860 and t_862;
+
     guardCondition t_863;
     effect
       master_2.state = 8,
       b[0] = change_to;
 
-  process master_2
+  process master_2 
     guardBlock
       temp bool t_864 = master_2.state == 7,
       temp byte t_865 = b[0],
       temp bool t_866 = t_865 == 3,
       temp bool t_867 = t_864 and t_866;
+
     guardCondition t_867;
     effect
       master_2.state = 8,
       b[0] = change_to;
 
-  process master_2
+  process master_2 
     guardBlock
       temp bool t_868 = master_2.state == 8;
+
     guardCondition t_868;
     effect
       master_2.state = 0,
       sem = 1;
 
-  process master_3
+  process master_3 
     guardBlock
       temp bool t_869 = master_3.state == 0,
       temp bool t_870 = sem == 1,
       temp bool t_871 = t_869 and t_870;
+
     guardCondition t_871;
     effect
       master_3.state = 1,
       sem = 0;
 
-  process master_3
+  process master_3 
     guardBlock
       temp bool t_872 = master_3.state == 1,
       temp byte t_873 = b[0],
       temp bool t_874 = t_873 == 3,
       temp bool t_875 = t_872 and t_874;
+
     guardCondition t_875;
     effect
       master_3.state = 3;
 
-  process master_3
+  process master_3 
     guardBlock
       temp bool t_876 = master_3.state == 1,
       temp byte t_877 = b[1],
       temp bool t_878 = t_877 == 3,
       temp bool t_879 = t_876 and t_878;
+
     guardCondition t_879;
     effect
       master_3.state = 3;
 
-  process master_3
+  process master_3 
     guardBlock
       temp bool t_880 = master_3.state == 1,
       temp byte t_881 = b[2],
       temp bool t_882 = t_881 == 3,
       temp bool t_883 = t_880 and t_882;
+
     guardCondition t_883;
     effect
       master_3.state = 3;
 
-  process master_3
+  process master_3 
     guardBlock
       temp bool t_884 = master_3.state == 1,
       temp byte t_885 = b[3],
       temp bool t_886 = t_885 == 3,
       temp bool t_887 = t_884 and t_886;
+
     guardCondition t_887;
     effect
       master_3.state = 3;
 
-  process master_3
+  process master_3 
     guardBlock
       temp bool t_888 = master_3.state == 1,
       temp byte t_889 = b[0],
@@ -2060,55 +2228,60 @@ byte change_to = 0;
       temp bool t_898 = t_897 != 3,
       temp bool t_899 = t_896 and t_898,
       temp bool t_900 = t_888 and t_899;
+
     guardCondition t_900;
     effect
       master_3.state = 2;
 
-  process master_3
+  process master_3 
     guardBlock
       temp bool t_901 = master_3.state == 2,
       temp byte t_902 = b[0],
       temp bool t_903 = t_902 == 1,
       temp bool t_904 = t_901 and t_903;
+
     guardCondition t_904;
     effect
       master_3.state = 3,
       b[0] = 3;
 
-  process master_3
+  process master_3 
     guardBlock
       temp bool t_905 = master_3.state == 2,
       temp byte t_906 = b[1],
       temp bool t_907 = t_906 == 1,
       temp bool t_908 = t_905 and t_907;
+
     guardCondition t_908;
     effect
       master_3.state = 3,
       b[1] = 3;
 
-  process master_3
+  process master_3 
     guardBlock
       temp bool t_909 = master_3.state == 2,
       temp byte t_910 = b[2],
       temp bool t_911 = t_910 == 1,
       temp bool t_912 = t_909 and t_911;
+
     guardCondition t_912;
     effect
       master_3.state = 3,
       b[2] = 3;
 
-  process master_3
+  process master_3 
     guardBlock
       temp bool t_913 = master_3.state == 2,
       temp byte t_914 = b[3],
       temp bool t_915 = t_914 == 1,
       temp bool t_916 = t_913 and t_915;
+
     guardCondition t_916;
     effect
       master_3.state = 3,
       b[3] = 3;
 
-  process master_3
+  process master_3 
     guardBlock
       temp bool t_917 = master_3.state == 2,
       temp byte t_918 = b[0],
@@ -2123,52 +2296,57 @@ byte change_to = 0;
       temp bool t_927 = t_926 != 1,
       temp bool t_928 = t_925 and t_927,
       temp bool t_929 = t_917 and t_928;
+
     guardCondition t_929;
     effect
       master_3.state = 0,
       sem = 1;
 
-  process master_3
+  process master_3 
     guardBlock
       temp bool t_930 = master_3.state == 3;
+
     guardCondition t_930;
     effect
       master_3.state = 4,
-      temp int t_931 = readers + 1,
+      temp byte t_931 = readers + 1,
       readers = t_931,
       sem = 1;
 
-  process master_3
+  process master_3 
     guardBlock
       temp bool t_932 = master_3.state == 4,
       temp bool t_933 = sem == 1,
       temp bool t_934 = t_932 and t_933;
+
     guardCondition t_934;
     effect
       master_3.state = 5,
       sem = 0,
-      temp int t_935 = readers - 1,
+      temp byte t_935 = readers - 1,
       readers = t_935;
 
-  process master_3
+  process master_3 
     guardBlock
       temp bool t_936 = master_3.state == 5,
       temp bool t_937 = readers == 0,
       temp bool t_938 = t_936 and t_937;
+
     guardCondition t_938;
     effect
       master_3.state = 6;
 
-  process master_3
+  process master_3 
     guardBlock
       temp bool t_939 = master_3.state == 5,
       temp bool t_940 = readers > 0,
       temp bool t_941 = t_939 and t_940;
+
     guardCondition t_941;
     effect
       master_3.state = 8;
 
-  process master_3
+  process master_3 
     guardBlock
       temp bool t_942 = master_3.state == 6,
       temp byte t_943 = b[0],
@@ -2183,12 +2361,13 @@ byte change_to = 0;
       temp bool t_952 = t_951 == 1,
       temp bool t_953 = t_950 or t_952,
       temp bool t_954 = t_942 and t_953;
+
     guardCondition t_954;
     effect
       master_3.state = 7,
       change_to = 0;
 
-  process master_3
+  process master_3 
     guardBlock
       temp bool t_955 = master_3.state == 6,
       temp byte t_956 = b[0],
@@ -2203,114 +2382,125 @@ byte change_to = 0;
       temp bool t_965 = t_964 != 1,
       temp bool t_966 = t_963 and t_965,
       temp bool t_967 = t_955 and t_966;
+
     guardCondition t_967;
     effect
       master_3.state = 7,
       change_to = 1;
 
-  process master_3
+  process master_3 
     guardBlock
       temp bool t_968 = master_3.state == 7,
       temp byte t_969 = b[0],
       temp bool t_970 = t_969 == 3,
       temp bool t_971 = t_968 and t_970;
+
     guardCondition t_971;
     effect
       master_3.state = 8,
       b[0] = change_to;
 
-  process master_3
+  process master_3 
     guardBlock
       temp bool t_972 = master_3.state == 7,
       temp byte t_973 = b[0],
       temp bool t_974 = t_973 == 3,
       temp bool t_975 = t_972 and t_974;
+
     guardCondition t_975;
     effect
       master_3.state = 8,
       b[0] = change_to;
 
-  process master_3
+  process master_3 
     guardBlock
       temp bool t_976 = master_3.state == 7,
       temp byte t_977 = b[0],
       temp bool t_978 = t_977 == 3,
       temp bool t_979 = t_976 and t_978;
+
     guardCondition t_979;
     effect
       master_3.state = 8,
       b[0] = change_to;
 
-  process master_3
+  process master_3 
     guardBlock
       temp bool t_980 = master_3.state == 7,
       temp byte t_981 = b[0],
       temp bool t_982 = t_981 == 3,
       temp bool t_983 = t_980 and t_982;
+
     guardCondition t_983;
     effect
       master_3.state = 8,
       b[0] = change_to;
 
-  process master_3
+  process master_3 
     guardBlock
       temp bool t_984 = master_3.state == 8;
+
     guardCondition t_984;
     effect
       master_3.state = 0,
       sem = 1;
 
-  process master_4
+  process master_4 
     guardBlock
       temp bool t_985 = master_4.state == 0,
       temp bool t_986 = sem == 1,
       temp bool t_987 = t_985 and t_986;
+
     guardCondition t_987;
     effect
       master_4.state = 1,
       sem = 0;
 
-  process master_4
+  process master_4 
     guardBlock
       temp bool t_988 = master_4.state == 1,
       temp byte t_989 = b[0],
       temp bool t_990 = t_989 == 3,
       temp bool t_991 = t_988 and t_990;
+
     guardCondition t_991;
     effect
       master_4.state = 3;
 
-  process master_4
+  process master_4 
     guardBlock
       temp bool t_992 = master_4.state == 1,
       temp byte t_993 = b[1],
       temp bool t_994 = t_993 == 3,
       temp bool t_995 = t_992 and t_994;
+
     guardCondition t_995;
     effect
       master_4.state = 3;
 
-  process master_4
+  process master_4 
     guardBlock
       temp bool t_996 = master_4.state == 1,
       temp byte t_997 = b[2],
       temp bool t_998 = t_997 == 3,
       temp bool t_999 = t_996 and t_998;
+
     guardCondition t_999;
     effect
       master_4.state = 3;
 
-  process master_4
+  process master_4 
     guardBlock
       temp bool t_1000 = master_4.state == 1,
       temp byte t_1001 = b[3],
       temp bool t_1002 = t_1001 == 3,
       temp bool t_1003 = t_1000 and t_1002;
+
     guardCondition t_1003;
     effect
       master_4.state = 3;
 
-  process master_4
+  process master_4 
     guardBlock
       temp bool t_1004 = master_4.state == 1,
       temp byte t_1005 = b[0],
@@ -2325,55 +2515,60 @@ byte change_to = 0;
       temp bool t_1014 = t_1013 != 3,
       temp bool t_1015 = t_1012 and t_1014,
       temp bool t_1016 = t_1004 and t_1015;
+
     guardCondition t_1016;
     effect
       master_4.state = 2;
 
-  process master_4
+  process master_4 
     guardBlock
       temp bool t_1017 = master_4.state == 2,
       temp byte t_1018 = b[0],
       temp bool t_1019 = t_1018 == 1,
       temp bool t_1020 = t_1017 and t_1019;
+
     guardCondition t_1020;
     effect
       master_4.state = 3,
       b[0] = 3;
 
-  process master_4
+  process master_4 
     guardBlock
       temp bool t_1021 = master_4.state == 2,
       temp byte t_1022 = b[1],
       temp bool t_1023 = t_1022 == 1,
       temp bool t_1024 = t_1021 and t_1023;
+
     guardCondition t_1024;
     effect
       master_4.state = 3,
       b[1] = 3;
 
-  process master_4
+  process master_4 
     guardBlock
       temp bool t_1025 = master_4.state == 2,
       temp byte t_1026 = b[2],
       temp bool t_1027 = t_1026 == 1,
       temp bool t_1028 = t_1025 and t_1027;
+
     guardCondition t_1028;
     effect
       master_4.state = 3,
       b[2] = 3;
 
-  process master_4
+  process master_4 
     guardBlock
       temp bool t_1029 = master_4.state == 2,
       temp byte t_1030 = b[3],
       temp bool t_1031 = t_1030 == 1,
       temp bool t_1032 = t_1029 and t_1031;
+
     guardCondition t_1032;
     effect
       master_4.state = 3,
       b[3] = 3;
 
-  process master_4
+  process master_4 
     guardBlock
       temp bool t_1033 = master_4.state == 2,
       temp byte t_1034 = b[0],
@@ -2388,52 +2583,57 @@ byte change_to = 0;
       temp bool t_1043 = t_1042 != 1,
       temp bool t_1044 = t_1041 and t_1043,
       temp bool t_1045 = t_1033 and t_1044;
+
     guardCondition t_1045;
     effect
       master_4.state = 0,
       sem = 1;
 
-  process master_4
+  process master_4 
     guardBlock
       temp bool t_1046 = master_4.state == 3;
+
     guardCondition t_1046;
     effect
       master_4.state = 4,
-      temp int t_1047 = readers + 1,
+      temp byte t_1047 = readers + 1,
       readers = t_1047,
       sem = 1;
 
-  process master_4
+  process master_4 
     guardBlock
       temp bool t_1048 = master_4.state == 4,
       temp bool t_1049 = sem == 1,
       temp bool t_1050 = t_1048 and t_1049;
+
     guardCondition t_1050;
     effect
       master_4.state = 5,
       sem = 0,
-      temp int t_1051 = readers - 1,
+      temp byte t_1051 = readers - 1,
       readers = t_1051;
 
-  process master_4
+  process master_4 
     guardBlock
       temp bool t_1052 = master_4.state == 5,
       temp bool t_1053 = readers == 0,
       temp bool t_1054 = t_1052 and t_1053;
+
     guardCondition t_1054;
     effect
       master_4.state = 6;
 
-  process master_4
+  process master_4 
     guardBlock
       temp bool t_1055 = master_4.state == 5,
       temp bool t_1056 = readers > 0,
       temp bool t_1057 = t_1055 and t_1056;
+
     guardCondition t_1057;
     effect
       master_4.state = 8;
 
-  process master_4
+  process master_4 
     guardBlock
       temp bool t_1058 = master_4.state == 6,
       temp byte t_1059 = b[0],
@@ -2448,12 +2648,13 @@ byte change_to = 0;
       temp bool t_1068 = t_1067 == 1,
       temp bool t_1069 = t_1066 or t_1068,
       temp bool t_1070 = t_1058 and t_1069;
+
     guardCondition t_1070;
     effect
       master_4.state = 7,
       change_to = 0;
 
-  process master_4
+  process master_4 
     guardBlock
       temp bool t_1071 = master_4.state == 6,
       temp byte t_1072 = b[0],
@@ -2468,114 +2669,125 @@ byte change_to = 0;
       temp bool t_1081 = t_1080 != 1,
       temp bool t_1082 = t_1079 and t_1081,
       temp bool t_1083 = t_1071 and t_1082;
+
     guardCondition t_1083;
     effect
       master_4.state = 7,
       change_to = 1;
 
-  process master_4
+  process master_4 
     guardBlock
       temp bool t_1084 = master_4.state == 7,
       temp byte t_1085 = b[0],
       temp bool t_1086 = t_1085 == 3,
       temp bool t_1087 = t_1084 and t_1086;
+
     guardCondition t_1087;
     effect
       master_4.state = 8,
       b[0] = change_to;
 
-  process master_4
+  process master_4 
     guardBlock
       temp bool t_1088 = master_4.state == 7,
       temp byte t_1089 = b[0],
       temp bool t_1090 = t_1089 == 3,
       temp bool t_1091 = t_1088 and t_1090;
+
     guardCondition t_1091;
     effect
       master_4.state = 8,
       b[0] = change_to;
 
-  process master_4
+  process master_4 
     guardBlock
       temp bool t_1092 = master_4.state == 7,
       temp byte t_1093 = b[0],
       temp bool t_1094 = t_1093 == 3,
       temp bool t_1095 = t_1092 and t_1094;
+
     guardCondition t_1095;
     effect
       master_4.state = 8,
       b[0] = change_to;
 
-  process master_4
+  process master_4 
     guardBlock
       temp bool t_1096 = master_4.state == 7,
       temp byte t_1097 = b[0],
       temp bool t_1098 = t_1097 == 3,
       temp bool t_1099 = t_1096 and t_1098;
+
     guardCondition t_1099;
     effect
       master_4.state = 8,
       b[0] = change_to;
 
-  process master_4
+  process master_4 
     guardBlock
       temp bool t_1100 = master_4.state == 8;
+
     guardCondition t_1100;
     effect
       master_4.state = 0,
       sem = 1;
 
-  process master_5
+  process master_5 
     guardBlock
       temp bool t_1101 = master_5.state == 0,
       temp bool t_1102 = sem == 1,
       temp bool t_1103 = t_1101 and t_1102;
+
     guardCondition t_1103;
     effect
       master_5.state = 1,
       sem = 0;
 
-  process master_5
+  process master_5 
     guardBlock
       temp bool t_1104 = master_5.state == 1,
       temp byte t_1105 = b[0],
       temp bool t_1106 = t_1105 == 3,
       temp bool t_1107 = t_1104 and t_1106;
+
     guardCondition t_1107;
     effect
       master_5.state = 3;
 
-  process master_5
+  process master_5 
     guardBlock
       temp bool t_1108 = master_5.state == 1,
       temp byte t_1109 = b[1],
       temp bool t_1110 = t_1109 == 3,
       temp bool t_1111 = t_1108 and t_1110;
+
     guardCondition t_1111;
     effect
       master_5.state = 3;
 
-  process master_5
+  process master_5 
     guardBlock
       temp bool t_1112 = master_5.state == 1,
       temp byte t_1113 = b[2],
       temp bool t_1114 = t_1113 == 3,
       temp bool t_1115 = t_1112 and t_1114;
+
     guardCondition t_1115;
     effect
       master_5.state = 3;
 
-  process master_5
+  process master_5 
     guardBlock
       temp bool t_1116 = master_5.state == 1,
       temp byte t_1117 = b[3],
       temp bool t_1118 = t_1117 == 3,
       temp bool t_1119 = t_1116 and t_1118;
+
     guardCondition t_1119;
     effect
       master_5.state = 3;
 
-  process master_5
+  process master_5 
     guardBlock
       temp bool t_1120 = master_5.state == 1,
       temp byte t_1121 = b[0],
@@ -2590,55 +2802,60 @@ byte change_to = 0;
       temp bool t_1130 = t_1129 != 3,
       temp bool t_1131 = t_1128 and t_1130,
       temp bool t_1132 = t_1120 and t_1131;
+
     guardCondition t_1132;
     effect
       master_5.state = 2;
 
-  process master_5
+  process master_5 
     guardBlock
       temp bool t_1133 = master_5.state == 2,
       temp byte t_1134 = b[0],
       temp bool t_1135 = t_1134 == 1,
       temp bool t_1136 = t_1133 and t_1135;
+
     guardCondition t_1136;
     effect
       master_5.state = 3,
       b[0] = 3;
 
-  process master_5
+  process master_5 
     guardBlock
       temp bool t_1137 = master_5.state == 2,
       temp byte t_1138 = b[1],
       temp bool t_1139 = t_1138 == 1,
       temp bool t_1140 = t_1137 and t_1139;
+
     guardCondition t_1140;
     effect
       master_5.state = 3,
       b[1] = 3;
 
-  process master_5
+  process master_5 
     guardBlock
       temp bool t_1141 = master_5.state == 2,
       temp byte t_1142 = b[2],
       temp bool t_1143 = t_1142 == 1,
       temp bool t_1144 = t_1141 and t_1143;
+
     guardCondition t_1144;
     effect
       master_5.state = 3,
       b[2] = 3;
 
-  process master_5
+  process master_5 
     guardBlock
       temp bool t_1145 = master_5.state == 2,
       temp byte t_1146 = b[3],
       temp bool t_1147 = t_1146 == 1,
       temp bool t_1148 = t_1145 and t_1147;
+
     guardCondition t_1148;
     effect
       master_5.state = 3,
       b[3] = 3;
 
-  process master_5
+  process master_5 
     guardBlock
       temp bool t_1149 = master_5.state == 2,
       temp byte t_1150 = b[0],
@@ -2653,52 +2870,57 @@ byte change_to = 0;
       temp bool t_1159 = t_1158 != 1,
       temp bool t_1160 = t_1157 and t_1159,
       temp bool t_1161 = t_1149 and t_1160;
+
     guardCondition t_1161;
     effect
       master_5.state = 0,
       sem = 1;
 
-  process master_5
+  process master_5 
     guardBlock
       temp bool t_1162 = master_5.state == 3;
+
     guardCondition t_1162;
     effect
       master_5.state = 4,
-      temp int t_1163 = readers + 1,
+      temp byte t_1163 = readers + 1,
       readers = t_1163,
       sem = 1;
 
-  process master_5
+  process master_5 
     guardBlock
       temp bool t_1164 = master_5.state == 4,
       temp bool t_1165 = sem == 1,
       temp bool t_1166 = t_1164 and t_1165;
+
     guardCondition t_1166;
     effect
       master_5.state = 5,
       sem = 0,
-      temp int t_1167 = readers - 1,
+      temp byte t_1167 = readers - 1,
       readers = t_1167;
 
-  process master_5
+  process master_5 
     guardBlock
       temp bool t_1168 = master_5.state == 5,
       temp bool t_1169 = readers == 0,
       temp bool t_1170 = t_1168 and t_1169;
+
     guardCondition t_1170;
     effect
       master_5.state = 6;
 
-  process master_5
+  process master_5 
     guardBlock
       temp bool t_1171 = master_5.state == 5,
       temp bool t_1172 = readers > 0,
       temp bool t_1173 = t_1171 and t_1172;
+
     guardCondition t_1173;
     effect
       master_5.state = 8;
 
-  process master_5
+  process master_5 
     guardBlock
       temp bool t_1174 = master_5.state == 6,
       temp byte t_1175 = b[0],
@@ -2713,12 +2935,13 @@ byte change_to = 0;
       temp bool t_1184 = t_1183 == 1,
       temp bool t_1185 = t_1182 or t_1184,
       temp bool t_1186 = t_1174 and t_1185;
+
     guardCondition t_1186;
     effect
       master_5.state = 7,
       change_to = 0;
 
-  process master_5
+  process master_5 
     guardBlock
       temp bool t_1187 = master_5.state == 6,
       temp byte t_1188 = b[0],
@@ -2733,114 +2956,125 @@ byte change_to = 0;
       temp bool t_1197 = t_1196 != 1,
       temp bool t_1198 = t_1195 and t_1197,
       temp bool t_1199 = t_1187 and t_1198;
+
     guardCondition t_1199;
     effect
       master_5.state = 7,
       change_to = 1;
 
-  process master_5
+  process master_5 
     guardBlock
       temp bool t_1200 = master_5.state == 7,
       temp byte t_1201 = b[0],
       temp bool t_1202 = t_1201 == 3,
       temp bool t_1203 = t_1200 and t_1202;
+
     guardCondition t_1203;
     effect
       master_5.state = 8,
       b[0] = change_to;
 
-  process master_5
+  process master_5 
     guardBlock
       temp bool t_1204 = master_5.state == 7,
       temp byte t_1205 = b[0],
       temp bool t_1206 = t_1205 == 3,
       temp bool t_1207 = t_1204 and t_1206;
+
     guardCondition t_1207;
     effect
       master_5.state = 8,
       b[0] = change_to;
 
-  process master_5
+  process master_5 
     guardBlock
       temp bool t_1208 = master_5.state == 7,
       temp byte t_1209 = b[0],
       temp bool t_1210 = t_1209 == 3,
       temp bool t_1211 = t_1208 and t_1210;
+
     guardCondition t_1211;
     effect
       master_5.state = 8,
       b[0] = change_to;
 
-  process master_5
+  process master_5 
     guardBlock
       temp bool t_1212 = master_5.state == 7,
       temp byte t_1213 = b[0],
       temp bool t_1214 = t_1213 == 3,
       temp bool t_1215 = t_1212 and t_1214;
+
     guardCondition t_1215;
     effect
       master_5.state = 8,
       b[0] = change_to;
 
-  process master_5
+  process master_5 
     guardBlock
       temp bool t_1216 = master_5.state == 8;
+
     guardCondition t_1216;
     effect
       master_5.state = 0,
       sem = 1;
 
-  process master_6
+  process master_6 
     guardBlock
       temp bool t_1217 = master_6.state == 0,
       temp bool t_1218 = sem == 1,
       temp bool t_1219 = t_1217 and t_1218;
+
     guardCondition t_1219;
     effect
       master_6.state = 1,
       sem = 0;
 
-  process master_6
+  process master_6 
     guardBlock
       temp bool t_1220 = master_6.state == 1,
       temp byte t_1221 = b[0],
       temp bool t_1222 = t_1221 == 3,
       temp bool t_1223 = t_1220 and t_1222;
+
     guardCondition t_1223;
     effect
       master_6.state = 3;
 
-  process master_6
+  process master_6 
     guardBlock
       temp bool t_1224 = master_6.state == 1,
       temp byte t_1225 = b[1],
       temp bool t_1226 = t_1225 == 3,
       temp bool t_1227 = t_1224 and t_1226;
+
     guardCondition t_1227;
     effect
       master_6.state = 3;
 
-  process master_6
+  process master_6 
     guardBlock
       temp bool t_1228 = master_6.state == 1,
       temp byte t_1229 = b[2],
       temp bool t_1230 = t_1229 == 3,
       temp bool t_1231 = t_1228 and t_1230;
+
     guardCondition t_1231;
     effect
       master_6.state = 3;
 
-  process master_6
+  process master_6 
     guardBlock
       temp bool t_1232 = master_6.state == 1,
       temp byte t_1233 = b[3],
       temp bool t_1234 = t_1233 == 3,
       temp bool t_1235 = t_1232 and t_1234;
+
     guardCondition t_1235;
     effect
       master_6.state = 3;
 
-  process master_6
+  process master_6 
     guardBlock
       temp bool t_1236 = master_6.state == 1,
       temp byte t_1237 = b[0],
@@ -2855,55 +3089,60 @@ byte change_to = 0;
       temp bool t_1246 = t_1245 != 3,
       temp bool t_1247 = t_1244 and t_1246,
       temp bool t_1248 = t_1236 and t_1247;
+
     guardCondition t_1248;
     effect
       master_6.state = 2;
 
-  process master_6
+  process master_6 
     guardBlock
       temp bool t_1249 = master_6.state == 2,
       temp byte t_1250 = b[0],
       temp bool t_1251 = t_1250 == 1,
       temp bool t_1252 = t_1249 and t_1251;
+
     guardCondition t_1252;
     effect
       master_6.state = 3,
       b[0] = 3;
 
-  process master_6
+  process master_6 
     guardBlock
       temp bool t_1253 = master_6.state == 2,
       temp byte t_1254 = b[1],
       temp bool t_1255 = t_1254 == 1,
       temp bool t_1256 = t_1253 and t_1255;
+
     guardCondition t_1256;
     effect
       master_6.state = 3,
       b[1] = 3;
 
-  process master_6
+  process master_6 
     guardBlock
       temp bool t_1257 = master_6.state == 2,
       temp byte t_1258 = b[2],
       temp bool t_1259 = t_1258 == 1,
       temp bool t_1260 = t_1257 and t_1259;
+
     guardCondition t_1260;
     effect
       master_6.state = 3,
       b[2] = 3;
 
-  process master_6
+  process master_6 
     guardBlock
       temp bool t_1261 = master_6.state == 2,
       temp byte t_1262 = b[3],
       temp bool t_1263 = t_1262 == 1,
       temp bool t_1264 = t_1261 and t_1263;
+
     guardCondition t_1264;
     effect
       master_6.state = 3,
       b[3] = 3;
 
-  process master_6
+  process master_6 
     guardBlock
       temp bool t_1265 = master_6.state == 2,
       temp byte t_1266 = b[0],
@@ -2918,52 +3157,57 @@ byte change_to = 0;
       temp bool t_1275 = t_1274 != 1,
       temp bool t_1276 = t_1273 and t_1275,
       temp bool t_1277 = t_1265 and t_1276;
+
     guardCondition t_1277;
     effect
       master_6.state = 0,
       sem = 1;
 
-  process master_6
+  process master_6 
     guardBlock
       temp bool t_1278 = master_6.state == 3;
+
     guardCondition t_1278;
     effect
       master_6.state = 4,
-      temp int t_1279 = readers + 1,
+      temp byte t_1279 = readers + 1,
       readers = t_1279,
       sem = 1;
 
-  process master_6
+  process master_6 
     guardBlock
       temp bool t_1280 = master_6.state == 4,
       temp bool t_1281 = sem == 1,
       temp bool t_1282 = t_1280 and t_1281;
+
     guardCondition t_1282;
     effect
       master_6.state = 5,
       sem = 0,
-      temp int t_1283 = readers - 1,
+      temp byte t_1283 = readers - 1,
       readers = t_1283;
 
-  process master_6
+  process master_6 
     guardBlock
       temp bool t_1284 = master_6.state == 5,
       temp bool t_1285 = readers == 0,
       temp bool t_1286 = t_1284 and t_1285;
+
     guardCondition t_1286;
     effect
       master_6.state = 6;
 
-  process master_6
+  process master_6 
     guardBlock
       temp bool t_1287 = master_6.state == 5,
       temp bool t_1288 = readers > 0,
       temp bool t_1289 = t_1287 and t_1288;
+
     guardCondition t_1289;
     effect
       master_6.state = 8;
 
-  process master_6
+  process master_6 
     guardBlock
       temp bool t_1290 = master_6.state == 6,
       temp byte t_1291 = b[0],
@@ -2978,12 +3222,13 @@ byte change_to = 0;
       temp bool t_1300 = t_1299 == 1,
       temp bool t_1301 = t_1298 or t_1300,
       temp bool t_1302 = t_1290 and t_1301;
+
     guardCondition t_1302;
     effect
       master_6.state = 7,
       change_to = 0;
 
-  process master_6
+  process master_6 
     guardBlock
       temp bool t_1303 = master_6.state == 6,
       temp byte t_1304 = b[0],
@@ -2998,59 +3243,67 @@ byte change_to = 0;
       temp bool t_1313 = t_1312 != 1,
       temp bool t_1314 = t_1311 and t_1313,
       temp bool t_1315 = t_1303 and t_1314;
+
     guardCondition t_1315;
     effect
       master_6.state = 7,
       change_to = 1;
 
-  process master_6
+  process master_6 
     guardBlock
       temp bool t_1316 = master_6.state == 7,
       temp byte t_1317 = b[0],
       temp bool t_1318 = t_1317 == 3,
       temp bool t_1319 = t_1316 and t_1318;
+
     guardCondition t_1319;
     effect
       master_6.state = 8,
       b[0] = change_to;
 
-  process master_6
+  process master_6 
     guardBlock
       temp bool t_1320 = master_6.state == 7,
       temp byte t_1321 = b[0],
       temp bool t_1322 = t_1321 == 3,
       temp bool t_1323 = t_1320 and t_1322;
+
     guardCondition t_1323;
     effect
       master_6.state = 8,
       b[0] = change_to;
 
-  process master_6
+  process master_6 
     guardBlock
       temp bool t_1324 = master_6.state == 7,
       temp byte t_1325 = b[0],
       temp bool t_1326 = t_1325 == 3,
       temp bool t_1327 = t_1324 and t_1326;
+
     guardCondition t_1327;
     effect
       master_6.state = 8,
       b[0] = change_to;
 
-  process master_6
+  process master_6 
     guardBlock
       temp bool t_1328 = master_6.state == 7,
       temp byte t_1329 = b[0],
       temp bool t_1330 = t_1329 == 3,
       temp bool t_1331 = t_1328 and t_1330;
+
     guardCondition t_1331;
     effect
       master_6.state = 8,
       b[0] = change_to;
 
-  process master_6
+  process master_6 
     guardBlock
       temp bool t_1332 = master_6.state == 8;
+
     guardCondition t_1332;
     effect
       master_6.state = 0,
       sem = 1;
+
+

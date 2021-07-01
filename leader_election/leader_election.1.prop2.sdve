@@ -35,88 +35,95 @@ byte Node_4.number = 0;
 byte Node_4.neigh = 0;
 byte Node_4.know = 0;
 byte Node_4.active = 1;
-byte channel_ch_0.buf[11] =  {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+byte channel_ch_0.buf[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 byte channel_ch_0.buf_act = 0;
-byte channel_ch_1.buf[11] =  {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+byte channel_ch_1.buf[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 byte channel_ch_1.buf_act = 0;
-byte channel_ch_2.buf[11] =  {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+byte channel_ch_2.buf[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 byte channel_ch_2.buf_act = 0;
-byte channel_ch_3.buf[11] =  {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+byte channel_ch_3.buf[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 byte channel_ch_3.buf_act = 0;
-byte channel_ch_4.buf[11] =  {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+byte channel_ch_4.buf[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 byte channel_ch_4.buf_act = 0;
 
-  process Node_0
+  process Node_0 
     guardBlock
       temp bool t_0 = Node_0.state == 2,
-      temp int t_1 = Node_0.number / 30,
+      temp byte t_1 = Node_0.number / 30,
       temp bool t_2 = t_1 == 1,
       temp bool t_3 = t_0 and t_2;
+
     guardCondition t_3;
     effect
       Node_0.state = 3,
-      temp int t_4 = Node_0.number % 30,
+      temp byte t_4 = Node_0.number % 30,
       Node_0.number = t_4;
 
-  process Node_0
+  process Node_0 
     guardBlock
       temp bool t_5 = Node_0.state == 2,
-      temp int t_6 = Node_0.number / 30,
+      temp byte t_6 = Node_0.number / 30,
       temp bool t_7 = t_6 == 2,
       temp bool t_8 = t_5 and t_7;
+
     guardCondition t_8;
     effect
       Node_0.state = 6,
-      temp int t_9 = Node_0.number % 30,
+      temp byte t_9 = Node_0.number % 30,
       Node_0.number = t_9;
 
-  process Node_0
+  process Node_0 
     guardBlock
       temp bool t_10 = Node_0.state == 2,
-      temp int t_11 = Node_0.number / 30,
+      temp byte t_11 = Node_0.number / 30,
       temp bool t_12 = t_11 == 0,
       temp bool t_13 = t_10 and t_12;
+
     guardCondition t_13;
     effect
       Node_0.state = 10,
-      temp int t_14 = Node_0.number % 30,
+      temp byte t_14 = Node_0.number % 30,
       Node_0.number = t_14;
 
-  process Node_0
+  process Node_0 
     guardBlock
       temp bool t_15 = Node_0.state == 3,
       temp bool t_16 = t_15 and Node_0.active;
+
     guardCondition t_16;
     effect
       Node_0.state = 4;
 
-  process Node_0
+  process Node_0 
     guardBlock
       temp bool t_17 = Node_0.state == 3,
       temp bool t_18 = Node_0.active == 0,
       temp bool t_19 = t_17 and t_18;
+
     guardCondition t_19;
     effect
       Node_0.state = 5;
 
-  process Node_0
+  process Node_0 
     guardBlock
       temp bool t_20 = Node_0.state == 6,
       temp bool t_21 = t_20 and Node_0.active;
+
     guardCondition t_21;
     effect
       Node_0.state = 7;
 
-  process Node_0
+  process Node_0 
     guardBlock
       temp bool t_22 = Node_0.state == 6,
       temp bool t_23 = Node_0.active == 0,
       temp bool t_24 = t_22 and t_23;
+
     guardCondition t_24;
     effect
       Node_0.state = 8;
 
-  process Node_0
+  process Node_0 
     guardBlock
       temp bool t_25 = Node_0.state == 7,
       temp bool t_26 = Node_0.neigh > Node_0.number,
@@ -124,110 +131,121 @@ byte channel_ch_4.buf_act = 0;
       temp bool t_28 = t_26 and t_27,
       temp bool t_29 = not t_28,
       temp bool t_30 = t_25 and t_29;
+
     guardCondition t_30;
     effect
       Node_0.state = 1,
       Node_0.active = 0;
 
-  process Node_0
+  process Node_0 
     guardBlock
       temp bool t_31 = Node_0.state == 10,
       temp bool t_32 = Node_0.number == 24,
       temp bool t_33 = t_31 and t_32;
+
     guardCondition t_33;
     effect
       Node_0.state = 9,
-      temp int t_34 = nr_leaders + 1,
+      temp byte t_34 = nr_leaders + 1,
       nr_leaders = t_34;
 
-  process Node_0
+  process Node_0 
     guardBlock
       temp bool t_35 = Node_0.state == 10,
       temp bool t_36 = Node_0.number != 24,
       temp bool t_37 = t_35 and t_36;
+
     guardCondition t_37;
     effect
       Node_0.state = 9;
 
-  process Node_0
+  process Node_0 
     guardBlock
       temp bool t_38 = Node_0.state == 9,
       temp bool t_39 = t_38 and Node_0.know;
+
     guardCondition t_39;
     effect
       Node_0.state = 1;
 
-  process Node_1
+  process Node_1 
     guardBlock
       temp bool t_40 = Node_1.state == 2,
-      temp int t_41 = Node_1.number / 30,
+      temp byte t_41 = Node_1.number / 30,
       temp bool t_42 = t_41 == 1,
       temp bool t_43 = t_40 and t_42;
+
     guardCondition t_43;
     effect
       Node_1.state = 3,
-      temp int t_44 = Node_1.number % 30,
+      temp byte t_44 = Node_1.number % 30,
       Node_1.number = t_44;
 
-  process Node_1
+  process Node_1 
     guardBlock
       temp bool t_45 = Node_1.state == 2,
-      temp int t_46 = Node_1.number / 30,
+      temp byte t_46 = Node_1.number / 30,
       temp bool t_47 = t_46 == 2,
       temp bool t_48 = t_45 and t_47;
+
     guardCondition t_48;
     effect
       Node_1.state = 6,
-      temp int t_49 = Node_1.number % 30,
+      temp byte t_49 = Node_1.number % 30,
       Node_1.number = t_49;
 
-  process Node_1
+  process Node_1 
     guardBlock
       temp bool t_50 = Node_1.state == 2,
-      temp int t_51 = Node_1.number / 30,
+      temp byte t_51 = Node_1.number / 30,
       temp bool t_52 = t_51 == 0,
       temp bool t_53 = t_50 and t_52;
+
     guardCondition t_53;
     effect
       Node_1.state = 10,
-      temp int t_54 = Node_1.number % 30,
+      temp byte t_54 = Node_1.number % 30,
       Node_1.number = t_54;
 
-  process Node_1
+  process Node_1 
     guardBlock
       temp bool t_55 = Node_1.state == 3,
       temp bool t_56 = t_55 and Node_1.active;
+
     guardCondition t_56;
     effect
       Node_1.state = 4;
 
-  process Node_1
+  process Node_1 
     guardBlock
       temp bool t_57 = Node_1.state == 3,
       temp bool t_58 = Node_1.active == 0,
       temp bool t_59 = t_57 and t_58;
+
     guardCondition t_59;
     effect
       Node_1.state = 5;
 
-  process Node_1
+  process Node_1 
     guardBlock
       temp bool t_60 = Node_1.state == 6,
       temp bool t_61 = t_60 and Node_1.active;
+
     guardCondition t_61;
     effect
       Node_1.state = 7;
 
-  process Node_1
+  process Node_1 
     guardBlock
       temp bool t_62 = Node_1.state == 6,
       temp bool t_63 = Node_1.active == 0,
       temp bool t_64 = t_62 and t_63;
+
     guardCondition t_64;
     effect
       Node_1.state = 8;
 
-  process Node_1
+  process Node_1 
     guardBlock
       temp bool t_65 = Node_1.state == 7,
       temp bool t_66 = Node_1.neigh > Node_1.number,
@@ -235,110 +253,121 @@ byte channel_ch_4.buf_act = 0;
       temp bool t_68 = t_66 and t_67,
       temp bool t_69 = not t_68,
       temp bool t_70 = t_65 and t_69;
+
     guardCondition t_70;
     effect
       Node_1.state = 1,
       Node_1.active = 0;
 
-  process Node_1
+  process Node_1 
     guardBlock
       temp bool t_71 = Node_1.state == 10,
       temp bool t_72 = Node_1.number == 14,
       temp bool t_73 = t_71 and t_72;
+
     guardCondition t_73;
     effect
       Node_1.state = 9,
-      temp int t_74 = nr_leaders + 1,
+      temp byte t_74 = nr_leaders + 1,
       nr_leaders = t_74;
 
-  process Node_1
+  process Node_1 
     guardBlock
       temp bool t_75 = Node_1.state == 10,
       temp bool t_76 = Node_1.number != 14,
       temp bool t_77 = t_75 and t_76;
+
     guardCondition t_77;
     effect
       Node_1.state = 9;
 
-  process Node_1
+  process Node_1 
     guardBlock
       temp bool t_78 = Node_1.state == 9,
       temp bool t_79 = t_78 and Node_1.know;
+
     guardCondition t_79;
     effect
       Node_1.state = 1;
 
-  process Node_2
+  process Node_2 
     guardBlock
       temp bool t_80 = Node_2.state == 2,
-      temp int t_81 = Node_2.number / 30,
+      temp byte t_81 = Node_2.number / 30,
       temp bool t_82 = t_81 == 1,
       temp bool t_83 = t_80 and t_82;
+
     guardCondition t_83;
     effect
       Node_2.state = 3,
-      temp int t_84 = Node_2.number % 30,
+      temp byte t_84 = Node_2.number % 30,
       Node_2.number = t_84;
 
-  process Node_2
+  process Node_2 
     guardBlock
       temp bool t_85 = Node_2.state == 2,
-      temp int t_86 = Node_2.number / 30,
+      temp byte t_86 = Node_2.number / 30,
       temp bool t_87 = t_86 == 2,
       temp bool t_88 = t_85 and t_87;
+
     guardCondition t_88;
     effect
       Node_2.state = 6,
-      temp int t_89 = Node_2.number % 30,
+      temp byte t_89 = Node_2.number % 30,
       Node_2.number = t_89;
 
-  process Node_2
+  process Node_2 
     guardBlock
       temp bool t_90 = Node_2.state == 2,
-      temp int t_91 = Node_2.number / 30,
+      temp byte t_91 = Node_2.number / 30,
       temp bool t_92 = t_91 == 0,
       temp bool t_93 = t_90 and t_92;
+
     guardCondition t_93;
     effect
       Node_2.state = 10,
-      temp int t_94 = Node_2.number % 30,
+      temp byte t_94 = Node_2.number % 30,
       Node_2.number = t_94;
 
-  process Node_2
+  process Node_2 
     guardBlock
       temp bool t_95 = Node_2.state == 3,
       temp bool t_96 = t_95 and Node_2.active;
+
     guardCondition t_96;
     effect
       Node_2.state = 4;
 
-  process Node_2
+  process Node_2 
     guardBlock
       temp bool t_97 = Node_2.state == 3,
       temp bool t_98 = Node_2.active == 0,
       temp bool t_99 = t_97 and t_98;
+
     guardCondition t_99;
     effect
       Node_2.state = 5;
 
-  process Node_2
+  process Node_2 
     guardBlock
       temp bool t_100 = Node_2.state == 6,
       temp bool t_101 = t_100 and Node_2.active;
+
     guardCondition t_101;
     effect
       Node_2.state = 7;
 
-  process Node_2
+  process Node_2 
     guardBlock
       temp bool t_102 = Node_2.state == 6,
       temp bool t_103 = Node_2.active == 0,
       temp bool t_104 = t_102 and t_103;
+
     guardCondition t_104;
     effect
       Node_2.state = 8;
 
-  process Node_2
+  process Node_2 
     guardBlock
       temp bool t_105 = Node_2.state == 7,
       temp bool t_106 = Node_2.neigh > Node_2.number,
@@ -346,110 +375,121 @@ byte channel_ch_4.buf_act = 0;
       temp bool t_108 = t_106 and t_107,
       temp bool t_109 = not t_108,
       temp bool t_110 = t_105 and t_109;
+
     guardCondition t_110;
     effect
       Node_2.state = 1,
       Node_2.active = 0;
 
-  process Node_2
+  process Node_2 
     guardBlock
       temp bool t_111 = Node_2.state == 10,
       temp bool t_112 = Node_2.number == 6,
       temp bool t_113 = t_111 and t_112;
+
     guardCondition t_113;
     effect
       Node_2.state = 9,
-      temp int t_114 = nr_leaders + 1,
+      temp byte t_114 = nr_leaders + 1,
       nr_leaders = t_114;
 
-  process Node_2
+  process Node_2 
     guardBlock
       temp bool t_115 = Node_2.state == 10,
       temp bool t_116 = Node_2.number != 6,
       temp bool t_117 = t_115 and t_116;
+
     guardCondition t_117;
     effect
       Node_2.state = 9;
 
-  process Node_2
+  process Node_2 
     guardBlock
       temp bool t_118 = Node_2.state == 9,
       temp bool t_119 = t_118 and Node_2.know;
+
     guardCondition t_119;
     effect
       Node_2.state = 1;
 
-  process Node_3
+  process Node_3 
     guardBlock
       temp bool t_120 = Node_3.state == 2,
-      temp int t_121 = Node_3.number / 30,
+      temp byte t_121 = Node_3.number / 30,
       temp bool t_122 = t_121 == 1,
       temp bool t_123 = t_120 and t_122;
+
     guardCondition t_123;
     effect
       Node_3.state = 3,
-      temp int t_124 = Node_3.number % 30,
+      temp byte t_124 = Node_3.number % 30,
       Node_3.number = t_124;
 
-  process Node_3
+  process Node_3 
     guardBlock
       temp bool t_125 = Node_3.state == 2,
-      temp int t_126 = Node_3.number / 30,
+      temp byte t_126 = Node_3.number / 30,
       temp bool t_127 = t_126 == 2,
       temp bool t_128 = t_125 and t_127;
+
     guardCondition t_128;
     effect
       Node_3.state = 6,
-      temp int t_129 = Node_3.number % 30,
+      temp byte t_129 = Node_3.number % 30,
       Node_3.number = t_129;
 
-  process Node_3
+  process Node_3 
     guardBlock
       temp bool t_130 = Node_3.state == 2,
-      temp int t_131 = Node_3.number / 30,
+      temp byte t_131 = Node_3.number / 30,
       temp bool t_132 = t_131 == 0,
       temp bool t_133 = t_130 and t_132;
+
     guardCondition t_133;
     effect
       Node_3.state = 10,
-      temp int t_134 = Node_3.number % 30,
+      temp byte t_134 = Node_3.number % 30,
       Node_3.number = t_134;
 
-  process Node_3
+  process Node_3 
     guardBlock
       temp bool t_135 = Node_3.state == 3,
       temp bool t_136 = t_135 and Node_3.active;
+
     guardCondition t_136;
     effect
       Node_3.state = 4;
 
-  process Node_3
+  process Node_3 
     guardBlock
       temp bool t_137 = Node_3.state == 3,
       temp bool t_138 = Node_3.active == 0,
       temp bool t_139 = t_137 and t_138;
+
     guardCondition t_139;
     effect
       Node_3.state = 5;
 
-  process Node_3
+  process Node_3 
     guardBlock
       temp bool t_140 = Node_3.state == 6,
       temp bool t_141 = t_140 and Node_3.active;
+
     guardCondition t_141;
     effect
       Node_3.state = 7;
 
-  process Node_3
+  process Node_3 
     guardBlock
       temp bool t_142 = Node_3.state == 6,
       temp bool t_143 = Node_3.active == 0,
       temp bool t_144 = t_142 and t_143;
+
     guardCondition t_144;
     effect
       Node_3.state = 8;
 
-  process Node_3
+  process Node_3 
     guardBlock
       temp bool t_145 = Node_3.state == 7,
       temp bool t_146 = Node_3.neigh > Node_3.number,
@@ -457,110 +497,121 @@ byte channel_ch_4.buf_act = 0;
       temp bool t_148 = t_146 and t_147,
       temp bool t_149 = not t_148,
       temp bool t_150 = t_145 and t_149;
+
     guardCondition t_150;
     effect
       Node_3.state = 1,
       Node_3.active = 0;
 
-  process Node_3
+  process Node_3 
     guardBlock
       temp bool t_151 = Node_3.state == 10,
       temp bool t_152 = Node_3.number == 0,
       temp bool t_153 = t_151 and t_152;
+
     guardCondition t_153;
     effect
       Node_3.state = 9,
-      temp int t_154 = nr_leaders + 1,
+      temp byte t_154 = nr_leaders + 1,
       nr_leaders = t_154;
 
-  process Node_3
+  process Node_3 
     guardBlock
       temp bool t_155 = Node_3.state == 10,
       temp bool t_156 = Node_3.number != 0,
       temp bool t_157 = t_155 and t_156;
+
     guardCondition t_157;
     effect
       Node_3.state = 9;
 
-  process Node_3
+  process Node_3 
     guardBlock
       temp bool t_158 = Node_3.state == 9,
       temp bool t_159 = t_158 and Node_3.know;
+
     guardCondition t_159;
     effect
       Node_3.state = 1;
 
-  process Node_4
+  process Node_4 
     guardBlock
       temp bool t_160 = Node_4.state == 2,
-      temp int t_161 = Node_4.number / 30,
+      temp byte t_161 = Node_4.number / 30,
       temp bool t_162 = t_161 == 1,
       temp bool t_163 = t_160 and t_162;
+
     guardCondition t_163;
     effect
       Node_4.state = 3,
-      temp int t_164 = Node_4.number % 30,
+      temp byte t_164 = Node_4.number % 30,
       Node_4.number = t_164;
 
-  process Node_4
+  process Node_4 
     guardBlock
       temp bool t_165 = Node_4.state == 2,
-      temp int t_166 = Node_4.number / 30,
+      temp byte t_166 = Node_4.number / 30,
       temp bool t_167 = t_166 == 2,
       temp bool t_168 = t_165 and t_167;
+
     guardCondition t_168;
     effect
       Node_4.state = 6,
-      temp int t_169 = Node_4.number % 30,
+      temp byte t_169 = Node_4.number % 30,
       Node_4.number = t_169;
 
-  process Node_4
+  process Node_4 
     guardBlock
       temp bool t_170 = Node_4.state == 2,
-      temp int t_171 = Node_4.number / 30,
+      temp byte t_171 = Node_4.number / 30,
       temp bool t_172 = t_171 == 0,
       temp bool t_173 = t_170 and t_172;
+
     guardCondition t_173;
     effect
       Node_4.state = 10,
-      temp int t_174 = Node_4.number % 30,
+      temp byte t_174 = Node_4.number % 30,
       Node_4.number = t_174;
 
-  process Node_4
+  process Node_4 
     guardBlock
       temp bool t_175 = Node_4.state == 3,
       temp bool t_176 = t_175 and Node_4.active;
+
     guardCondition t_176;
     effect
       Node_4.state = 4;
 
-  process Node_4
+  process Node_4 
     guardBlock
       temp bool t_177 = Node_4.state == 3,
       temp bool t_178 = Node_4.active == 0,
       temp bool t_179 = t_177 and t_178;
+
     guardCondition t_179;
     effect
       Node_4.state = 5;
 
-  process Node_4
+  process Node_4 
     guardBlock
       temp bool t_180 = Node_4.state == 6,
       temp bool t_181 = t_180 and Node_4.active;
+
     guardCondition t_181;
     effect
       Node_4.state = 7;
 
-  process Node_4
+  process Node_4 
     guardBlock
       temp bool t_182 = Node_4.state == 6,
       temp bool t_183 = Node_4.active == 0,
       temp bool t_184 = t_182 and t_183;
+
     guardCondition t_184;
     effect
       Node_4.state = 8;
 
-  process Node_4
+  process Node_4 
     guardBlock
       temp bool t_185 = Node_4.state == 7,
       temp bool t_186 = Node_4.neigh > Node_4.number,
@@ -568,217 +619,230 @@ byte channel_ch_4.buf_act = 0;
       temp bool t_188 = t_186 and t_187,
       temp bool t_189 = not t_188,
       temp bool t_190 = t_185 and t_189;
+
     guardCondition t_190;
     effect
       Node_4.state = 1,
       Node_4.active = 0;
 
-  process Node_4
+  process Node_4 
     guardBlock
       temp bool t_191 = Node_4.state == 10,
       temp bool t_192 = Node_4.number == 23,
       temp bool t_193 = t_191 and t_192;
+
     guardCondition t_193;
     effect
       Node_4.state = 9,
-      temp int t_194 = nr_leaders + 1,
+      temp byte t_194 = nr_leaders + 1,
       nr_leaders = t_194;
 
-  process Node_4
+  process Node_4 
     guardBlock
       temp bool t_195 = Node_4.state == 10,
       temp bool t_196 = Node_4.number != 23,
       temp bool t_197 = t_195 and t_196;
+
     guardCondition t_197;
     effect
       Node_4.state = 9;
 
-  process Node_4
+  process Node_4 
     guardBlock
       temp bool t_198 = Node_4.state == 9,
       temp bool t_199 = t_198 and Node_4.know;
+
     guardCondition t_199;
     effect
       Node_4.state = 1;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_200 = LTL_property.state == 0,
       temp bool t_201 = nr_leaders > 0,
       temp bool t_202 = not t_201,
       temp bool t_203 = t_200 and t_202;
+
     guardCondition t_203;
     effect
       LTL_property.state = 0;
 
-  process channel_ch_0_Node_0
+  process channel_ch_3_Node_3 
     guardBlock
-      temp bool t_204 = channel_ch_0.state == 0,
-      temp bool t_205 = channel_ch_0.buf_act == 0,
+      temp bool t_204 = channel_ch_3.state == 0,
+      temp bool t_205 = channel_ch_3.buf_act == 0,
       temp bool t_206 = not t_205,
       temp bool t_207 = t_204 and t_206,
-      temp bool t_208 = Node_0.state == 1,
+      temp bool t_208 = Node_3.state == 1,
       temp bool t_209 = t_207 and t_208;
+
     guardCondition t_209;
     effect
-      channel_ch_0.state = 0,
-      temp byte t_210 = channel_ch_0.buf[1],
-      channel_ch_0.buf[0] = t_210,
-      temp byte t_211 = channel_ch_0.buf[2],
-      channel_ch_0.buf[1] = t_211,
-      temp byte t_212 = channel_ch_0.buf[3],
-      channel_ch_0.buf[2] = t_212,
-      temp byte t_213 = channel_ch_0.buf[4],
-      channel_ch_0.buf[3] = t_213,
-      temp byte t_214 = channel_ch_0.buf[5],
-      channel_ch_0.buf[4] = t_214,
-      temp byte t_215 = channel_ch_0.buf[6],
-      channel_ch_0.buf[5] = t_215,
-      temp byte t_216 = channel_ch_0.buf[7],
-      channel_ch_0.buf[6] = t_216,
-      temp byte t_217 = channel_ch_0.buf[8],
-      channel_ch_0.buf[7] = t_217,
-      temp byte t_218 = channel_ch_0.buf[9],
-      channel_ch_0.buf[8] = t_218,
-      channel_ch_0.buf[9] = 0,
-      temp int t_219 = channel_ch_0.buf_act - 1,
-      channel_ch_0.buf_act = t_219,
-      temp byte t_220 = channel_ch_0.buf[0],
-      Node_0.number = t_220,
-      Node_0.state = 2;
+      channel_ch_3.state = 0,
+      temp byte t_210 = channel_ch_3.buf[1],
+      channel_ch_3.buf[0] = t_210,
+      temp byte t_211 = channel_ch_3.buf[2],
+      channel_ch_3.buf[1] = t_211,
+      temp byte t_212 = channel_ch_3.buf[3],
+      channel_ch_3.buf[2] = t_212,
+      temp byte t_213 = channel_ch_3.buf[4],
+      channel_ch_3.buf[3] = t_213,
+      temp byte t_214 = channel_ch_3.buf[5],
+      channel_ch_3.buf[4] = t_214,
+      temp byte t_215 = channel_ch_3.buf[6],
+      channel_ch_3.buf[5] = t_215,
+      temp byte t_216 = channel_ch_3.buf[7],
+      channel_ch_3.buf[6] = t_216,
+      temp byte t_217 = channel_ch_3.buf[8],
+      channel_ch_3.buf[7] = t_217,
+      temp byte t_218 = channel_ch_3.buf[9],
+      channel_ch_3.buf[8] = t_218,
+      channel_ch_3.buf[9] = 0,
+      temp byte t_219 = channel_ch_3.buf_act - 1,
+      channel_ch_3.buf_act = t_219,
+      temp byte t_220 = channel_ch_3.buf[0],
+      Node_3.number = t_220,
+      Node_3.state = 2;
 
-  process Node_0_channel_ch_1
+  process Node_2_channel_ch_3 
     guardBlock
-      temp bool t_221 = Node_0.state == 0,
-      temp bool t_222 = channel_ch_1.state == 0,
-      temp bool t_223 = channel_ch_1.buf_act == 10,
+      temp bool t_221 = Node_2.state == 0,
+      temp bool t_222 = channel_ch_3.state == 0,
+      temp bool t_223 = channel_ch_3.buf_act == 10,
       temp bool t_224 = not t_223,
       temp bool t_225 = t_222 and t_224,
       temp bool t_226 = t_221 and t_225;
+
     guardCondition t_226;
     effect
-      Node_0.state = 1,
-      channel_ch_1.buf[channel_ch_1.buf_act] = 54,
-      channel_ch_1.state = 0,
-      temp int t_227 = channel_ch_1.buf_act + 1,
-      channel_ch_1.buf_act = t_227;
+      Node_2.state = 1,
+      channel_ch_3.buf[channel_ch_3.buf_act] = 36,
+      channel_ch_3.state = 0,
+      temp byte t_227 = channel_ch_3.buf_act + 1,
+      channel_ch_3.buf_act = t_227;
 
-  process Node_0_channel_ch_1
+  process Node_2_channel_ch_3 
     guardBlock
-      temp bool t_228 = Node_0.state == 5,
-      temp bool t_229 = channel_ch_1.state == 0,
-      temp bool t_230 = channel_ch_1.buf_act == 10,
+      temp bool t_228 = Node_2.state == 5,
+      temp bool t_229 = channel_ch_3.state == 0,
+      temp bool t_230 = channel_ch_3.buf_act == 10,
       temp bool t_231 = not t_230,
       temp bool t_232 = t_229 and t_231,
       temp bool t_233 = t_228 and t_232;
+
     guardCondition t_233;
     effect
-      Node_0.state = 1,
-      temp int t_234 = 30 + Node_0.number,
-      channel_ch_1.buf[channel_ch_1.buf_act] = t_234,
-      channel_ch_1.state = 0,
-      temp int t_235 = channel_ch_1.buf_act + 1,
-      channel_ch_1.buf_act = t_235;
+      Node_2.state = 1,
+      temp byte t_234 = 30 + Node_2.number,
+      channel_ch_3.buf[channel_ch_3.buf_act] = t_234,
+      channel_ch_3.state = 0,
+      temp byte t_235 = channel_ch_3.buf_act + 1,
+      channel_ch_3.buf_act = t_235;
 
-  process Node_0_channel_ch_1
+  process Node_2_channel_ch_3 
     guardBlock
-      temp bool t_236 = Node_0.state == 4,
-      temp bool t_237 = Node_0.number != Node_0.max,
+      temp bool t_236 = Node_2.state == 4,
+      temp bool t_237 = Node_2.number != Node_2.max,
       temp bool t_238 = t_236 and t_237,
-      temp bool t_239 = channel_ch_1.state == 0,
-      temp bool t_240 = channel_ch_1.buf_act == 10,
+      temp bool t_239 = channel_ch_3.state == 0,
+      temp bool t_240 = channel_ch_3.buf_act == 10,
       temp bool t_241 = not t_240,
       temp bool t_242 = t_239 and t_241,
       temp bool t_243 = t_238 and t_242;
+
     guardCondition t_243;
     effect
-      Node_0.state = 1,
-      Node_0.neigh = Node_0.number,
-      temp int t_244 = 60 + Node_0.number,
-      channel_ch_1.buf[channel_ch_1.buf_act] = t_244,
-      channel_ch_1.state = 0,
-      temp int t_245 = channel_ch_1.buf_act + 1,
-      channel_ch_1.buf_act = t_245;
+      Node_2.state = 1,
+      Node_2.neigh = Node_2.number,
+      temp byte t_244 = 60 + Node_2.number,
+      channel_ch_3.buf[channel_ch_3.buf_act] = t_244,
+      channel_ch_3.state = 0,
+      temp byte t_245 = channel_ch_3.buf_act + 1,
+      channel_ch_3.buf_act = t_245;
 
-  process Node_0_channel_ch_1
+  process Node_2_channel_ch_3 
     guardBlock
-      temp bool t_246 = Node_0.state == 4,
-      temp bool t_247 = Node_0.number == Node_0.max,
+      temp bool t_246 = Node_2.state == 4,
+      temp bool t_247 = Node_2.number == Node_2.max,
       temp bool t_248 = t_246 and t_247,
-      temp bool t_249 = channel_ch_1.state == 0,
-      temp bool t_250 = channel_ch_1.buf_act == 10,
+      temp bool t_249 = channel_ch_3.state == 0,
+      temp bool t_250 = channel_ch_3.buf_act == 10,
       temp bool t_251 = not t_250,
       temp bool t_252 = t_249 and t_251,
       temp bool t_253 = t_248 and t_252;
+
     guardCondition t_253;
     effect
-      Node_0.state = 1,
-      Node_0.know = 1,
-      temp int t_254 = 0 + Node_0.number,
-      channel_ch_1.buf[channel_ch_1.buf_act] = t_254,
-      channel_ch_1.state = 0,
-      temp int t_255 = channel_ch_1.buf_act + 1,
-      channel_ch_1.buf_act = t_255;
+      Node_2.state = 1,
+      Node_2.know = 1,
+      temp byte t_254 = 0 + Node_2.number,
+      channel_ch_3.buf[channel_ch_3.buf_act] = t_254,
+      channel_ch_3.state = 0,
+      temp byte t_255 = channel_ch_3.buf_act + 1,
+      channel_ch_3.buf_act = t_255;
 
-  process Node_0_channel_ch_1
+  process Node_2_channel_ch_3 
     guardBlock
-      temp bool t_256 = Node_0.state == 8,
-      temp bool t_257 = channel_ch_1.state == 0,
-      temp bool t_258 = channel_ch_1.buf_act == 10,
+      temp bool t_256 = Node_2.state == 8,
+      temp bool t_257 = channel_ch_3.state == 0,
+      temp bool t_258 = channel_ch_3.buf_act == 10,
       temp bool t_259 = not t_258,
       temp bool t_260 = t_257 and t_259,
       temp bool t_261 = t_256 and t_260;
+
     guardCondition t_261;
     effect
-      Node_0.state = 1,
-      temp int t_262 = 60 + Node_0.number,
-      channel_ch_1.buf[channel_ch_1.buf_act] = t_262,
-      channel_ch_1.state = 0,
-      temp int t_263 = channel_ch_1.buf_act + 1,
-      channel_ch_1.buf_act = t_263;
+      Node_2.state = 1,
+      temp byte t_262 = 60 + Node_2.number,
+      channel_ch_3.buf[channel_ch_3.buf_act] = t_262,
+      channel_ch_3.state = 0,
+      temp byte t_263 = channel_ch_3.buf_act + 1,
+      channel_ch_3.buf_act = t_263;
 
-  process Node_0_channel_ch_1
+  process Node_2_channel_ch_3 
     guardBlock
-      temp bool t_264 = Node_0.state == 7,
-      temp bool t_265 = Node_0.neigh > Node_0.number,
-      temp bool t_266 = Node_0.neigh > Node_0.max,
+      temp bool t_264 = Node_2.state == 7,
+      temp bool t_265 = Node_2.neigh > Node_2.number,
+      temp bool t_266 = Node_2.neigh > Node_2.max,
       temp bool t_267 = t_265 and t_266,
       temp bool t_268 = t_264 and t_267,
-      temp bool t_269 = channel_ch_1.state == 0,
-      temp bool t_270 = channel_ch_1.buf_act == 10,
+      temp bool t_269 = channel_ch_3.state == 0,
+      temp bool t_270 = channel_ch_3.buf_act == 10,
       temp bool t_271 = not t_270,
       temp bool t_272 = t_269 and t_271,
       temp bool t_273 = t_268 and t_272;
+
     guardCondition t_273;
     effect
-      Node_0.state = 1,
-      Node_0.max = Node_0.neigh,
-      temp int t_274 = 30 + Node_0.neigh,
-      channel_ch_1.buf[channel_ch_1.buf_act] = t_274,
-      channel_ch_1.state = 0,
-      temp int t_275 = channel_ch_1.buf_act + 1,
-      channel_ch_1.buf_act = t_275;
+      Node_2.state = 1,
+      Node_2.max = Node_2.neigh,
+      temp byte t_274 = 30 + Node_2.neigh,
+      channel_ch_3.buf[channel_ch_3.buf_act] = t_274,
+      channel_ch_3.state = 0,
+      temp byte t_275 = channel_ch_3.buf_act + 1,
+      channel_ch_3.buf_act = t_275;
 
-  process Node_0_channel_ch_1
+  process Node_2_channel_ch_3 
     guardBlock
-      temp bool t_276 = Node_0.state == 9,
-      temp bool t_277 = Node_0.know == 0,
+      temp bool t_276 = Node_2.state == 9,
+      temp bool t_277 = Node_2.know == 0,
       temp bool t_278 = t_276 and t_277,
-      temp bool t_279 = channel_ch_1.state == 0,
-      temp bool t_280 = channel_ch_1.buf_act == 10,
+      temp bool t_279 = channel_ch_3.state == 0,
+      temp bool t_280 = channel_ch_3.buf_act == 10,
       temp bool t_281 = not t_280,
       temp bool t_282 = t_279 and t_281,
       temp bool t_283 = t_278 and t_282;
+
     guardCondition t_283;
     effect
-      Node_0.state = 1,
-      temp int t_284 = 0 + Node_0.number,
-      channel_ch_1.buf[channel_ch_1.buf_act] = t_284,
-      channel_ch_1.state = 0,
-      temp int t_285 = channel_ch_1.buf_act + 1,
-      channel_ch_1.buf_act = t_285;
+      Node_2.state = 1,
+      temp byte t_284 = 0 + Node_2.number,
+      channel_ch_3.buf[channel_ch_3.buf_act] = t_284,
+      channel_ch_3.state = 0,
+      temp byte t_285 = channel_ch_3.buf_act + 1,
+      channel_ch_3.buf_act = t_285;
 
-  process Node_1_channel_ch_2
+  process Node_1_channel_ch_2 
     guardBlock
       temp bool t_286 = Node_1.state == 0,
       temp bool t_287 = channel_ch_2.state == 0,
@@ -786,15 +850,16 @@ byte channel_ch_4.buf_act = 0;
       temp bool t_289 = not t_288,
       temp bool t_290 = t_287 and t_289,
       temp bool t_291 = t_286 and t_290;
+
     guardCondition t_291;
     effect
       Node_1.state = 1,
       channel_ch_2.buf[channel_ch_2.buf_act] = 44,
       channel_ch_2.state = 0,
-      temp int t_292 = channel_ch_2.buf_act + 1,
+      temp byte t_292 = channel_ch_2.buf_act + 1,
       channel_ch_2.buf_act = t_292;
 
-  process Node_1_channel_ch_2
+  process Node_1_channel_ch_2 
     guardBlock
       temp bool t_293 = Node_1.state == 5,
       temp bool t_294 = channel_ch_2.state == 0,
@@ -802,16 +867,17 @@ byte channel_ch_4.buf_act = 0;
       temp bool t_296 = not t_295,
       temp bool t_297 = t_294 and t_296,
       temp bool t_298 = t_293 and t_297;
+
     guardCondition t_298;
     effect
       Node_1.state = 1,
-      temp int t_299 = 30 + Node_1.number,
+      temp byte t_299 = 30 + Node_1.number,
       channel_ch_2.buf[channel_ch_2.buf_act] = t_299,
       channel_ch_2.state = 0,
-      temp int t_300 = channel_ch_2.buf_act + 1,
+      temp byte t_300 = channel_ch_2.buf_act + 1,
       channel_ch_2.buf_act = t_300;
 
-  process Node_1_channel_ch_2
+  process Node_1_channel_ch_2 
     guardBlock
       temp bool t_301 = Node_1.state == 4,
       temp bool t_302 = Node_1.number != Node_1.max,
@@ -821,17 +887,18 @@ byte channel_ch_4.buf_act = 0;
       temp bool t_306 = not t_305,
       temp bool t_307 = t_304 and t_306,
       temp bool t_308 = t_303 and t_307;
+
     guardCondition t_308;
     effect
       Node_1.state = 1,
       Node_1.neigh = Node_1.number,
-      temp int t_309 = 60 + Node_1.number,
+      temp byte t_309 = 60 + Node_1.number,
       channel_ch_2.buf[channel_ch_2.buf_act] = t_309,
       channel_ch_2.state = 0,
-      temp int t_310 = channel_ch_2.buf_act + 1,
+      temp byte t_310 = channel_ch_2.buf_act + 1,
       channel_ch_2.buf_act = t_310;
 
-  process Node_1_channel_ch_2
+  process Node_1_channel_ch_2 
     guardBlock
       temp bool t_311 = Node_1.state == 4,
       temp bool t_312 = Node_1.number == Node_1.max,
@@ -841,17 +908,18 @@ byte channel_ch_4.buf_act = 0;
       temp bool t_316 = not t_315,
       temp bool t_317 = t_314 and t_316,
       temp bool t_318 = t_313 and t_317;
+
     guardCondition t_318;
     effect
       Node_1.state = 1,
       Node_1.know = 1,
-      temp int t_319 = 0 + Node_1.number,
+      temp byte t_319 = 0 + Node_1.number,
       channel_ch_2.buf[channel_ch_2.buf_act] = t_319,
       channel_ch_2.state = 0,
-      temp int t_320 = channel_ch_2.buf_act + 1,
+      temp byte t_320 = channel_ch_2.buf_act + 1,
       channel_ch_2.buf_act = t_320;
 
-  process Node_1_channel_ch_2
+  process Node_1_channel_ch_2 
     guardBlock
       temp bool t_321 = Node_1.state == 8,
       temp bool t_322 = channel_ch_2.state == 0,
@@ -859,16 +927,17 @@ byte channel_ch_4.buf_act = 0;
       temp bool t_324 = not t_323,
       temp bool t_325 = t_322 and t_324,
       temp bool t_326 = t_321 and t_325;
+
     guardCondition t_326;
     effect
       Node_1.state = 1,
-      temp int t_327 = 60 + Node_1.number,
+      temp byte t_327 = 60 + Node_1.number,
       channel_ch_2.buf[channel_ch_2.buf_act] = t_327,
       channel_ch_2.state = 0,
-      temp int t_328 = channel_ch_2.buf_act + 1,
+      temp byte t_328 = channel_ch_2.buf_act + 1,
       channel_ch_2.buf_act = t_328;
 
-  process Node_1_channel_ch_2
+  process Node_1_channel_ch_2 
     guardBlock
       temp bool t_329 = Node_1.state == 7,
       temp bool t_330 = Node_1.neigh > Node_1.number,
@@ -880,17 +949,18 @@ byte channel_ch_4.buf_act = 0;
       temp bool t_336 = not t_335,
       temp bool t_337 = t_334 and t_336,
       temp bool t_338 = t_333 and t_337;
+
     guardCondition t_338;
     effect
       Node_1.state = 1,
       Node_1.max = Node_1.neigh,
-      temp int t_339 = 30 + Node_1.neigh,
+      temp byte t_339 = 30 + Node_1.neigh,
       channel_ch_2.buf[channel_ch_2.buf_act] = t_339,
       channel_ch_2.state = 0,
-      temp int t_340 = channel_ch_2.buf_act + 1,
+      temp byte t_340 = channel_ch_2.buf_act + 1,
       channel_ch_2.buf_act = t_340;
 
-  process Node_1_channel_ch_2
+  process Node_1_channel_ch_2 
     guardBlock
       temp bool t_341 = Node_1.state == 9,
       temp bool t_342 = Node_1.know == 0,
@@ -900,550 +970,578 @@ byte channel_ch_4.buf_act = 0;
       temp bool t_346 = not t_345,
       temp bool t_347 = t_344 and t_346,
       temp bool t_348 = t_343 and t_347;
+
     guardCondition t_348;
     effect
       Node_1.state = 1,
-      temp int t_349 = 0 + Node_1.number,
+      temp byte t_349 = 0 + Node_1.number,
       channel_ch_2.buf[channel_ch_2.buf_act] = t_349,
       channel_ch_2.state = 0,
-      temp int t_350 = channel_ch_2.buf_act + 1,
+      temp byte t_350 = channel_ch_2.buf_act + 1,
       channel_ch_2.buf_act = t_350;
 
-  process Node_4_channel_ch_0
+  process channel_ch_0_Node_0 
     guardBlock
-      temp bool t_351 = Node_4.state == 0,
-      temp bool t_352 = channel_ch_0.state == 0,
-      temp bool t_353 = channel_ch_0.buf_act == 10,
-      temp bool t_354 = not t_353,
-      temp bool t_355 = t_352 and t_354,
-      temp bool t_356 = t_351 and t_355;
+      temp bool t_351 = channel_ch_0.state == 0,
+      temp bool t_352 = channel_ch_0.buf_act == 0,
+      temp bool t_353 = not t_352,
+      temp bool t_354 = t_351 and t_353,
+      temp bool t_355 = Node_0.state == 1,
+      temp bool t_356 = t_354 and t_355;
+
     guardCondition t_356;
+    effect
+      channel_ch_0.state = 0,
+      temp byte t_357 = channel_ch_0.buf[1],
+      channel_ch_0.buf[0] = t_357,
+      temp byte t_358 = channel_ch_0.buf[2],
+      channel_ch_0.buf[1] = t_358,
+      temp byte t_359 = channel_ch_0.buf[3],
+      channel_ch_0.buf[2] = t_359,
+      temp byte t_360 = channel_ch_0.buf[4],
+      channel_ch_0.buf[3] = t_360,
+      temp byte t_361 = channel_ch_0.buf[5],
+      channel_ch_0.buf[4] = t_361,
+      temp byte t_362 = channel_ch_0.buf[6],
+      channel_ch_0.buf[5] = t_362,
+      temp byte t_363 = channel_ch_0.buf[7],
+      channel_ch_0.buf[6] = t_363,
+      temp byte t_364 = channel_ch_0.buf[8],
+      channel_ch_0.buf[7] = t_364,
+      temp byte t_365 = channel_ch_0.buf[9],
+      channel_ch_0.buf[8] = t_365,
+      channel_ch_0.buf[9] = 0,
+      temp byte t_366 = channel_ch_0.buf_act - 1,
+      channel_ch_0.buf_act = t_366,
+      temp byte t_367 = channel_ch_0.buf[0],
+      Node_0.number = t_367,
+      Node_0.state = 2;
+
+  process Node_0_channel_ch_1 
+    guardBlock
+      temp bool t_368 = Node_0.state == 0,
+      temp bool t_369 = channel_ch_1.state == 0,
+      temp bool t_370 = channel_ch_1.buf_act == 10,
+      temp bool t_371 = not t_370,
+      temp bool t_372 = t_369 and t_371,
+      temp bool t_373 = t_368 and t_372;
+
+    guardCondition t_373;
+    effect
+      Node_0.state = 1,
+      channel_ch_1.buf[channel_ch_1.buf_act] = 54,
+      channel_ch_1.state = 0,
+      temp byte t_374 = channel_ch_1.buf_act + 1,
+      channel_ch_1.buf_act = t_374;
+
+  process Node_0_channel_ch_1 
+    guardBlock
+      temp bool t_375 = Node_0.state == 5,
+      temp bool t_376 = channel_ch_1.state == 0,
+      temp bool t_377 = channel_ch_1.buf_act == 10,
+      temp bool t_378 = not t_377,
+      temp bool t_379 = t_376 and t_378,
+      temp bool t_380 = t_375 and t_379;
+
+    guardCondition t_380;
+    effect
+      Node_0.state = 1,
+      temp byte t_381 = 30 + Node_0.number,
+      channel_ch_1.buf[channel_ch_1.buf_act] = t_381,
+      channel_ch_1.state = 0,
+      temp byte t_382 = channel_ch_1.buf_act + 1,
+      channel_ch_1.buf_act = t_382;
+
+  process Node_0_channel_ch_1 
+    guardBlock
+      temp bool t_383 = Node_0.state == 4,
+      temp bool t_384 = Node_0.number != Node_0.max,
+      temp bool t_385 = t_383 and t_384,
+      temp bool t_386 = channel_ch_1.state == 0,
+      temp bool t_387 = channel_ch_1.buf_act == 10,
+      temp bool t_388 = not t_387,
+      temp bool t_389 = t_386 and t_388,
+      temp bool t_390 = t_385 and t_389;
+
+    guardCondition t_390;
+    effect
+      Node_0.state = 1,
+      Node_0.neigh = Node_0.number,
+      temp byte t_391 = 60 + Node_0.number,
+      channel_ch_1.buf[channel_ch_1.buf_act] = t_391,
+      channel_ch_1.state = 0,
+      temp byte t_392 = channel_ch_1.buf_act + 1,
+      channel_ch_1.buf_act = t_392;
+
+  process Node_0_channel_ch_1 
+    guardBlock
+      temp bool t_393 = Node_0.state == 4,
+      temp bool t_394 = Node_0.number == Node_0.max,
+      temp bool t_395 = t_393 and t_394,
+      temp bool t_396 = channel_ch_1.state == 0,
+      temp bool t_397 = channel_ch_1.buf_act == 10,
+      temp bool t_398 = not t_397,
+      temp bool t_399 = t_396 and t_398,
+      temp bool t_400 = t_395 and t_399;
+
+    guardCondition t_400;
+    effect
+      Node_0.state = 1,
+      Node_0.know = 1,
+      temp byte t_401 = 0 + Node_0.number,
+      channel_ch_1.buf[channel_ch_1.buf_act] = t_401,
+      channel_ch_1.state = 0,
+      temp byte t_402 = channel_ch_1.buf_act + 1,
+      channel_ch_1.buf_act = t_402;
+
+  process Node_0_channel_ch_1 
+    guardBlock
+      temp bool t_403 = Node_0.state == 8,
+      temp bool t_404 = channel_ch_1.state == 0,
+      temp bool t_405 = channel_ch_1.buf_act == 10,
+      temp bool t_406 = not t_405,
+      temp bool t_407 = t_404 and t_406,
+      temp bool t_408 = t_403 and t_407;
+
+    guardCondition t_408;
+    effect
+      Node_0.state = 1,
+      temp byte t_409 = 60 + Node_0.number,
+      channel_ch_1.buf[channel_ch_1.buf_act] = t_409,
+      channel_ch_1.state = 0,
+      temp byte t_410 = channel_ch_1.buf_act + 1,
+      channel_ch_1.buf_act = t_410;
+
+  process Node_0_channel_ch_1 
+    guardBlock
+      temp bool t_411 = Node_0.state == 7,
+      temp bool t_412 = Node_0.neigh > Node_0.number,
+      temp bool t_413 = Node_0.neigh > Node_0.max,
+      temp bool t_414 = t_412 and t_413,
+      temp bool t_415 = t_411 and t_414,
+      temp bool t_416 = channel_ch_1.state == 0,
+      temp bool t_417 = channel_ch_1.buf_act == 10,
+      temp bool t_418 = not t_417,
+      temp bool t_419 = t_416 and t_418,
+      temp bool t_420 = t_415 and t_419;
+
+    guardCondition t_420;
+    effect
+      Node_0.state = 1,
+      Node_0.max = Node_0.neigh,
+      temp byte t_421 = 30 + Node_0.neigh,
+      channel_ch_1.buf[channel_ch_1.buf_act] = t_421,
+      channel_ch_1.state = 0,
+      temp byte t_422 = channel_ch_1.buf_act + 1,
+      channel_ch_1.buf_act = t_422;
+
+  process Node_0_channel_ch_1 
+    guardBlock
+      temp bool t_423 = Node_0.state == 9,
+      temp bool t_424 = Node_0.know == 0,
+      temp bool t_425 = t_423 and t_424,
+      temp bool t_426 = channel_ch_1.state == 0,
+      temp bool t_427 = channel_ch_1.buf_act == 10,
+      temp bool t_428 = not t_427,
+      temp bool t_429 = t_426 and t_428,
+      temp bool t_430 = t_425 and t_429;
+
+    guardCondition t_430;
+    effect
+      Node_0.state = 1,
+      temp byte t_431 = 0 + Node_0.number,
+      channel_ch_1.buf[channel_ch_1.buf_act] = t_431,
+      channel_ch_1.state = 0,
+      temp byte t_432 = channel_ch_1.buf_act + 1,
+      channel_ch_1.buf_act = t_432;
+
+  process Node_4_channel_ch_0 
+    guardBlock
+      temp bool t_433 = Node_4.state == 0,
+      temp bool t_434 = channel_ch_0.state == 0,
+      temp bool t_435 = channel_ch_0.buf_act == 10,
+      temp bool t_436 = not t_435,
+      temp bool t_437 = t_434 and t_436,
+      temp bool t_438 = t_433 and t_437;
+
+    guardCondition t_438;
     effect
       Node_4.state = 1,
       channel_ch_0.buf[channel_ch_0.buf_act] = 53,
       channel_ch_0.state = 0,
-      temp int t_357 = channel_ch_0.buf_act + 1,
-      channel_ch_0.buf_act = t_357;
+      temp byte t_439 = channel_ch_0.buf_act + 1,
+      channel_ch_0.buf_act = t_439;
 
-  process Node_4_channel_ch_0
+  process Node_4_channel_ch_0 
     guardBlock
-      temp bool t_358 = Node_4.state == 5,
-      temp bool t_359 = channel_ch_0.state == 0,
-      temp bool t_360 = channel_ch_0.buf_act == 10,
-      temp bool t_361 = not t_360,
-      temp bool t_362 = t_359 and t_361,
-      temp bool t_363 = t_358 and t_362;
-    guardCondition t_363;
-    effect
-      Node_4.state = 1,
-      temp int t_364 = 30 + Node_4.number,
-      channel_ch_0.buf[channel_ch_0.buf_act] = t_364,
-      channel_ch_0.state = 0,
-      temp int t_365 = channel_ch_0.buf_act + 1,
-      channel_ch_0.buf_act = t_365;
-
-  process Node_4_channel_ch_0
-    guardBlock
-      temp bool t_366 = Node_4.state == 4,
-      temp bool t_367 = Node_4.number != Node_4.max,
-      temp bool t_368 = t_366 and t_367,
-      temp bool t_369 = channel_ch_0.state == 0,
-      temp bool t_370 = channel_ch_0.buf_act == 10,
-      temp bool t_371 = not t_370,
-      temp bool t_372 = t_369 and t_371,
-      temp bool t_373 = t_368 and t_372;
-    guardCondition t_373;
-    effect
-      Node_4.state = 1,
-      Node_4.neigh = Node_4.number,
-      temp int t_374 = 60 + Node_4.number,
-      channel_ch_0.buf[channel_ch_0.buf_act] = t_374,
-      channel_ch_0.state = 0,
-      temp int t_375 = channel_ch_0.buf_act + 1,
-      channel_ch_0.buf_act = t_375;
-
-  process Node_4_channel_ch_0
-    guardBlock
-      temp bool t_376 = Node_4.state == 4,
-      temp bool t_377 = Node_4.number == Node_4.max,
-      temp bool t_378 = t_376 and t_377,
-      temp bool t_379 = channel_ch_0.state == 0,
-      temp bool t_380 = channel_ch_0.buf_act == 10,
-      temp bool t_381 = not t_380,
-      temp bool t_382 = t_379 and t_381,
-      temp bool t_383 = t_378 and t_382;
-    guardCondition t_383;
-    effect
-      Node_4.state = 1,
-      Node_4.know = 1,
-      temp int t_384 = 0 + Node_4.number,
-      channel_ch_0.buf[channel_ch_0.buf_act] = t_384,
-      channel_ch_0.state = 0,
-      temp int t_385 = channel_ch_0.buf_act + 1,
-      channel_ch_0.buf_act = t_385;
-
-  process Node_4_channel_ch_0
-    guardBlock
-      temp bool t_386 = Node_4.state == 8,
-      temp bool t_387 = channel_ch_0.state == 0,
-      temp bool t_388 = channel_ch_0.buf_act == 10,
-      temp bool t_389 = not t_388,
-      temp bool t_390 = t_387 and t_389,
-      temp bool t_391 = t_386 and t_390;
-    guardCondition t_391;
-    effect
-      Node_4.state = 1,
-      temp int t_392 = 60 + Node_4.number,
-      channel_ch_0.buf[channel_ch_0.buf_act] = t_392,
-      channel_ch_0.state = 0,
-      temp int t_393 = channel_ch_0.buf_act + 1,
-      channel_ch_0.buf_act = t_393;
-
-  process Node_4_channel_ch_0
-    guardBlock
-      temp bool t_394 = Node_4.state == 7,
-      temp bool t_395 = Node_4.neigh > Node_4.number,
-      temp bool t_396 = Node_4.neigh > Node_4.max,
-      temp bool t_397 = t_395 and t_396,
-      temp bool t_398 = t_394 and t_397,
-      temp bool t_399 = channel_ch_0.state == 0,
-      temp bool t_400 = channel_ch_0.buf_act == 10,
-      temp bool t_401 = not t_400,
-      temp bool t_402 = t_399 and t_401,
-      temp bool t_403 = t_398 and t_402;
-    guardCondition t_403;
-    effect
-      Node_4.state = 1,
-      Node_4.max = Node_4.neigh,
-      temp int t_404 = 30 + Node_4.neigh,
-      channel_ch_0.buf[channel_ch_0.buf_act] = t_404,
-      channel_ch_0.state = 0,
-      temp int t_405 = channel_ch_0.buf_act + 1,
-      channel_ch_0.buf_act = t_405;
-
-  process Node_4_channel_ch_0
-    guardBlock
-      temp bool t_406 = Node_4.state == 9,
-      temp bool t_407 = Node_4.know == 0,
-      temp bool t_408 = t_406 and t_407,
-      temp bool t_409 = channel_ch_0.state == 0,
-      temp bool t_410 = channel_ch_0.buf_act == 10,
-      temp bool t_411 = not t_410,
-      temp bool t_412 = t_409 and t_411,
-      temp bool t_413 = t_408 and t_412;
-    guardCondition t_413;
-    effect
-      Node_4.state = 1,
-      temp int t_414 = 0 + Node_4.number,
-      channel_ch_0.buf[channel_ch_0.buf_act] = t_414,
-      channel_ch_0.state = 0,
-      temp int t_415 = channel_ch_0.buf_act + 1,
-      channel_ch_0.buf_act = t_415;
-
-  process channel_ch_4_Node_4
-    guardBlock
-      temp bool t_416 = channel_ch_4.state == 0,
-      temp bool t_417 = channel_ch_4.buf_act == 0,
-      temp bool t_418 = not t_417,
-      temp bool t_419 = t_416 and t_418,
-      temp bool t_420 = Node_4.state == 1,
-      temp bool t_421 = t_419 and t_420;
-    guardCondition t_421;
-    effect
-      channel_ch_4.state = 0,
-      temp byte t_422 = channel_ch_4.buf[1],
-      channel_ch_4.buf[0] = t_422,
-      temp byte t_423 = channel_ch_4.buf[2],
-      channel_ch_4.buf[1] = t_423,
-      temp byte t_424 = channel_ch_4.buf[3],
-      channel_ch_4.buf[2] = t_424,
-      temp byte t_425 = channel_ch_4.buf[4],
-      channel_ch_4.buf[3] = t_425,
-      temp byte t_426 = channel_ch_4.buf[5],
-      channel_ch_4.buf[4] = t_426,
-      temp byte t_427 = channel_ch_4.buf[6],
-      channel_ch_4.buf[5] = t_427,
-      temp byte t_428 = channel_ch_4.buf[7],
-      channel_ch_4.buf[6] = t_428,
-      temp byte t_429 = channel_ch_4.buf[8],
-      channel_ch_4.buf[7] = t_429,
-      temp byte t_430 = channel_ch_4.buf[9],
-      channel_ch_4.buf[8] = t_430,
-      channel_ch_4.buf[9] = 0,
-      temp int t_431 = channel_ch_4.buf_act - 1,
-      channel_ch_4.buf_act = t_431,
-      temp byte t_432 = channel_ch_4.buf[0],
-      Node_4.number = t_432,
-      Node_4.state = 2;
-
-  process Node_2_channel_ch_3
-    guardBlock
-      temp bool t_433 = Node_2.state == 0,
-      temp bool t_434 = channel_ch_3.state == 0,
-      temp bool t_435 = channel_ch_3.buf_act == 10,
-      temp bool t_436 = not t_435,
-      temp bool t_437 = t_434 and t_436,
-      temp bool t_438 = t_433 and t_437;
-    guardCondition t_438;
-    effect
-      Node_2.state = 1,
-      channel_ch_3.buf[channel_ch_3.buf_act] = 36,
-      channel_ch_3.state = 0,
-      temp int t_439 = channel_ch_3.buf_act + 1,
-      channel_ch_3.buf_act = t_439;
-
-  process Node_2_channel_ch_3
-    guardBlock
-      temp bool t_440 = Node_2.state == 5,
-      temp bool t_441 = channel_ch_3.state == 0,
-      temp bool t_442 = channel_ch_3.buf_act == 10,
+      temp bool t_440 = Node_4.state == 5,
+      temp bool t_441 = channel_ch_0.state == 0,
+      temp bool t_442 = channel_ch_0.buf_act == 10,
       temp bool t_443 = not t_442,
       temp bool t_444 = t_441 and t_443,
       temp bool t_445 = t_440 and t_444;
+
     guardCondition t_445;
     effect
-      Node_2.state = 1,
-      temp int t_446 = 30 + Node_2.number,
-      channel_ch_3.buf[channel_ch_3.buf_act] = t_446,
-      channel_ch_3.state = 0,
-      temp int t_447 = channel_ch_3.buf_act + 1,
-      channel_ch_3.buf_act = t_447;
+      Node_4.state = 1,
+      temp byte t_446 = 30 + Node_4.number,
+      channel_ch_0.buf[channel_ch_0.buf_act] = t_446,
+      channel_ch_0.state = 0,
+      temp byte t_447 = channel_ch_0.buf_act + 1,
+      channel_ch_0.buf_act = t_447;
 
-  process Node_2_channel_ch_3
+  process Node_4_channel_ch_0 
     guardBlock
-      temp bool t_448 = Node_2.state == 4,
-      temp bool t_449 = Node_2.number != Node_2.max,
+      temp bool t_448 = Node_4.state == 4,
+      temp bool t_449 = Node_4.number != Node_4.max,
       temp bool t_450 = t_448 and t_449,
-      temp bool t_451 = channel_ch_3.state == 0,
-      temp bool t_452 = channel_ch_3.buf_act == 10,
+      temp bool t_451 = channel_ch_0.state == 0,
+      temp bool t_452 = channel_ch_0.buf_act == 10,
       temp bool t_453 = not t_452,
       temp bool t_454 = t_451 and t_453,
       temp bool t_455 = t_450 and t_454;
+
     guardCondition t_455;
     effect
-      Node_2.state = 1,
-      Node_2.neigh = Node_2.number,
-      temp int t_456 = 60 + Node_2.number,
-      channel_ch_3.buf[channel_ch_3.buf_act] = t_456,
-      channel_ch_3.state = 0,
-      temp int t_457 = channel_ch_3.buf_act + 1,
-      channel_ch_3.buf_act = t_457;
+      Node_4.state = 1,
+      Node_4.neigh = Node_4.number,
+      temp byte t_456 = 60 + Node_4.number,
+      channel_ch_0.buf[channel_ch_0.buf_act] = t_456,
+      channel_ch_0.state = 0,
+      temp byte t_457 = channel_ch_0.buf_act + 1,
+      channel_ch_0.buf_act = t_457;
 
-  process Node_2_channel_ch_3
+  process Node_4_channel_ch_0 
     guardBlock
-      temp bool t_458 = Node_2.state == 4,
-      temp bool t_459 = Node_2.number == Node_2.max,
+      temp bool t_458 = Node_4.state == 4,
+      temp bool t_459 = Node_4.number == Node_4.max,
       temp bool t_460 = t_458 and t_459,
-      temp bool t_461 = channel_ch_3.state == 0,
-      temp bool t_462 = channel_ch_3.buf_act == 10,
+      temp bool t_461 = channel_ch_0.state == 0,
+      temp bool t_462 = channel_ch_0.buf_act == 10,
       temp bool t_463 = not t_462,
       temp bool t_464 = t_461 and t_463,
       temp bool t_465 = t_460 and t_464;
+
     guardCondition t_465;
     effect
-      Node_2.state = 1,
-      Node_2.know = 1,
-      temp int t_466 = 0 + Node_2.number,
-      channel_ch_3.buf[channel_ch_3.buf_act] = t_466,
-      channel_ch_3.state = 0,
-      temp int t_467 = channel_ch_3.buf_act + 1,
-      channel_ch_3.buf_act = t_467;
+      Node_4.state = 1,
+      Node_4.know = 1,
+      temp byte t_466 = 0 + Node_4.number,
+      channel_ch_0.buf[channel_ch_0.buf_act] = t_466,
+      channel_ch_0.state = 0,
+      temp byte t_467 = channel_ch_0.buf_act + 1,
+      channel_ch_0.buf_act = t_467;
 
-  process Node_2_channel_ch_3
+  process Node_4_channel_ch_0 
     guardBlock
-      temp bool t_468 = Node_2.state == 8,
-      temp bool t_469 = channel_ch_3.state == 0,
-      temp bool t_470 = channel_ch_3.buf_act == 10,
+      temp bool t_468 = Node_4.state == 8,
+      temp bool t_469 = channel_ch_0.state == 0,
+      temp bool t_470 = channel_ch_0.buf_act == 10,
       temp bool t_471 = not t_470,
       temp bool t_472 = t_469 and t_471,
       temp bool t_473 = t_468 and t_472;
+
     guardCondition t_473;
     effect
-      Node_2.state = 1,
-      temp int t_474 = 60 + Node_2.number,
-      channel_ch_3.buf[channel_ch_3.buf_act] = t_474,
-      channel_ch_3.state = 0,
-      temp int t_475 = channel_ch_3.buf_act + 1,
-      channel_ch_3.buf_act = t_475;
+      Node_4.state = 1,
+      temp byte t_474 = 60 + Node_4.number,
+      channel_ch_0.buf[channel_ch_0.buf_act] = t_474,
+      channel_ch_0.state = 0,
+      temp byte t_475 = channel_ch_0.buf_act + 1,
+      channel_ch_0.buf_act = t_475;
 
-  process Node_2_channel_ch_3
+  process Node_4_channel_ch_0 
     guardBlock
-      temp bool t_476 = Node_2.state == 7,
-      temp bool t_477 = Node_2.neigh > Node_2.number,
-      temp bool t_478 = Node_2.neigh > Node_2.max,
+      temp bool t_476 = Node_4.state == 7,
+      temp bool t_477 = Node_4.neigh > Node_4.number,
+      temp bool t_478 = Node_4.neigh > Node_4.max,
       temp bool t_479 = t_477 and t_478,
       temp bool t_480 = t_476 and t_479,
-      temp bool t_481 = channel_ch_3.state == 0,
-      temp bool t_482 = channel_ch_3.buf_act == 10,
+      temp bool t_481 = channel_ch_0.state == 0,
+      temp bool t_482 = channel_ch_0.buf_act == 10,
       temp bool t_483 = not t_482,
       temp bool t_484 = t_481 and t_483,
       temp bool t_485 = t_480 and t_484;
+
     guardCondition t_485;
     effect
-      Node_2.state = 1,
-      Node_2.max = Node_2.neigh,
-      temp int t_486 = 30 + Node_2.neigh,
-      channel_ch_3.buf[channel_ch_3.buf_act] = t_486,
-      channel_ch_3.state = 0,
-      temp int t_487 = channel_ch_3.buf_act + 1,
-      channel_ch_3.buf_act = t_487;
+      Node_4.state = 1,
+      Node_4.max = Node_4.neigh,
+      temp byte t_486 = 30 + Node_4.neigh,
+      channel_ch_0.buf[channel_ch_0.buf_act] = t_486,
+      channel_ch_0.state = 0,
+      temp byte t_487 = channel_ch_0.buf_act + 1,
+      channel_ch_0.buf_act = t_487;
 
-  process Node_2_channel_ch_3
+  process Node_4_channel_ch_0 
     guardBlock
-      temp bool t_488 = Node_2.state == 9,
-      temp bool t_489 = Node_2.know == 0,
+      temp bool t_488 = Node_4.state == 9,
+      temp bool t_489 = Node_4.know == 0,
       temp bool t_490 = t_488 and t_489,
-      temp bool t_491 = channel_ch_3.state == 0,
-      temp bool t_492 = channel_ch_3.buf_act == 10,
+      temp bool t_491 = channel_ch_0.state == 0,
+      temp bool t_492 = channel_ch_0.buf_act == 10,
       temp bool t_493 = not t_492,
       temp bool t_494 = t_491 and t_493,
       temp bool t_495 = t_490 and t_494;
+
     guardCondition t_495;
     effect
-      Node_2.state = 1,
-      temp int t_496 = 0 + Node_2.number,
-      channel_ch_3.buf[channel_ch_3.buf_act] = t_496,
-      channel_ch_3.state = 0,
-      temp int t_497 = channel_ch_3.buf_act + 1,
-      channel_ch_3.buf_act = t_497;
+      Node_4.state = 1,
+      temp byte t_496 = 0 + Node_4.number,
+      channel_ch_0.buf[channel_ch_0.buf_act] = t_496,
+      channel_ch_0.state = 0,
+      temp byte t_497 = channel_ch_0.buf_act + 1,
+      channel_ch_0.buf_act = t_497;
 
-  process channel_ch_1_Node_1
+  process channel_ch_2_Node_2 
     guardBlock
-      temp bool t_498 = channel_ch_1.state == 0,
-      temp bool t_499 = channel_ch_1.buf_act == 0,
+      temp bool t_498 = channel_ch_2.state == 0,
+      temp bool t_499 = channel_ch_2.buf_act == 0,
       temp bool t_500 = not t_499,
       temp bool t_501 = t_498 and t_500,
-      temp bool t_502 = Node_1.state == 1,
+      temp bool t_502 = Node_2.state == 1,
       temp bool t_503 = t_501 and t_502;
+
     guardCondition t_503;
     effect
-      channel_ch_1.state = 0,
-      temp byte t_504 = channel_ch_1.buf[1],
-      channel_ch_1.buf[0] = t_504,
-      temp byte t_505 = channel_ch_1.buf[2],
-      channel_ch_1.buf[1] = t_505,
-      temp byte t_506 = channel_ch_1.buf[3],
-      channel_ch_1.buf[2] = t_506,
-      temp byte t_507 = channel_ch_1.buf[4],
-      channel_ch_1.buf[3] = t_507,
-      temp byte t_508 = channel_ch_1.buf[5],
-      channel_ch_1.buf[4] = t_508,
-      temp byte t_509 = channel_ch_1.buf[6],
-      channel_ch_1.buf[5] = t_509,
-      temp byte t_510 = channel_ch_1.buf[7],
-      channel_ch_1.buf[6] = t_510,
-      temp byte t_511 = channel_ch_1.buf[8],
-      channel_ch_1.buf[7] = t_511,
-      temp byte t_512 = channel_ch_1.buf[9],
-      channel_ch_1.buf[8] = t_512,
-      channel_ch_1.buf[9] = 0,
-      temp int t_513 = channel_ch_1.buf_act - 1,
-      channel_ch_1.buf_act = t_513,
-      temp byte t_514 = channel_ch_1.buf[0],
-      Node_1.number = t_514,
-      Node_1.state = 2;
+      channel_ch_2.state = 0,
+      temp byte t_504 = channel_ch_2.buf[1],
+      channel_ch_2.buf[0] = t_504,
+      temp byte t_505 = channel_ch_2.buf[2],
+      channel_ch_2.buf[1] = t_505,
+      temp byte t_506 = channel_ch_2.buf[3],
+      channel_ch_2.buf[2] = t_506,
+      temp byte t_507 = channel_ch_2.buf[4],
+      channel_ch_2.buf[3] = t_507,
+      temp byte t_508 = channel_ch_2.buf[5],
+      channel_ch_2.buf[4] = t_508,
+      temp byte t_509 = channel_ch_2.buf[6],
+      channel_ch_2.buf[5] = t_509,
+      temp byte t_510 = channel_ch_2.buf[7],
+      channel_ch_2.buf[6] = t_510,
+      temp byte t_511 = channel_ch_2.buf[8],
+      channel_ch_2.buf[7] = t_511,
+      temp byte t_512 = channel_ch_2.buf[9],
+      channel_ch_2.buf[8] = t_512,
+      channel_ch_2.buf[9] = 0,
+      temp byte t_513 = channel_ch_2.buf_act - 1,
+      channel_ch_2.buf_act = t_513,
+      temp byte t_514 = channel_ch_2.buf[0],
+      Node_2.number = t_514,
+      Node_2.state = 2;
 
-  process Node_3_channel_ch_4
+  process channel_ch_1_Node_1 
     guardBlock
-      temp bool t_515 = Node_3.state == 0,
-      temp bool t_516 = channel_ch_4.state == 0,
-      temp bool t_517 = channel_ch_4.buf_act == 10,
-      temp bool t_518 = not t_517,
-      temp bool t_519 = t_516 and t_518,
-      temp bool t_520 = t_515 and t_519;
+      temp bool t_515 = channel_ch_1.state == 0,
+      temp bool t_516 = channel_ch_1.buf_act == 0,
+      temp bool t_517 = not t_516,
+      temp bool t_518 = t_515 and t_517,
+      temp bool t_519 = Node_1.state == 1,
+      temp bool t_520 = t_518 and t_519;
+
     guardCondition t_520;
     effect
-      Node_3.state = 1,
-      channel_ch_4.buf[channel_ch_4.buf_act] = 30,
-      channel_ch_4.state = 0,
-      temp int t_521 = channel_ch_4.buf_act + 1,
-      channel_ch_4.buf_act = t_521;
+      channel_ch_1.state = 0,
+      temp byte t_521 = channel_ch_1.buf[1],
+      channel_ch_1.buf[0] = t_521,
+      temp byte t_522 = channel_ch_1.buf[2],
+      channel_ch_1.buf[1] = t_522,
+      temp byte t_523 = channel_ch_1.buf[3],
+      channel_ch_1.buf[2] = t_523,
+      temp byte t_524 = channel_ch_1.buf[4],
+      channel_ch_1.buf[3] = t_524,
+      temp byte t_525 = channel_ch_1.buf[5],
+      channel_ch_1.buf[4] = t_525,
+      temp byte t_526 = channel_ch_1.buf[6],
+      channel_ch_1.buf[5] = t_526,
+      temp byte t_527 = channel_ch_1.buf[7],
+      channel_ch_1.buf[6] = t_527,
+      temp byte t_528 = channel_ch_1.buf[8],
+      channel_ch_1.buf[7] = t_528,
+      temp byte t_529 = channel_ch_1.buf[9],
+      channel_ch_1.buf[8] = t_529,
+      channel_ch_1.buf[9] = 0,
+      temp byte t_530 = channel_ch_1.buf_act - 1,
+      channel_ch_1.buf_act = t_530,
+      temp byte t_531 = channel_ch_1.buf[0],
+      Node_1.number = t_531,
+      Node_1.state = 2;
 
-  process Node_3_channel_ch_4
+  process Node_3_channel_ch_4 
     guardBlock
-      temp bool t_522 = Node_3.state == 5,
-      temp bool t_523 = channel_ch_4.state == 0,
-      temp bool t_524 = channel_ch_4.buf_act == 10,
-      temp bool t_525 = not t_524,
-      temp bool t_526 = t_523 and t_525,
-      temp bool t_527 = t_522 and t_526;
-    guardCondition t_527;
-    effect
-      Node_3.state = 1,
-      temp int t_528 = 30 + Node_3.number,
-      channel_ch_4.buf[channel_ch_4.buf_act] = t_528,
-      channel_ch_4.state = 0,
-      temp int t_529 = channel_ch_4.buf_act + 1,
-      channel_ch_4.buf_act = t_529;
-
-  process Node_3_channel_ch_4
-    guardBlock
-      temp bool t_530 = Node_3.state == 4,
-      temp bool t_531 = Node_3.number != Node_3.max,
-      temp bool t_532 = t_530 and t_531,
+      temp bool t_532 = Node_3.state == 0,
       temp bool t_533 = channel_ch_4.state == 0,
       temp bool t_534 = channel_ch_4.buf_act == 10,
       temp bool t_535 = not t_534,
       temp bool t_536 = t_533 and t_535,
       temp bool t_537 = t_532 and t_536;
+
     guardCondition t_537;
     effect
       Node_3.state = 1,
-      Node_3.neigh = Node_3.number,
-      temp int t_538 = 60 + Node_3.number,
-      channel_ch_4.buf[channel_ch_4.buf_act] = t_538,
+      channel_ch_4.buf[channel_ch_4.buf_act] = 30,
       channel_ch_4.state = 0,
-      temp int t_539 = channel_ch_4.buf_act + 1,
-      channel_ch_4.buf_act = t_539;
+      temp byte t_538 = channel_ch_4.buf_act + 1,
+      channel_ch_4.buf_act = t_538;
 
-  process Node_3_channel_ch_4
+  process Node_3_channel_ch_4 
     guardBlock
-      temp bool t_540 = Node_3.state == 4,
-      temp bool t_541 = Node_3.number == Node_3.max,
-      temp bool t_542 = t_540 and t_541,
-      temp bool t_543 = channel_ch_4.state == 0,
-      temp bool t_544 = channel_ch_4.buf_act == 10,
-      temp bool t_545 = not t_544,
-      temp bool t_546 = t_543 and t_545,
-      temp bool t_547 = t_542 and t_546;
-    guardCondition t_547;
+      temp bool t_539 = Node_3.state == 5,
+      temp bool t_540 = channel_ch_4.state == 0,
+      temp bool t_541 = channel_ch_4.buf_act == 10,
+      temp bool t_542 = not t_541,
+      temp bool t_543 = t_540 and t_542,
+      temp bool t_544 = t_539 and t_543;
+
+    guardCondition t_544;
+    effect
+      Node_3.state = 1,
+      temp byte t_545 = 30 + Node_3.number,
+      channel_ch_4.buf[channel_ch_4.buf_act] = t_545,
+      channel_ch_4.state = 0,
+      temp byte t_546 = channel_ch_4.buf_act + 1,
+      channel_ch_4.buf_act = t_546;
+
+  process Node_3_channel_ch_4 
+    guardBlock
+      temp bool t_547 = Node_3.state == 4,
+      temp bool t_548 = Node_3.number != Node_3.max,
+      temp bool t_549 = t_547 and t_548,
+      temp bool t_550 = channel_ch_4.state == 0,
+      temp bool t_551 = channel_ch_4.buf_act == 10,
+      temp bool t_552 = not t_551,
+      temp bool t_553 = t_550 and t_552,
+      temp bool t_554 = t_549 and t_553;
+
+    guardCondition t_554;
+    effect
+      Node_3.state = 1,
+      Node_3.neigh = Node_3.number,
+      temp byte t_555 = 60 + Node_3.number,
+      channel_ch_4.buf[channel_ch_4.buf_act] = t_555,
+      channel_ch_4.state = 0,
+      temp byte t_556 = channel_ch_4.buf_act + 1,
+      channel_ch_4.buf_act = t_556;
+
+  process Node_3_channel_ch_4 
+    guardBlock
+      temp bool t_557 = Node_3.state == 4,
+      temp bool t_558 = Node_3.number == Node_3.max,
+      temp bool t_559 = t_557 and t_558,
+      temp bool t_560 = channel_ch_4.state == 0,
+      temp bool t_561 = channel_ch_4.buf_act == 10,
+      temp bool t_562 = not t_561,
+      temp bool t_563 = t_560 and t_562,
+      temp bool t_564 = t_559 and t_563;
+
+    guardCondition t_564;
     effect
       Node_3.state = 1,
       Node_3.know = 1,
-      temp int t_548 = 0 + Node_3.number,
-      channel_ch_4.buf[channel_ch_4.buf_act] = t_548,
+      temp byte t_565 = 0 + Node_3.number,
+      channel_ch_4.buf[channel_ch_4.buf_act] = t_565,
       channel_ch_4.state = 0,
-      temp int t_549 = channel_ch_4.buf_act + 1,
-      channel_ch_4.buf_act = t_549;
+      temp byte t_566 = channel_ch_4.buf_act + 1,
+      channel_ch_4.buf_act = t_566;
 
-  process Node_3_channel_ch_4
+  process Node_3_channel_ch_4 
     guardBlock
-      temp bool t_550 = Node_3.state == 8,
-      temp bool t_551 = channel_ch_4.state == 0,
-      temp bool t_552 = channel_ch_4.buf_act == 10,
-      temp bool t_553 = not t_552,
-      temp bool t_554 = t_551 and t_553,
-      temp bool t_555 = t_550 and t_554;
-    guardCondition t_555;
+      temp bool t_567 = Node_3.state == 8,
+      temp bool t_568 = channel_ch_4.state == 0,
+      temp bool t_569 = channel_ch_4.buf_act == 10,
+      temp bool t_570 = not t_569,
+      temp bool t_571 = t_568 and t_570,
+      temp bool t_572 = t_567 and t_571;
+
+    guardCondition t_572;
     effect
       Node_3.state = 1,
-      temp int t_556 = 60 + Node_3.number,
-      channel_ch_4.buf[channel_ch_4.buf_act] = t_556,
+      temp byte t_573 = 60 + Node_3.number,
+      channel_ch_4.buf[channel_ch_4.buf_act] = t_573,
       channel_ch_4.state = 0,
-      temp int t_557 = channel_ch_4.buf_act + 1,
-      channel_ch_4.buf_act = t_557;
+      temp byte t_574 = channel_ch_4.buf_act + 1,
+      channel_ch_4.buf_act = t_574;
 
-  process Node_3_channel_ch_4
+  process Node_3_channel_ch_4 
     guardBlock
-      temp bool t_558 = Node_3.state == 7,
-      temp bool t_559 = Node_3.neigh > Node_3.number,
-      temp bool t_560 = Node_3.neigh > Node_3.max,
-      temp bool t_561 = t_559 and t_560,
-      temp bool t_562 = t_558 and t_561,
-      temp bool t_563 = channel_ch_4.state == 0,
-      temp bool t_564 = channel_ch_4.buf_act == 10,
-      temp bool t_565 = not t_564,
-      temp bool t_566 = t_563 and t_565,
-      temp bool t_567 = t_562 and t_566;
-    guardCondition t_567;
+      temp bool t_575 = Node_3.state == 7,
+      temp bool t_576 = Node_3.neigh > Node_3.number,
+      temp bool t_577 = Node_3.neigh > Node_3.max,
+      temp bool t_578 = t_576 and t_577,
+      temp bool t_579 = t_575 and t_578,
+      temp bool t_580 = channel_ch_4.state == 0,
+      temp bool t_581 = channel_ch_4.buf_act == 10,
+      temp bool t_582 = not t_581,
+      temp bool t_583 = t_580 and t_582,
+      temp bool t_584 = t_579 and t_583;
+
+    guardCondition t_584;
     effect
       Node_3.state = 1,
       Node_3.max = Node_3.neigh,
-      temp int t_568 = 30 + Node_3.neigh,
-      channel_ch_4.buf[channel_ch_4.buf_act] = t_568,
+      temp byte t_585 = 30 + Node_3.neigh,
+      channel_ch_4.buf[channel_ch_4.buf_act] = t_585,
       channel_ch_4.state = 0,
-      temp int t_569 = channel_ch_4.buf_act + 1,
-      channel_ch_4.buf_act = t_569;
+      temp byte t_586 = channel_ch_4.buf_act + 1,
+      channel_ch_4.buf_act = t_586;
 
-  process Node_3_channel_ch_4
+  process Node_3_channel_ch_4 
     guardBlock
-      temp bool t_570 = Node_3.state == 9,
-      temp bool t_571 = Node_3.know == 0,
-      temp bool t_572 = t_570 and t_571,
-      temp bool t_573 = channel_ch_4.state == 0,
-      temp bool t_574 = channel_ch_4.buf_act == 10,
-      temp bool t_575 = not t_574,
-      temp bool t_576 = t_573 and t_575,
-      temp bool t_577 = t_572 and t_576;
-    guardCondition t_577;
+      temp bool t_587 = Node_3.state == 9,
+      temp bool t_588 = Node_3.know == 0,
+      temp bool t_589 = t_587 and t_588,
+      temp bool t_590 = channel_ch_4.state == 0,
+      temp bool t_591 = channel_ch_4.buf_act == 10,
+      temp bool t_592 = not t_591,
+      temp bool t_593 = t_590 and t_592,
+      temp bool t_594 = t_589 and t_593;
+
+    guardCondition t_594;
     effect
       Node_3.state = 1,
-      temp int t_578 = 0 + Node_3.number,
-      channel_ch_4.buf[channel_ch_4.buf_act] = t_578,
+      temp byte t_595 = 0 + Node_3.number,
+      channel_ch_4.buf[channel_ch_4.buf_act] = t_595,
       channel_ch_4.state = 0,
-      temp int t_579 = channel_ch_4.buf_act + 1,
-      channel_ch_4.buf_act = t_579;
+      temp byte t_596 = channel_ch_4.buf_act + 1,
+      channel_ch_4.buf_act = t_596;
 
-  process channel_ch_3_Node_3
+  process channel_ch_4_Node_4 
     guardBlock
-      temp bool t_580 = channel_ch_3.state == 0,
-      temp bool t_581 = channel_ch_3.buf_act == 0,
-      temp bool t_582 = not t_581,
-      temp bool t_583 = t_580 and t_582,
-      temp bool t_584 = Node_3.state == 1,
-      temp bool t_585 = t_583 and t_584;
-    guardCondition t_585;
-    effect
-      channel_ch_3.state = 0,
-      temp byte t_586 = channel_ch_3.buf[1],
-      channel_ch_3.buf[0] = t_586,
-      temp byte t_587 = channel_ch_3.buf[2],
-      channel_ch_3.buf[1] = t_587,
-      temp byte t_588 = channel_ch_3.buf[3],
-      channel_ch_3.buf[2] = t_588,
-      temp byte t_589 = channel_ch_3.buf[4],
-      channel_ch_3.buf[3] = t_589,
-      temp byte t_590 = channel_ch_3.buf[5],
-      channel_ch_3.buf[4] = t_590,
-      temp byte t_591 = channel_ch_3.buf[6],
-      channel_ch_3.buf[5] = t_591,
-      temp byte t_592 = channel_ch_3.buf[7],
-      channel_ch_3.buf[6] = t_592,
-      temp byte t_593 = channel_ch_3.buf[8],
-      channel_ch_3.buf[7] = t_593,
-      temp byte t_594 = channel_ch_3.buf[9],
-      channel_ch_3.buf[8] = t_594,
-      channel_ch_3.buf[9] = 0,
-      temp int t_595 = channel_ch_3.buf_act - 1,
-      channel_ch_3.buf_act = t_595,
-      temp byte t_596 = channel_ch_3.buf[0],
-      Node_3.number = t_596,
-      Node_3.state = 2;
-
-  process channel_ch_2_Node_2
-    guardBlock
-      temp bool t_597 = channel_ch_2.state == 0,
-      temp bool t_598 = channel_ch_2.buf_act == 0,
+      temp bool t_597 = channel_ch_4.state == 0,
+      temp bool t_598 = channel_ch_4.buf_act == 0,
       temp bool t_599 = not t_598,
       temp bool t_600 = t_597 and t_599,
-      temp bool t_601 = Node_2.state == 1,
+      temp bool t_601 = Node_4.state == 1,
       temp bool t_602 = t_600 and t_601;
+
     guardCondition t_602;
     effect
-      channel_ch_2.state = 0,
-      temp byte t_603 = channel_ch_2.buf[1],
-      channel_ch_2.buf[0] = t_603,
-      temp byte t_604 = channel_ch_2.buf[2],
-      channel_ch_2.buf[1] = t_604,
-      temp byte t_605 = channel_ch_2.buf[3],
-      channel_ch_2.buf[2] = t_605,
-      temp byte t_606 = channel_ch_2.buf[4],
-      channel_ch_2.buf[3] = t_606,
-      temp byte t_607 = channel_ch_2.buf[5],
-      channel_ch_2.buf[4] = t_607,
-      temp byte t_608 = channel_ch_2.buf[6],
-      channel_ch_2.buf[5] = t_608,
-      temp byte t_609 = channel_ch_2.buf[7],
-      channel_ch_2.buf[6] = t_609,
-      temp byte t_610 = channel_ch_2.buf[8],
-      channel_ch_2.buf[7] = t_610,
-      temp byte t_611 = channel_ch_2.buf[9],
-      channel_ch_2.buf[8] = t_611,
-      channel_ch_2.buf[9] = 0,
-      temp int t_612 = channel_ch_2.buf_act - 1,
-      channel_ch_2.buf_act = t_612,
-      temp byte t_613 = channel_ch_2.buf[0],
-      Node_2.number = t_613,
-      Node_2.state = 2;
-      // accepting conditions
-      // LTL_property.state == 0
+      channel_ch_4.state = 0,
+      temp byte t_603 = channel_ch_4.buf[1],
+      channel_ch_4.buf[0] = t_603,
+      temp byte t_604 = channel_ch_4.buf[2],
+      channel_ch_4.buf[1] = t_604,
+      temp byte t_605 = channel_ch_4.buf[3],
+      channel_ch_4.buf[2] = t_605,
+      temp byte t_606 = channel_ch_4.buf[4],
+      channel_ch_4.buf[3] = t_606,
+      temp byte t_607 = channel_ch_4.buf[5],
+      channel_ch_4.buf[4] = t_607,
+      temp byte t_608 = channel_ch_4.buf[6],
+      channel_ch_4.buf[5] = t_608,
+      temp byte t_609 = channel_ch_4.buf[7],
+      channel_ch_4.buf[6] = t_609,
+      temp byte t_610 = channel_ch_4.buf[8],
+      channel_ch_4.buf[7] = t_610,
+      temp byte t_611 = channel_ch_4.buf[9],
+      channel_ch_4.buf[8] = t_611,
+      channel_ch_4.buf[9] = 0,
+      temp byte t_612 = channel_ch_4.buf_act - 1,
+      channel_ch_4.buf_act = t_612,
+      temp byte t_613 = channel_ch_4.buf[0],
+      Node_4.number = t_613,
+      Node_4.state = 2;
+
+accepting conditions
+  LTL_property.state == 0
+

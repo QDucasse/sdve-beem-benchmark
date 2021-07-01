@@ -10,7 +10,6 @@ int responder_0.party_nonce = 0;
 int responder_1.m = 0;
 int responder_1.party = 0;
 int responder_1.party_nonce = 0;
-int intruder.m = 0;
 state {start(0), wait_resp(1), got_resp(2), commited(3), finished(4), corrupted(5)} initiator_0.state = 0;
 state {start(0), wait_resp(1), got_resp(2), commited(3), finished(4), corrupted(5)} initiator_1.state = 0;
 state {start(0), wait_resp(1), got_resp(2), commited(3), finished(4), corrupted(5)} initiator_2.state = 0;
@@ -23,7 +22,7 @@ byte intruder.k_Na_Nb__A = 0;
 byte intruder.k_Na_A__B = 0;
 byte intruder.k_Nb__B = 0;
 
-  process initiator_0
+  process initiator_0 
     guardBlock
       temp bool t_0 = initiator_0.state == 2,
       temp int t_1 = initiator_0.m % 15,
@@ -32,6 +31,7 @@ byte intruder.k_Nb__B = 0;
       temp bool t_4 = t_3 == 7,
       temp bool t_5 = t_2 and t_4,
       temp bool t_6 = t_0 and t_5;
+
     guardCondition t_6;
     effect
       initiator_0.state = 3,
@@ -39,7 +39,7 @@ byte intruder.k_Nb__B = 0;
       temp int t_8 = t_7 / 15,
       initiator_0.party_nonce = t_8;
 
-  process initiator_0
+  process initiator_0 
     guardBlock
       temp bool t_9 = initiator_0.state == 2,
       temp int t_10 = initiator_0.m % 15,
@@ -49,11 +49,12 @@ byte intruder.k_Nb__B = 0;
       temp bool t_14 = t_11 and t_13,
       temp bool t_15 = not t_14,
       temp bool t_16 = t_9 and t_15;
+
     guardCondition t_16;
     effect
       initiator_0.state = 5;
 
-  process initiator_1
+  process initiator_1 
     guardBlock
       temp bool t_17 = initiator_1.state == 2,
       temp int t_18 = initiator_1.m % 15,
@@ -62,6 +63,7 @@ byte intruder.k_Nb__B = 0;
       temp bool t_21 = t_20 == 8,
       temp bool t_22 = t_19 and t_21,
       temp bool t_23 = t_17 and t_22;
+
     guardCondition t_23;
     effect
       initiator_1.state = 3,
@@ -69,7 +71,7 @@ byte intruder.k_Nb__B = 0;
       temp int t_25 = t_24 / 15,
       initiator_1.party_nonce = t_25;
 
-  process initiator_1
+  process initiator_1 
     guardBlock
       temp bool t_26 = initiator_1.state == 2,
       temp int t_27 = initiator_1.m % 15,
@@ -79,11 +81,12 @@ byte intruder.k_Nb__B = 0;
       temp bool t_31 = t_28 and t_30,
       temp bool t_32 = not t_31,
       temp bool t_33 = t_26 and t_32;
+
     guardCondition t_33;
     effect
       initiator_1.state = 5;
 
-  process initiator_2
+  process initiator_2 
     guardBlock
       temp bool t_34 = initiator_2.state == 2,
       temp int t_35 = initiator_2.m % 15,
@@ -92,6 +95,7 @@ byte intruder.k_Nb__B = 0;
       temp bool t_38 = t_37 == 9,
       temp bool t_39 = t_36 and t_38,
       temp bool t_40 = t_34 and t_39;
+
     guardCondition t_40;
     effect
       initiator_2.state = 3,
@@ -99,7 +103,7 @@ byte intruder.k_Nb__B = 0;
       temp int t_42 = t_41 / 15,
       initiator_2.party_nonce = t_42;
 
-  process initiator_2
+  process initiator_2 
     guardBlock
       temp bool t_43 = initiator_2.state == 2,
       temp int t_44 = initiator_2.m % 15,
@@ -109,16 +113,18 @@ byte intruder.k_Nb__B = 0;
       temp bool t_48 = t_45 and t_47,
       temp bool t_49 = not t_48,
       temp bool t_50 = t_43 and t_49;
+
     guardCondition t_50;
     effect
       initiator_2.state = 5;
 
-  process responder_0
+  process responder_0 
     guardBlock
       temp bool t_51 = responder_0.state == 1,
       temp int t_52 = responder_0.m / 225,
       temp bool t_53 = t_52 == 10,
       temp bool t_54 = t_51 and t_53;
+
     guardCondition t_54;
     effect
       responder_0.state = 2,
@@ -128,18 +134,19 @@ byte intruder.k_Nb__B = 0;
       temp int t_57 = responder_0.m % 15,
       responder_0.party_nonce = t_57;
 
-  process responder_0
+  process responder_0 
     guardBlock
       temp bool t_58 = responder_0.state == 1,
       temp int t_59 = responder_0.m / 225,
       temp bool t_60 = t_59 == 10,
       temp bool t_61 = not t_60,
       temp bool t_62 = t_58 and t_61;
+
     guardCondition t_62;
     effect
       responder_0.state = 6;
 
-  process responder_0
+  process responder_0 
     guardBlock
       temp bool t_63 = responder_0.state == 4,
       temp int t_64 = responder_0.m % 15,
@@ -150,11 +157,12 @@ byte intruder.k_Nb__B = 0;
       temp bool t_69 = t_65 and t_68,
       temp bool t_70 = not t_69,
       temp bool t_71 = t_63 and t_70;
+
     guardCondition t_71;
     effect
       responder_0.state = 6;
 
-  process responder_0
+  process responder_0 
     guardBlock
       temp bool t_72 = responder_0.state == 4,
       temp int t_73 = responder_0.m % 15,
@@ -164,16 +172,18 @@ byte intruder.k_Nb__B = 0;
       temp bool t_77 = t_76 == 10,
       temp bool t_78 = t_74 and t_77,
       temp bool t_79 = t_72 and t_78;
+
     guardCondition t_79;
     effect
       responder_0.state = 5;
 
-  process responder_1
+  process responder_1 
     guardBlock
       temp bool t_80 = responder_1.state == 1,
       temp int t_81 = responder_1.m / 225,
       temp bool t_82 = t_81 == 11,
       temp bool t_83 = t_80 and t_82;
+
     guardCondition t_83;
     effect
       responder_1.state = 2,
@@ -183,18 +193,19 @@ byte intruder.k_Nb__B = 0;
       temp int t_86 = responder_1.m % 15,
       responder_1.party_nonce = t_86;
 
-  process responder_1
+  process responder_1 
     guardBlock
       temp bool t_87 = responder_1.state == 1,
       temp int t_88 = responder_1.m / 225,
       temp bool t_89 = t_88 == 11,
       temp bool t_90 = not t_89,
       temp bool t_91 = t_87 and t_90;
+
     guardCondition t_91;
     effect
       responder_1.state = 6;
 
-  process responder_1
+  process responder_1 
     guardBlock
       temp bool t_92 = responder_1.state == 4,
       temp int t_93 = responder_1.m % 15,
@@ -205,11 +216,12 @@ byte intruder.k_Nb__B = 0;
       temp bool t_98 = t_94 and t_97,
       temp bool t_99 = not t_98,
       temp bool t_100 = t_92 and t_99;
+
     guardCondition t_100;
     effect
       responder_1.state = 6;
 
-  process responder_1
+  process responder_1 
     guardBlock
       temp bool t_101 = responder_1.state == 4,
       temp int t_102 = responder_1.m % 15,
@@ -219,60 +231,66 @@ byte intruder.k_Nb__B = 0;
       temp bool t_106 = t_105 == 11,
       temp bool t_107 = t_103 and t_106,
       temp bool t_108 = t_101 and t_107;
+
     guardCondition t_108;
     effect
       responder_1.state = 5;
 
-  process intruder
+  process intruder 
     guardBlock
       temp bool t_109 = intruder.state == 1;
+
     guardCondition t_109;
     effect
       intruder.state = 0;
 
-  process intruder
+  process intruder 
     guardBlock
       temp bool t_110 = intruder.state == 1,
       temp int t_111 = intruder.m / 225,
       temp bool t_112 = t_111 == 3,
       temp bool t_113 = t_110 and t_112;
+
     guardCondition t_113;
     effect
       intruder.state = 2;
 
-  process intruder
+  process intruder 
     guardBlock
       temp bool t_114 = intruder.state == 1,
       temp int t_115 = intruder.m / 225,
       temp bool t_116 = t_115 != 3,
       temp bool t_117 = t_114 and t_116;
+
     guardCondition t_117;
     effect
       intruder.state = 4;
 
-  process intruder
+  process intruder 
     guardBlock
       temp bool t_118 = intruder.state == 2,
       temp int t_119 = intruder.m % 15,
       temp bool t_120 = t_119 == 1,
       temp bool t_121 = t_118 and t_120;
+
     guardCondition t_121;
     effect
       intruder.state = 3,
       intruder.kNa = 1;
 
-  process intruder
+  process intruder 
     guardBlock
       temp bool t_122 = intruder.state == 2,
       temp int t_123 = intruder.m % 15,
       temp bool t_124 = t_123 == 4,
       temp bool t_125 = t_122 and t_124;
+
     guardCondition t_125;
     effect
       intruder.state = 3,
       intruder.kNb = 1;
 
-  process intruder
+  process intruder 
     guardBlock
       temp bool t_126 = intruder.state == 2,
       temp int t_127 = intruder.m % 15,
@@ -281,11 +299,12 @@ byte intruder.k_Nb__B = 0;
       temp bool t_130 = t_129 != 4,
       temp bool t_131 = t_128 and t_130,
       temp bool t_132 = t_126 and t_131;
+
     guardCondition t_132;
     effect
       intruder.state = 3;
 
-  process intruder
+  process intruder 
     guardBlock
       temp bool t_133 = intruder.state == 3,
       temp int t_134 = intruder.m % 15,
@@ -295,12 +314,13 @@ byte intruder.k_Nb__B = 0;
       temp bool t_138 = t_137 == 10,
       temp bool t_139 = t_135 and t_138,
       temp bool t_140 = t_133 and t_139;
+
     guardCondition t_140;
     effect
       intruder.state = 0,
       intruder.k_Nb__B = 1;
 
-  process intruder
+  process intruder 
     guardBlock
       temp bool t_141 = intruder.state == 3,
       temp int t_142 = intruder.m % 15,
@@ -311,11 +331,12 @@ byte intruder.k_Nb__B = 0;
       temp bool t_147 = t_143 and t_146,
       temp bool t_148 = not t_147,
       temp bool t_149 = t_141 and t_148;
+
     guardCondition t_149;
     effect
       intruder.state = 0;
 
-  process intruder
+  process intruder 
     guardBlock
       temp bool t_150 = intruder.state == 4,
       temp int t_151 = intruder.m % 15,
@@ -328,12 +349,13 @@ byte intruder.k_Nb__B = 0;
       temp bool t_158 = t_157 == 10,
       temp bool t_159 = t_156 and t_158,
       temp bool t_160 = t_150 and t_159;
+
     guardCondition t_160;
     effect
       intruder.state = 0,
       intruder.k_Na_A__B = 1;
 
-  process intruder
+  process intruder 
     guardBlock
       temp bool t_161 = intruder.state == 4,
       temp int t_162 = intruder.m % 15,
@@ -346,63 +368,69 @@ byte intruder.k_Nb__B = 0;
       temp bool t_169 = t_168 == 7,
       temp bool t_170 = t_167 and t_169,
       temp bool t_171 = t_161 and t_170;
+
     guardCondition t_171;
     effect
       intruder.state = 0,
       intruder.k_Na_Nb__A = 1;
 
-  process intruder
+  process intruder 
     guardBlock
       temp bool t_172 = intruder.state == 4;
+
     guardCondition t_172;
     effect
       intruder.state = 0;
 
-  process intruder
+  process intruder 
     guardBlock
       temp bool t_173 = intruder.state == 5,
       temp int t_174 = intruder.m % 225,
       temp int t_175 = t_174 / 15,
       temp bool t_176 = t_175 == 3,
       temp bool t_177 = t_173 and t_176;
+
     guardCondition t_177;
     effect
       intruder.state = 6;
 
-  process intruder
+  process intruder 
     guardBlock
       temp bool t_178 = intruder.state == 5,
       temp int t_179 = intruder.m % 225,
       temp int t_180 = t_179 / 15,
       temp bool t_181 = t_180 != 3,
       temp bool t_182 = t_178 and t_181;
+
     guardCondition t_182;
     effect
       intruder.state = 7;
 
-  process intruder
+  process intruder 
     guardBlock
       temp bool t_183 = intruder.state == 6,
       temp int t_184 = intruder.m % 15,
       temp bool t_185 = t_184 == 1,
       temp bool t_186 = t_183 and t_185;
+
     guardCondition t_186;
     effect
       intruder.state = 0,
       intruder.kNa = 1;
 
-  process intruder
+  process intruder 
     guardBlock
       temp bool t_187 = intruder.state == 6,
       temp int t_188 = intruder.m % 15,
       temp bool t_189 = t_188 == 4,
       temp bool t_190 = t_187 and t_189;
+
     guardCondition t_190;
     effect
       intruder.state = 0,
       intruder.kNb = 1;
 
-  process intruder
+  process intruder 
     guardBlock
       temp bool t_191 = intruder.state == 6,
       temp int t_192 = intruder.m % 15,
@@ -411,11 +439,12 @@ byte intruder.k_Nb__B = 0;
       temp bool t_195 = t_194 != 4,
       temp bool t_196 = t_193 and t_195,
       temp bool t_197 = t_191 and t_196;
+
     guardCondition t_197;
     effect
       intruder.state = 0;
 
-  process intruder
+  process intruder 
     guardBlock
       temp bool t_198 = intruder.state == 7,
       temp int t_199 = intruder.m % 15,
@@ -425,12 +454,13 @@ byte intruder.k_Nb__B = 0;
       temp bool t_203 = t_202 == 10,
       temp bool t_204 = t_200 and t_203,
       temp bool t_205 = t_198 and t_204;
+
     guardCondition t_205;
     effect
       intruder.state = 0,
       intruder.k_Nb__B = 1;
 
-  process intruder
+  process intruder 
     guardBlock
       temp bool t_206 = intruder.state == 7,
       temp int t_207 = intruder.m % 15,
@@ -441,1001 +471,1083 @@ byte intruder.k_Nb__B = 0;
       temp bool t_212 = t_208 and t_211,
       temp bool t_213 = not t_212,
       temp bool t_214 = t_206 and t_213;
+
     guardCondition t_214;
     effect
       intruder.state = 0;
 
-  process responder_0_initiator_0
+  process initiator_0_responder_0 
     guardBlock
-      temp bool t_215 = responder_0.state == 2,
-      temp bool t_216 = initiator_0.state == 1,
+      temp bool t_215 = initiator_0.state == 3,
+      temp bool t_216 = responder_0.state == 3,
       temp bool t_217 = t_215 and t_216;
+
     guardCondition t_217;
     effect
-      responder_0.state = 3,
-      temp int t_218 = responder_0.party_nonce + 60,
-      temp int t_219 = responder_0.party * 15,
-      temp int t_220 = t_219 * 15,
-      temp int t_221 = t_218 + t_220,
-      initiator_0.m = t_221,
-      initiator_0.state = 2;
+      initiator_0.state = 4,
+      temp int t_218 = initiator_0.party_nonce + 150,
+      temp int t_219 = t_218 + 0,
+      responder_0.m = t_219,
+      responder_0.state = 4;
 
-  process responder_0_initiator_1
+  process initiator_0_responder_1 
     guardBlock
-      temp bool t_222 = responder_0.state == 2,
-      temp bool t_223 = initiator_1.state == 1,
-      temp bool t_224 = t_222 and t_223;
-    guardCondition t_224;
+      temp bool t_220 = initiator_0.state == 3,
+      temp bool t_221 = responder_1.state == 3,
+      temp bool t_222 = t_220 and t_221;
+
+    guardCondition t_222;
     effect
-      responder_0.state = 3,
-      temp int t_225 = responder_0.party_nonce + 60,
-      temp int t_226 = responder_0.party * 15,
-      temp int t_227 = t_226 * 15,
-      temp int t_228 = t_225 + t_227,
-      initiator_1.m = t_228,
-      initiator_1.state = 2;
+      initiator_0.state = 4,
+      temp int t_223 = initiator_0.party_nonce + 150,
+      temp int t_224 = t_223 + 0,
+      responder_1.m = t_224,
+      responder_1.state = 4;
 
-  process responder_0_initiator_2
+  process initiator_0_intruder 
     guardBlock
-      temp bool t_229 = responder_0.state == 2,
-      temp bool t_230 = initiator_2.state == 1,
-      temp bool t_231 = t_229 and t_230;
-    guardCondition t_231;
+      temp bool t_225 = initiator_0.state == 3,
+      temp bool t_226 = intruder.state == 0,
+      temp bool t_227 = t_225 and t_226;
+
+    guardCondition t_227;
     effect
-      responder_0.state = 3,
-      temp int t_232 = responder_0.party_nonce + 60,
-      temp int t_233 = responder_0.party * 15,
-      temp int t_234 = t_233 * 15,
-      temp int t_235 = t_232 + t_234,
-      initiator_2.m = t_235,
-      initiator_2.state = 2;
+      initiator_0.state = 4,
+      temp int t_228 = initiator_0.party_nonce + 150,
+      temp int t_229 = t_228 + 0,
+      intruder.m = t_229,
+      intruder.state = 5;
 
-  process responder_0_intruder
+  process initiator_1_responder_0 
     guardBlock
-      temp bool t_236 = responder_0.state == 2,
-      temp bool t_237 = intruder.state == 0,
-      temp bool t_238 = t_236 and t_237;
-    guardCondition t_238;
+      temp bool t_230 = initiator_1.state == 3,
+      temp bool t_231 = responder_0.state == 3,
+      temp bool t_232 = t_230 and t_231;
+
+    guardCondition t_232;
     effect
-      responder_0.state = 3,
-      temp int t_239 = responder_0.party_nonce + 60,
-      temp int t_240 = responder_0.party * 15,
-      temp int t_241 = t_240 * 15,
-      temp int t_242 = t_239 + t_241,
-      intruder.m = t_242,
-      intruder.state = 1;
+      initiator_1.state = 4,
+      temp int t_233 = initiator_1.party_nonce + 165,
+      temp int t_234 = t_233 + 0,
+      responder_0.m = t_234,
+      responder_0.state = 4;
 
-  process responder_1_initiator_0
+  process initiator_1_responder_1 
     guardBlock
-      temp bool t_243 = responder_1.state == 2,
-      temp bool t_244 = initiator_0.state == 1,
-      temp bool t_245 = t_243 and t_244;
-    guardCondition t_245;
+      temp bool t_235 = initiator_1.state == 3,
+      temp bool t_236 = responder_1.state == 3,
+      temp bool t_237 = t_235 and t_236;
+
+    guardCondition t_237;
     effect
-      responder_1.state = 3,
-      temp int t_246 = responder_1.party_nonce + 75,
-      temp int t_247 = responder_1.party * 15,
-      temp int t_248 = t_247 * 15,
-      temp int t_249 = t_246 + t_248,
-      initiator_0.m = t_249,
-      initiator_0.state = 2;
+      initiator_1.state = 4,
+      temp int t_238 = initiator_1.party_nonce + 165,
+      temp int t_239 = t_238 + 0,
+      responder_1.m = t_239,
+      responder_1.state = 4;
 
-  process responder_1_initiator_1
+  process initiator_1_intruder 
     guardBlock
-      temp bool t_250 = responder_1.state == 2,
-      temp bool t_251 = initiator_1.state == 1,
+      temp bool t_240 = initiator_1.state == 3,
+      temp bool t_241 = intruder.state == 0,
+      temp bool t_242 = t_240 and t_241;
+
+    guardCondition t_242;
+    effect
+      initiator_1.state = 4,
+      temp int t_243 = initiator_1.party_nonce + 165,
+      temp int t_244 = t_243 + 0,
+      intruder.m = t_244,
+      intruder.state = 5;
+
+  process initiator_2_responder_0 
+    guardBlock
+      temp bool t_245 = initiator_2.state == 3,
+      temp bool t_246 = responder_0.state == 3,
+      temp bool t_247 = t_245 and t_246;
+
+    guardCondition t_247;
+    effect
+      initiator_2.state = 4,
+      temp int t_248 = initiator_2.party_nonce + 180,
+      temp int t_249 = t_248 + 0,
+      responder_0.m = t_249,
+      responder_0.state = 4;
+
+  process initiator_2_responder_1 
+    guardBlock
+      temp bool t_250 = initiator_2.state == 3,
+      temp bool t_251 = responder_1.state == 3,
       temp bool t_252 = t_250 and t_251;
+
     guardCondition t_252;
     effect
-      responder_1.state = 3,
-      temp int t_253 = responder_1.party_nonce + 75,
-      temp int t_254 = responder_1.party * 15,
-      temp int t_255 = t_254 * 15,
-      temp int t_256 = t_253 + t_255,
-      initiator_1.m = t_256,
-      initiator_1.state = 2;
+      initiator_2.state = 4,
+      temp int t_253 = initiator_2.party_nonce + 180,
+      temp int t_254 = t_253 + 0,
+      responder_1.m = t_254,
+      responder_1.state = 4;
 
-  process responder_1_initiator_2
+  process initiator_2_intruder 
     guardBlock
-      temp bool t_257 = responder_1.state == 2,
-      temp bool t_258 = initiator_2.state == 1,
-      temp bool t_259 = t_257 and t_258;
-    guardCondition t_259;
+      temp bool t_255 = initiator_2.state == 3,
+      temp bool t_256 = intruder.state == 0,
+      temp bool t_257 = t_255 and t_256;
+
+    guardCondition t_257;
     effect
-      responder_1.state = 3,
-      temp int t_260 = responder_1.party_nonce + 75,
-      temp int t_261 = responder_1.party * 15,
-      temp int t_262 = t_261 * 15,
-      temp int t_263 = t_260 + t_262,
-      initiator_2.m = t_263,
-      initiator_2.state = 2;
+      initiator_2.state = 4,
+      temp int t_258 = initiator_2.party_nonce + 180,
+      temp int t_259 = t_258 + 0,
+      intruder.m = t_259,
+      intruder.state = 5;
 
-  process responder_1_intruder
+  process intruder_responder_0 
     guardBlock
-      temp bool t_264 = responder_1.state == 2,
-      temp bool t_265 = intruder.state == 0,
+      temp bool t_260 = intruder.state == 0,
+      temp bool t_261 = intruder.kNb == 1,
+      temp bool t_262 = intruder.k_Nb__B == 1,
+      temp bool t_263 = t_261 or t_262,
+      temp bool t_264 = t_260 and t_263,
+      temp bool t_265 = responder_0.state == 3,
       temp bool t_266 = t_264 and t_265;
+
     guardCondition t_266;
-    effect
-      responder_1.state = 3,
-      temp int t_267 = responder_1.party_nonce + 75,
-      temp int t_268 = responder_1.party * 15,
-      temp int t_269 = t_268 * 15,
-      temp int t_270 = t_267 + t_269,
-      intruder.m = t_270,
-      intruder.state = 1;
-
-  process intruder_initiator_0
-    guardBlock
-      temp bool t_271 = intruder.state == 0,
-      temp bool t_272 = intruder.kNa == 1,
-      temp bool t_273 = t_271 and t_272,
-      temp bool t_274 = initiator_0.state == 1,
-      temp bool t_275 = t_273 and t_274;
-    guardCondition t_275;
-    effect
-      intruder.state = 0,
-      initiator_0.m = 1591,
-      initiator_0.state = 2;
-
-  process intruder_initiator_1
-    guardBlock
-      temp bool t_276 = intruder.state == 0,
-      temp bool t_277 = intruder.kNa == 1,
-      temp bool t_278 = t_276 and t_277,
-      temp bool t_279 = initiator_1.state == 1,
-      temp bool t_280 = t_278 and t_279;
-    guardCondition t_280;
-    effect
-      intruder.state = 0,
-      initiator_1.m = 1591,
-      initiator_1.state = 2;
-
-  process intruder_initiator_2
-    guardBlock
-      temp bool t_281 = intruder.state == 0,
-      temp bool t_282 = intruder.kNa == 1,
-      temp bool t_283 = t_281 and t_282,
-      temp bool t_284 = initiator_2.state == 1,
-      temp bool t_285 = t_283 and t_284;
-    guardCondition t_285;
-    effect
-      intruder.state = 0,
-      initiator_2.m = 1591,
-      initiator_2.state = 2;
-
-  process intruder_initiator_0
-    guardBlock
-      temp bool t_286 = intruder.state == 0,
-      temp bool t_287 = intruder.kNa == 1,
-      temp bool t_288 = intruder.kNb == 1,
-      temp bool t_289 = t_287 and t_288,
-      temp bool t_290 = intruder.k_Na_Nb__A == 1,
-      temp bool t_291 = t_289 or t_290,
-      temp bool t_292 = t_286 and t_291,
-      temp bool t_293 = initiator_0.state == 1,
-      temp bool t_294 = t_292 and t_293;
-    guardCondition t_294;
-    effect
-      intruder.state = 0,
-      initiator_0.m = 1636,
-      initiator_0.state = 2;
-
-  process intruder_initiator_1
-    guardBlock
-      temp bool t_295 = intruder.state == 0,
-      temp bool t_296 = intruder.kNa == 1,
-      temp bool t_297 = intruder.kNb == 1,
-      temp bool t_298 = t_296 and t_297,
-      temp bool t_299 = intruder.k_Na_Nb__A == 1,
-      temp bool t_300 = t_298 or t_299,
-      temp bool t_301 = t_295 and t_300,
-      temp bool t_302 = initiator_1.state == 1,
-      temp bool t_303 = t_301 and t_302;
-    guardCondition t_303;
-    effect
-      intruder.state = 0,
-      initiator_1.m = 1636,
-      initiator_1.state = 2;
-
-  process intruder_initiator_2
-    guardBlock
-      temp bool t_304 = intruder.state == 0,
-      temp bool t_305 = intruder.kNa == 1,
-      temp bool t_306 = intruder.kNb == 1,
-      temp bool t_307 = t_305 and t_306,
-      temp bool t_308 = intruder.k_Na_Nb__A == 1,
-      temp bool t_309 = t_307 or t_308,
-      temp bool t_310 = t_304 and t_309,
-      temp bool t_311 = initiator_2.state == 1,
-      temp bool t_312 = t_310 and t_311;
-    guardCondition t_312;
-    effect
-      intruder.state = 0,
-      initiator_2.m = 1636,
-      initiator_2.state = 2;
-
-  process intruder_initiator_0
-    guardBlock
-      temp bool t_313 = intruder.state == 0,
-      temp bool t_314 = intruder.kNa == 1,
-      temp bool t_315 = t_313 and t_314,
-      temp bool t_316 = initiator_0.state == 1,
-      temp bool t_317 = t_315 and t_316;
-    guardCondition t_317;
-    effect
-      intruder.state = 0,
-      initiator_0.m = 1771,
-      initiator_0.state = 2;
-
-  process intruder_initiator_1
-    guardBlock
-      temp bool t_318 = intruder.state == 0,
-      temp bool t_319 = intruder.kNa == 1,
-      temp bool t_320 = t_318 and t_319,
-      temp bool t_321 = initiator_1.state == 1,
-      temp bool t_322 = t_320 and t_321;
-    guardCondition t_322;
-    effect
-      intruder.state = 0,
-      initiator_1.m = 1771,
-      initiator_1.state = 2;
-
-  process intruder_initiator_2
-    guardBlock
-      temp bool t_323 = intruder.state == 0,
-      temp bool t_324 = intruder.kNa == 1,
-      temp bool t_325 = t_323 and t_324,
-      temp bool t_326 = initiator_2.state == 1,
-      temp bool t_327 = t_325 and t_326;
-    guardCondition t_327;
-    effect
-      intruder.state = 0,
-      initiator_2.m = 1771,
-      initiator_2.state = 2;
-
-  process initiator_0_responder_0
-    guardBlock
-      temp bool t_328 = initiator_0.state == 3,
-      temp bool t_329 = responder_0.state == 3,
-      temp bool t_330 = t_328 and t_329;
-    guardCondition t_330;
-    effect
-      initiator_0.state = 4,
-      temp int t_331 = initiator_0.party_nonce + 150,
-      temp int t_332 = t_331 + 0,
-      responder_0.m = t_332,
-      responder_0.state = 4;
-
-  process initiator_0_responder_1
-    guardBlock
-      temp bool t_333 = initiator_0.state == 3,
-      temp bool t_334 = responder_1.state == 3,
-      temp bool t_335 = t_333 and t_334;
-    guardCondition t_335;
-    effect
-      initiator_0.state = 4,
-      temp int t_336 = initiator_0.party_nonce + 150,
-      temp int t_337 = t_336 + 0,
-      responder_1.m = t_337,
-      responder_1.state = 4;
-
-  process initiator_0_intruder
-    guardBlock
-      temp bool t_338 = initiator_0.state == 3,
-      temp bool t_339 = intruder.state == 0,
-      temp bool t_340 = t_338 and t_339;
-    guardCondition t_340;
-    effect
-      initiator_0.state = 4,
-      temp int t_341 = initiator_0.party_nonce + 150,
-      temp int t_342 = t_341 + 0,
-      intruder.m = t_342,
-      intruder.state = 5;
-
-  process initiator_1_responder_0
-    guardBlock
-      temp bool t_343 = initiator_1.state == 3,
-      temp bool t_344 = responder_0.state == 3,
-      temp bool t_345 = t_343 and t_344;
-    guardCondition t_345;
-    effect
-      initiator_1.state = 4,
-      temp int t_346 = initiator_1.party_nonce + 165,
-      temp int t_347 = t_346 + 0,
-      responder_0.m = t_347,
-      responder_0.state = 4;
-
-  process initiator_1_responder_1
-    guardBlock
-      temp bool t_348 = initiator_1.state == 3,
-      temp bool t_349 = responder_1.state == 3,
-      temp bool t_350 = t_348 and t_349;
-    guardCondition t_350;
-    effect
-      initiator_1.state = 4,
-      temp int t_351 = initiator_1.party_nonce + 165,
-      temp int t_352 = t_351 + 0,
-      responder_1.m = t_352,
-      responder_1.state = 4;
-
-  process initiator_1_intruder
-    guardBlock
-      temp bool t_353 = initiator_1.state == 3,
-      temp bool t_354 = intruder.state == 0,
-      temp bool t_355 = t_353 and t_354;
-    guardCondition t_355;
-    effect
-      initiator_1.state = 4,
-      temp int t_356 = initiator_1.party_nonce + 165,
-      temp int t_357 = t_356 + 0,
-      intruder.m = t_357,
-      intruder.state = 5;
-
-  process initiator_2_responder_0
-    guardBlock
-      temp bool t_358 = initiator_2.state == 3,
-      temp bool t_359 = responder_0.state == 3,
-      temp bool t_360 = t_358 and t_359;
-    guardCondition t_360;
-    effect
-      initiator_2.state = 4,
-      temp int t_361 = initiator_2.party_nonce + 180,
-      temp int t_362 = t_361 + 0,
-      responder_0.m = t_362,
-      responder_0.state = 4;
-
-  process initiator_2_responder_1
-    guardBlock
-      temp bool t_363 = initiator_2.state == 3,
-      temp bool t_364 = responder_1.state == 3,
-      temp bool t_365 = t_363 and t_364;
-    guardCondition t_365;
-    effect
-      initiator_2.state = 4,
-      temp int t_366 = initiator_2.party_nonce + 180,
-      temp int t_367 = t_366 + 0,
-      responder_1.m = t_367,
-      responder_1.state = 4;
-
-  process initiator_2_intruder
-    guardBlock
-      temp bool t_368 = initiator_2.state == 3,
-      temp bool t_369 = intruder.state == 0,
-      temp bool t_370 = t_368 and t_369;
-    guardCondition t_370;
-    effect
-      initiator_2.state = 4,
-      temp int t_371 = initiator_2.party_nonce + 180,
-      temp int t_372 = t_371 + 0,
-      intruder.m = t_372,
-      intruder.state = 5;
-
-  process intruder_responder_0
-    guardBlock
-      temp bool t_373 = intruder.state == 0,
-      temp bool t_374 = intruder.kNb == 1,
-      temp bool t_375 = intruder.k_Nb__B == 1,
-      temp bool t_376 = t_374 or t_375,
-      temp bool t_377 = t_373 and t_376,
-      temp bool t_378 = responder_0.state == 3,
-      temp bool t_379 = t_377 and t_378;
-    guardCondition t_379;
     effect
       intruder.state = 0,
       responder_0.m = 154,
       responder_0.state = 4;
 
-  process intruder_responder_1
+  process intruder_responder_1 
     guardBlock
-      temp bool t_380 = intruder.state == 0,
-      temp bool t_381 = intruder.kNb == 1,
-      temp bool t_382 = intruder.k_Nb__B == 1,
-      temp bool t_383 = t_381 or t_382,
-      temp bool t_384 = t_380 and t_383,
-      temp bool t_385 = responder_1.state == 3,
-      temp bool t_386 = t_384 and t_385;
-    guardCondition t_386;
+      temp bool t_267 = intruder.state == 0,
+      temp bool t_268 = intruder.kNb == 1,
+      temp bool t_269 = intruder.k_Nb__B == 1,
+      temp bool t_270 = t_268 or t_269,
+      temp bool t_271 = t_267 and t_270,
+      temp bool t_272 = responder_1.state == 3,
+      temp bool t_273 = t_271 and t_272;
+
+    guardCondition t_273;
     effect
       intruder.state = 0,
       responder_1.m = 154,
       responder_1.state = 4;
 
-  process initiator_0_responder_0
+  process initiator_0_responder_0 
     guardBlock
-      temp bool t_387 = initiator_0.state == 0,
-      temp bool t_388 = responder_0.state == 0,
-      temp bool t_389 = t_387 and t_388;
-    guardCondition t_389;
+      temp bool t_274 = initiator_0.state == 0,
+      temp bool t_275 = responder_0.state == 0,
+      temp bool t_276 = t_274 and t_275;
+
+    guardCondition t_276;
     effect
       initiator_0.state = 1,
       responder_0.m = 2356,
       responder_0.state = 1;
 
-  process initiator_0_responder_1
+  process initiator_0_responder_1 
     guardBlock
-      temp bool t_390 = initiator_0.state == 0,
-      temp bool t_391 = responder_1.state == 0,
-      temp bool t_392 = t_390 and t_391;
-    guardCondition t_392;
+      temp bool t_277 = initiator_0.state == 0,
+      temp bool t_278 = responder_1.state == 0,
+      temp bool t_279 = t_277 and t_278;
+
+    guardCondition t_279;
     effect
       initiator_0.state = 1,
       responder_1.m = 2356,
       responder_1.state = 1;
 
-  process initiator_0_intruder
+  process initiator_0_intruder 
     guardBlock
-      temp bool t_393 = initiator_0.state == 0,
-      temp bool t_394 = intruder.state == 0,
-      temp bool t_395 = t_393 and t_394;
-    guardCondition t_395;
+      temp bool t_280 = initiator_0.state == 0,
+      temp bool t_281 = intruder.state == 0,
+      temp bool t_282 = t_280 and t_281;
+
+    guardCondition t_282;
     effect
       initiator_0.state = 1,
       intruder.m = 2356,
       intruder.state = 1;
 
-  process initiator_1_responder_0
+  process initiator_1_responder_0 
     guardBlock
-      temp bool t_396 = initiator_1.state == 0,
-      temp bool t_397 = responder_0.state == 0,
-      temp bool t_398 = t_396 and t_397;
-    guardCondition t_398;
+      temp bool t_283 = initiator_1.state == 0,
+      temp bool t_284 = responder_0.state == 0,
+      temp bool t_285 = t_283 and t_284;
+
+    guardCondition t_285;
     effect
       initiator_1.state = 1,
       responder_0.m = 2597,
       responder_0.state = 1;
 
-  process initiator_1_responder_1
+  process initiator_1_responder_1 
     guardBlock
-      temp bool t_399 = initiator_1.state == 0,
-      temp bool t_400 = responder_1.state == 0,
-      temp bool t_401 = t_399 and t_400;
-    guardCondition t_401;
+      temp bool t_286 = initiator_1.state == 0,
+      temp bool t_287 = responder_1.state == 0,
+      temp bool t_288 = t_286 and t_287;
+
+    guardCondition t_288;
     effect
       initiator_1.state = 1,
       responder_1.m = 2597,
       responder_1.state = 1;
 
-  process initiator_1_intruder
+  process initiator_1_intruder 
     guardBlock
-      temp bool t_402 = initiator_1.state == 0,
-      temp bool t_403 = intruder.state == 0,
-      temp bool t_404 = t_402 and t_403;
-    guardCondition t_404;
+      temp bool t_289 = initiator_1.state == 0,
+      temp bool t_290 = intruder.state == 0,
+      temp bool t_291 = t_289 and t_290;
+
+    guardCondition t_291;
     effect
       initiator_1.state = 1,
       intruder.m = 2597,
       intruder.state = 1;
 
-  process initiator_2_responder_0
+  process initiator_2_responder_0 
     guardBlock
-      temp bool t_405 = initiator_2.state == 0,
-      temp bool t_406 = responder_0.state == 0,
-      temp bool t_407 = t_405 and t_406;
-    guardCondition t_407;
+      temp bool t_292 = initiator_2.state == 0,
+      temp bool t_293 = responder_0.state == 0,
+      temp bool t_294 = t_292 and t_293;
+
+    guardCondition t_294;
     effect
       initiator_2.state = 1,
       responder_0.m = 2838,
       responder_0.state = 1;
 
-  process initiator_2_responder_1
+  process initiator_2_responder_1 
     guardBlock
-      temp bool t_408 = initiator_2.state == 0,
-      temp bool t_409 = responder_1.state == 0,
-      temp bool t_410 = t_408 and t_409;
-    guardCondition t_410;
+      temp bool t_295 = initiator_2.state == 0,
+      temp bool t_296 = responder_1.state == 0,
+      temp bool t_297 = t_295 and t_296;
+
+    guardCondition t_297;
     effect
       initiator_2.state = 1,
       responder_1.m = 2838,
       responder_1.state = 1;
 
-  process initiator_2_intruder
+  process initiator_2_intruder 
     guardBlock
-      temp bool t_411 = initiator_2.state == 0,
-      temp bool t_412 = intruder.state == 0,
-      temp bool t_413 = t_411 and t_412;
-    guardCondition t_413;
+      temp bool t_298 = initiator_2.state == 0,
+      temp bool t_299 = intruder.state == 0,
+      temp bool t_300 = t_298 and t_299;
+
+    guardCondition t_300;
     effect
       initiator_2.state = 1,
       intruder.m = 2838,
       intruder.state = 1;
 
-  process intruder_responder_0
+  process intruder_responder_0 
     guardBlock
-      temp bool t_414 = intruder.state == 0,
-      temp bool t_415 = responder_0.state == 0,
-      temp bool t_416 = t_414 and t_415;
-    guardCondition t_416;
+      temp bool t_301 = intruder.state == 0,
+      temp bool t_302 = responder_0.state == 0,
+      temp bool t_303 = t_301 and t_302;
+
+    guardCondition t_303;
     effect
       intruder.state = 0,
       responder_0.m = 2368,
       responder_0.state = 1;
 
-  process intruder_responder_1
+  process intruder_responder_1 
     guardBlock
-      temp bool t_417 = intruder.state == 0,
-      temp bool t_418 = responder_1.state == 0,
-      temp bool t_419 = t_417 and t_418;
-    guardCondition t_419;
+      temp bool t_304 = intruder.state == 0,
+      temp bool t_305 = responder_1.state == 0,
+      temp bool t_306 = t_304 and t_305;
+
+    guardCondition t_306;
     effect
       intruder.state = 0,
       responder_1.m = 2368,
       responder_1.state = 1;
 
-  process intruder_responder_0
+  process intruder_responder_0 
     guardBlock
-      temp bool t_420 = intruder.state == 0,
-      temp bool t_421 = responder_0.state == 0,
-      temp bool t_422 = t_420 and t_421;
-    guardCondition t_422;
+      temp bool t_307 = intruder.state == 0,
+      temp bool t_308 = responder_0.state == 0,
+      temp bool t_309 = t_307 and t_308;
+
+    guardCondition t_309;
     effect
       intruder.state = 0,
       responder_0.m = 2413,
       responder_0.state = 1;
 
-  process intruder_responder_1
+  process intruder_responder_1 
     guardBlock
-      temp bool t_423 = intruder.state == 0,
-      temp bool t_424 = responder_1.state == 0,
-      temp bool t_425 = t_423 and t_424;
-    guardCondition t_425;
+      temp bool t_310 = intruder.state == 0,
+      temp bool t_311 = responder_1.state == 0,
+      temp bool t_312 = t_310 and t_311;
+
+    guardCondition t_312;
     effect
       intruder.state = 0,
       responder_1.m = 2413,
       responder_1.state = 1;
 
-  process intruder_responder_0
+  process intruder_responder_0 
     guardBlock
-      temp bool t_426 = intruder.state == 0,
-      temp bool t_427 = responder_0.state == 0,
-      temp bool t_428 = t_426 and t_427;
-    guardCondition t_428;
+      temp bool t_313 = intruder.state == 0,
+      temp bool t_314 = responder_0.state == 0,
+      temp bool t_315 = t_313 and t_314;
+
+    guardCondition t_315;
     effect
       intruder.state = 0,
       responder_0.m = 2308,
       responder_0.state = 1;
 
-  process intruder_responder_1
+  process intruder_responder_1 
     guardBlock
-      temp bool t_429 = intruder.state == 0,
-      temp bool t_430 = responder_1.state == 0,
-      temp bool t_431 = t_429 and t_430;
-    guardCondition t_431;
+      temp bool t_316 = intruder.state == 0,
+      temp bool t_317 = responder_1.state == 0,
+      temp bool t_318 = t_316 and t_317;
+
+    guardCondition t_318;
     effect
       intruder.state = 0,
       responder_1.m = 2308,
       responder_1.state = 1;
 
-  process intruder_responder_0
+  process intruder_responder_0 
     guardBlock
-      temp bool t_432 = intruder.state == 0,
-      temp bool t_433 = responder_0.state == 0,
-      temp bool t_434 = t_432 and t_433;
-    guardCondition t_434;
+      temp bool t_319 = intruder.state == 0,
+      temp bool t_320 = responder_0.state == 0,
+      temp bool t_321 = t_319 and t_320;
+
+    guardCondition t_321;
     effect
       intruder.state = 0,
       responder_0.m = 2362,
       responder_0.state = 1;
 
-  process intruder_responder_1
+  process intruder_responder_1 
     guardBlock
-      temp bool t_435 = intruder.state == 0,
-      temp bool t_436 = responder_1.state == 0,
-      temp bool t_437 = t_435 and t_436;
-    guardCondition t_437;
+      temp bool t_322 = intruder.state == 0,
+      temp bool t_323 = responder_1.state == 0,
+      temp bool t_324 = t_322 and t_323;
+
+    guardCondition t_324;
     effect
       intruder.state = 0,
       responder_1.m = 2362,
       responder_1.state = 1;
 
-  process intruder_responder_0
+  process intruder_responder_0 
     guardBlock
-      temp bool t_438 = intruder.state == 0,
-      temp bool t_439 = responder_0.state == 0,
-      temp bool t_440 = t_438 and t_439;
-    guardCondition t_440;
+      temp bool t_325 = intruder.state == 0,
+      temp bool t_326 = responder_0.state == 0,
+      temp bool t_327 = t_325 and t_326;
+
+    guardCondition t_327;
     effect
       intruder.state = 0,
       responder_0.m = 2407,
       responder_0.state = 1;
 
-  process intruder_responder_1
+  process intruder_responder_1 
     guardBlock
-      temp bool t_441 = intruder.state == 0,
-      temp bool t_442 = responder_1.state == 0,
-      temp bool t_443 = t_441 and t_442;
-    guardCondition t_443;
+      temp bool t_328 = intruder.state == 0,
+      temp bool t_329 = responder_1.state == 0,
+      temp bool t_330 = t_328 and t_329;
+
+    guardCondition t_330;
     effect
       intruder.state = 0,
       responder_1.m = 2407,
       responder_1.state = 1;
 
-  process intruder_responder_0
+  process intruder_responder_0 
     guardBlock
-      temp bool t_444 = intruder.state == 0,
-      temp bool t_445 = responder_0.state == 0,
-      temp bool t_446 = t_444 and t_445;
-    guardCondition t_446;
+      temp bool t_331 = intruder.state == 0,
+      temp bool t_332 = responder_0.state == 0,
+      temp bool t_333 = t_331 and t_332;
+
+    guardCondition t_333;
     effect
       intruder.state = 0,
       responder_0.m = 2302,
       responder_0.state = 1;
 
-  process intruder_responder_1
+  process intruder_responder_1 
     guardBlock
-      temp bool t_447 = intruder.state == 0,
-      temp bool t_448 = responder_1.state == 0,
-      temp bool t_449 = t_447 and t_448;
-    guardCondition t_449;
+      temp bool t_334 = intruder.state == 0,
+      temp bool t_335 = responder_1.state == 0,
+      temp bool t_336 = t_334 and t_335;
+
+    guardCondition t_336;
     effect
       intruder.state = 0,
       responder_1.m = 2302,
       responder_1.state = 1;
 
-  process intruder_responder_0
+  process intruder_responder_0 
     guardBlock
-      temp bool t_450 = intruder.state == 0,
-      temp bool t_451 = responder_0.state == 0,
-      temp bool t_452 = t_450 and t_451;
-    guardCondition t_452;
+      temp bool t_337 = intruder.state == 0,
+      temp bool t_338 = responder_0.state == 0,
+      temp bool t_339 = t_337 and t_338;
+
+    guardCondition t_339;
     effect
       intruder.state = 0,
       responder_0.m = 2365,
       responder_0.state = 1;
 
-  process intruder_responder_1
+  process intruder_responder_1 
     guardBlock
-      temp bool t_453 = intruder.state == 0,
-      temp bool t_454 = responder_1.state == 0,
-      temp bool t_455 = t_453 and t_454;
-    guardCondition t_455;
+      temp bool t_340 = intruder.state == 0,
+      temp bool t_341 = responder_1.state == 0,
+      temp bool t_342 = t_340 and t_341;
+
+    guardCondition t_342;
     effect
       intruder.state = 0,
       responder_1.m = 2365,
       responder_1.state = 1;
 
-  process intruder_responder_0
+  process intruder_responder_0 
     guardBlock
-      temp bool t_456 = intruder.state == 0,
-      temp bool t_457 = responder_0.state == 0,
-      temp bool t_458 = t_456 and t_457;
-    guardCondition t_458;
+      temp bool t_343 = intruder.state == 0,
+      temp bool t_344 = responder_0.state == 0,
+      temp bool t_345 = t_343 and t_344;
+
+    guardCondition t_345;
     effect
       intruder.state = 0,
       responder_0.m = 2410,
       responder_0.state = 1;
 
-  process intruder_responder_1
+  process intruder_responder_1 
     guardBlock
-      temp bool t_459 = intruder.state == 0,
-      temp bool t_460 = responder_1.state == 0,
-      temp bool t_461 = t_459 and t_460;
-    guardCondition t_461;
+      temp bool t_346 = intruder.state == 0,
+      temp bool t_347 = responder_1.state == 0,
+      temp bool t_348 = t_346 and t_347;
+
+    guardCondition t_348;
     effect
       intruder.state = 0,
       responder_1.m = 2410,
       responder_1.state = 1;
 
-  process intruder_responder_0
+  process intruder_responder_0 
     guardBlock
-      temp bool t_462 = intruder.state == 0,
-      temp bool t_463 = responder_0.state == 0,
-      temp bool t_464 = t_462 and t_463;
-    guardCondition t_464;
+      temp bool t_349 = intruder.state == 0,
+      temp bool t_350 = responder_0.state == 0,
+      temp bool t_351 = t_349 and t_350;
+
+    guardCondition t_351;
     effect
       intruder.state = 0,
       responder_0.m = 2305,
       responder_0.state = 1;
 
-  process intruder_responder_1
+  process intruder_responder_1 
     guardBlock
-      temp bool t_465 = intruder.state == 0,
-      temp bool t_466 = responder_1.state == 0,
-      temp bool t_467 = t_465 and t_466;
-    guardCondition t_467;
+      temp bool t_352 = intruder.state == 0,
+      temp bool t_353 = responder_1.state == 0,
+      temp bool t_354 = t_352 and t_353;
+
+    guardCondition t_354;
     effect
       intruder.state = 0,
       responder_1.m = 2305,
       responder_1.state = 1;
 
-  process intruder_responder_0
+  process intruder_responder_0 
     guardBlock
-      temp bool t_468 = intruder.state == 0,
-      temp bool t_469 = responder_0.state == 0,
-      temp bool t_470 = t_468 and t_469;
-    guardCondition t_470;
+      temp bool t_355 = intruder.state == 0,
+      temp bool t_356 = responder_0.state == 0,
+      temp bool t_357 = t_355 and t_356;
+
+    guardCondition t_357;
     effect
       intruder.state = 0,
       responder_0.m = 2358,
       responder_0.state = 1;
 
-  process intruder_responder_1
+  process intruder_responder_1 
     guardBlock
-      temp bool t_471 = intruder.state == 0,
-      temp bool t_472 = responder_1.state == 0,
-      temp bool t_473 = t_471 and t_472;
-    guardCondition t_473;
+      temp bool t_358 = intruder.state == 0,
+      temp bool t_359 = responder_1.state == 0,
+      temp bool t_360 = t_358 and t_359;
+
+    guardCondition t_360;
     effect
       intruder.state = 0,
       responder_1.m = 2358,
       responder_1.state = 1;
 
-  process intruder_responder_0
+  process intruder_responder_0 
     guardBlock
-      temp bool t_474 = intruder.state == 0,
-      temp bool t_475 = responder_0.state == 0,
-      temp bool t_476 = t_474 and t_475;
-    guardCondition t_476;
+      temp bool t_361 = intruder.state == 0,
+      temp bool t_362 = responder_0.state == 0,
+      temp bool t_363 = t_361 and t_362;
+
+    guardCondition t_363;
     effect
       intruder.state = 0,
       responder_0.m = 2403,
       responder_0.state = 1;
 
-  process intruder_responder_1
+  process intruder_responder_1 
     guardBlock
-      temp bool t_477 = intruder.state == 0,
-      temp bool t_478 = responder_1.state == 0,
-      temp bool t_479 = t_477 and t_478;
-    guardCondition t_479;
+      temp bool t_364 = intruder.state == 0,
+      temp bool t_365 = responder_1.state == 0,
+      temp bool t_366 = t_364 and t_365;
+
+    guardCondition t_366;
     effect
       intruder.state = 0,
       responder_1.m = 2403,
       responder_1.state = 1;
 
-  process intruder_responder_0
+  process intruder_responder_0 
     guardBlock
-      temp bool t_480 = intruder.state == 0,
-      temp bool t_481 = responder_0.state == 0,
-      temp bool t_482 = t_480 and t_481;
-    guardCondition t_482;
+      temp bool t_367 = intruder.state == 0,
+      temp bool t_368 = responder_0.state == 0,
+      temp bool t_369 = t_367 and t_368;
+
+    guardCondition t_369;
     effect
       intruder.state = 0,
       responder_0.m = 2298,
       responder_0.state = 1;
 
-  process intruder_responder_1
+  process intruder_responder_1 
     guardBlock
-      temp bool t_483 = intruder.state == 0,
-      temp bool t_484 = responder_1.state == 0,
-      temp bool t_485 = t_483 and t_484;
-    guardCondition t_485;
+      temp bool t_370 = intruder.state == 0,
+      temp bool t_371 = responder_1.state == 0,
+      temp bool t_372 = t_370 and t_371;
+
+    guardCondition t_372;
     effect
       intruder.state = 0,
       responder_1.m = 2298,
       responder_1.state = 1;
 
-  process intruder_responder_0
+  process intruder_responder_0 
     guardBlock
-      temp bool t_486 = intruder.state == 0,
-      temp bool t_487 = intruder.kNa == 1,
-      temp bool t_488 = t_486 and t_487,
-      temp bool t_489 = responder_0.state == 0,
-      temp bool t_490 = t_488 and t_489;
-    guardCondition t_490;
+      temp bool t_373 = intruder.state == 0,
+      temp bool t_374 = intruder.kNa == 1,
+      temp bool t_375 = t_373 and t_374,
+      temp bool t_376 = responder_0.state == 0,
+      temp bool t_377 = t_375 and t_376;
+
+    guardCondition t_377;
     effect
       intruder.state = 0,
       responder_0.m = 1681,
       responder_0.state = 1;
 
-  process intruder_responder_1
+  process intruder_responder_1 
     guardBlock
-      temp bool t_491 = intruder.state == 0,
-      temp bool t_492 = intruder.kNa == 1,
-      temp bool t_493 = t_491 and t_492,
-      temp bool t_494 = responder_1.state == 0,
-      temp bool t_495 = t_493 and t_494;
-    guardCondition t_495;
+      temp bool t_378 = intruder.state == 0,
+      temp bool t_379 = intruder.kNa == 1,
+      temp bool t_380 = t_378 and t_379,
+      temp bool t_381 = responder_1.state == 0,
+      temp bool t_382 = t_380 and t_381;
+
+    guardCondition t_382;
     effect
       intruder.state = 0,
       responder_1.m = 1681,
       responder_1.state = 1;
 
-  process intruder_responder_0
+  process intruder_responder_0 
     guardBlock
-      temp bool t_496 = intruder.state == 0,
-      temp bool t_497 = intruder.kNa == 1,
-      temp bool t_498 = t_496 and t_497,
-      temp bool t_499 = responder_0.state == 0,
-      temp bool t_500 = t_498 and t_499;
-    guardCondition t_500;
+      temp bool t_383 = intruder.state == 0,
+      temp bool t_384 = intruder.kNa == 1,
+      temp bool t_385 = t_383 and t_384,
+      temp bool t_386 = responder_0.state == 0,
+      temp bool t_387 = t_385 and t_386;
+
+    guardCondition t_387;
     effect
       intruder.state = 0,
       responder_0.m = 1726,
       responder_0.state = 1;
 
-  process intruder_responder_1
+  process intruder_responder_1 
     guardBlock
-      temp bool t_501 = intruder.state == 0,
-      temp bool t_502 = intruder.kNa == 1,
-      temp bool t_503 = t_501 and t_502,
-      temp bool t_504 = responder_1.state == 0,
-      temp bool t_505 = t_503 and t_504;
-    guardCondition t_505;
+      temp bool t_388 = intruder.state == 0,
+      temp bool t_389 = intruder.kNa == 1,
+      temp bool t_390 = t_388 and t_389,
+      temp bool t_391 = responder_1.state == 0,
+      temp bool t_392 = t_390 and t_391;
+
+    guardCondition t_392;
     effect
       intruder.state = 0,
       responder_1.m = 1726,
       responder_1.state = 1;
 
-  process intruder_responder_0
+  process intruder_responder_0 
     guardBlock
-      temp bool t_506 = intruder.state == 0,
-      temp bool t_507 = intruder.kNa == 1,
-      temp bool t_508 = t_506 and t_507,
-      temp bool t_509 = responder_0.state == 0,
-      temp bool t_510 = t_508 and t_509;
-    guardCondition t_510;
+      temp bool t_393 = intruder.state == 0,
+      temp bool t_394 = intruder.kNa == 1,
+      temp bool t_395 = t_393 and t_394,
+      temp bool t_396 = responder_0.state == 0,
+      temp bool t_397 = t_395 and t_396;
+
+    guardCondition t_397;
     effect
       intruder.state = 0,
       responder_0.m = 1621,
       responder_0.state = 1;
 
-  process intruder_responder_1
+  process intruder_responder_1 
     guardBlock
-      temp bool t_511 = intruder.state == 0,
-      temp bool t_512 = intruder.kNa == 1,
-      temp bool t_513 = t_511 and t_512,
-      temp bool t_514 = responder_1.state == 0,
-      temp bool t_515 = t_513 and t_514;
-    guardCondition t_515;
+      temp bool t_398 = intruder.state == 0,
+      temp bool t_399 = intruder.kNa == 1,
+      temp bool t_400 = t_398 and t_399,
+      temp bool t_401 = responder_1.state == 0,
+      temp bool t_402 = t_400 and t_401;
+
+    guardCondition t_402;
     effect
       intruder.state = 0,
       responder_1.m = 1621,
       responder_1.state = 1;
 
-  process intruder_responder_0
+  process intruder_responder_0 
     guardBlock
-      temp bool t_516 = intruder.state == 0,
-      temp bool t_517 = intruder.kNa == 1,
-      temp bool t_518 = t_517 or intruder.k_Na_A__B,
-      temp bool t_519 = t_516 and t_518,
-      temp bool t_520 = responder_0.state == 0,
-      temp bool t_521 = t_519 and t_520;
-    guardCondition t_521;
+      temp bool t_403 = intruder.state == 0,
+      temp bool t_404 = intruder.kNa == 1,
+      temp bool t_405 = t_404 or intruder.k_Na_A__B,
+      temp bool t_406 = t_403 and t_405,
+      temp bool t_407 = responder_0.state == 0,
+      temp bool t_408 = t_406 and t_407;
+
+    guardCondition t_408;
     effect
       intruder.state = 0,
       responder_0.m = 2356,
       responder_0.state = 1;
 
-  process intruder_responder_1
+  process intruder_responder_1 
     guardBlock
-      temp bool t_522 = intruder.state == 0,
-      temp bool t_523 = intruder.kNa == 1,
-      temp bool t_524 = t_523 or intruder.k_Na_A__B,
-      temp bool t_525 = t_522 and t_524,
-      temp bool t_526 = responder_1.state == 0,
-      temp bool t_527 = t_525 and t_526;
-    guardCondition t_527;
+      temp bool t_409 = intruder.state == 0,
+      temp bool t_410 = intruder.kNa == 1,
+      temp bool t_411 = t_410 or intruder.k_Na_A__B,
+      temp bool t_412 = t_409 and t_411,
+      temp bool t_413 = responder_1.state == 0,
+      temp bool t_414 = t_412 and t_413;
+
+    guardCondition t_414;
     effect
       intruder.state = 0,
       responder_1.m = 2356,
       responder_1.state = 1;
 
-  process intruder_responder_0
+  process intruder_responder_0 
     guardBlock
-      temp bool t_528 = intruder.state == 0,
-      temp bool t_529 = intruder.kNa == 1,
-      temp bool t_530 = t_528 and t_529,
-      temp bool t_531 = responder_0.state == 0,
-      temp bool t_532 = t_530 and t_531;
-    guardCondition t_532;
+      temp bool t_415 = intruder.state == 0,
+      temp bool t_416 = intruder.kNa == 1,
+      temp bool t_417 = t_415 and t_416,
+      temp bool t_418 = responder_0.state == 0,
+      temp bool t_419 = t_417 and t_418;
+
+    guardCondition t_419;
     effect
       intruder.state = 0,
       responder_0.m = 2401,
       responder_0.state = 1;
 
-  process intruder_responder_1
+  process intruder_responder_1 
     guardBlock
-      temp bool t_533 = intruder.state == 0,
-      temp bool t_534 = intruder.kNa == 1,
-      temp bool t_535 = t_533 and t_534,
-      temp bool t_536 = responder_1.state == 0,
-      temp bool t_537 = t_535 and t_536;
-    guardCondition t_537;
+      temp bool t_420 = intruder.state == 0,
+      temp bool t_421 = intruder.kNa == 1,
+      temp bool t_422 = t_420 and t_421,
+      temp bool t_423 = responder_1.state == 0,
+      temp bool t_424 = t_422 and t_423;
+
+    guardCondition t_424;
     effect
       intruder.state = 0,
       responder_1.m = 2401,
       responder_1.state = 1;
 
-  process intruder_responder_0
+  process intruder_responder_0 
     guardBlock
-      temp bool t_538 = intruder.state == 0,
-      temp bool t_539 = intruder.kNa == 1,
-      temp bool t_540 = t_538 and t_539,
-      temp bool t_541 = responder_0.state == 0,
-      temp bool t_542 = t_540 and t_541;
-    guardCondition t_542;
+      temp bool t_425 = intruder.state == 0,
+      temp bool t_426 = intruder.kNa == 1,
+      temp bool t_427 = t_425 and t_426,
+      temp bool t_428 = responder_0.state == 0,
+      temp bool t_429 = t_427 and t_428;
+
+    guardCondition t_429;
     effect
       intruder.state = 0,
       responder_0.m = 2296,
       responder_0.state = 1;
 
-  process intruder_responder_1
+  process intruder_responder_1 
     guardBlock
-      temp bool t_543 = intruder.state == 0,
-      temp bool t_544 = intruder.kNa == 1,
-      temp bool t_545 = t_543 and t_544,
-      temp bool t_546 = responder_1.state == 0,
-      temp bool t_547 = t_545 and t_546;
-    guardCondition t_547;
+      temp bool t_430 = intruder.state == 0,
+      temp bool t_431 = intruder.kNa == 1,
+      temp bool t_432 = t_430 and t_431,
+      temp bool t_433 = responder_1.state == 0,
+      temp bool t_434 = t_432 and t_433;
+
+    guardCondition t_434;
     effect
       intruder.state = 0,
       responder_1.m = 2296,
       responder_1.state = 1;
 
-  process intruder_responder_0
+  process intruder_responder_0 
     guardBlock
-      temp bool t_548 = intruder.state == 0,
-      temp bool t_549 = intruder.kNb == 1,
-      temp bool t_550 = t_548 and t_549,
-      temp bool t_551 = responder_0.state == 0,
-      temp bool t_552 = t_550 and t_551;
-    guardCondition t_552;
+      temp bool t_435 = intruder.state == 0,
+      temp bool t_436 = intruder.kNb == 1,
+      temp bool t_437 = t_435 and t_436,
+      temp bool t_438 = responder_0.state == 0,
+      temp bool t_439 = t_437 and t_438;
+
+    guardCondition t_439;
     effect
       intruder.state = 0,
       responder_0.m = 2359,
       responder_0.state = 1;
 
-  process intruder_responder_1
+  process intruder_responder_1 
     guardBlock
-      temp bool t_553 = intruder.state == 0,
-      temp bool t_554 = intruder.kNb == 1,
-      temp bool t_555 = t_553 and t_554,
-      temp bool t_556 = responder_1.state == 0,
-      temp bool t_557 = t_555 and t_556;
-    guardCondition t_557;
+      temp bool t_440 = intruder.state == 0,
+      temp bool t_441 = intruder.kNb == 1,
+      temp bool t_442 = t_440 and t_441,
+      temp bool t_443 = responder_1.state == 0,
+      temp bool t_444 = t_442 and t_443;
+
+    guardCondition t_444;
     effect
       intruder.state = 0,
       responder_1.m = 2359,
       responder_1.state = 1;
 
-  process intruder_responder_0
+  process intruder_responder_0 
     guardBlock
-      temp bool t_558 = intruder.state == 0,
-      temp bool t_559 = intruder.kNb == 1,
-      temp bool t_560 = t_558 and t_559,
-      temp bool t_561 = responder_0.state == 0,
-      temp bool t_562 = t_560 and t_561;
-    guardCondition t_562;
+      temp bool t_445 = intruder.state == 0,
+      temp bool t_446 = intruder.kNb == 1,
+      temp bool t_447 = t_445 and t_446,
+      temp bool t_448 = responder_0.state == 0,
+      temp bool t_449 = t_447 and t_448;
+
+    guardCondition t_449;
     effect
       intruder.state = 0,
       responder_0.m = 2404,
       responder_0.state = 1;
 
-  process intruder_responder_1
+  process intruder_responder_1 
     guardBlock
-      temp bool t_563 = intruder.state == 0,
-      temp bool t_564 = intruder.kNb == 1,
-      temp bool t_565 = t_563 and t_564,
-      temp bool t_566 = responder_1.state == 0,
-      temp bool t_567 = t_565 and t_566;
-    guardCondition t_567;
+      temp bool t_450 = intruder.state == 0,
+      temp bool t_451 = intruder.kNb == 1,
+      temp bool t_452 = t_450 and t_451,
+      temp bool t_453 = responder_1.state == 0,
+      temp bool t_454 = t_452 and t_453;
+
+    guardCondition t_454;
     effect
       intruder.state = 0,
       responder_1.m = 2404,
       responder_1.state = 1;
 
-  process intruder_responder_0
+  process intruder_responder_0 
     guardBlock
-      temp bool t_568 = intruder.state == 0,
-      temp bool t_569 = intruder.kNb == 1,
-      temp bool t_570 = t_568 and t_569,
-      temp bool t_571 = responder_0.state == 0,
-      temp bool t_572 = t_570 and t_571;
-    guardCondition t_572;
+      temp bool t_455 = intruder.state == 0,
+      temp bool t_456 = intruder.kNb == 1,
+      temp bool t_457 = t_455 and t_456,
+      temp bool t_458 = responder_0.state == 0,
+      temp bool t_459 = t_457 and t_458;
+
+    guardCondition t_459;
     effect
       intruder.state = 0,
       responder_0.m = 2299,
       responder_0.state = 1;
 
-  process intruder_responder_1
+  process intruder_responder_1 
     guardBlock
-      temp bool t_573 = intruder.state == 0,
-      temp bool t_574 = intruder.kNb == 1,
-      temp bool t_575 = t_573 and t_574,
-      temp bool t_576 = responder_1.state == 0,
-      temp bool t_577 = t_575 and t_576;
-    guardCondition t_577;
+      temp bool t_460 = intruder.state == 0,
+      temp bool t_461 = intruder.kNb == 1,
+      temp bool t_462 = t_460 and t_461,
+      temp bool t_463 = responder_1.state == 0,
+      temp bool t_464 = t_462 and t_463;
+
+    guardCondition t_464;
     effect
       intruder.state = 0,
       responder_1.m = 2299,
       responder_1.state = 1;
+
+  process responder_0_initiator_0 
+    guardBlock
+      temp bool t_465 = responder_0.state == 2,
+      temp bool t_466 = initiator_0.state == 1,
+      temp bool t_467 = t_465 and t_466;
+
+    guardCondition t_467;
+    effect
+      responder_0.state = 3,
+      temp int t_468 = responder_0.party_nonce + 60,
+      temp int t_469 = responder_0.party * 15,
+      temp int t_470 = t_469 * 15,
+      temp int t_471 = t_468 + t_470,
+      initiator_0.m = t_471,
+      initiator_0.state = 2;
+
+  process responder_0_initiator_1 
+    guardBlock
+      temp bool t_472 = responder_0.state == 2,
+      temp bool t_473 = initiator_1.state == 1,
+      temp bool t_474 = t_472 and t_473;
+
+    guardCondition t_474;
+    effect
+      responder_0.state = 3,
+      temp int t_475 = responder_0.party_nonce + 60,
+      temp int t_476 = responder_0.party * 15,
+      temp int t_477 = t_476 * 15,
+      temp int t_478 = t_475 + t_477,
+      initiator_1.m = t_478,
+      initiator_1.state = 2;
+
+  process responder_0_initiator_2 
+    guardBlock
+      temp bool t_479 = responder_0.state == 2,
+      temp bool t_480 = initiator_2.state == 1,
+      temp bool t_481 = t_479 and t_480;
+
+    guardCondition t_481;
+    effect
+      responder_0.state = 3,
+      temp int t_482 = responder_0.party_nonce + 60,
+      temp int t_483 = responder_0.party * 15,
+      temp int t_484 = t_483 * 15,
+      temp int t_485 = t_482 + t_484,
+      initiator_2.m = t_485,
+      initiator_2.state = 2;
+
+  process responder_0_intruder 
+    guardBlock
+      temp bool t_486 = responder_0.state == 2,
+      temp bool t_487 = intruder.state == 0,
+      temp bool t_488 = t_486 and t_487;
+
+    guardCondition t_488;
+    effect
+      responder_0.state = 3,
+      temp int t_489 = responder_0.party_nonce + 60,
+      temp int t_490 = responder_0.party * 15,
+      temp int t_491 = t_490 * 15,
+      temp int t_492 = t_489 + t_491,
+      intruder.m = t_492,
+      intruder.state = 1;
+
+  process responder_1_initiator_0 
+    guardBlock
+      temp bool t_493 = responder_1.state == 2,
+      temp bool t_494 = initiator_0.state == 1,
+      temp bool t_495 = t_493 and t_494;
+
+    guardCondition t_495;
+    effect
+      responder_1.state = 3,
+      temp int t_496 = responder_1.party_nonce + 75,
+      temp int t_497 = responder_1.party * 15,
+      temp int t_498 = t_497 * 15,
+      temp int t_499 = t_496 + t_498,
+      initiator_0.m = t_499,
+      initiator_0.state = 2;
+
+  process responder_1_initiator_1 
+    guardBlock
+      temp bool t_500 = responder_1.state == 2,
+      temp bool t_501 = initiator_1.state == 1,
+      temp bool t_502 = t_500 and t_501;
+
+    guardCondition t_502;
+    effect
+      responder_1.state = 3,
+      temp int t_503 = responder_1.party_nonce + 75,
+      temp int t_504 = responder_1.party * 15,
+      temp int t_505 = t_504 * 15,
+      temp int t_506 = t_503 + t_505,
+      initiator_1.m = t_506,
+      initiator_1.state = 2;
+
+  process responder_1_initiator_2 
+    guardBlock
+      temp bool t_507 = responder_1.state == 2,
+      temp bool t_508 = initiator_2.state == 1,
+      temp bool t_509 = t_507 and t_508;
+
+    guardCondition t_509;
+    effect
+      responder_1.state = 3,
+      temp int t_510 = responder_1.party_nonce + 75,
+      temp int t_511 = responder_1.party * 15,
+      temp int t_512 = t_511 * 15,
+      temp int t_513 = t_510 + t_512,
+      initiator_2.m = t_513,
+      initiator_2.state = 2;
+
+  process responder_1_intruder 
+    guardBlock
+      temp bool t_514 = responder_1.state == 2,
+      temp bool t_515 = intruder.state == 0,
+      temp bool t_516 = t_514 and t_515;
+
+    guardCondition t_516;
+    effect
+      responder_1.state = 3,
+      temp int t_517 = responder_1.party_nonce + 75,
+      temp int t_518 = responder_1.party * 15,
+      temp int t_519 = t_518 * 15,
+      temp int t_520 = t_517 + t_519,
+      intruder.m = t_520,
+      intruder.state = 1;
+
+  process intruder_initiator_0 
+    guardBlock
+      temp bool t_521 = intruder.state == 0,
+      temp bool t_522 = intruder.kNa == 1,
+      temp bool t_523 = t_521 and t_522,
+      temp bool t_524 = initiator_0.state == 1,
+      temp bool t_525 = t_523 and t_524;
+
+    guardCondition t_525;
+    effect
+      intruder.state = 0,
+      initiator_0.m = 1591,
+      initiator_0.state = 2;
+
+  process intruder_initiator_1 
+    guardBlock
+      temp bool t_526 = intruder.state == 0,
+      temp bool t_527 = intruder.kNa == 1,
+      temp bool t_528 = t_526 and t_527,
+      temp bool t_529 = initiator_1.state == 1,
+      temp bool t_530 = t_528 and t_529;
+
+    guardCondition t_530;
+    effect
+      intruder.state = 0,
+      initiator_1.m = 1591,
+      initiator_1.state = 2;
+
+  process intruder_initiator_2 
+    guardBlock
+      temp bool t_531 = intruder.state == 0,
+      temp bool t_532 = intruder.kNa == 1,
+      temp bool t_533 = t_531 and t_532,
+      temp bool t_534 = initiator_2.state == 1,
+      temp bool t_535 = t_533 and t_534;
+
+    guardCondition t_535;
+    effect
+      intruder.state = 0,
+      initiator_2.m = 1591,
+      initiator_2.state = 2;
+
+  process intruder_initiator_0 
+    guardBlock
+      temp bool t_536 = intruder.state == 0,
+      temp bool t_537 = intruder.kNa == 1,
+      temp bool t_538 = intruder.kNb == 1,
+      temp bool t_539 = t_537 and t_538,
+      temp bool t_540 = intruder.k_Na_Nb__A == 1,
+      temp bool t_541 = t_539 or t_540,
+      temp bool t_542 = t_536 and t_541,
+      temp bool t_543 = initiator_0.state == 1,
+      temp bool t_544 = t_542 and t_543;
+
+    guardCondition t_544;
+    effect
+      intruder.state = 0,
+      initiator_0.m = 1636,
+      initiator_0.state = 2;
+
+  process intruder_initiator_1 
+    guardBlock
+      temp bool t_545 = intruder.state == 0,
+      temp bool t_546 = intruder.kNa == 1,
+      temp bool t_547 = intruder.kNb == 1,
+      temp bool t_548 = t_546 and t_547,
+      temp bool t_549 = intruder.k_Na_Nb__A == 1,
+      temp bool t_550 = t_548 or t_549,
+      temp bool t_551 = t_545 and t_550,
+      temp bool t_552 = initiator_1.state == 1,
+      temp bool t_553 = t_551 and t_552;
+
+    guardCondition t_553;
+    effect
+      intruder.state = 0,
+      initiator_1.m = 1636,
+      initiator_1.state = 2;
+
+  process intruder_initiator_2 
+    guardBlock
+      temp bool t_554 = intruder.state == 0,
+      temp bool t_555 = intruder.kNa == 1,
+      temp bool t_556 = intruder.kNb == 1,
+      temp bool t_557 = t_555 and t_556,
+      temp bool t_558 = intruder.k_Na_Nb__A == 1,
+      temp bool t_559 = t_557 or t_558,
+      temp bool t_560 = t_554 and t_559,
+      temp bool t_561 = initiator_2.state == 1,
+      temp bool t_562 = t_560 and t_561;
+
+    guardCondition t_562;
+    effect
+      intruder.state = 0,
+      initiator_2.m = 1636,
+      initiator_2.state = 2;
+
+  process intruder_initiator_0 
+    guardBlock
+      temp bool t_563 = intruder.state == 0,
+      temp bool t_564 = intruder.kNa == 1,
+      temp bool t_565 = t_563 and t_564,
+      temp bool t_566 = initiator_0.state == 1,
+      temp bool t_567 = t_565 and t_566;
+
+    guardCondition t_567;
+    effect
+      intruder.state = 0,
+      initiator_0.m = 1771,
+      initiator_0.state = 2;
+
+  process intruder_initiator_1 
+    guardBlock
+      temp bool t_568 = intruder.state == 0,
+      temp bool t_569 = intruder.kNa == 1,
+      temp bool t_570 = t_568 and t_569,
+      temp bool t_571 = initiator_1.state == 1,
+      temp bool t_572 = t_570 and t_571;
+
+    guardCondition t_572;
+    effect
+      intruder.state = 0,
+      initiator_1.m = 1771,
+      initiator_1.state = 2;
+
+  process intruder_initiator_2 
+    guardBlock
+      temp bool t_573 = intruder.state == 0,
+      temp bool t_574 = intruder.kNa == 1,
+      temp bool t_575 = t_573 and t_574,
+      temp bool t_576 = initiator_2.state == 1,
+      temp bool t_577 = t_575 and t_576;
+
+    guardCondition t_577;
+    effect
+      intruder.state = 0,
+      initiator_2.m = 1771,
+      initiator_2.state = 2;
+
+

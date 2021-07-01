@@ -7,31 +7,34 @@ state {measure_in_progress(0), measure_done(1), cage_opened(2), initial(3)} Meas
 state {measured(0), new_range(1), small_resistance(2), correct_value(3), large_resistance(4), too_small_resistance(5), too_large_resistance(6), start(7), finished_measuring(8), S1(9), S2(10)} Algorithm.state = 7;
 state {state_request(0), state0(1), err7(2), initial(3), state1(4)} Device_state.state = 3;
 
-  process Measuring_0
+  process Measuring_0 
     guardBlock
       temp bool t_0 = Measuring_0.state == 1,
       temp bool t_1 = cage_safe == 1,
       temp bool t_2 = t_0 and t_1;
+
     guardCondition t_2;
     effect
       Measuring_0.state = 0;
 
-  process Measuring_0
+  process Measuring_0 
     guardBlock
       temp bool t_3 = Measuring_0.state == 0,
       temp bool t_4 = actual_resistance < 6200,
       temp bool t_5 = cage_safe == 1,
       temp bool t_6 = t_4 and t_5,
       temp bool t_7 = t_3 and t_6;
+
     guardCondition t_7;
     effect
       Measuring_0.state = 0,
       temp int t_8 = actual_resistance + 1,
       actual_resistance = t_8;
 
-  process Measuring_0
+  process Measuring_0 
     guardBlock
       temp bool t_9 = Measuring_0.state == 2;
+
     guardCondition t_9;
     effect
       Measuring_0.state = 0,
@@ -39,9 +42,10 @@ state {state_request(0), state0(1), err7(2), initial(3), state1(4)} Device_state
       temp int t_10 = actual_resistance - 1,
       actual_resistance = t_10;
 
-  process Measuring_0
+  process Measuring_0 
     guardBlock
       temp bool t_11 = Measuring_0.state == 0;
+
     guardCondition t_11;
     effect
       Measuring_0.state = 2,
@@ -49,48 +53,53 @@ state {state_request(0), state0(1), err7(2), initial(3), state1(4)} Device_state
       temp int t_12 = actual_resistance - 1,
       actual_resistance = t_12;
 
-  process Measuring_0
+  process Measuring_0 
     guardBlock
       temp bool t_13 = Measuring_0.state == 1,
       temp bool t_14 = cage_safe == 0,
       temp bool t_15 = t_13 and t_14;
+
     guardCondition t_15;
     effect
       Measuring_0.state = 2;
 
-  process Measuring_0
+  process Measuring_0 
     guardBlock
       temp bool t_16 = Measuring_0.state == 3;
+
     guardCondition t_16;
     effect
       Measuring_0.state = 0,
       cage_safe = 1;
 
-  process Measuring_1
+  process Measuring_1 
     guardBlock
       temp bool t_17 = Measuring_1.state == 1,
       temp bool t_18 = cage_safe == 1,
       temp bool t_19 = t_17 and t_18;
+
     guardCondition t_19;
     effect
       Measuring_1.state = 0;
 
-  process Measuring_1
+  process Measuring_1 
     guardBlock
       temp bool t_20 = Measuring_1.state == 0,
       temp bool t_21 = actual_resistance < 6200,
       temp bool t_22 = cage_safe == 1,
       temp bool t_23 = t_21 and t_22,
       temp bool t_24 = t_20 and t_23;
+
     guardCondition t_24;
     effect
       Measuring_1.state = 0,
       temp int t_25 = actual_resistance + 1,
       actual_resistance = t_25;
 
-  process Measuring_1
+  process Measuring_1 
     guardBlock
       temp bool t_26 = Measuring_1.state == 2;
+
     guardCondition t_26;
     effect
       Measuring_1.state = 0,
@@ -98,9 +107,10 @@ state {state_request(0), state0(1), err7(2), initial(3), state1(4)} Device_state
       temp int t_27 = actual_resistance - 1,
       actual_resistance = t_27;
 
-  process Measuring_1
+  process Measuring_1 
     guardBlock
       temp bool t_28 = Measuring_1.state == 0;
+
     guardCondition t_28;
     effect
       Measuring_1.state = 2,
@@ -108,210 +118,235 @@ state {state_request(0), state0(1), err7(2), initial(3), state1(4)} Device_state
       temp int t_29 = actual_resistance - 1,
       actual_resistance = t_29;
 
-  process Measuring_1
+  process Measuring_1 
     guardBlock
       temp bool t_30 = Measuring_1.state == 1,
       temp bool t_31 = cage_safe == 0,
       temp bool t_32 = t_30 and t_31;
+
     guardCondition t_32;
     effect
       Measuring_1.state = 2;
 
-  process Measuring_1
+  process Measuring_1 
     guardBlock
       temp bool t_33 = Measuring_1.state == 3;
+
     guardCondition t_33;
     effect
       Measuring_1.state = 0,
       cage_safe = 1;
 
-  process Algorithm
+  process Algorithm 
     guardBlock
       temp bool t_34 = Algorithm.state == 0,
       temp bool t_35 = actual_resistance > 999,
       temp bool t_36 = actual_resistance < 5999,
       temp bool t_37 = t_35 and t_36,
       temp bool t_38 = t_34 and t_37;
+
     guardCondition t_38;
     effect
       Algorithm.state = 3,
       actual_resistance = 0;
 
-  process Algorithm
+  process Algorithm 
     guardBlock
       temp bool t_39 = Algorithm.state == 0,
       temp bool t_40 = actual_resistance < 1000,
       temp bool t_41 = t_39 and t_40;
+
     guardCondition t_41;
     effect
       Algorithm.state = 2,
       actual_resistance = 0;
 
-  process Algorithm
+  process Algorithm 
     guardBlock
       temp bool t_42 = Algorithm.state == 0,
       temp bool t_43 = actual_resistance > 5800,
       temp bool t_44 = t_42 and t_43;
+
     guardCondition t_44;
     effect
       Algorithm.state = 4,
       actual_resistance = 0;
 
-  process Algorithm
+  process Algorithm 
     guardBlock
       temp bool t_45 = Algorithm.state == 2,
       temp bool t_46 = range > 0,
       temp bool t_47 = t_45 and t_46;
+
     guardCondition t_47;
     effect
       Algorithm.state = 1,
       temp int t_48 = range - 1,
       range = t_48;
 
-  process Algorithm
+  process Algorithm 
     guardBlock
       temp bool t_49 = Algorithm.state == 4,
       temp bool t_50 = range < 5,
       temp bool t_51 = t_49 and t_50;
+
     guardCondition t_51;
     effect
       Algorithm.state = 1,
       temp int t_52 = range + 1,
       range = t_52;
 
-  process Algorithm
+  process Algorithm 
     guardBlock
       temp bool t_53 = Algorithm.state == 7;
+
     guardCondition t_53;
     effect
       Algorithm.state = 1,
       range = 3;
 
-  process Algorithm
+  process Algorithm 
     guardBlock
       temp bool t_54 = Algorithm.state == 2,
       temp bool t_55 = range == 0,
       temp bool t_56 = t_54 and t_55;
+
     guardCondition t_56;
     effect
       Algorithm.state = 5;
 
-  process Algorithm
+  process Algorithm 
     guardBlock
       temp bool t_57 = Algorithm.state == 4,
       temp bool t_58 = range == 5,
       temp bool t_59 = t_57 and t_58;
+
     guardCondition t_59;
     effect
       Algorithm.state = 6;
 
-  process Algorithm
+  process Algorithm 
     guardBlock
       temp bool t_60 = Algorithm.state == 5;
+
     guardCondition t_60;
     effect
       Algorithm.state = 8;
 
-  process Algorithm
+  process Algorithm 
     guardBlock
       temp bool t_61 = Algorithm.state == 6;
+
     guardCondition t_61;
     effect
       Algorithm.state = 8;
 
-  process Algorithm
+  process Algorithm 
     guardBlock
       temp bool t_62 = Algorithm.state == 3;
+
     guardCondition t_62;
     effect
       Algorithm.state = 8;
 
-  process Algorithm
+  process Algorithm 
     guardBlock
       temp bool t_63 = Algorithm.state == 8;
+
     guardCondition t_63;
     effect
       Algorithm.state = 7;
 
-  process Device_state
+  process Device_state 
     guardBlock
       temp bool t_64 = Device_state.state == 0;
+
     guardCondition t_64;
     effect
       Device_state.state = 1;
 
-  process Device_state
+  process Device_state 
     guardBlock
       temp bool t_65 = Device_state.state == 0;
+
     guardCondition t_65;
     effect
       Device_state.state = 2;
 
-  process Device_state
+  process Device_state 
     guardBlock
       temp bool t_66 = Device_state.state == 1;
+
     guardCondition t_66;
     effect
       Device_state.state = 4,
       cage_safe = 1;
 
-  process Device_state
+  process Device_state 
     guardBlock
       temp bool t_67 = Device_state.state == 1;
+
     guardCondition t_67;
     effect
       Device_state.state = 2;
 
-  process Device_state_Algorithm
+  process Algorithm_Device_state 
     guardBlock
-      temp bool t_68 = Device_state.state == 4,
-      temp bool t_69 = Algorithm.state == 10,
+      temp bool t_68 = Algorithm.state == 9,
+      temp bool t_69 = Device_state.state == 3,
       temp bool t_70 = t_68 and t_69;
+
     guardCondition t_70;
-    effect
-      Device_state.state = 3,
-      Algorithm.state = 0;
-
-  process Measuring_0_Algorithm
-    guardBlock
-      temp bool t_71 = Measuring_0.state == 0,
-      temp bool t_72 = cage_safe == 1,
-      temp bool t_73 = t_71 and t_72,
-      temp bool t_74 = Algorithm.state == 1,
-      temp bool t_75 = t_73 and t_74;
-    guardCondition t_75;
-    effect
-      Measuring_0.state = 1,
-      Algorithm.state = 9;
-
-  process Measuring_1_Algorithm
-    guardBlock
-      temp bool t_76 = Measuring_1.state == 0,
-      temp bool t_77 = cage_safe == 1,
-      temp bool t_78 = t_76 and t_77,
-      temp bool t_79 = Algorithm.state == 1,
-      temp bool t_80 = t_78 and t_79;
-    guardCondition t_80;
-    effect
-      Measuring_1.state = 1,
-      Algorithm.state = 9;
-
-  process Algorithm_Device_state
-    guardBlock
-      temp bool t_81 = Algorithm.state == 9,
-      temp bool t_82 = Device_state.state == 3,
-      temp bool t_83 = t_81 and t_82;
-    guardCondition t_83;
     effect
       Algorithm.state = 10,
       Device_state.state = 0;
 
-  process Device_state_Algorithm
+  process Device_state_Algorithm 
+    guardBlock
+      temp bool t_71 = Device_state.state == 4,
+      temp bool t_72 = Algorithm.state == 10,
+      temp bool t_73 = t_71 and t_72;
+
+    guardCondition t_73;
+    effect
+      Device_state.state = 3,
+      Algorithm.state = 0;
+
+  process Measuring_0_Algorithm 
+    guardBlock
+      temp bool t_74 = Measuring_0.state == 0,
+      temp bool t_75 = cage_safe == 1,
+      temp bool t_76 = t_74 and t_75,
+      temp bool t_77 = Algorithm.state == 1,
+      temp bool t_78 = t_76 and t_77;
+
+    guardCondition t_78;
+    effect
+      Measuring_0.state = 1,
+      Algorithm.state = 9;
+
+  process Measuring_1_Algorithm 
+    guardBlock
+      temp bool t_79 = Measuring_1.state == 0,
+      temp bool t_80 = cage_safe == 1,
+      temp bool t_81 = t_79 and t_80,
+      temp bool t_82 = Algorithm.state == 1,
+      temp bool t_83 = t_81 and t_82;
+
+    guardCondition t_83;
+    effect
+      Measuring_1.state = 1,
+      Algorithm.state = 9;
+
+  process Device_state_Algorithm 
     guardBlock
       temp bool t_84 = Device_state.state == 2,
       temp bool t_85 = Algorithm.state == 10,
       temp bool t_86 = t_84 and t_85;
+
     guardCondition t_86;
     effect
       Device_state.state = 3,
       Algorithm.state = 4;
+
+

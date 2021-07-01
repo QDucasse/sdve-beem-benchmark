@@ -16,66 +16,74 @@ byte Receiver.value = 0;
 byte Receiver.sent = 0;
 byte Receiver.recseq = 0;
 byte Receiver.lack = 0;
-byte Receiver.recbuf[11] =  {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-byte Receiver.nakd[11] =  {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+byte Receiver.recbuf[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+byte Receiver.nakd[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-  process Producer
+  process Producer 
     guardBlock
       temp bool t_0 = Producer.state == 0;
+
     guardCondition t_0;
     effect
       Producer.state = 1;
 
-  process Consumer
+  process Consumer 
     guardBlock
       temp bool t_1 = Consumer.state == 1;
+
     guardCondition t_1;
     effect
       Consumer.state = 0;
 
-  process Medium
+  process Medium 
     guardBlock
       temp bool t_2 = Medium.state == 1;
+
     guardCondition t_2;
     effect
       Medium.state = 0;
 
-  process Medium
+  process Medium 
     guardBlock
       temp bool t_3 = Medium.state == 2;
+
     guardCondition t_3;
     effect
       Medium.state = 0;
 
-  process Medium
+  process Medium 
     guardBlock
       temp bool t_4 = Medium.state == 3;
+
     guardCondition t_4;
     effect
       Medium.state = 0;
 
-  process Medium
+  process Medium 
     guardBlock
       temp bool t_5 = Medium.state == 4;
+
     guardCondition t_5;
     effect
       Medium.state = 0;
 
-  process Medium
+  process Medium 
     guardBlock
       temp bool t_6 = Medium.state == 5;
+
     guardCondition t_6;
     effect
       Medium.state = 0;
 
-  process Medium
+  process Medium 
     guardBlock
       temp bool t_7 = Medium.state == 6;
+
     guardCondition t_7;
     effect
       Medium.state = 0;
 
-  process Sender
+  process Sender 
     guardBlock
       temp bool t_8 = Sender.state == 2,
       temp bool t_9 = Sender.rack < Sender.sendseq,
@@ -90,12 +98,13 @@ byte Receiver.nakd[11] =  {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
       temp bool t_18 = t_16 and t_17,
       temp bool t_19 = t_13 or t_18,
       temp bool t_20 = t_8 and t_19;
+
     guardCondition t_20;
     effect
       Sender.state = 0,
       Sender.rack = Sender.value;
 
-  process Sender
+  process Sender 
     guardBlock
       temp bool t_21 = Sender.state == 2,
       temp bool t_22 = Sender.rack >= Sender.sendseq,
@@ -110,11 +119,12 @@ byte Receiver.nakd[11] =  {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
       temp bool t_31 = t_29 or t_30,
       temp bool t_32 = t_26 and t_31,
       temp bool t_33 = t_21 and t_32;
+
     guardCondition t_33;
     effect
       Sender.state = 0;
 
-  process Sender
+  process Sender 
     guardBlock
       temp bool t_34 = Sender.state == 3,
       temp bool t_35 = Sender.rack >= Sender.sendseq,
@@ -129,37 +139,40 @@ byte Receiver.nakd[11] =  {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
       temp bool t_44 = t_42 or t_43,
       temp bool t_45 = t_39 and t_44,
       temp bool t_46 = t_34 and t_45;
+
     guardCondition t_46;
     effect
       Sender.state = 0;
 
-  process Sender
+  process Sender 
     guardBlock
       temp bool t_47 = Sender.state == 4,
-      temp int t_48 = Sender.rack + 1,
-      temp int t_49 = t_48 % 10,
+      temp byte t_48 = Sender.rack + 1,
+      temp byte t_49 = t_48 % 10,
       temp bool t_50 = t_49 == Sender.sendseq,
       temp bool t_51 = t_47 and t_50;
+
     guardCondition t_51;
     effect
       Sender.state = 0;
 
-  process Receiver
+  process Receiver 
     guardBlock
       temp bool t_52 = Receiver.state == 1,
-      temp int t_53 = Receiver.recseq + 1,
-      temp int t_54 = t_53 % 10,
+      temp byte t_53 = Receiver.recseq + 1,
+      temp byte t_54 = t_53 % 10,
       temp bool t_55 = Receiver.value != t_54,
       temp bool t_56 = t_52 and t_55;
+
     guardCondition t_56;
     effect
       Receiver.state = 3,
       Receiver.recbuf[Receiver.value] = 1,
-      temp int t_57 = Receiver.recseq + 1,
-      temp int t_58 = t_57 % 10,
+      temp byte t_57 = Receiver.recseq + 1,
+      temp byte t_58 = t_57 % 10,
       Receiver.i = t_58;
 
-  process Receiver
+  process Receiver 
     guardBlock
       temp bool t_59 = Receiver.state == 3,
       temp bool t_60 = Receiver.i != Receiver.value,
@@ -167,139 +180,130 @@ byte Receiver.nakd[11] =  {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
       temp bool t_62 = t_61 == 1,
       temp bool t_63 = t_60 and t_62,
       temp bool t_64 = t_59 and t_63;
+
     guardCondition t_64;
     effect
       Receiver.state = 3,
-      temp int t_65 = Receiver.i + 1,
-      temp int t_66 = t_65 % 10,
+      temp byte t_65 = Receiver.i + 1,
+      temp byte t_66 = t_65 % 10,
       Receiver.i = t_66;
 
-  process Receiver
+  process Receiver 
     guardBlock
       temp bool t_67 = Receiver.state == 3,
       temp bool t_68 = Receiver.i == Receiver.value,
       temp bool t_69 = t_67 and t_68;
+
     guardCondition t_69;
     effect
       Receiver.state = 0;
 
-  process Receiver
+  process Receiver 
     guardBlock
       temp bool t_70 = Receiver.state == 2,
       temp bool t_71 = Receiver.sent != 2,
-      temp int t_72 = Receiver.recseq + 1,
-      temp int t_73 = t_72 % 10,
+      temp byte t_72 = Receiver.recseq + 1,
+      temp byte t_73 = t_72 % 10,
       temp byte t_74 = Receiver.recbuf[t_73],
       temp bool t_75 = t_74 == 0,
       temp bool t_76 = t_71 and t_75,
       temp bool t_77 = t_70 and t_76;
+
     guardCondition t_77;
     effect
       Receiver.state = 0;
 
-  process Receiver
+  process Receiver 
     guardBlock
       temp bool t_78 = Receiver.state == 4,
       temp byte t_79 = Receiver.nakd[Receiver.value],
       temp bool t_80 = t_79 == 1,
       temp bool t_81 = t_78 and t_80;
+
     guardCondition t_81;
     effect
       Receiver.state = 0;
 
-  process Receiver
+  process Receiver 
     guardBlock
       temp bool t_82 = Receiver.state == 5,
       temp bool t_83 = Receiver.i < 10,
       temp bool t_84 = t_82 and t_83;
+
     guardCondition t_84;
     effect
       Receiver.state = 5,
       Receiver.nakd[Receiver.i] = 0,
-      temp int t_85 = Receiver.i + 1,
+      temp byte t_85 = Receiver.i + 1,
       Receiver.i = t_85;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_86 = LTL_property.state == 0,
       temp bool t_87 = Consumer.state == 1,
       temp bool t_88 = not t_87,
       temp bool t_89 = t_86 and t_88;
+
     guardCondition t_89;
     effect
       LTL_property.state = 0;
 
-  process Receiver_Medium
+  process Receiver_Consumer 
     guardBlock
-      temp bool t_90 = Receiver.state == 3,
-      temp bool t_91 = Receiver.i != Receiver.value,
-      temp byte t_92 = Receiver.nakd[Receiver.i],
-      temp bool t_93 = t_92 == 0,
-      temp bool t_94 = t_91 and t_93,
-      temp bool t_95 = t_90 and t_94,
-      temp bool t_96 = Medium.state == 0,
-      temp bool t_97 = t_95 and t_96;
-    guardCondition t_97;
-    effect
-      Receiver.state = 3,
-      Receiver.nakd[Receiver.i] = 1,
-      temp int t_98 = Receiver.i + 1,
-      temp int t_99 = t_98 % 10,
-      Receiver.i = t_99,
-      Medium.value = Receiver.i,
-      Medium.state = 3;
+      temp bool t_90 = Receiver.state == 1,
+      temp byte t_91 = Receiver.recseq + 1,
+      temp byte t_92 = t_91 % 10,
+      temp bool t_93 = Receiver.value == t_92,
+      temp bool t_94 = t_90 and t_93,
+      temp bool t_95 = Consumer.state == 0,
+      temp bool t_96 = t_94 and t_95;
 
-  process Receiver_Medium
-    guardBlock
-      temp bool t_100 = Receiver.state == 4,
-      temp byte t_101 = Receiver.nakd[Receiver.value],
-      temp bool t_102 = t_101 == 0,
-      temp bool t_103 = t_100 and t_102,
-      temp bool t_104 = Medium.state == 0,
-      temp bool t_105 = t_103 and t_104;
-    guardCondition t_105;
+    guardCondition t_96;
     effect
-      Receiver.state = 0,
-      Medium.value = Receiver.value,
-      Medium.state = 3;
+      Receiver.state = 2,
+      temp byte t_97 = Receiver.recseq + 1,
+      temp byte t_98 = t_97 % 10,
+      Receiver.recseq = t_98,
+      temp byte t_99 = Receiver.sent + 1,
+      temp byte t_100 = t_99 % 10,
+      Receiver.sent = t_100,
+      Consumer.message = Receiver.value,
+      Consumer.state = 1;
 
-  process Receiver_Medium
+  process Receiver_Consumer 
     guardBlock
-      temp bool t_106 = Receiver.state == 5,
-      temp bool t_107 = Receiver.i == 10,
-      temp bool t_108 = t_106 and t_107,
-      temp bool t_109 = Medium.state == 0,
+      temp bool t_101 = Receiver.state == 2,
+      temp bool t_102 = Receiver.sent != 2,
+      temp byte t_103 = Receiver.recseq + 1,
+      temp byte t_104 = t_103 % 10,
+      temp byte t_105 = Receiver.recbuf[t_104],
+      temp bool t_106 = t_105 == 1,
+      temp bool t_107 = t_102 and t_106,
+      temp bool t_108 = t_101 and t_107,
+      temp bool t_109 = Consumer.state == 0,
       temp bool t_110 = t_108 and t_109;
+
     guardCondition t_110;
     effect
-      Receiver.state = 6,
-      temp int t_111 = Receiver.recseq + 1,
-      temp int t_112 = t_111 % 10,
-      Receiver.nakd[t_112] = 1,
-      temp int t_113 = Receiver.recseq + 1,
-      temp int t_114 = t_113 % 10,
-      Medium.value = t_114,
-      Medium.state = 3;
+      Receiver.state = 2,
+      temp byte t_111 = Receiver.recseq + 1,
+      temp byte t_112 = t_111 % 10,
+      Receiver.recseq = t_112,
+      Receiver.recbuf[Receiver.recseq] = 0,
+      temp byte t_113 = Receiver.recseq + 1,
+      temp byte t_114 = t_113 % 10,
+      Consumer.message = t_114,
+      Consumer.state = 1;
 
-  process Medium_Sender
+  process Receiver_Medium 
     guardBlock
-      temp bool t_115 = Medium.state == 2,
-      temp bool t_116 = Sender.state == 0,
-      temp bool t_117 = t_115 and t_116;
-    guardCondition t_117;
-    effect
-      Medium.state = 5,
-      Sender.value = Medium.value,
-      Sender.state = 2;
+      temp bool t_115 = Receiver.state == 2,
+      temp bool t_116 = Receiver.sent == 2,
+      temp bool t_117 = t_115 and t_116,
+      temp bool t_118 = Medium.state == 0,
+      temp bool t_119 = t_117 and t_118;
 
-  process Receiver_Medium
-    guardBlock
-      temp bool t_118 = Receiver.state == 2,
-      temp bool t_119 = Receiver.sent == 2,
-      temp bool t_120 = t_118 and t_119,
-      temp bool t_121 = Medium.state == 0,
-      temp bool t_122 = t_120 and t_121;
-    guardCondition t_122;
+    guardCondition t_119;
     effect
       Receiver.state = 2,
       Receiver.lack = Receiver.recseq,
@@ -307,186 +311,220 @@ byte Receiver.nakd[11] =  {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
       Medium.value = Receiver.recseq,
       Medium.state = 2;
 
-  process Receiver_Medium
+  process Receiver_Medium 
     guardBlock
-      temp bool t_123 = Receiver.state == 6,
-      temp bool t_124 = Medium.state == 0,
-      temp bool t_125 = t_123 and t_124;
-    guardCondition t_125;
+      temp bool t_120 = Receiver.state == 6,
+      temp bool t_121 = Medium.state == 0,
+      temp bool t_122 = t_120 and t_121;
+
+    guardCondition t_122;
     effect
       Receiver.state = 0,
       Medium.value = Receiver.lack,
       Medium.state = 2;
 
-  process Receiver_Consumer
+  process Timer_Sender 
     guardBlock
-      temp bool t_126 = Receiver.state == 1,
-      temp int t_127 = Receiver.recseq + 1,
-      temp int t_128 = t_127 % 10,
-      temp bool t_129 = Receiver.value == t_128,
-      temp bool t_130 = t_126 and t_129,
-      temp bool t_131 = Consumer.state == 0,
-      temp bool t_132 = t_130 and t_131;
-    guardCondition t_132;
-    effect
-      Receiver.state = 2,
-      temp int t_133 = Receiver.recseq + 1,
-      temp int t_134 = t_133 % 10,
-      Receiver.recseq = t_134,
-      temp int t_135 = Receiver.sent + 1,
-      temp int t_136 = t_135 % 10,
-      Receiver.sent = t_136,
-      Consumer.message = Receiver.value,
-      Consumer.state = 1;
+      temp bool t_123 = Timer.state == 0,
+      temp bool t_124 = Sender.state == 0,
+      temp bool t_125 = t_123 and t_124;
 
-  process Receiver_Consumer
-    guardBlock
-      temp bool t_137 = Receiver.state == 2,
-      temp bool t_138 = Receiver.sent != 2,
-      temp int t_139 = Receiver.recseq + 1,
-      temp int t_140 = t_139 % 10,
-      temp byte t_141 = Receiver.recbuf[t_140],
-      temp bool t_142 = t_141 == 1,
-      temp bool t_143 = t_138 and t_142,
-      temp bool t_144 = t_137 and t_143,
-      temp bool t_145 = Consumer.state == 0,
-      temp bool t_146 = t_144 and t_145;
-    guardCondition t_146;
-    effect
-      Receiver.state = 2,
-      temp int t_147 = Receiver.recseq + 1,
-      temp int t_148 = t_147 % 10,
-      Receiver.recseq = t_148,
-      Receiver.recbuf[Receiver.recseq] = 0,
-      temp int t_149 = Receiver.recseq + 1,
-      temp int t_150 = t_149 % 10,
-      Consumer.message = t_150,
-      Consumer.state = 1;
-
-  process Medium_Receiver
-    guardBlock
-      temp bool t_151 = Medium.state == 1,
-      temp bool t_152 = Receiver.state == 0,
-      temp bool t_153 = t_151 and t_152;
-    guardCondition t_153;
-    effect
-      Medium.state = 0,
-      Receiver.value = Medium.value,
-      Receiver.state = 4;
-
-  process Timer_Sender
-    guardBlock
-      temp bool t_154 = Timer.state == 0,
-      temp bool t_155 = Sender.state == 0,
-      temp bool t_156 = t_154 and t_155;
-    guardCondition t_156;
+    guardCondition t_125;
     effect
       Timer.state = 0,
       Sender.state = 4;
 
-  process Timer_Receiver
+  process Timer_Receiver 
     guardBlock
-      temp bool t_157 = Timer.state == 0,
-      temp bool t_158 = Receiver.state == 0,
-      temp bool t_159 = t_157 and t_158;
-    guardCondition t_159;
+      temp bool t_126 = Timer.state == 0,
+      temp bool t_127 = Receiver.state == 0,
+      temp bool t_128 = t_126 and t_127;
+
+    guardCondition t_128;
     effect
       Timer.state = 0,
       Receiver.state = 5,
       Receiver.i = 0;
 
-  process Sender_Medium
+  process Receiver_Medium 
     guardBlock
-      temp bool t_160 = Sender.state == 3,
-      temp bool t_161 = Sender.rack < Sender.sendseq,
-      temp bool t_162 = Sender.rack < Sender.value,
-      temp bool t_163 = t_161 and t_162,
-      temp bool t_164 = Sender.value < Sender.sendseq,
-      temp bool t_165 = t_163 and t_164,
-      temp bool t_166 = Sender.rack > Sender.sendseq,
-      temp bool t_167 = Sender.sendseq < Sender.value,
-      temp bool t_168 = t_166 and t_167,
-      temp bool t_169 = Sender.value < Sender.rack,
-      temp bool t_170 = t_168 and t_169,
-      temp bool t_171 = t_165 or t_170,
-      temp bool t_172 = t_160 and t_171,
-      temp bool t_173 = Medium.state == 0,
-      temp bool t_174 = t_172 and t_173;
-    guardCondition t_174;
-    effect
-      Sender.state = 0,
-      Medium.value = Sender.value,
-      Medium.state = 1;
+      temp bool t_129 = Receiver.state == 3,
+      temp bool t_130 = Receiver.i != Receiver.value,
+      temp byte t_131 = Receiver.nakd[Receiver.i],
+      temp bool t_132 = t_131 == 0,
+      temp bool t_133 = t_130 and t_132,
+      temp bool t_134 = t_129 and t_133,
+      temp bool t_135 = Medium.state == 0,
+      temp bool t_136 = t_134 and t_135;
 
-  process Sender_Medium
-    guardBlock
-      temp bool t_175 = Sender.state == 4,
-      temp int t_176 = Sender.rack + 1,
-      temp int t_177 = t_176 % 10,
-      temp bool t_178 = t_177 != Sender.sendseq,
-      temp bool t_179 = t_175 and t_178,
-      temp bool t_180 = Medium.state == 0,
-      temp bool t_181 = t_179 and t_180;
-    guardCondition t_181;
+    guardCondition t_136;
     effect
-      Sender.state = 0,
-      temp int t_182 = Sender.rack + 1,
-      temp int t_183 = t_182 % 10,
-      Medium.value = t_183,
-      Medium.state = 1;
+      Receiver.state = 3,
+      Receiver.nakd[Receiver.i] = 1,
+      temp byte t_137 = Receiver.i + 1,
+      temp byte t_138 = t_137 % 10,
+      Receiver.i = t_138,
+      Medium.value = Receiver.i,
+      Medium.state = 3;
 
-  process Sender_Medium
+  process Receiver_Medium 
     guardBlock
-      temp bool t_184 = Sender.state == 1,
-      temp bool t_185 = Medium.state == 0,
-      temp bool t_186 = t_184 and t_185;
-    guardCondition t_186;
+      temp bool t_139 = Receiver.state == 4,
+      temp byte t_140 = Receiver.nakd[Receiver.value],
+      temp bool t_141 = t_140 == 0,
+      temp bool t_142 = t_139 and t_141,
+      temp bool t_143 = Medium.state == 0,
+      temp bool t_144 = t_142 and t_143;
+
+    guardCondition t_144;
     effect
-      Sender.state = 0,
-      temp int t_187 = Sender.sendseq + 1,
-      temp int t_188 = t_187 % 10,
-      Sender.sendseq = t_188,
-      Medium.value = Sender.sendseq,
-      Medium.state = 1;
+      Receiver.state = 0,
+      Medium.value = Receiver.value,
+      Medium.state = 3;
 
-  process Medium_Receiver
+  process Receiver_Medium 
     guardBlock
-      temp bool t_189 = Medium.state == 1,
-      temp bool t_190 = Receiver.state == 0,
-      temp bool t_191 = t_189 and t_190;
-    guardCondition t_191;
+      temp bool t_145 = Receiver.state == 5,
+      temp bool t_146 = Receiver.i == 10,
+      temp bool t_147 = t_145 and t_146,
+      temp bool t_148 = Medium.state == 0,
+      temp bool t_149 = t_147 and t_148;
+
+    guardCondition t_149;
     effect
-      Medium.state = 4,
-      Receiver.value = Medium.value,
-      Receiver.state = 1;
+      Receiver.state = 6,
+      temp byte t_150 = Receiver.recseq + 1,
+      temp byte t_151 = t_150 % 10,
+      Receiver.nakd[t_151] = 1,
+      temp byte t_152 = Receiver.recseq + 1,
+      temp byte t_153 = t_152 % 10,
+      Medium.value = t_153,
+      Medium.state = 3;
 
-  process Medium_Sender
+  process Medium_Sender 
     guardBlock
-      temp bool t_192 = Medium.state == 3,
-      temp bool t_193 = Sender.state == 0,
-      temp bool t_194 = t_192 and t_193;
-    guardCondition t_194;
+      temp bool t_154 = Medium.state == 3,
+      temp bool t_155 = Sender.state == 0,
+      temp bool t_156 = t_154 and t_155;
+
+    guardCondition t_156;
     effect
       Medium.state = 6,
       Sender.value = Medium.value,
       Sender.state = 3;
 
-  process Producer_Sender
+  process Producer_Sender 
     guardBlock
-      temp bool t_195 = Producer.state == 1,
-      temp bool t_196 = Sender.state == 0,
-      temp int t_197 = Sender.rack + 5,
-      temp int t_198 = t_197 % 10,
-      temp bool t_199 = t_198 > Sender.sendseq,
-      temp bool t_200 = t_196 and t_199,
-      temp bool t_201 = t_195 and t_200;
-    guardCondition t_201;
+      temp bool t_157 = Producer.state == 1,
+      temp bool t_158 = Sender.state == 0,
+      temp byte t_159 = Sender.rack + 5,
+      temp byte t_160 = t_159 % 10,
+      temp bool t_161 = t_160 > Sender.sendseq,
+      temp bool t_162 = t_158 and t_161,
+      temp bool t_163 = t_157 and t_162;
+
+    guardCondition t_163;
     effect
       Producer.state = 0,
-      temp int t_202 = Producer.message + 1,
-      temp int t_203 = t_202 % 10,
-      Producer.message = t_203,
+      temp byte t_164 = Producer.message + 1,
+      temp byte t_165 = t_164 % 10,
+      Producer.message = t_165,
       Sender.value = Producer.message,
       Sender.state = 1;
-      // accepting conditions
-      // LTL_property.state == 0
+
+  process Sender_Medium 
+    guardBlock
+      temp bool t_166 = Sender.state == 3,
+      temp bool t_167 = Sender.rack < Sender.sendseq,
+      temp bool t_168 = Sender.rack < Sender.value,
+      temp bool t_169 = t_167 and t_168,
+      temp bool t_170 = Sender.value < Sender.sendseq,
+      temp bool t_171 = t_169 and t_170,
+      temp bool t_172 = Sender.rack > Sender.sendseq,
+      temp bool t_173 = Sender.sendseq < Sender.value,
+      temp bool t_174 = t_172 and t_173,
+      temp bool t_175 = Sender.value < Sender.rack,
+      temp bool t_176 = t_174 and t_175,
+      temp bool t_177 = t_171 or t_176,
+      temp bool t_178 = t_166 and t_177,
+      temp bool t_179 = Medium.state == 0,
+      temp bool t_180 = t_178 and t_179;
+
+    guardCondition t_180;
+    effect
+      Sender.state = 0,
+      Medium.value = Sender.value,
+      Medium.state = 1;
+
+  process Sender_Medium 
+    guardBlock
+      temp bool t_181 = Sender.state == 4,
+      temp byte t_182 = Sender.rack + 1,
+      temp byte t_183 = t_182 % 10,
+      temp bool t_184 = t_183 != Sender.sendseq,
+      temp bool t_185 = t_181 and t_184,
+      temp bool t_186 = Medium.state == 0,
+      temp bool t_187 = t_185 and t_186;
+
+    guardCondition t_187;
+    effect
+      Sender.state = 0,
+      temp byte t_188 = Sender.rack + 1,
+      temp byte t_189 = t_188 % 10,
+      Medium.value = t_189,
+      Medium.state = 1;
+
+  process Sender_Medium 
+    guardBlock
+      temp bool t_190 = Sender.state == 1,
+      temp bool t_191 = Medium.state == 0,
+      temp bool t_192 = t_190 and t_191;
+
+    guardCondition t_192;
+    effect
+      Sender.state = 0,
+      temp byte t_193 = Sender.sendseq + 1,
+      temp byte t_194 = t_193 % 10,
+      Sender.sendseq = t_194,
+      Medium.value = Sender.sendseq,
+      Medium.state = 1;
+
+  process Medium_Receiver 
+    guardBlock
+      temp bool t_195 = Medium.state == 1,
+      temp bool t_196 = Receiver.state == 0,
+      temp bool t_197 = t_195 and t_196;
+
+    guardCondition t_197;
+    effect
+      Medium.state = 4,
+      Receiver.value = Medium.value,
+      Receiver.state = 1;
+
+  process Medium_Receiver 
+    guardBlock
+      temp bool t_198 = Medium.state == 1,
+      temp bool t_199 = Receiver.state == 0,
+      temp bool t_200 = t_198 and t_199;
+
+    guardCondition t_200;
+    effect
+      Medium.state = 0,
+      Receiver.value = Medium.value,
+      Receiver.state = 4;
+
+  process Medium_Sender 
+    guardBlock
+      temp bool t_201 = Medium.state == 2,
+      temp bool t_202 = Sender.state == 0,
+      temp bool t_203 = t_201 and t_202;
+
+    guardCondition t_203;
+    effect
+      Medium.state = 5,
+      Sender.value = Medium.value,
+      Sender.state = 2;
+
+accepting conditions
+  LTL_property.state == 0
+

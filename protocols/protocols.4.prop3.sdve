@@ -16,101 +16,112 @@ byte Sender.retry = 0;
 byte Receiver.value = 0;
 byte Receiver.rab = 1;
 
-  process channel_K
+  process channel_K 
     guardBlock
       temp bool t_0 = channel_K.state == 1,
       temp bool t_1 = channel_K.lost < 20,
       temp bool t_2 = t_0 and t_1;
+
     guardCondition t_2;
     effect
       channel_K.state = 0,
-      temp int t_3 = channel_K.lost + 1,
+      temp byte t_3 = channel_K.lost + 1,
       channel_K.lost = t_3;
 
-  process channel_L
+  process channel_L 
     guardBlock
       temp bool t_4 = channel_L.state == 1,
       temp bool t_5 = channel_L.lost < 20,
       temp bool t_6 = t_4 and t_5;
+
     guardCondition t_6;
     effect
       channel_L.state = 0,
-      temp int t_7 = channel_L.lost + 1,
+      temp byte t_7 = channel_L.lost + 1,
       channel_L.lost = t_7;
 
-  process Producer
+  process Producer 
     guardBlock
       temp bool t_8 = Producer.state == 0;
+
     guardCondition t_8;
     effect
       Producer.state = 1;
 
-  process Producer
+  process Producer 
     guardBlock
       temp bool t_9 = Producer.state == 0;
+
     guardCondition t_9;
     effect
       Producer.state = 2;
 
-  process Consumer
+  process Consumer 
     guardBlock
       temp bool t_10 = Consumer.state == 1,
       temp bool t_11 = Consumer.value == 0,
       temp bool t_12 = t_10 and t_11;
+
     guardCondition t_12;
     effect
       Consumer.state = 2;
 
-  process Consumer
+  process Consumer 
     guardBlock
       temp bool t_13 = Consumer.state == 1,
       temp bool t_14 = Consumer.value == 1,
       temp bool t_15 = t_13 and t_14;
+
     guardCondition t_15;
     effect
       Consumer.state = 3;
 
-  process Consumer
+  process Consumer 
     guardBlock
       temp bool t_16 = Consumer.state == 2;
+
     guardCondition t_16;
     effect
       Consumer.state = 0;
 
-  process Consumer
+  process Consumer 
     guardBlock
       temp bool t_17 = Consumer.state == 3;
+
     guardCondition t_17;
     effect
       Consumer.state = 0;
 
-  process Sender
+  process Sender 
     guardBlock
       temp bool t_18 = Sender.state == 2,
       temp bool t_19 = Sender.retry == 30,
       temp bool t_20 = t_18 and t_19;
+
     guardCondition t_20;
     effect
       Sender.state = 3;
 
-  process Receiver
+  process Receiver 
     guardBlock
       temp bool t_21 = Receiver.state == 1,
-      temp int t_22 = Receiver.value % 2,
+      temp byte t_22 = Receiver.value % 2,
       temp bool t_23 = t_22 != Receiver.rab,
       temp bool t_24 = t_21 and t_23;
+
     guardCondition t_24;
     effect
       Receiver.state = 0;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_25 = LTL_property.state == 0;
+
     guardCondition t_25;
     effect
       LTL_property.state = 0;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_26 = LTL_property.state == 0,
       temp bool t_27 = Consumer.state == 2,
@@ -119,11 +130,12 @@ byte Receiver.rab = 1;
       temp bool t_30 = not t_29,
       temp bool t_31 = t_28 and t_30,
       temp bool t_32 = t_26 and t_31;
+
     guardCondition t_32;
     effect
       LTL_property.state = 1;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_33 = LTL_property.state == 1,
       temp bool t_34 = Consumer.state == 2,
@@ -132,117 +144,128 @@ byte Receiver.rab = 1;
       temp bool t_37 = not t_36,
       temp bool t_38 = t_35 and t_37,
       temp bool t_39 = t_33 and t_38;
+
     guardCondition t_39;
     effect
       LTL_property.state = 1;
 
-  process Receiver_channel_L
+  process channel_L_Sender 
     guardBlock
-      temp bool t_40 = Receiver.state == 2,
-      temp bool t_41 = channel_L.state == 0,
+      temp bool t_40 = channel_L.state == 1,
+      temp bool t_41 = Sender.state == 2,
       temp bool t_42 = t_40 and t_41;
-    guardCondition t_42;
-    effect
-      Receiver.state = 0,
-      temp int t_43 = 1 - Receiver.rab,
-      Receiver.rab = t_43,
-      channel_L.v = 0,
-      channel_L.state = 1;
 
-  process channel_L_Sender
-    guardBlock
-      temp bool t_44 = channel_L.state == 1,
-      temp bool t_45 = Sender.state == 2,
-      temp bool t_46 = t_44 and t_45;
-    guardCondition t_46;
+    guardCondition t_42;
     effect
       channel_L.state = 0,
       channel_L.lost = 0,
       Sender.value = channel_L.v,
       Sender.state = 0;
 
-  process Receiver_Consumer
+  process Receiver_Consumer 
     guardBlock
-      temp bool t_47 = Receiver.state == 1,
-      temp int t_48 = Receiver.value % 2,
-      temp bool t_49 = t_48 == Receiver.rab,
-      temp bool t_50 = t_47 and t_49,
-      temp bool t_51 = Consumer.state == 0,
-      temp bool t_52 = t_50 and t_51;
-    guardCondition t_52;
+      temp bool t_43 = Receiver.state == 1,
+      temp byte t_44 = Receiver.value % 2,
+      temp bool t_45 = t_44 == Receiver.rab,
+      temp bool t_46 = t_43 and t_45,
+      temp bool t_47 = Consumer.state == 0,
+      temp bool t_48 = t_46 and t_47;
+
+    guardCondition t_48;
     effect
       Receiver.state = 2,
-      temp int t_53 = Receiver.value / 2,
-      Consumer.value = t_53,
+      temp byte t_49 = Receiver.value / 2,
+      Consumer.value = t_49,
       Consumer.state = 1;
 
-  process Producer_Sender
+  process Sender_channel_K 
     guardBlock
-      temp bool t_54 = Producer.state == 1,
-      temp bool t_55 = Sender.state == 0,
-      temp bool t_56 = t_54 and t_55;
-    guardCondition t_56;
-    effect
-      Producer.state = 0,
-      Sender.value = 0,
-      Sender.state = 1,
-      temp int t_57 = 1 - Sender.sab,
-      Sender.sab = t_57;
+      temp bool t_50 = Sender.state == 1,
+      temp bool t_51 = channel_K.state == 0,
+      temp bool t_52 = t_50 and t_51;
 
-  process Producer_Sender
-    guardBlock
-      temp bool t_58 = Producer.state == 2,
-      temp bool t_59 = Sender.state == 0,
-      temp bool t_60 = t_58 and t_59;
-    guardCondition t_60;
+    guardCondition t_52;
     effect
-      Producer.state = 0,
-      Sender.value = 1,
-      Sender.state = 1,
-      temp int t_61 = 1 - Sender.sab,
-      Sender.sab = t_61;
+      Sender.state = 2,
+      Sender.retry = 1,
+      temp byte t_53 = Sender.value * 2,
+      temp byte t_54 = t_53 + Sender.sab,
+      channel_K.v = t_54,
+      channel_K.state = 1;
 
-  process channel_K_Receiver
+  process Sender_channel_K 
     guardBlock
-      temp bool t_62 = channel_K.state == 1,
-      temp bool t_63 = Receiver.state == 0,
-      temp bool t_64 = t_62 and t_63;
-    guardCondition t_64;
+      temp bool t_55 = Sender.state == 2,
+      temp bool t_56 = Sender.retry < 30,
+      temp bool t_57 = t_55 and t_56,
+      temp bool t_58 = channel_K.state == 0,
+      temp bool t_59 = t_57 and t_58;
+
+    guardCondition t_59;
+    effect
+      Sender.state = 2,
+      temp byte t_60 = Sender.retry + 1,
+      Sender.retry = t_60,
+      temp byte t_61 = Sender.value * 2,
+      temp byte t_62 = t_61 + Sender.sab,
+      channel_K.v = t_62,
+      channel_K.state = 1;
+
+  process Receiver_channel_L 
+    guardBlock
+      temp bool t_63 = Receiver.state == 2,
+      temp bool t_64 = channel_L.state == 0,
+      temp bool t_65 = t_63 and t_64;
+
+    guardCondition t_65;
+    effect
+      Receiver.state = 0,
+      temp byte t_66 = 1 - Receiver.rab,
+      Receiver.rab = t_66,
+      channel_L.v = 0,
+      channel_L.state = 1;
+
+  process channel_K_Receiver 
+    guardBlock
+      temp bool t_67 = channel_K.state == 1,
+      temp bool t_68 = Receiver.state == 0,
+      temp bool t_69 = t_67 and t_68;
+
+    guardCondition t_69;
     effect
       channel_K.state = 0,
       channel_K.lost = 0,
       Receiver.value = channel_K.v,
       Receiver.state = 1;
 
-  process Sender_channel_K
+  process Producer_Sender 
     guardBlock
-      temp bool t_65 = Sender.state == 1,
-      temp bool t_66 = channel_K.state == 0,
-      temp bool t_67 = t_65 and t_66;
-    guardCondition t_67;
-    effect
-      Sender.state = 2,
-      Sender.retry = 1,
-      temp int t_68 = Sender.value * 2,
-      temp int t_69 = t_68 + Sender.sab,
-      channel_K.v = t_69,
-      channel_K.state = 1;
+      temp bool t_70 = Producer.state == 1,
+      temp bool t_71 = Sender.state == 0,
+      temp bool t_72 = t_70 and t_71;
 
-  process Sender_channel_K
-    guardBlock
-      temp bool t_70 = Sender.state == 2,
-      temp bool t_71 = Sender.retry < 30,
-      temp bool t_72 = t_70 and t_71,
-      temp bool t_73 = channel_K.state == 0,
-      temp bool t_74 = t_72 and t_73;
-    guardCondition t_74;
+    guardCondition t_72;
     effect
-      Sender.state = 2,
-      temp int t_75 = Sender.retry + 1,
-      Sender.retry = t_75,
-      temp int t_76 = Sender.value * 2,
-      temp int t_77 = t_76 + Sender.sab,
-      channel_K.v = t_77,
-      channel_K.state = 1;
-      // accepting conditions
-      // LTL_property.state == 1
+      Producer.state = 0,
+      Sender.value = 0,
+      Sender.state = 1,
+      temp byte t_73 = 1 - Sender.sab,
+      Sender.sab = t_73;
+
+  process Producer_Sender 
+    guardBlock
+      temp bool t_74 = Producer.state == 2,
+      temp bool t_75 = Sender.state == 0,
+      temp bool t_76 = t_74 and t_75;
+
+    guardCondition t_76;
+    effect
+      Producer.state = 0,
+      Sender.value = 1,
+      Sender.state = 1,
+      temp byte t_77 = 1 - Sender.sab,
+      Sender.sab = t_77;
+
+accepting conditions
+  LTL_property.state == 1
+

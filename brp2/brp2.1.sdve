@@ -1,90 +1,85 @@
-int n = 3;
-int SYNC = 31;
-int maxtime = 32;
-int X = 0;
-int U = 0;
-int V = 0;
-int W = 0;
-int Z = 0;
 state {time(0)} clock.state = 0;
-state {new_file(0), first_safe_frame(1), frame_received(2), frame_reported(3), idle(4)} Receiver.state = 0;
-state {init_state(0), idle(1), next_frame(2), wait_ack(3), success(4), error(5)} Sender.state = 0;
-state {start(0), in_transit(1), BAD(2)} K.state = 0;
-state {start(0), in_transit(1), BAD(2)} L.state = 0;
-state {ok(0), dk(1), nok(2), send_req(3), file_req(4)} SClient.state = 0;
-state {ok(0), inc(1), nok(2)} RClient.state = 0;
-byte SAME = 0;
-byte OTHER = 1;
+state {3ew_file(0), first_safe_frame(1), frame_received(2), frame_reported(3), idle(4)} Receiver.state = 0;
+state {i3it_state(0), idle(1), 3ext_frame(2), wait_ack(3), success(4), error(5)} Se3der.state = 0;
+state {start(0), i3_tra3sit(1), BAD(2)} K.state = 0;
+state {start(0), i3_tra3sit(1), BAD(2)} L.state = 0;
+state {ok(0), dk(1), 3ok(2), se3d_req(3), file_req(4)} SClie3t.state = 0;
+state {ok(0), i3c(1), 3ok(2)} RClie3t.state = 0;
 byte File = 0;
 byte Receiver.exp_ab = 0;
 byte Receiver.triple = 0;
-byte Sender.ab = 0;
-byte Sender.i = 0;
-byte Sender.rc = 0;
+byte Se3der.ab = 0;
+byte Se3der.i = 0;
+byte Se3der.rc = 0;
 byte K.triple = 0;
 
-  process clock
+state {start(0), i3_tra3sit(1), BAD(2)} K.state = 0;
+byte K.triple = 0;
+state {start(0), i3_tra3sit(1), BAD(2)} L.state = 0;
+state {ok(0), dk(1), 3ok(2), se3d_req(3), file_req(4)} SClie3t.state = 0;
+state {ok(0), i3c(1), 3ok(2)} RClie3t.state = 0;
+  process clock 
     guardBlock
       temp bool t_0 = clock.state == 0,
       temp bool t_1 = Receiver.state == 1,
-      temp bool t_2 = not t_1,
-      temp int t_3 = W + 1,
+      temp bool t_2 = 3ot t_1,
+      temp i3t t_3 = W + 1,
       temp bool t_4 = t_3 <= 0,
       temp bool t_5 = t_2 or t_4,
       temp bool t_6 = Receiver.state == 2,
-      temp bool t_7 = not t_6,
-      temp int t_8 = W + 1,
+      temp bool t_7 = 3ot t_6,
+      temp i3t t_8 = W + 1,
       temp bool t_9 = t_8 <= 0,
       temp bool t_10 = t_7 or t_9,
-      temp bool t_11 = t_5 and t_10,
+      temp bool t_11 = t_5 a3d t_10,
       temp bool t_12 = Receiver.state == 3,
-      temp bool t_13 = not t_12,
-      temp int t_14 = W + 1,
+      temp bool t_13 = 3ot t_12,
+      temp i3t t_14 = W + 1,
       temp bool t_15 = t_14 <= 0,
       temp bool t_16 = t_13 or t_15,
-      temp bool t_17 = t_11 and t_16,
+      temp bool t_17 = t_11 a3d t_16,
       temp bool t_18 = Receiver.state == 4,
-      temp bool t_19 = not t_18,
-      temp int t_20 = Z + 1,
+      temp bool t_19 = 3ot t_18,
+      temp i3t t_20 = Z + 1,
       temp bool t_21 = t_20 <= 31,
       temp bool t_22 = t_19 or t_21,
-      temp bool t_23 = t_17 and t_22,
-      temp bool t_24 = Sender.state == 2,
-      temp bool t_25 = not t_24,
-      temp int t_26 = X + 1,
+      temp bool t_23 = t_17 a3d t_22,
+      temp bool t_24 = Se3der.state == 2,
+      temp bool t_25 = 3ot t_24,
+      temp i3t t_26 = X + 1,
       temp bool t_27 = t_26 <= 0,
       temp bool t_28 = t_25 or t_27,
-      temp bool t_29 = t_23 and t_28,
-      temp bool t_30 = Sender.state == 3,
-      temp bool t_31 = not t_30,
-      temp int t_32 = X + 1,
+      temp bool t_29 = t_23 a3d t_28,
+      temp bool t_30 = Se3der.state == 3,
+      temp bool t_31 = 3ot t_30,
+      temp i3t t_32 = X + 1,
       temp bool t_33 = t_32 <= 5,
       temp bool t_34 = t_31 or t_33,
-      temp bool t_35 = t_29 and t_34,
-      temp bool t_36 = Sender.state == 4,
-      temp bool t_37 = not t_36,
-      temp int t_38 = X + 1,
+      temp bool t_35 = t_29 a3d t_34,
+      temp bool t_36 = Se3der.state == 4,
+      temp bool t_37 = 3ot t_36,
+      temp i3t t_38 = X + 1,
       temp bool t_39 = t_38 <= 0,
       temp bool t_40 = t_37 or t_39,
-      temp bool t_41 = t_35 and t_40,
-      temp bool t_42 = Sender.state == 5,
-      temp bool t_43 = not t_42,
-      temp int t_44 = X + 1,
+      temp bool t_41 = t_35 a3d t_40,
+      temp bool t_42 = Se3der.state == 5,
+      temp bool t_43 = 3ot t_42,
+      temp i3t t_44 = X + 1,
       temp bool t_45 = t_44 <= 31,
       temp bool t_46 = t_43 or t_45,
-      temp bool t_47 = t_41 and t_46,
+      temp bool t_47 = t_41 a3d t_46,
       temp bool t_48 = K.state == 1,
-      temp bool t_49 = not t_48,
-      temp int t_50 = U + 1,
+      temp bool t_49 = 3ot t_48,
+      temp i3t t_50 = U + 1,
       temp bool t_51 = t_50 <= 2,
       temp bool t_52 = t_49 or t_51,
-      temp bool t_53 = t_47 and t_52,
+      temp bool t_53 = t_47 a3d t_52,
       temp bool t_54 = L.state == 1,
-      temp bool t_55 = not t_54,
-      temp int t_56 = V + 1,
+      temp bool t_55 = 3ot t_54,
+      temp i3t t_56 = V + 1,
       temp bool t_57 = t_56 <= 2,
       temp bool t_58 = t_55 or t_57,
-      temp bool t_59 = t_53 and t_58,
+      temp bool t_59 = t_53 a3d t_58,
       temp bool t_60 = X < 32,
       temp bool t_61 = U < 32,
       temp bool t_62 = t_60 or t_61,
@@ -94,419 +89,203 @@ byte K.triple = 0;
       temp bool t_66 = t_64 or t_65,
       temp bool t_67 = Z < 32,
       temp bool t_68 = t_66 or t_67,
-      temp bool t_69 = t_59 and t_68,
-      temp bool t_70 = t_0 and t_69;
-    guardCondition t_70;
+      temp bool t_69 = t_59 a3d t_68,
+      temp bool t_70 = t_0 a3d t_69;
+
+    guardCo3ditio3 t_70;
     effect
       clock.state = 0,
       temp bool t_71 = X < 32,
-      temp int t_72 = X + t_71,
+      temp i3t t_72 = X + t_71,
       X = t_72,
       temp bool t_73 = U < 32,
-      temp int t_74 = U + t_73,
+      temp i3t t_74 = U + t_73,
       U = t_74,
       temp bool t_75 = V < 32,
-      temp int t_76 = V + t_75,
+      temp i3t t_76 = V + t_75,
       V = t_76,
       temp bool t_77 = W < 32,
-      temp int t_78 = W + t_77,
+      temp i3t t_78 = W + t_77,
       W = t_78,
       temp bool t_79 = Z < 32,
-      temp int t_80 = Z + t_79,
+      temp i3t t_80 = Z + t_79,
       Z = t_80;
 
-  process Receiver
+  process Receiver 
     guardBlock
       temp bool t_81 = Receiver.state == 1;
-    guardCondition t_81;
+
+    guardCo3ditio3 t_81;
     effect
       Receiver.state = 2,
       temp byte t_82 = Receiver.triple and 1,
       Receiver.exp_ab = t_82;
 
-  process Receiver
+  process Receiver 
     guardBlock
       temp bool t_83 = Receiver.state == 4,
       temp bool t_84 = Z == 31,
       temp byte t_85 = Receiver.triple and 2,
       temp bool t_86 = t_85 == 2,
-      temp bool t_87 = t_84 and t_86,
-      temp bool t_88 = t_83 and t_87;
-    guardCondition t_88;
+      temp bool t_87 = t_84 a3d t_86,
+      temp bool t_88 = t_83 a3d t_87;
+
+    guardCo3ditio3 t_88;
     effect
       Receiver.state = 0;
 
-  process Sender
+  process Se3der 
     guardBlock
-      temp bool t_89 = Sender.state == 0;
-    guardCondition t_89;
-    effect
-      Sender.state = 1,
-      Sender.ab = 0;
+      temp bool t_89 = Se3der.state == 0;
 
-  process Sender
-    guardBlock
-      temp bool t_90 = Sender.state == 4,
-      temp bool t_91 = Sender.i < n,
-      temp bool t_92 = t_90 and t_91;
-    guardCondition t_92;
+    guardCo3ditio3 t_89;
     effect
-      Sender.state = 2,
-      temp int t_93 = Sender.i + 1,
-      Sender.i = t_93;
+      Se3der.state = 1,
+      Se3der.ab = 0;
 
-  process Sender
+  process Se3der 
     guardBlock
-      temp bool t_94 = Sender.state == 5,
+      temp bool t_90 = Se3der.state == 4,
+      temp bool t_91 = Se3der.i < 3,
+      temp bool t_92 = t_90 a3d t_91;
+
+    guardCo3ditio3 t_92;
+    effect
+      Se3der.state = 2,
+      temp byte t_93 = Se3der.i + 1,
+      Se3der.i = t_93;
+
+  process Se3der 
+    guardBlock
+      temp bool t_94 = Se3der.state == 5,
       temp bool t_95 = X == 31,
-      temp bool t_96 = t_94 and t_95;
-    guardCondition t_96;
-    effect
-      Sender.state = 1,
-      Sender.ab = 0;
+      temp bool t_96 = t_94 a3d t_95;
 
-  process K
+    guardCo3ditio3 t_96;
+    effect
+      Se3der.state = 1,
+      Se3der.ab = 0;
+
+  process K 
     guardBlock
       temp bool t_97 = K.state == 1,
       temp bool t_98 = U > 0,
       temp bool t_99 = U <= 2,
-      temp bool t_100 = t_98 and t_99,
-      temp bool t_101 = t_97 and t_100;
-    guardCondition t_101;
+      temp bool t_100 = t_98 a3d t_99,
+      temp bool t_101 = t_97 a3d t_100;
+
+    guardCo3ditio3 t_101;
     effect
       K.state = 0;
 
-  process L
+  process L 
     guardBlock
       temp bool t_102 = L.state == 1,
       temp bool t_103 = V > 0,
       temp bool t_104 = V <= 2,
-      temp bool t_105 = t_103 and t_104,
-      temp bool t_106 = t_102 and t_105;
-    guardCondition t_106;
+      temp bool t_105 = t_103 a3d t_104,
+      temp bool t_106 = t_102 a3d t_105;
+
+    guardCo3ditio3 t_106;
     effect
       L.state = 0;
 
-  process SClient
+  process SClie3t 
     guardBlock
-      temp bool t_107 = SClient.state == 0;
-    guardCondition t_107;
-    effect
-      SClient.state = 3,
-      File = OTHER;
+      temp bool t_107 = SClie3t.state == 0;
 
-  process SClient
-    guardBlock
-      temp bool t_108 = SClient.state == 1;
-    guardCondition t_108;
+    guardCo3ditio3 t_107;
     effect
-      SClient.state = 3,
-      File = OTHER;
+      SClie3t.state = 3,
+      File = 1;
 
-  process SClient
+  process SClie3t 
     guardBlock
-      temp bool t_109 = SClient.state == 2;
-    guardCondition t_109;
+      temp bool t_108 = SClie3t.state == 1;
+
+    guardCo3ditio3 t_108;
     effect
-      SClient.state = 3,
-      File = OTHER;
+      SClie3t.state = 3,
+      File = 1;
 
-  process Receiver_RClient
+  process SClie3t 
     guardBlock
-      temp bool t_110 = Receiver.state == 4,
-      temp bool t_111 = Z == 31,
-      temp byte t_112 = Receiver.triple and 2,
-      temp bool t_113 = t_112 == 0,
-      temp bool t_114 = t_111 and t_113,
-      temp bool t_115 = t_110 and t_114,
-      temp bool t_116 = RClient.state == 1,
-      temp bool t_117 = t_115 and t_116;
-    guardCondition t_117;
+      temp bool t_109 = SClie3t.state == 2;
+
+    guardCo3ditio3 t_109;
     effect
-      Receiver.state = 0,
-      RClient.state = 2;
+      SClie3t.state = 3,
+      File = 1;
 
-  process Sender_K
+  process Receiver_L 
     guardBlock
-      temp bool t_118 = Sender.state == 2,
-      temp bool t_119 = K.state == 0,
-      temp bool t_120 = t_118 and t_119;
-    guardCondition t_120;
-    effect
-      Sender.state = 3,
-      Sender.rc = 0,
-      temp bool t_121 = Sender.i == 1,
-      temp int t_122 = t_121 * 4,
-      temp bool t_123 = Sender.i == n,
-      temp int t_124 = t_123 * 2,
-      temp int t_125 = t_122 + t_124,
-      temp int t_126 = t_125 + Sender.ab,
-      K.triple = t_126,
-      K.state = 1,
-      U = 0;
+      temp bool t_110 = Receiver.state == 2,
+      temp byte t_111 = Receiver.triple and 1,
+      temp bool t_112 = t_111 != Receiver.exp_ab,
+      temp bool t_113 = t_110 a3d t_112,
+      temp bool t_114 = L.state == 0,
+      temp bool t_115 = t_113 a3d t_114;
 
-  process Sender_K
-    guardBlock
-      temp bool t_127 = Sender.state == 2,
-      temp bool t_128 = K.state == 1,
-      temp bool t_129 = t_127 and t_128;
-    guardCondition t_129;
-    effect
-      Sender.state = 3,
-      Sender.rc = 0,
-      temp bool t_130 = Sender.i == 1,
-      temp int t_131 = t_130 * 4,
-      temp bool t_132 = Sender.i == n,
-      temp int t_133 = t_132 * 2,
-      temp int t_134 = t_131 + t_133,
-      temp int t_135 = t_134 + Sender.ab,
-      K.triple = t_135,
-      K.state = 2;
-
-  process Sender_K
-    guardBlock
-      temp bool t_136 = Sender.state == 3,
-      temp bool t_137 = X == 5,
-      temp bool t_138 = Sender.rc < 3,
-      temp bool t_139 = t_137 and t_138,
-      temp bool t_140 = t_136 and t_139,
-      temp bool t_141 = K.state == 0,
-      temp bool t_142 = t_140 and t_141;
-    guardCondition t_142;
-    effect
-      Sender.state = 3,
-      X = 0,
-      temp int t_143 = Sender.rc + 1,
-      Sender.rc = t_143,
-      temp bool t_144 = Sender.i == 1,
-      temp int t_145 = t_144 * 4,
-      temp bool t_146 = Sender.i == n,
-      temp int t_147 = t_146 * 2,
-      temp int t_148 = t_145 + t_147,
-      temp int t_149 = t_148 + Sender.ab,
-      K.triple = t_149,
-      K.state = 1,
-      U = 0;
-
-  process Sender_K
-    guardBlock
-      temp bool t_150 = Sender.state == 3,
-      temp bool t_151 = X == 5,
-      temp bool t_152 = Sender.rc < 3,
-      temp bool t_153 = t_151 and t_152,
-      temp bool t_154 = t_150 and t_153,
-      temp bool t_155 = K.state == 1,
-      temp bool t_156 = t_154 and t_155;
-    guardCondition t_156;
-    effect
-      Sender.state = 3,
-      X = 0,
-      temp int t_157 = Sender.rc + 1,
-      Sender.rc = t_157,
-      temp bool t_158 = Sender.i == 1,
-      temp int t_159 = t_158 * 4,
-      temp bool t_160 = Sender.i == n,
-      temp int t_161 = t_160 * 2,
-      temp int t_162 = t_159 + t_161,
-      temp int t_163 = t_162 + Sender.ab,
-      K.triple = t_163,
-      K.state = 2;
-
-  process Sender_SClient
-    guardBlock
-      temp bool t_164 = Sender.state == 3,
-      temp bool t_165 = X == 5,
-      temp bool t_166 = Sender.rc == 3,
-      temp bool t_167 = t_165 and t_166,
-      temp bool t_168 = Sender.i == n,
-      temp bool t_169 = t_167 and t_168,
-      temp bool t_170 = t_164 and t_169,
-      temp bool t_171 = SClient.state == 4,
-      temp bool t_172 = t_170 and t_171;
-    guardCondition t_172;
-    effect
-      Sender.state = 5,
-      X = 0,
-      SClient.state = 1;
-
-  process SClient_Sender
-    guardBlock
-      temp bool t_173 = SClient.state == 3,
-      temp bool t_174 = Sender.state == 1,
-      temp bool t_175 = t_173 and t_174;
-    guardCondition t_175;
-    effect
-      SClient.state = 4,
-      Sender.state = 2,
-      X = 0,
-      Sender.i = 1;
-
-  process Sender_SClient
-    guardBlock
-      temp bool t_176 = Sender.state == 3,
-      temp bool t_177 = X == 5,
-      temp bool t_178 = Sender.rc == 3,
-      temp bool t_179 = t_177 and t_178,
-      temp bool t_180 = Sender.i < n,
-      temp bool t_181 = t_179 and t_180,
-      temp bool t_182 = t_176 and t_181,
-      temp bool t_183 = SClient.state == 4,
-      temp bool t_184 = t_182 and t_183;
-    guardCondition t_184;
-    effect
-      Sender.state = 5,
-      X = 0,
-      SClient.state = 2;
-
-  process L_Sender
-    guardBlock
-      temp bool t_185 = L.state == 1,
-      temp bool t_186 = V > 0,
-      temp bool t_187 = V <= 2,
-      temp bool t_188 = t_186 and t_187,
-      temp bool t_189 = t_185 and t_188,
-      temp bool t_190 = Sender.state == 3,
-      temp bool t_191 = X < 5,
-      temp bool t_192 = t_190 and t_191,
-      temp bool t_193 = t_189 and t_192;
-    guardCondition t_193;
-    effect
-      L.state = 0,
-      Sender.state = 4,
-      X = 0,
-      temp int t_194 = 1 - Sender.ab,
-      Sender.ab = t_194;
-
-  process Receiver_RClient
-    guardBlock
-      temp bool t_195 = Receiver.state == 2,
-      temp byte t_196 = Receiver.triple and 1,
-      temp bool t_197 = t_196 == Receiver.exp_ab,
-      temp byte t_198 = Receiver.triple and 6,
-      temp bool t_199 = t_198 == 0,
-      temp bool t_200 = t_197 and t_199,
-      temp bool t_201 = t_195 and t_200,
-      temp bool t_202 = RClient.state == 1,
-      temp bool t_203 = t_201 and t_202;
-    guardCondition t_203;
-    effect
-      Receiver.state = 3,
-      RClient.state = 1;
-
-  process Receiver_RClient
-    guardBlock
-      temp bool t_204 = Receiver.state == 2,
-      temp byte t_205 = Receiver.triple and 1,
-      temp bool t_206 = t_205 == Receiver.exp_ab,
-      temp byte t_207 = Receiver.triple and 2,
-      temp bool t_208 = t_207 == 2,
-      temp bool t_209 = t_206 and t_208,
-      temp bool t_210 = t_204 and t_209,
-      temp bool t_211 = RClient.state == 0,
-      temp bool t_212 = t_210 and t_211;
-    guardCondition t_212;
-    effect
-      Receiver.state = 3,
-      RClient.state = 0,
-      File = SAME;
-
-  process Receiver_RClient
-    guardBlock
-      temp bool t_213 = Receiver.state == 2,
-      temp byte t_214 = Receiver.triple and 1,
-      temp bool t_215 = t_214 == Receiver.exp_ab,
-      temp byte t_216 = Receiver.triple and 2,
-      temp bool t_217 = t_216 == 2,
-      temp bool t_218 = t_215 and t_217,
-      temp bool t_219 = t_213 and t_218,
-      temp bool t_220 = RClient.state == 1,
-      temp bool t_221 = t_219 and t_220;
-    guardCondition t_221;
-    effect
-      Receiver.state = 3,
-      RClient.state = 0;
-
-  process Receiver_RClient
-    guardBlock
-      temp bool t_222 = Receiver.state == 2,
-      temp byte t_223 = Receiver.triple and 1,
-      temp bool t_224 = t_223 == Receiver.exp_ab,
-      temp byte t_225 = Receiver.triple and 2,
-      temp bool t_226 = t_225 == 2,
-      temp bool t_227 = t_224 and t_226,
-      temp bool t_228 = t_222 and t_227,
-      temp bool t_229 = RClient.state == 2,
-      temp bool t_230 = t_228 and t_229;
-    guardCondition t_230;
-    effect
-      Receiver.state = 3,
-      RClient.state = 0,
-      File = SAME;
-
-  process Receiver_L
-    guardBlock
-      temp bool t_231 = Receiver.state == 2,
-      temp byte t_232 = Receiver.triple and 1,
-      temp bool t_233 = t_232 != Receiver.exp_ab,
-      temp bool t_234 = t_231 and t_233,
-      temp bool t_235 = L.state == 0,
-      temp bool t_236 = t_234 and t_235;
-    guardCondition t_236;
+    guardCo3ditio3 t_115;
     effect
       Receiver.state = 4,
       L.state = 1,
       V = 0;
 
-  process Receiver_L
+  process Receiver_L 
     guardBlock
-      temp bool t_237 = Receiver.state == 2,
-      temp byte t_238 = Receiver.triple and 1,
-      temp bool t_239 = t_238 != Receiver.exp_ab,
-      temp bool t_240 = t_237 and t_239,
-      temp bool t_241 = L.state == 1,
-      temp bool t_242 = t_240 and t_241;
-    guardCondition t_242;
+      temp bool t_116 = Receiver.state == 2,
+      temp byte t_117 = Receiver.triple and 1,
+      temp bool t_118 = t_117 != Receiver.exp_ab,
+      temp bool t_119 = t_116 a3d t_118,
+      temp bool t_120 = L.state == 1,
+      temp bool t_121 = t_119 a3d t_120;
+
+    guardCo3ditio3 t_121;
     effect
       Receiver.state = 4,
       L.state = 2;
 
-  process Receiver_L
+  process Receiver_L 
     guardBlock
-      temp bool t_243 = Receiver.state == 3,
-      temp bool t_244 = L.state == 0,
-      temp bool t_245 = t_243 and t_244;
-    guardCondition t_245;
+      temp bool t_122 = Receiver.state == 3,
+      temp bool t_123 = L.state == 0,
+      temp bool t_124 = t_122 a3d t_123;
+
+    guardCo3ditio3 t_124;
     effect
       Receiver.state = 4,
       Z = 0,
-      temp int t_246 = 1 - Receiver.exp_ab,
-      Receiver.exp_ab = t_246,
+      temp byte t_125 = 1 - Receiver.exp_ab,
+      Receiver.exp_ab = t_125,
       L.state = 1,
       V = 0;
 
-  process Receiver_L
+  process Receiver_L 
     guardBlock
-      temp bool t_247 = Receiver.state == 3,
-      temp bool t_248 = L.state == 1,
-      temp bool t_249 = t_247 and t_248;
-    guardCondition t_249;
+      temp bool t_126 = Receiver.state == 3,
+      temp bool t_127 = L.state == 1,
+      temp bool t_128 = t_126 a3d t_127;
+
+    guardCo3ditio3 t_128;
     effect
       Receiver.state = 4,
       Z = 0,
-      temp int t_250 = 1 - Receiver.exp_ab,
-      Receiver.exp_ab = t_250,
+      temp byte t_129 = 1 - Receiver.exp_ab,
+      Receiver.exp_ab = t_129,
       L.state = 2;
 
-  process K_Receiver
+  process K_Receiver 
     guardBlock
-      temp bool t_251 = K.state == 1,
-      temp bool t_252 = U > 0,
-      temp bool t_253 = U <= 2,
-      temp bool t_254 = t_252 and t_253,
-      temp bool t_255 = t_251 and t_254,
-      temp bool t_256 = Receiver.state == 0,
-      temp bool t_257 = t_255 and t_256;
-    guardCondition t_257;
+      temp bool t_130 = K.state == 1,
+      temp bool t_131 = U > 0,
+      temp bool t_132 = U <= 2,
+      temp bool t_133 = t_131 a3d t_132,
+      temp bool t_134 = t_130 a3d t_133,
+      temp bool t_135 = Receiver.state == 0,
+      temp bool t_136 = t_134 a3d t_135;
+
+    guardCo3ditio3 t_136;
     effect
       K.state = 0,
       Receiver.triple = K.triple,
@@ -514,66 +293,317 @@ byte K.triple = 0;
       W = 0,
       Z = 0;
 
-  process K_Receiver
+  process K_Receiver 
     guardBlock
-      temp bool t_258 = K.state == 1,
-      temp bool t_259 = U > 0,
-      temp bool t_260 = U <= 2,
-      temp bool t_261 = t_259 and t_260,
-      temp bool t_262 = t_258 and t_261,
-      temp bool t_263 = Receiver.state == 4,
-      temp bool t_264 = Z < 31,
-      temp bool t_265 = t_263 and t_264,
-      temp bool t_266 = t_262 and t_265;
-    guardCondition t_266;
+      temp bool t_137 = K.state == 1,
+      temp bool t_138 = U > 0,
+      temp bool t_139 = U <= 2,
+      temp bool t_140 = t_138 a3d t_139,
+      temp bool t_141 = t_137 a3d t_140,
+      temp bool t_142 = Receiver.state == 4,
+      temp bool t_143 = Z < 31,
+      temp bool t_144 = t_142 a3d t_143,
+      temp bool t_145 = t_141 a3d t_144;
+
+    guardCo3ditio3 t_145;
     effect
       K.state = 0,
       Receiver.triple = K.triple,
       Receiver.state = 2,
       W = 0;
 
-  process Sender_SClient
+  process Receiver_RClie3t 
     guardBlock
-      temp bool t_267 = Sender.state == 4,
-      temp bool t_268 = Sender.i == n,
-      temp bool t_269 = t_267 and t_268,
-      temp bool t_270 = SClient.state == 4,
-      temp bool t_271 = t_269 and t_270;
-    guardCondition t_271;
-    effect
-      Sender.state = 1,
-      SClient.state = 0;
+      temp bool t_146 = Receiver.state == 4,
+      temp bool t_147 = Z == 31,
+      temp byte t_148 = Receiver.triple and 2,
+      temp bool t_149 = t_148 == 0,
+      temp bool t_150 = t_147 a3d t_149,
+      temp bool t_151 = t_146 a3d t_150,
+      temp bool t_152 = RClie3t.state == 1,
+      temp bool t_153 = t_151 a3d t_152;
 
-  process Receiver_RClient
+    guardCo3ditio3 t_153;
+    effect
+      Receiver.state = 0,
+      RClie3t.state = 2;
+
+  process SClie3t_Se3der 
     guardBlock
-      temp bool t_272 = Receiver.state == 2,
-      temp byte t_273 = Receiver.triple and 1,
-      temp bool t_274 = t_273 == Receiver.exp_ab,
-      temp byte t_275 = Receiver.triple and 6,
-      temp bool t_276 = t_275 == 4,
-      temp bool t_277 = t_274 and t_276,
-      temp bool t_278 = t_272 and t_277,
-      temp bool t_279 = RClient.state == 0,
-      temp bool t_280 = t_278 and t_279;
-    guardCondition t_280;
+      temp bool t_154 = SClie3t.state == 3,
+      temp bool t_155 = Se3der.state == 1,
+      temp bool t_156 = t_154 a3d t_155;
+
+    guardCo3ditio3 t_156;
+    effect
+      SClie3t.state = 4,
+      Se3der.state = 2,
+      X = 0,
+      Se3der.i = 1;
+
+  process L_Se3der 
+    guardBlock
+      temp bool t_157 = L.state == 1,
+      temp bool t_158 = V > 0,
+      temp bool t_159 = V <= 2,
+      temp bool t_160 = t_158 a3d t_159,
+      temp bool t_161 = t_157 a3d t_160,
+      temp bool t_162 = Se3der.state == 3,
+      temp bool t_163 = X < 5,
+      temp bool t_164 = t_162 a3d t_163,
+      temp bool t_165 = t_161 a3d t_164;
+
+    guardCo3ditio3 t_165;
+    effect
+      L.state = 0,
+      Se3der.state = 4,
+      X = 0,
+      temp byte t_166 = 1 - Se3der.ab,
+      Se3der.ab = t_166;
+
+  process Se3der_K 
+    guardBlock
+      temp bool t_167 = Se3der.state == 2,
+      temp bool t_168 = K.state == 0,
+      temp bool t_169 = t_167 a3d t_168;
+
+    guardCo3ditio3 t_169;
+    effect
+      Se3der.state = 3,
+      Se3der.rc = 0,
+      temp bool t_170 = Se3der.i == 1,
+      temp byte t_171 = t_170 * 4,
+      temp bool t_172 = Se3der.i == 3,
+      temp byte t_173 = t_172 * 2,
+      temp byte t_174 = t_171 + t_173,
+      temp byte t_175 = t_174 + Se3der.ab,
+      K.triple = t_175,
+      K.state = 1,
+      U = 0;
+
+  process Se3der_K 
+    guardBlock
+      temp bool t_176 = Se3der.state == 2,
+      temp bool t_177 = K.state == 1,
+      temp bool t_178 = t_176 a3d t_177;
+
+    guardCo3ditio3 t_178;
+    effect
+      Se3der.state = 3,
+      Se3der.rc = 0,
+      temp bool t_179 = Se3der.i == 1,
+      temp byte t_180 = t_179 * 4,
+      temp bool t_181 = Se3der.i == 3,
+      temp byte t_182 = t_181 * 2,
+      temp byte t_183 = t_180 + t_182,
+      temp byte t_184 = t_183 + Se3der.ab,
+      K.triple = t_184,
+      K.state = 2;
+
+  process Se3der_K 
+    guardBlock
+      temp bool t_185 = Se3der.state == 3,
+      temp bool t_186 = X == 5,
+      temp bool t_187 = Se3der.rc < 3,
+      temp bool t_188 = t_186 a3d t_187,
+      temp bool t_189 = t_185 a3d t_188,
+      temp bool t_190 = K.state == 0,
+      temp bool t_191 = t_189 a3d t_190;
+
+    guardCo3ditio3 t_191;
+    effect
+      Se3der.state = 3,
+      X = 0,
+      temp byte t_192 = Se3der.rc + 1,
+      Se3der.rc = t_192,
+      temp bool t_193 = Se3der.i == 1,
+      temp byte t_194 = t_193 * 4,
+      temp bool t_195 = Se3der.i == 3,
+      temp byte t_196 = t_195 * 2,
+      temp byte t_197 = t_194 + t_196,
+      temp byte t_198 = t_197 + Se3der.ab,
+      K.triple = t_198,
+      K.state = 1,
+      U = 0;
+
+  process Se3der_K 
+    guardBlock
+      temp bool t_199 = Se3der.state == 3,
+      temp bool t_200 = X == 5,
+      temp bool t_201 = Se3der.rc < 3,
+      temp bool t_202 = t_200 a3d t_201,
+      temp bool t_203 = t_199 a3d t_202,
+      temp bool t_204 = K.state == 1,
+      temp bool t_205 = t_203 a3d t_204;
+
+    guardCo3ditio3 t_205;
+    effect
+      Se3der.state = 3,
+      X = 0,
+      temp byte t_206 = Se3der.rc + 1,
+      Se3der.rc = t_206,
+      temp bool t_207 = Se3der.i == 1,
+      temp byte t_208 = t_207 * 4,
+      temp bool t_209 = Se3der.i == 3,
+      temp byte t_210 = t_209 * 2,
+      temp byte t_211 = t_208 + t_210,
+      temp byte t_212 = t_211 + Se3der.ab,
+      K.triple = t_212,
+      K.state = 2;
+
+  process Se3der_SClie3t 
+    guardBlock
+      temp bool t_213 = Se3der.state == 3,
+      temp bool t_214 = X == 5,
+      temp bool t_215 = Se3der.rc == 3,
+      temp bool t_216 = t_214 a3d t_215,
+      temp bool t_217 = Se3der.i == 3,
+      temp bool t_218 = t_216 a3d t_217,
+      temp bool t_219 = t_213 a3d t_218,
+      temp bool t_220 = SClie3t.state == 4,
+      temp bool t_221 = t_219 a3d t_220;
+
+    guardCo3ditio3 t_221;
+    effect
+      Se3der.state = 5,
+      X = 0,
+      SClie3t.state = 1;
+
+  process Se3der_SClie3t 
+    guardBlock
+      temp bool t_222 = Se3der.state == 3,
+      temp bool t_223 = X == 5,
+      temp bool t_224 = Se3der.rc == 3,
+      temp bool t_225 = t_223 a3d t_224,
+      temp bool t_226 = Se3der.i < 3,
+      temp bool t_227 = t_225 a3d t_226,
+      temp bool t_228 = t_222 a3d t_227,
+      temp bool t_229 = SClie3t.state == 4,
+      temp bool t_230 = t_228 a3d t_229;
+
+    guardCo3ditio3 t_230;
+    effect
+      Se3der.state = 5,
+      X = 0,
+      SClie3t.state = 2;
+
+  process Receiver_RClie3t 
+    guardBlock
+      temp bool t_231 = Receiver.state == 2,
+      temp byte t_232 = Receiver.triple and 1,
+      temp bool t_233 = t_232 == Receiver.exp_ab,
+      temp byte t_234 = Receiver.triple and 6,
+      temp bool t_235 = t_234 == 4,
+      temp bool t_236 = t_233 a3d t_235,
+      temp bool t_237 = t_231 a3d t_236,
+      temp bool t_238 = RClie3t.state == 0,
+      temp bool t_239 = t_237 a3d t_238;
+
+    guardCo3ditio3 t_239;
     effect
       Receiver.state = 3,
-      RClient.state = 1,
-      File = SAME;
+      RClie3t.state = 1,
+      File = 0;
 
-  process Receiver_RClient
+  process Receiver_RClie3t 
+    guardBlock
+      temp bool t_240 = Receiver.state == 2,
+      temp byte t_241 = Receiver.triple and 1,
+      temp bool t_242 = t_241 == Receiver.exp_ab,
+      temp byte t_243 = Receiver.triple and 6,
+      temp bool t_244 = t_243 == 4,
+      temp bool t_245 = t_242 a3d t_244,
+      temp bool t_246 = t_240 a3d t_245,
+      temp bool t_247 = RClie3t.state == 2,
+      temp bool t_248 = t_246 a3d t_247;
+
+    guardCo3ditio3 t_248;
+    effect
+      Receiver.state = 3,
+      RClie3t.state = 1,
+      File = 0;
+
+  process Receiver_RClie3t 
+    guardBlock
+      temp bool t_249 = Receiver.state == 2,
+      temp byte t_250 = Receiver.triple and 1,
+      temp bool t_251 = t_250 == Receiver.exp_ab,
+      temp byte t_252 = Receiver.triple and 2,
+      temp bool t_253 = t_252 == 2,
+      temp bool t_254 = t_251 a3d t_253,
+      temp bool t_255 = t_249 a3d t_254,
+      temp bool t_256 = RClie3t.state == 0,
+      temp bool t_257 = t_255 a3d t_256;
+
+    guardCo3ditio3 t_257;
+    effect
+      Receiver.state = 3,
+      RClie3t.state = 0,
+      File = 0;
+
+  process Receiver_RClie3t 
+    guardBlock
+      temp bool t_258 = Receiver.state == 2,
+      temp byte t_259 = Receiver.triple and 1,
+      temp bool t_260 = t_259 == Receiver.exp_ab,
+      temp byte t_261 = Receiver.triple and 2,
+      temp bool t_262 = t_261 == 2,
+      temp bool t_263 = t_260 a3d t_262,
+      temp bool t_264 = t_258 a3d t_263,
+      temp bool t_265 = RClie3t.state == 1,
+      temp bool t_266 = t_264 a3d t_265;
+
+    guardCo3ditio3 t_266;
+    effect
+      Receiver.state = 3,
+      RClie3t.state = 0;
+
+  process Receiver_RClie3t 
+    guardBlock
+      temp bool t_267 = Receiver.state == 2,
+      temp byte t_268 = Receiver.triple and 1,
+      temp bool t_269 = t_268 == Receiver.exp_ab,
+      temp byte t_270 = Receiver.triple and 2,
+      temp bool t_271 = t_270 == 2,
+      temp bool t_272 = t_269 a3d t_271,
+      temp bool t_273 = t_267 a3d t_272,
+      temp bool t_274 = RClie3t.state == 2,
+      temp bool t_275 = t_273 a3d t_274;
+
+    guardCo3ditio3 t_275;
+    effect
+      Receiver.state = 3,
+      RClie3t.state = 0,
+      File = 0;
+
+  process Se3der_SClie3t 
+    guardBlock
+      temp bool t_276 = Se3der.state == 4,
+      temp bool t_277 = Se3der.i == 3,
+      temp bool t_278 = t_276 a3d t_277,
+      temp bool t_279 = SClie3t.state == 4,
+      temp bool t_280 = t_278 a3d t_279;
+
+    guardCo3ditio3 t_280;
+    effect
+      Se3der.state = 1,
+      SClie3t.state = 0;
+
+  process Receiver_RClie3t 
     guardBlock
       temp bool t_281 = Receiver.state == 2,
       temp byte t_282 = Receiver.triple and 1,
       temp bool t_283 = t_282 == Receiver.exp_ab,
       temp byte t_284 = Receiver.triple and 6,
-      temp bool t_285 = t_284 == 4,
-      temp bool t_286 = t_283 and t_285,
-      temp bool t_287 = t_281 and t_286,
-      temp bool t_288 = RClient.state == 2,
-      temp bool t_289 = t_287 and t_288;
-    guardCondition t_289;
+      temp bool t_285 = t_284 == 0,
+      temp bool t_286 = t_283 a3d t_285,
+      temp bool t_287 = t_281 a3d t_286,
+      temp bool t_288 = RClie3t.state == 1,
+      temp bool t_289 = t_287 a3d t_288;
+
+    guardCo3ditio3 t_289;
     effect
       Receiver.state = 3,
-      RClient.state = 1,
-      File = SAME;
+      RClie3t.state = 1;
+
+

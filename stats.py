@@ -215,28 +215,136 @@ error_neg = ["cambridge", "firewire_link"]
 error_sim = ["collision", "extinction", "lifts", "needham", "protocols"]
 error_mod = list(set(error_arr + error_shl + error_biz + error_sim + error_neg))
 
+small_cfg_models = [
+"phils.1",
+"firewire_tree.1",
+"needham.1",
+"pouring.1",
+"public_subscribe.1",
+"phils.2",
+"fischer.1",
+"loyd.1",
+"phils.3",
+"rushhour.1",
+"bakery.2",
+"telephony.1",
+"lup.1",
+"mcs.2",
+"anderson.2",
+"bakery.1",
+"firewire_link.1",
+"elevator2.1",
+"rushhour.2",
+"msmie.1",
+"protocols.1",
+"firewire_tree.2",
+"rether.1",
+"lifts.1",
+"lifts.2",
+"reader_writer.1",
+"gear.1",
+"protocols.3",
+"elevator.2",
+"bridge.1",
+"cyclic_scheduler.2",
+"reader_writer.2",
+"cyclic_scheduler.1",
+"leader_filters.1",
+"frogs.1",
+"collision.1",
+"krebs.1",
+"hanoi.1",
+"iprotocol.1",
+"blocks.2",
+"adding.1",
+"plc.1",
+"sorter.2",
+"mcs.1",
+"elevator.1",
+"extinction.1",
+"production_cell.2",
+"rether.2",
+"extinction.2",
+"pgm_protocol.1",
+"protocols.2",
+"cambridge.1",
+"peterson.1",
+"bopdp.1",
+"collision.2",
+"lann.2",
+"lamport_nonatomic.2",
+"leader_election.1",
+"production_cell.1",
+"driving_phils.1",
+"cambridge.2",
+"mcs.4",
+"gear.2",
+"pgm_protocol.2",
+"cambridge.3",
+"frogs.2",
+"lann.1",
+"brp.1",
+"szymanski.1",
+"lamport_nonatomic.1",
+"sorter.1",
+"fischer.2",
+"schedule_world.1",
+"firewire_link.4",
+"bopdp.2",
+"elevator_planning.1",
+"leader_election.2",
+"brp.2",
+"lamport.1",
+"leader_filters.2",
+"anderson.4",
+"iprotocol.2",
+"szymanski.2",
+"peg_solitaire.1",
+"bakery.3",
+"driving_phils.2",
+"exit.2",
+"lamport_nonatomic.3",
+"lamport.3",
+"at.1",
+"pgm_protocol.4",
+"at.2",
+"leader_filters.4",
+"needham.2",
+"pouring.2",
+"telephony.2",
+"elevator_planning.3",
+"firewire_link.2",
+"cambridge.4",
+"krebs.2",
+"peg_solitaire.5",
+"firewire_tree.3",
+"leader_filters.3",
+"sokoban.1",
+"bridge.2",
+"leader_election.3"
+]
+
 def process_exec_stats():
     sdve_files = glob.glob("**/*.sdve", recursive=True)
+    # Remove prop models
     sdve_files = [sdve_file for sdve_file in sdve_files if not("prop" in sdve_file)]
+    # Remove error models
     sdve_files = [sdve_file for sdve_file in sdve_files if not(any(model_name in sdve_file for model_name in error_mod))]
-    print(sdve_file)
+    # Only take in account the models with less than 100k configurations
+    sdve_files = [sdve_file for sdve_file in sdve_files if any(model_name in sdve_file for model_name in small_cfg_models)]
     for sdve_file in sdve_files:
+        # Launching simulation
         exec_stat(sdve_file)
 
 def exec_stat(sdve_file):
     for ncores in [1,2,4,8,16]:
-        print(sdve_file)
+        print("{}: Starting simulation with {} core".format(sdve_file, ncores))
         subprocess.run(["python", "../sdvs/sdvs/sdvs.py",
                                  "-s", sdve_file,
                                   "--ncores", str(ncores),
                                   "--outputfile", "exec_stats.csv"
                           ])
-
+        print("Restult written in the output file.")
 
 if __name__ == "__main__":
-    sdve_files = glob.glob("**/*.sdve", recursive=True)
-    sdve_files = [sdve_file for sdve_file in sdve_files if "adding.1" in sdve_file]
-    print(sdve_files)
-    for file in sdve_files:
-        exec_stat(file)
-    # process_exec_stats()
+    process_exec_stats()

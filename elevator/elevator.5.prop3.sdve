@@ -6,17 +6,17 @@ state {out(0), waiting(1), in_elevator(2)} Person_4.state = 0;
 state {q(0), r(1)} Servis.state = 0;
 state {choose_next(0), move_next(1), q(2), transporting(3)} Elevator.state = 0;
 state {q1(0), q2(1)} LTL_property.state = 0;
-byte floor_queue_0[6] =  {0, 0, 0, 0, 0};
+byte floor_queue_0[5] = {0, 0, 0, 0, 0};
 byte floor_queue_0_act = 0;
-byte floor_queue_1[6] =  {0, 0, 0, 0, 0};
+byte floor_queue_1[5] = {0, 0, 0, 0, 0};
 byte floor_queue_1_act = 0;
-byte floor_queue_2[6] =  {0, 0, 0, 0, 0};
+byte floor_queue_2[5] = {0, 0, 0, 0, 0};
 byte floor_queue_2_act = 0;
-byte floor_queue_3[6] =  {0, 0, 0, 0, 0};
+byte floor_queue_3[5] = {0, 0, 0, 0, 0};
 byte floor_queue_3_act = 0;
-byte floor_queue_4[6] =  {0, 0, 0, 0, 0};
+byte floor_queue_4[5] = {0, 0, 0, 0, 0};
 byte floor_queue_4_act = 0;
-byte floor_queue_5[6] =  {0, 0, 0, 0, 0};
+byte floor_queue_5[5] = {0, 0, 0, 0, 0};
 byte floor_queue_5_act = 0;
 byte current = 0;
 byte Person_0.at_floor = 0;
@@ -30,79 +30,85 @@ byte Elevator.going_to = 0;
 byte Elevator.serving = 0;
 byte Elevator.who = 0;
 
-  process Servis
+  process Servis 
     guardBlock
       temp bool t_0 = Servis.state == 1,
       temp bool t_1 = 0 == Servis.floor,
       temp bool t_2 = t_0 and t_1;
+
     guardCondition t_2;
     effect
       Servis.state = 0,
       floor_queue_0[floor_queue_0_act] = Servis.caller,
-      temp int t_3 = floor_queue_0_act + 1,
+      temp byte t_3 = floor_queue_0_act + 1,
       floor_queue_0_act = t_3;
 
-  process Servis
+  process Servis 
     guardBlock
       temp bool t_4 = Servis.state == 1,
       temp bool t_5 = 1 == Servis.floor,
       temp bool t_6 = t_4 and t_5;
+
     guardCondition t_6;
     effect
       Servis.state = 0,
       floor_queue_1[floor_queue_1_act] = Servis.caller,
-      temp int t_7 = floor_queue_1_act + 1,
+      temp byte t_7 = floor_queue_1_act + 1,
       floor_queue_1_act = t_7;
 
-  process Servis
+  process Servis 
     guardBlock
       temp bool t_8 = Servis.state == 1,
       temp bool t_9 = 2 == Servis.floor,
       temp bool t_10 = t_8 and t_9;
+
     guardCondition t_10;
     effect
       Servis.state = 0,
       floor_queue_2[floor_queue_2_act] = Servis.caller,
-      temp int t_11 = floor_queue_2_act + 1,
+      temp byte t_11 = floor_queue_2_act + 1,
       floor_queue_2_act = t_11;
 
-  process Servis
+  process Servis 
     guardBlock
       temp bool t_12 = Servis.state == 1,
       temp bool t_13 = 3 == Servis.floor,
       temp bool t_14 = t_12 and t_13;
+
     guardCondition t_14;
     effect
       Servis.state = 0,
       floor_queue_3[floor_queue_3_act] = Servis.caller,
-      temp int t_15 = floor_queue_3_act + 1,
+      temp byte t_15 = floor_queue_3_act + 1,
       floor_queue_3_act = t_15;
 
-  process Servis
+  process Servis 
     guardBlock
       temp bool t_16 = Servis.state == 1,
       temp bool t_17 = 4 == Servis.floor,
       temp bool t_18 = t_16 and t_17;
+
     guardCondition t_18;
     effect
       Servis.state = 0,
       floor_queue_4[floor_queue_4_act] = Servis.caller,
-      temp int t_19 = floor_queue_4_act + 1,
+      temp byte t_19 = floor_queue_4_act + 1,
       floor_queue_4_act = t_19;
 
-  process Servis
+  process Servis 
     guardBlock
       temp bool t_20 = Servis.state == 1,
       temp bool t_21 = 5 == Servis.floor,
       temp bool t_22 = t_20 and t_21;
+
     guardCondition t_22;
     effect
       Servis.state = 0,
       floor_queue_5[floor_queue_5_act] = Servis.caller,
-      temp int t_23 = floor_queue_5_act + 1,
+      temp byte t_23 = floor_queue_5_act + 1,
       floor_queue_5_act = t_23;
 
-  process Elevator
+  process Elevator 
     guardBlock
       temp bool t_24 = Elevator.state == 0,
       temp bool t_25 = 0 == Elevator.serving,
@@ -127,14 +133,15 @@ byte Elevator.who = 0;
       temp bool t_44 = t_41 or t_43,
       temp bool t_45 = t_27 and t_44,
       temp bool t_46 = t_24 and t_45;
+
     guardCondition t_46;
     effect
       Elevator.state = 0,
-      temp int t_47 = Elevator.serving + 1,
-      temp int t_48 = t_47 % 6,
+      temp byte t_47 = Elevator.serving + 1,
+      temp byte t_48 = t_47 % 6,
       Elevator.serving = t_48;
 
-  process Elevator
+  process Elevator 
     guardBlock
       temp bool t_49 = Elevator.state == 0,
       temp bool t_50 = 1 == Elevator.serving,
@@ -159,14 +166,15 @@ byte Elevator.who = 0;
       temp bool t_69 = t_66 or t_68,
       temp bool t_70 = t_52 and t_69,
       temp bool t_71 = t_49 and t_70;
+
     guardCondition t_71;
     effect
       Elevator.state = 0,
-      temp int t_72 = Elevator.serving + 1,
-      temp int t_73 = t_72 % 6,
+      temp byte t_72 = Elevator.serving + 1,
+      temp byte t_73 = t_72 % 6,
       Elevator.serving = t_73;
 
-  process Elevator
+  process Elevator 
     guardBlock
       temp bool t_74 = Elevator.state == 0,
       temp bool t_75 = 2 == Elevator.serving,
@@ -191,14 +199,15 @@ byte Elevator.who = 0;
       temp bool t_94 = t_91 or t_93,
       temp bool t_95 = t_77 and t_94,
       temp bool t_96 = t_74 and t_95;
+
     guardCondition t_96;
     effect
       Elevator.state = 0,
-      temp int t_97 = Elevator.serving + 1,
-      temp int t_98 = t_97 % 6,
+      temp byte t_97 = Elevator.serving + 1,
+      temp byte t_98 = t_97 % 6,
       Elevator.serving = t_98;
 
-  process Elevator
+  process Elevator 
     guardBlock
       temp bool t_99 = Elevator.state == 0,
       temp bool t_100 = 3 == Elevator.serving,
@@ -223,14 +232,15 @@ byte Elevator.who = 0;
       temp bool t_119 = t_116 or t_118,
       temp bool t_120 = t_102 and t_119,
       temp bool t_121 = t_99 and t_120;
+
     guardCondition t_121;
     effect
       Elevator.state = 0,
-      temp int t_122 = Elevator.serving + 1,
-      temp int t_123 = t_122 % 6,
+      temp byte t_122 = Elevator.serving + 1,
+      temp byte t_123 = t_122 % 6,
       Elevator.serving = t_123;
 
-  process Elevator
+  process Elevator 
     guardBlock
       temp bool t_124 = Elevator.state == 0,
       temp bool t_125 = 4 == Elevator.serving,
@@ -255,14 +265,15 @@ byte Elevator.who = 0;
       temp bool t_144 = t_141 or t_143,
       temp bool t_145 = t_127 and t_144,
       temp bool t_146 = t_124 and t_145;
+
     guardCondition t_146;
     effect
       Elevator.state = 0,
-      temp int t_147 = Elevator.serving + 1,
-      temp int t_148 = t_147 % 6,
+      temp byte t_147 = Elevator.serving + 1,
+      temp byte t_148 = t_147 % 6,
       Elevator.serving = t_148;
 
-  process Elevator
+  process Elevator 
     guardBlock
       temp bool t_149 = Elevator.state == 0,
       temp bool t_150 = 5 == Elevator.serving,
@@ -287,14 +298,15 @@ byte Elevator.who = 0;
       temp bool t_169 = t_166 or t_168,
       temp bool t_170 = t_152 and t_169,
       temp bool t_171 = t_149 and t_170;
+
     guardCondition t_171;
     effect
       Elevator.state = 0,
-      temp int t_172 = Elevator.serving + 1,
-      temp int t_173 = t_172 % 6,
+      temp byte t_172 = Elevator.serving + 1,
+      temp byte t_173 = t_172 % 6,
       Elevator.serving = t_173;
 
-  process Elevator
+  process Elevator 
     guardBlock
       temp bool t_174 = Elevator.state == 0,
       temp bool t_175 = 0 == Elevator.serving,
@@ -302,11 +314,12 @@ byte Elevator.who = 0;
       temp bool t_177 = not t_176,
       temp bool t_178 = t_175 and t_177,
       temp bool t_179 = t_174 and t_178;
+
     guardCondition t_179;
     effect
       Elevator.state = 1;
 
-  process Elevator
+  process Elevator 
     guardBlock
       temp bool t_180 = Elevator.state == 0,
       temp bool t_181 = 1 == Elevator.serving,
@@ -314,11 +327,12 @@ byte Elevator.who = 0;
       temp bool t_183 = not t_182,
       temp bool t_184 = t_181 and t_183,
       temp bool t_185 = t_180 and t_184;
+
     guardCondition t_185;
     effect
       Elevator.state = 1;
 
-  process Elevator
+  process Elevator 
     guardBlock
       temp bool t_186 = Elevator.state == 0,
       temp bool t_187 = 2 == Elevator.serving,
@@ -326,11 +340,12 @@ byte Elevator.who = 0;
       temp bool t_189 = not t_188,
       temp bool t_190 = t_187 and t_189,
       temp bool t_191 = t_186 and t_190;
+
     guardCondition t_191;
     effect
       Elevator.state = 1;
 
-  process Elevator
+  process Elevator 
     guardBlock
       temp bool t_192 = Elevator.state == 0,
       temp bool t_193 = 3 == Elevator.serving,
@@ -338,11 +353,12 @@ byte Elevator.who = 0;
       temp bool t_195 = not t_194,
       temp bool t_196 = t_193 and t_195,
       temp bool t_197 = t_192 and t_196;
+
     guardCondition t_197;
     effect
       Elevator.state = 1;
 
-  process Elevator
+  process Elevator 
     guardBlock
       temp bool t_198 = Elevator.state == 0,
       temp bool t_199 = 4 == Elevator.serving,
@@ -350,11 +366,12 @@ byte Elevator.who = 0;
       temp bool t_201 = not t_200,
       temp bool t_202 = t_199 and t_201,
       temp bool t_203 = t_198 and t_202;
+
     guardCondition t_203;
     effect
       Elevator.state = 1;
 
-  process Elevator
+  process Elevator 
     guardBlock
       temp bool t_204 = Elevator.state == 0,
       temp bool t_205 = 5 == Elevator.serving,
@@ -362,39 +379,43 @@ byte Elevator.who = 0;
       temp bool t_207 = not t_206,
       temp bool t_208 = t_205 and t_207,
       temp bool t_209 = t_204 and t_208;
+
     guardCondition t_209;
     effect
       Elevator.state = 1;
 
-  process Elevator
+  process Elevator 
     guardBlock
       temp bool t_210 = Elevator.state == 1,
       temp bool t_211 = Elevator.serving < current,
       temp bool t_212 = t_210 and t_211;
+
     guardCondition t_212;
     effect
       Elevator.state = 1,
-      temp int t_213 = current - 1,
+      temp byte t_213 = current - 1,
       current = t_213;
 
-  process Elevator
+  process Elevator 
     guardBlock
       temp bool t_214 = Elevator.state == 1,
       temp bool t_215 = Elevator.serving > current,
       temp bool t_216 = t_214 and t_215;
+
     guardCondition t_216;
     effect
       Elevator.state = 1,
-      temp int t_217 = current + 1,
+      temp byte t_217 = current + 1,
       current = t_217;
 
-  process Elevator
+  process Elevator 
     guardBlock
       temp bool t_218 = Elevator.state == 1,
       temp bool t_219 = Elevator.serving == current,
       temp bool t_220 = 0 == current,
       temp bool t_221 = t_219 and t_220,
       temp bool t_222 = t_218 and t_221;
+
     guardCondition t_222;
     effect
       Elevator.state = 2,
@@ -409,16 +430,17 @@ byte Elevator.who = 0;
       temp byte t_227 = floor_queue_0[4],
       floor_queue_0[3] = t_227,
       floor_queue_0[4] = 0,
-      temp int t_228 = floor_queue_0_act - 1,
+      temp byte t_228 = floor_queue_0_act - 1,
       floor_queue_0_act = t_228;
 
-  process Elevator
+  process Elevator 
     guardBlock
       temp bool t_229 = Elevator.state == 1,
       temp bool t_230 = Elevator.serving == current,
       temp bool t_231 = 1 == current,
       temp bool t_232 = t_230 and t_231,
       temp bool t_233 = t_229 and t_232;
+
     guardCondition t_233;
     effect
       Elevator.state = 2,
@@ -433,16 +455,17 @@ byte Elevator.who = 0;
       temp byte t_238 = floor_queue_1[4],
       floor_queue_1[3] = t_238,
       floor_queue_1[4] = 0,
-      temp int t_239 = floor_queue_1_act - 1,
+      temp byte t_239 = floor_queue_1_act - 1,
       floor_queue_1_act = t_239;
 
-  process Elevator
+  process Elevator 
     guardBlock
       temp bool t_240 = Elevator.state == 1,
       temp bool t_241 = Elevator.serving == current,
       temp bool t_242 = 2 == current,
       temp bool t_243 = t_241 and t_242,
       temp bool t_244 = t_240 and t_243;
+
     guardCondition t_244;
     effect
       Elevator.state = 2,
@@ -457,16 +480,17 @@ byte Elevator.who = 0;
       temp byte t_249 = floor_queue_2[4],
       floor_queue_2[3] = t_249,
       floor_queue_2[4] = 0,
-      temp int t_250 = floor_queue_2_act - 1,
+      temp byte t_250 = floor_queue_2_act - 1,
       floor_queue_2_act = t_250;
 
-  process Elevator
+  process Elevator 
     guardBlock
       temp bool t_251 = Elevator.state == 1,
       temp bool t_252 = Elevator.serving == current,
       temp bool t_253 = 3 == current,
       temp bool t_254 = t_252 and t_253,
       temp bool t_255 = t_251 and t_254;
+
     guardCondition t_255;
     effect
       Elevator.state = 2,
@@ -481,16 +505,17 @@ byte Elevator.who = 0;
       temp byte t_260 = floor_queue_3[4],
       floor_queue_3[3] = t_260,
       floor_queue_3[4] = 0,
-      temp int t_261 = floor_queue_3_act - 1,
+      temp byte t_261 = floor_queue_3_act - 1,
       floor_queue_3_act = t_261;
 
-  process Elevator
+  process Elevator 
     guardBlock
       temp bool t_262 = Elevator.state == 1,
       temp bool t_263 = Elevator.serving == current,
       temp bool t_264 = 4 == current,
       temp bool t_265 = t_263 and t_264,
       temp bool t_266 = t_262 and t_265;
+
     guardCondition t_266;
     effect
       Elevator.state = 2,
@@ -505,16 +530,17 @@ byte Elevator.who = 0;
       temp byte t_271 = floor_queue_4[4],
       floor_queue_4[3] = t_271,
       floor_queue_4[4] = 0,
-      temp int t_272 = floor_queue_4_act - 1,
+      temp byte t_272 = floor_queue_4_act - 1,
       floor_queue_4_act = t_272;
 
-  process Elevator
+  process Elevator 
     guardBlock
       temp bool t_273 = Elevator.state == 1,
       temp bool t_274 = Elevator.serving == current,
       temp bool t_275 = 5 == current,
       temp bool t_276 = t_274 and t_275,
       temp bool t_277 = t_273 and t_276;
+
     guardCondition t_277;
     effect
       Elevator.state = 2,
@@ -529,39 +555,42 @@ byte Elevator.who = 0;
       temp byte t_282 = floor_queue_5[4],
       floor_queue_5[3] = t_282,
       floor_queue_5[4] = 0,
-      temp int t_283 = floor_queue_5_act - 1,
+      temp byte t_283 = floor_queue_5_act - 1,
       floor_queue_5_act = t_283;
 
-  process Elevator
+  process Elevator 
     guardBlock
       temp bool t_284 = Elevator.state == 3,
       temp bool t_285 = Elevator.going_to < current,
       temp bool t_286 = t_284 and t_285;
+
     guardCondition t_286;
     effect
       Elevator.state = 3,
-      temp int t_287 = current - 1,
+      temp byte t_287 = current - 1,
       current = t_287;
 
-  process Elevator
+  process Elevator 
     guardBlock
       temp bool t_288 = Elevator.state == 3,
       temp bool t_289 = Elevator.going_to > current,
       temp bool t_290 = t_288 and t_289;
+
     guardCondition t_290;
     effect
       Elevator.state = 3,
-      temp int t_291 = current + 1,
+      temp byte t_291 = current + 1,
       current = t_291;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_292 = LTL_property.state == 0;
+
     guardCondition t_292;
     effect
       LTL_property.state = 0;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_293 = LTL_property.state == 0,
       temp bool t_294 = Person_0.state == 2,
@@ -569,30 +598,373 @@ byte Elevator.who = 0;
       temp bool t_296 = not t_295,
       temp bool t_297 = t_294 and t_296,
       temp bool t_298 = t_293 and t_297;
+
     guardCondition t_298;
     effect
       LTL_property.state = 1;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_299 = LTL_property.state == 1,
       temp bool t_300 = Person_0.state == 0,
       temp bool t_301 = not t_300,
       temp bool t_302 = t_299 and t_301;
+
     guardCondition t_302;
     effect
       LTL_property.state = 1;
 
-  process Elevator_Person_4
+  process Person_2_Elevator 
     guardBlock
-      temp bool t_303 = Elevator.state == 3,
-      temp bool t_304 = 4 == Elevator.who,
-      temp bool t_305 = Elevator.going_to == current,
-      temp bool t_306 = t_304 and t_305,
-      temp bool t_307 = t_303 and t_306,
-      temp bool t_308 = Person_4.state == 2,
-      temp bool t_309 = t_307 and t_308;
+      temp bool t_303 = Person_2.state == 1,
+      temp bool t_304 = 0 != Person_2.at_floor,
+      temp bool t_305 = t_303 and t_304,
+      temp bool t_306 = Elevator.state == 2,
+      temp bool t_307 = 2 == Elevator.who,
+      temp bool t_308 = t_306 and t_307,
+      temp bool t_309 = t_305 and t_308;
+
     guardCondition t_309;
+    effect
+      Person_2.state = 2,
+      Elevator.going_to = 0,
+      Elevator.state = 3;
+
+  process Person_2_Elevator 
+    guardBlock
+      temp bool t_310 = Person_2.state == 1,
+      temp bool t_311 = 1 != Person_2.at_floor,
+      temp bool t_312 = t_310 and t_311,
+      temp bool t_313 = Elevator.state == 2,
+      temp bool t_314 = 2 == Elevator.who,
+      temp bool t_315 = t_313 and t_314,
+      temp bool t_316 = t_312 and t_315;
+
+    guardCondition t_316;
+    effect
+      Person_2.state = 2,
+      Elevator.going_to = 1,
+      Elevator.state = 3;
+
+  process Person_2_Elevator 
+    guardBlock
+      temp bool t_317 = Person_2.state == 1,
+      temp bool t_318 = 2 != Person_2.at_floor,
+      temp bool t_319 = t_317 and t_318,
+      temp bool t_320 = Elevator.state == 2,
+      temp bool t_321 = 2 == Elevator.who,
+      temp bool t_322 = t_320 and t_321,
+      temp bool t_323 = t_319 and t_322;
+
+    guardCondition t_323;
+    effect
+      Person_2.state = 2,
+      Elevator.going_to = 2,
+      Elevator.state = 3;
+
+  process Person_2_Elevator 
+    guardBlock
+      temp bool t_324 = Person_2.state == 1,
+      temp bool t_325 = 3 != Person_2.at_floor,
+      temp bool t_326 = t_324 and t_325,
+      temp bool t_327 = Elevator.state == 2,
+      temp bool t_328 = 2 == Elevator.who,
+      temp bool t_329 = t_327 and t_328,
+      temp bool t_330 = t_326 and t_329;
+
+    guardCondition t_330;
+    effect
+      Person_2.state = 2,
+      Elevator.going_to = 3,
+      Elevator.state = 3;
+
+  process Person_2_Elevator 
+    guardBlock
+      temp bool t_331 = Person_2.state == 1,
+      temp bool t_332 = 4 != Person_2.at_floor,
+      temp bool t_333 = t_331 and t_332,
+      temp bool t_334 = Elevator.state == 2,
+      temp bool t_335 = 2 == Elevator.who,
+      temp bool t_336 = t_334 and t_335,
+      temp bool t_337 = t_333 and t_336;
+
+    guardCondition t_337;
+    effect
+      Person_2.state = 2,
+      Elevator.going_to = 4,
+      Elevator.state = 3;
+
+  process Person_2_Elevator 
+    guardBlock
+      temp bool t_338 = Person_2.state == 1,
+      temp bool t_339 = 5 != Person_2.at_floor,
+      temp bool t_340 = t_338 and t_339,
+      temp bool t_341 = Elevator.state == 2,
+      temp bool t_342 = 2 == Elevator.who,
+      temp bool t_343 = t_341 and t_342,
+      temp bool t_344 = t_340 and t_343;
+
+    guardCondition t_344;
+    effect
+      Person_2.state = 2,
+      Elevator.going_to = 5,
+      Elevator.state = 3;
+
+  process Person_4_Servis 
+    guardBlock
+      temp bool t_345 = Person_4.state == 0,
+      temp bool t_346 = Servis.state == 0,
+      temp bool t_347 = t_345 and t_346;
+
+    guardCondition t_347;
+    effect
+      Person_4.state = 1,
+      Servis.floor = Person_4.at_floor,
+      Servis.state = 1,
+      Servis.caller = 4;
+
+  process Person_1_Servis 
+    guardBlock
+      temp bool t_348 = Person_1.state == 0,
+      temp bool t_349 = Servis.state == 0,
+      temp bool t_350 = t_348 and t_349;
+
+    guardCondition t_350;
+    effect
+      Person_1.state = 1,
+      Servis.floor = Person_1.at_floor,
+      Servis.state = 1,
+      Servis.caller = 1;
+
+  process Person_2_Servis 
+    guardBlock
+      temp bool t_351 = Person_2.state == 0,
+      temp bool t_352 = Servis.state == 0,
+      temp bool t_353 = t_351 and t_352;
+
+    guardCondition t_353;
+    effect
+      Person_2.state = 1,
+      Servis.floor = Person_2.at_floor,
+      Servis.state = 1,
+      Servis.caller = 2;
+
+  process Person_0_Elevator 
+    guardBlock
+      temp bool t_354 = Person_0.state == 1,
+      temp bool t_355 = 0 != Person_0.at_floor,
+      temp bool t_356 = t_354 and t_355,
+      temp bool t_357 = Elevator.state == 2,
+      temp bool t_358 = 0 == Elevator.who,
+      temp bool t_359 = t_357 and t_358,
+      temp bool t_360 = t_356 and t_359;
+
+    guardCondition t_360;
+    effect
+      Person_0.state = 2,
+      Elevator.going_to = 0,
+      Elevator.state = 3;
+
+  process Person_0_Elevator 
+    guardBlock
+      temp bool t_361 = Person_0.state == 1,
+      temp bool t_362 = 1 != Person_0.at_floor,
+      temp bool t_363 = t_361 and t_362,
+      temp bool t_364 = Elevator.state == 2,
+      temp bool t_365 = 0 == Elevator.who,
+      temp bool t_366 = t_364 and t_365,
+      temp bool t_367 = t_363 and t_366;
+
+    guardCondition t_367;
+    effect
+      Person_0.state = 2,
+      Elevator.going_to = 1,
+      Elevator.state = 3;
+
+  process Person_0_Elevator 
+    guardBlock
+      temp bool t_368 = Person_0.state == 1,
+      temp bool t_369 = 2 != Person_0.at_floor,
+      temp bool t_370 = t_368 and t_369,
+      temp bool t_371 = Elevator.state == 2,
+      temp bool t_372 = 0 == Elevator.who,
+      temp bool t_373 = t_371 and t_372,
+      temp bool t_374 = t_370 and t_373;
+
+    guardCondition t_374;
+    effect
+      Person_0.state = 2,
+      Elevator.going_to = 2,
+      Elevator.state = 3;
+
+  process Person_0_Elevator 
+    guardBlock
+      temp bool t_375 = Person_0.state == 1,
+      temp bool t_376 = 3 != Person_0.at_floor,
+      temp bool t_377 = t_375 and t_376,
+      temp bool t_378 = Elevator.state == 2,
+      temp bool t_379 = 0 == Elevator.who,
+      temp bool t_380 = t_378 and t_379,
+      temp bool t_381 = t_377 and t_380;
+
+    guardCondition t_381;
+    effect
+      Person_0.state = 2,
+      Elevator.going_to = 3,
+      Elevator.state = 3;
+
+  process Person_0_Elevator 
+    guardBlock
+      temp bool t_382 = Person_0.state == 1,
+      temp bool t_383 = 4 != Person_0.at_floor,
+      temp bool t_384 = t_382 and t_383,
+      temp bool t_385 = Elevator.state == 2,
+      temp bool t_386 = 0 == Elevator.who,
+      temp bool t_387 = t_385 and t_386,
+      temp bool t_388 = t_384 and t_387;
+
+    guardCondition t_388;
+    effect
+      Person_0.state = 2,
+      Elevator.going_to = 4,
+      Elevator.state = 3;
+
+  process Person_0_Elevator 
+    guardBlock
+      temp bool t_389 = Person_0.state == 1,
+      temp bool t_390 = 5 != Person_0.at_floor,
+      temp bool t_391 = t_389 and t_390,
+      temp bool t_392 = Elevator.state == 2,
+      temp bool t_393 = 0 == Elevator.who,
+      temp bool t_394 = t_392 and t_393,
+      temp bool t_395 = t_391 and t_394;
+
+    guardCondition t_395;
+    effect
+      Person_0.state = 2,
+      Elevator.going_to = 5,
+      Elevator.state = 3;
+
+  process Person_1_Elevator 
+    guardBlock
+      temp bool t_396 = Person_1.state == 1,
+      temp bool t_397 = 0 != Person_1.at_floor,
+      temp bool t_398 = t_396 and t_397,
+      temp bool t_399 = Elevator.state == 2,
+      temp bool t_400 = 1 == Elevator.who,
+      temp bool t_401 = t_399 and t_400,
+      temp bool t_402 = t_398 and t_401;
+
+    guardCondition t_402;
+    effect
+      Person_1.state = 2,
+      Elevator.going_to = 0,
+      Elevator.state = 3;
+
+  process Person_1_Elevator 
+    guardBlock
+      temp bool t_403 = Person_1.state == 1,
+      temp bool t_404 = 1 != Person_1.at_floor,
+      temp bool t_405 = t_403 and t_404,
+      temp bool t_406 = Elevator.state == 2,
+      temp bool t_407 = 1 == Elevator.who,
+      temp bool t_408 = t_406 and t_407,
+      temp bool t_409 = t_405 and t_408;
+
+    guardCondition t_409;
+    effect
+      Person_1.state = 2,
+      Elevator.going_to = 1,
+      Elevator.state = 3;
+
+  process Person_1_Elevator 
+    guardBlock
+      temp bool t_410 = Person_1.state == 1,
+      temp bool t_411 = 2 != Person_1.at_floor,
+      temp bool t_412 = t_410 and t_411,
+      temp bool t_413 = Elevator.state == 2,
+      temp bool t_414 = 1 == Elevator.who,
+      temp bool t_415 = t_413 and t_414,
+      temp bool t_416 = t_412 and t_415;
+
+    guardCondition t_416;
+    effect
+      Person_1.state = 2,
+      Elevator.going_to = 2,
+      Elevator.state = 3;
+
+  process Person_1_Elevator 
+    guardBlock
+      temp bool t_417 = Person_1.state == 1,
+      temp bool t_418 = 3 != Person_1.at_floor,
+      temp bool t_419 = t_417 and t_418,
+      temp bool t_420 = Elevator.state == 2,
+      temp bool t_421 = 1 == Elevator.who,
+      temp bool t_422 = t_420 and t_421,
+      temp bool t_423 = t_419 and t_422;
+
+    guardCondition t_423;
+    effect
+      Person_1.state = 2,
+      Elevator.going_to = 3,
+      Elevator.state = 3;
+
+  process Person_1_Elevator 
+    guardBlock
+      temp bool t_424 = Person_1.state == 1,
+      temp bool t_425 = 4 != Person_1.at_floor,
+      temp bool t_426 = t_424 and t_425,
+      temp bool t_427 = Elevator.state == 2,
+      temp bool t_428 = 1 == Elevator.who,
+      temp bool t_429 = t_427 and t_428,
+      temp bool t_430 = t_426 and t_429;
+
+    guardCondition t_430;
+    effect
+      Person_1.state = 2,
+      Elevator.going_to = 4,
+      Elevator.state = 3;
+
+  process Person_1_Elevator 
+    guardBlock
+      temp bool t_431 = Person_1.state == 1,
+      temp bool t_432 = 5 != Person_1.at_floor,
+      temp bool t_433 = t_431 and t_432,
+      temp bool t_434 = Elevator.state == 2,
+      temp bool t_435 = 1 == Elevator.who,
+      temp bool t_436 = t_434 and t_435,
+      temp bool t_437 = t_433 and t_436;
+
+    guardCondition t_437;
+    effect
+      Person_1.state = 2,
+      Elevator.going_to = 5,
+      Elevator.state = 3;
+
+  process Person_0_Servis 
+    guardBlock
+      temp bool t_438 = Person_0.state == 0,
+      temp bool t_439 = Servis.state == 0,
+      temp bool t_440 = t_438 and t_439;
+
+    guardCondition t_440;
+    effect
+      Person_0.state = 1,
+      Servis.floor = Person_0.at_floor,
+      Servis.state = 1,
+      Servis.caller = 0;
+
+  process Elevator_Person_4 
+    guardBlock
+      temp bool t_441 = Elevator.state == 3,
+      temp bool t_442 = 4 == Elevator.who,
+      temp bool t_443 = Elevator.going_to == current,
+      temp bool t_444 = t_442 and t_443,
+      temp bool t_445 = t_441 and t_444,
+      temp bool t_446 = Person_4.state == 2,
+      temp bool t_447 = t_445 and t_446;
+
+    guardCondition t_447;
     effect
       Elevator.state = 0,
       Elevator.going_to = 0,
@@ -601,196 +973,17 @@ byte Elevator.who = 0;
       Person_4.at_floor = current,
       Person_4.state = 0;
 
-  process Person_1_Elevator
+  process Elevator_Person_3 
     guardBlock
-      temp bool t_310 = Person_1.state == 1,
-      temp bool t_311 = 0 != Person_1.at_floor,
-      temp bool t_312 = t_310 and t_311,
-      temp bool t_313 = Elevator.state == 2,
-      temp bool t_314 = 1 == Elevator.who,
-      temp bool t_315 = t_313 and t_314,
-      temp bool t_316 = t_312 and t_315;
-    guardCondition t_316;
-    effect
-      Person_1.state = 2,
-      Elevator.going_to = 0,
-      Elevator.state = 3;
+      temp bool t_448 = Elevator.state == 3,
+      temp bool t_449 = 3 == Elevator.who,
+      temp bool t_450 = Elevator.going_to == current,
+      temp bool t_451 = t_449 and t_450,
+      temp bool t_452 = t_448 and t_451,
+      temp bool t_453 = Person_3.state == 2,
+      temp bool t_454 = t_452 and t_453;
 
-  process Person_1_Elevator
-    guardBlock
-      temp bool t_317 = Person_1.state == 1,
-      temp bool t_318 = 1 != Person_1.at_floor,
-      temp bool t_319 = t_317 and t_318,
-      temp bool t_320 = Elevator.state == 2,
-      temp bool t_321 = 1 == Elevator.who,
-      temp bool t_322 = t_320 and t_321,
-      temp bool t_323 = t_319 and t_322;
-    guardCondition t_323;
-    effect
-      Person_1.state = 2,
-      Elevator.going_to = 1,
-      Elevator.state = 3;
-
-  process Person_1_Elevator
-    guardBlock
-      temp bool t_324 = Person_1.state == 1,
-      temp bool t_325 = 2 != Person_1.at_floor,
-      temp bool t_326 = t_324 and t_325,
-      temp bool t_327 = Elevator.state == 2,
-      temp bool t_328 = 1 == Elevator.who,
-      temp bool t_329 = t_327 and t_328,
-      temp bool t_330 = t_326 and t_329;
-    guardCondition t_330;
-    effect
-      Person_1.state = 2,
-      Elevator.going_to = 2,
-      Elevator.state = 3;
-
-  process Person_1_Elevator
-    guardBlock
-      temp bool t_331 = Person_1.state == 1,
-      temp bool t_332 = 3 != Person_1.at_floor,
-      temp bool t_333 = t_331 and t_332,
-      temp bool t_334 = Elevator.state == 2,
-      temp bool t_335 = 1 == Elevator.who,
-      temp bool t_336 = t_334 and t_335,
-      temp bool t_337 = t_333 and t_336;
-    guardCondition t_337;
-    effect
-      Person_1.state = 2,
-      Elevator.going_to = 3,
-      Elevator.state = 3;
-
-  process Person_1_Elevator
-    guardBlock
-      temp bool t_338 = Person_1.state == 1,
-      temp bool t_339 = 4 != Person_1.at_floor,
-      temp bool t_340 = t_338 and t_339,
-      temp bool t_341 = Elevator.state == 2,
-      temp bool t_342 = 1 == Elevator.who,
-      temp bool t_343 = t_341 and t_342,
-      temp bool t_344 = t_340 and t_343;
-    guardCondition t_344;
-    effect
-      Person_1.state = 2,
-      Elevator.going_to = 4,
-      Elevator.state = 3;
-
-  process Person_1_Elevator
-    guardBlock
-      temp bool t_345 = Person_1.state == 1,
-      temp bool t_346 = 5 != Person_1.at_floor,
-      temp bool t_347 = t_345 and t_346,
-      temp bool t_348 = Elevator.state == 2,
-      temp bool t_349 = 1 == Elevator.who,
-      temp bool t_350 = t_348 and t_349,
-      temp bool t_351 = t_347 and t_350;
-    guardCondition t_351;
-    effect
-      Person_1.state = 2,
-      Elevator.going_to = 5,
-      Elevator.state = 3;
-
-  process Person_4_Elevator
-    guardBlock
-      temp bool t_352 = Person_4.state == 1,
-      temp bool t_353 = 0 != Person_4.at_floor,
-      temp bool t_354 = t_352 and t_353,
-      temp bool t_355 = Elevator.state == 2,
-      temp bool t_356 = 4 == Elevator.who,
-      temp bool t_357 = t_355 and t_356,
-      temp bool t_358 = t_354 and t_357;
-    guardCondition t_358;
-    effect
-      Person_4.state = 2,
-      Elevator.going_to = 0,
-      Elevator.state = 3;
-
-  process Person_4_Elevator
-    guardBlock
-      temp bool t_359 = Person_4.state == 1,
-      temp bool t_360 = 1 != Person_4.at_floor,
-      temp bool t_361 = t_359 and t_360,
-      temp bool t_362 = Elevator.state == 2,
-      temp bool t_363 = 4 == Elevator.who,
-      temp bool t_364 = t_362 and t_363,
-      temp bool t_365 = t_361 and t_364;
-    guardCondition t_365;
-    effect
-      Person_4.state = 2,
-      Elevator.going_to = 1,
-      Elevator.state = 3;
-
-  process Person_4_Elevator
-    guardBlock
-      temp bool t_366 = Person_4.state == 1,
-      temp bool t_367 = 2 != Person_4.at_floor,
-      temp bool t_368 = t_366 and t_367,
-      temp bool t_369 = Elevator.state == 2,
-      temp bool t_370 = 4 == Elevator.who,
-      temp bool t_371 = t_369 and t_370,
-      temp bool t_372 = t_368 and t_371;
-    guardCondition t_372;
-    effect
-      Person_4.state = 2,
-      Elevator.going_to = 2,
-      Elevator.state = 3;
-
-  process Person_4_Elevator
-    guardBlock
-      temp bool t_373 = Person_4.state == 1,
-      temp bool t_374 = 3 != Person_4.at_floor,
-      temp bool t_375 = t_373 and t_374,
-      temp bool t_376 = Elevator.state == 2,
-      temp bool t_377 = 4 == Elevator.who,
-      temp bool t_378 = t_376 and t_377,
-      temp bool t_379 = t_375 and t_378;
-    guardCondition t_379;
-    effect
-      Person_4.state = 2,
-      Elevator.going_to = 3,
-      Elevator.state = 3;
-
-  process Person_4_Elevator
-    guardBlock
-      temp bool t_380 = Person_4.state == 1,
-      temp bool t_381 = 4 != Person_4.at_floor,
-      temp bool t_382 = t_380 and t_381,
-      temp bool t_383 = Elevator.state == 2,
-      temp bool t_384 = 4 == Elevator.who,
-      temp bool t_385 = t_383 and t_384,
-      temp bool t_386 = t_382 and t_385;
-    guardCondition t_386;
-    effect
-      Person_4.state = 2,
-      Elevator.going_to = 4,
-      Elevator.state = 3;
-
-  process Person_4_Elevator
-    guardBlock
-      temp bool t_387 = Person_4.state == 1,
-      temp bool t_388 = 5 != Person_4.at_floor,
-      temp bool t_389 = t_387 and t_388,
-      temp bool t_390 = Elevator.state == 2,
-      temp bool t_391 = 4 == Elevator.who,
-      temp bool t_392 = t_390 and t_391,
-      temp bool t_393 = t_389 and t_392;
-    guardCondition t_393;
-    effect
-      Person_4.state = 2,
-      Elevator.going_to = 5,
-      Elevator.state = 3;
-
-  process Elevator_Person_3
-    guardBlock
-      temp bool t_394 = Elevator.state == 3,
-      temp bool t_395 = 3 == Elevator.who,
-      temp bool t_396 = Elevator.going_to == current,
-      temp bool t_397 = t_395 and t_396,
-      temp bool t_398 = t_394 and t_397,
-      temp bool t_399 = Person_3.state == 2,
-      temp bool t_400 = t_398 and t_399;
-    guardCondition t_400;
+    guardCondition t_454;
     effect
       Elevator.state = 0,
       Elevator.going_to = 0,
@@ -799,238 +992,30 @@ byte Elevator.who = 0;
       Person_3.at_floor = current,
       Person_3.state = 0;
 
-  process Person_2_Servis
+  process Person_3_Servis 
     guardBlock
-      temp bool t_401 = Person_2.state == 0,
-      temp bool t_402 = Servis.state == 0,
-      temp bool t_403 = t_401 and t_402;
-    guardCondition t_403;
+      temp bool t_455 = Person_3.state == 0,
+      temp bool t_456 = Servis.state == 0,
+      temp bool t_457 = t_455 and t_456;
+
+    guardCondition t_457;
     effect
-      Person_2.state = 1,
-      Servis.floor = Person_2.at_floor,
+      Person_3.state = 1,
+      Servis.floor = Person_3.at_floor,
       Servis.state = 1,
-      Servis.caller = 2;
+      Servis.caller = 3;
 
-  process Person_1_Servis
+  process Elevator_Person_0 
     guardBlock
-      temp bool t_404 = Person_1.state == 0,
-      temp bool t_405 = Servis.state == 0,
-      temp bool t_406 = t_404 and t_405;
-    guardCondition t_406;
-    effect
-      Person_1.state = 1,
-      Servis.floor = Person_1.at_floor,
-      Servis.state = 1,
-      Servis.caller = 1;
-
-  process Person_3_Elevator
-    guardBlock
-      temp bool t_407 = Person_3.state == 1,
-      temp bool t_408 = 0 != Person_3.at_floor,
-      temp bool t_409 = t_407 and t_408,
-      temp bool t_410 = Elevator.state == 2,
-      temp bool t_411 = 3 == Elevator.who,
-      temp bool t_412 = t_410 and t_411,
-      temp bool t_413 = t_409 and t_412;
-    guardCondition t_413;
-    effect
-      Person_3.state = 2,
-      Elevator.going_to = 0,
-      Elevator.state = 3;
-
-  process Person_3_Elevator
-    guardBlock
-      temp bool t_414 = Person_3.state == 1,
-      temp bool t_415 = 1 != Person_3.at_floor,
-      temp bool t_416 = t_414 and t_415,
-      temp bool t_417 = Elevator.state == 2,
-      temp bool t_418 = 3 == Elevator.who,
-      temp bool t_419 = t_417 and t_418,
-      temp bool t_420 = t_416 and t_419;
-    guardCondition t_420;
-    effect
-      Person_3.state = 2,
-      Elevator.going_to = 1,
-      Elevator.state = 3;
-
-  process Person_3_Elevator
-    guardBlock
-      temp bool t_421 = Person_3.state == 1,
-      temp bool t_422 = 2 != Person_3.at_floor,
-      temp bool t_423 = t_421 and t_422,
-      temp bool t_424 = Elevator.state == 2,
-      temp bool t_425 = 3 == Elevator.who,
-      temp bool t_426 = t_424 and t_425,
-      temp bool t_427 = t_423 and t_426;
-    guardCondition t_427;
-    effect
-      Person_3.state = 2,
-      Elevator.going_to = 2,
-      Elevator.state = 3;
-
-  process Person_3_Elevator
-    guardBlock
-      temp bool t_428 = Person_3.state == 1,
-      temp bool t_429 = 3 != Person_3.at_floor,
-      temp bool t_430 = t_428 and t_429,
-      temp bool t_431 = Elevator.state == 2,
-      temp bool t_432 = 3 == Elevator.who,
-      temp bool t_433 = t_431 and t_432,
-      temp bool t_434 = t_430 and t_433;
-    guardCondition t_434;
-    effect
-      Person_3.state = 2,
-      Elevator.going_to = 3,
-      Elevator.state = 3;
-
-  process Person_3_Elevator
-    guardBlock
-      temp bool t_435 = Person_3.state == 1,
-      temp bool t_436 = 4 != Person_3.at_floor,
-      temp bool t_437 = t_435 and t_436,
-      temp bool t_438 = Elevator.state == 2,
-      temp bool t_439 = 3 == Elevator.who,
-      temp bool t_440 = t_438 and t_439,
-      temp bool t_441 = t_437 and t_440;
-    guardCondition t_441;
-    effect
-      Person_3.state = 2,
-      Elevator.going_to = 4,
-      Elevator.state = 3;
-
-  process Person_3_Elevator
-    guardBlock
-      temp bool t_442 = Person_3.state == 1,
-      temp bool t_443 = 5 != Person_3.at_floor,
-      temp bool t_444 = t_442 and t_443,
-      temp bool t_445 = Elevator.state == 2,
-      temp bool t_446 = 3 == Elevator.who,
-      temp bool t_447 = t_445 and t_446,
-      temp bool t_448 = t_444 and t_447;
-    guardCondition t_448;
-    effect
-      Person_3.state = 2,
-      Elevator.going_to = 5,
-      Elevator.state = 3;
-
-  process Person_0_Elevator
-    guardBlock
-      temp bool t_449 = Person_0.state == 1,
-      temp bool t_450 = 0 != Person_0.at_floor,
-      temp bool t_451 = t_449 and t_450,
-      temp bool t_452 = Elevator.state == 2,
-      temp bool t_453 = 0 == Elevator.who,
-      temp bool t_454 = t_452 and t_453,
-      temp bool t_455 = t_451 and t_454;
-    guardCondition t_455;
-    effect
-      Person_0.state = 2,
-      Elevator.going_to = 0,
-      Elevator.state = 3;
-
-  process Person_0_Elevator
-    guardBlock
-      temp bool t_456 = Person_0.state == 1,
-      temp bool t_457 = 1 != Person_0.at_floor,
-      temp bool t_458 = t_456 and t_457,
-      temp bool t_459 = Elevator.state == 2,
-      temp bool t_460 = 0 == Elevator.who,
+      temp bool t_458 = Elevator.state == 3,
+      temp bool t_459 = 0 == Elevator.who,
+      temp bool t_460 = Elevator.going_to == current,
       temp bool t_461 = t_459 and t_460,
-      temp bool t_462 = t_458 and t_461;
-    guardCondition t_462;
-    effect
-      Person_0.state = 2,
-      Elevator.going_to = 1,
-      Elevator.state = 3;
+      temp bool t_462 = t_458 and t_461,
+      temp bool t_463 = Person_0.state == 2,
+      temp bool t_464 = t_462 and t_463;
 
-  process Person_0_Elevator
-    guardBlock
-      temp bool t_463 = Person_0.state == 1,
-      temp bool t_464 = 2 != Person_0.at_floor,
-      temp bool t_465 = t_463 and t_464,
-      temp bool t_466 = Elevator.state == 2,
-      temp bool t_467 = 0 == Elevator.who,
-      temp bool t_468 = t_466 and t_467,
-      temp bool t_469 = t_465 and t_468;
-    guardCondition t_469;
-    effect
-      Person_0.state = 2,
-      Elevator.going_to = 2,
-      Elevator.state = 3;
-
-  process Person_0_Elevator
-    guardBlock
-      temp bool t_470 = Person_0.state == 1,
-      temp bool t_471 = 3 != Person_0.at_floor,
-      temp bool t_472 = t_470 and t_471,
-      temp bool t_473 = Elevator.state == 2,
-      temp bool t_474 = 0 == Elevator.who,
-      temp bool t_475 = t_473 and t_474,
-      temp bool t_476 = t_472 and t_475;
-    guardCondition t_476;
-    effect
-      Person_0.state = 2,
-      Elevator.going_to = 3,
-      Elevator.state = 3;
-
-  process Person_0_Elevator
-    guardBlock
-      temp bool t_477 = Person_0.state == 1,
-      temp bool t_478 = 4 != Person_0.at_floor,
-      temp bool t_479 = t_477 and t_478,
-      temp bool t_480 = Elevator.state == 2,
-      temp bool t_481 = 0 == Elevator.who,
-      temp bool t_482 = t_480 and t_481,
-      temp bool t_483 = t_479 and t_482;
-    guardCondition t_483;
-    effect
-      Person_0.state = 2,
-      Elevator.going_to = 4,
-      Elevator.state = 3;
-
-  process Person_0_Elevator
-    guardBlock
-      temp bool t_484 = Person_0.state == 1,
-      temp bool t_485 = 5 != Person_0.at_floor,
-      temp bool t_486 = t_484 and t_485,
-      temp bool t_487 = Elevator.state == 2,
-      temp bool t_488 = 0 == Elevator.who,
-      temp bool t_489 = t_487 and t_488,
-      temp bool t_490 = t_486 and t_489;
-    guardCondition t_490;
-    effect
-      Person_0.state = 2,
-      Elevator.going_to = 5,
-      Elevator.state = 3;
-
-  process Elevator_Person_1
-    guardBlock
-      temp bool t_491 = Elevator.state == 3,
-      temp bool t_492 = 1 == Elevator.who,
-      temp bool t_493 = Elevator.going_to == current,
-      temp bool t_494 = t_492 and t_493,
-      temp bool t_495 = t_491 and t_494,
-      temp bool t_496 = Person_1.state == 2,
-      temp bool t_497 = t_495 and t_496;
-    guardCondition t_497;
-    effect
-      Elevator.state = 0,
-      Elevator.going_to = 0,
-      Elevator.who = 0,
-      Elevator.serving = current,
-      Person_1.at_floor = current,
-      Person_1.state = 0;
-
-  process Elevator_Person_0
-    guardBlock
-      temp bool t_498 = Elevator.state == 3,
-      temp bool t_499 = 0 == Elevator.who,
-      temp bool t_500 = Elevator.going_to == current,
-      temp bool t_501 = t_499 and t_500,
-      temp bool t_502 = t_498 and t_501,
-      temp bool t_503 = Person_0.state == 2,
-      temp bool t_504 = t_502 and t_503;
-    guardCondition t_504;
+    guardCondition t_464;
     effect
       Elevator.state = 0,
       Elevator.going_to = 0,
@@ -1039,142 +1024,17 @@ byte Elevator.who = 0;
       Person_0.at_floor = current,
       Person_0.state = 0;
 
-  process Person_2_Elevator
+  process Elevator_Person_2 
     guardBlock
-      temp bool t_505 = Person_2.state == 1,
-      temp bool t_506 = 0 != Person_2.at_floor,
-      temp bool t_507 = t_505 and t_506,
-      temp bool t_508 = Elevator.state == 2,
-      temp bool t_509 = 2 == Elevator.who,
-      temp bool t_510 = t_508 and t_509,
-      temp bool t_511 = t_507 and t_510;
-    guardCondition t_511;
-    effect
-      Person_2.state = 2,
-      Elevator.going_to = 0,
-      Elevator.state = 3;
+      temp bool t_465 = Elevator.state == 3,
+      temp bool t_466 = 2 == Elevator.who,
+      temp bool t_467 = Elevator.going_to == current,
+      temp bool t_468 = t_466 and t_467,
+      temp bool t_469 = t_465 and t_468,
+      temp bool t_470 = Person_2.state == 2,
+      temp bool t_471 = t_469 and t_470;
 
-  process Person_2_Elevator
-    guardBlock
-      temp bool t_512 = Person_2.state == 1,
-      temp bool t_513 = 1 != Person_2.at_floor,
-      temp bool t_514 = t_512 and t_513,
-      temp bool t_515 = Elevator.state == 2,
-      temp bool t_516 = 2 == Elevator.who,
-      temp bool t_517 = t_515 and t_516,
-      temp bool t_518 = t_514 and t_517;
-    guardCondition t_518;
-    effect
-      Person_2.state = 2,
-      Elevator.going_to = 1,
-      Elevator.state = 3;
-
-  process Person_2_Elevator
-    guardBlock
-      temp bool t_519 = Person_2.state == 1,
-      temp bool t_520 = 2 != Person_2.at_floor,
-      temp bool t_521 = t_519 and t_520,
-      temp bool t_522 = Elevator.state == 2,
-      temp bool t_523 = 2 == Elevator.who,
-      temp bool t_524 = t_522 and t_523,
-      temp bool t_525 = t_521 and t_524;
-    guardCondition t_525;
-    effect
-      Person_2.state = 2,
-      Elevator.going_to = 2,
-      Elevator.state = 3;
-
-  process Person_2_Elevator
-    guardBlock
-      temp bool t_526 = Person_2.state == 1,
-      temp bool t_527 = 3 != Person_2.at_floor,
-      temp bool t_528 = t_526 and t_527,
-      temp bool t_529 = Elevator.state == 2,
-      temp bool t_530 = 2 == Elevator.who,
-      temp bool t_531 = t_529 and t_530,
-      temp bool t_532 = t_528 and t_531;
-    guardCondition t_532;
-    effect
-      Person_2.state = 2,
-      Elevator.going_to = 3,
-      Elevator.state = 3;
-
-  process Person_2_Elevator
-    guardBlock
-      temp bool t_533 = Person_2.state == 1,
-      temp bool t_534 = 4 != Person_2.at_floor,
-      temp bool t_535 = t_533 and t_534,
-      temp bool t_536 = Elevator.state == 2,
-      temp bool t_537 = 2 == Elevator.who,
-      temp bool t_538 = t_536 and t_537,
-      temp bool t_539 = t_535 and t_538;
-    guardCondition t_539;
-    effect
-      Person_2.state = 2,
-      Elevator.going_to = 4,
-      Elevator.state = 3;
-
-  process Person_2_Elevator
-    guardBlock
-      temp bool t_540 = Person_2.state == 1,
-      temp bool t_541 = 5 != Person_2.at_floor,
-      temp bool t_542 = t_540 and t_541,
-      temp bool t_543 = Elevator.state == 2,
-      temp bool t_544 = 2 == Elevator.who,
-      temp bool t_545 = t_543 and t_544,
-      temp bool t_546 = t_542 and t_545;
-    guardCondition t_546;
-    effect
-      Person_2.state = 2,
-      Elevator.going_to = 5,
-      Elevator.state = 3;
-
-  process Person_3_Servis
-    guardBlock
-      temp bool t_547 = Person_3.state == 0,
-      temp bool t_548 = Servis.state == 0,
-      temp bool t_549 = t_547 and t_548;
-    guardCondition t_549;
-    effect
-      Person_3.state = 1,
-      Servis.floor = Person_3.at_floor,
-      Servis.state = 1,
-      Servis.caller = 3;
-
-  process Person_0_Servis
-    guardBlock
-      temp bool t_550 = Person_0.state == 0,
-      temp bool t_551 = Servis.state == 0,
-      temp bool t_552 = t_550 and t_551;
-    guardCondition t_552;
-    effect
-      Person_0.state = 1,
-      Servis.floor = Person_0.at_floor,
-      Servis.state = 1,
-      Servis.caller = 0;
-
-  process Person_4_Servis
-    guardBlock
-      temp bool t_553 = Person_4.state == 0,
-      temp bool t_554 = Servis.state == 0,
-      temp bool t_555 = t_553 and t_554;
-    guardCondition t_555;
-    effect
-      Person_4.state = 1,
-      Servis.floor = Person_4.at_floor,
-      Servis.state = 1,
-      Servis.caller = 4;
-
-  process Elevator_Person_2
-    guardBlock
-      temp bool t_556 = Elevator.state == 3,
-      temp bool t_557 = 2 == Elevator.who,
-      temp bool t_558 = Elevator.going_to == current,
-      temp bool t_559 = t_557 and t_558,
-      temp bool t_560 = t_556 and t_559,
-      temp bool t_561 = Person_2.state == 2,
-      temp bool t_562 = t_560 and t_561;
-    guardCondition t_562;
+    guardCondition t_471;
     effect
       Elevator.state = 0,
       Elevator.going_to = 0,
@@ -1182,5 +1042,218 @@ byte Elevator.who = 0;
       Elevator.serving = current,
       Person_2.at_floor = current,
       Person_2.state = 0;
-      // accepting conditions
-      // LTL_property.state == 1
+
+  process Person_4_Elevator 
+    guardBlock
+      temp bool t_472 = Person_4.state == 1,
+      temp bool t_473 = 0 != Person_4.at_floor,
+      temp bool t_474 = t_472 and t_473,
+      temp bool t_475 = Elevator.state == 2,
+      temp bool t_476 = 4 == Elevator.who,
+      temp bool t_477 = t_475 and t_476,
+      temp bool t_478 = t_474 and t_477;
+
+    guardCondition t_478;
+    effect
+      Person_4.state = 2,
+      Elevator.going_to = 0,
+      Elevator.state = 3;
+
+  process Person_4_Elevator 
+    guardBlock
+      temp bool t_479 = Person_4.state == 1,
+      temp bool t_480 = 1 != Person_4.at_floor,
+      temp bool t_481 = t_479 and t_480,
+      temp bool t_482 = Elevator.state == 2,
+      temp bool t_483 = 4 == Elevator.who,
+      temp bool t_484 = t_482 and t_483,
+      temp bool t_485 = t_481 and t_484;
+
+    guardCondition t_485;
+    effect
+      Person_4.state = 2,
+      Elevator.going_to = 1,
+      Elevator.state = 3;
+
+  process Person_4_Elevator 
+    guardBlock
+      temp bool t_486 = Person_4.state == 1,
+      temp bool t_487 = 2 != Person_4.at_floor,
+      temp bool t_488 = t_486 and t_487,
+      temp bool t_489 = Elevator.state == 2,
+      temp bool t_490 = 4 == Elevator.who,
+      temp bool t_491 = t_489 and t_490,
+      temp bool t_492 = t_488 and t_491;
+
+    guardCondition t_492;
+    effect
+      Person_4.state = 2,
+      Elevator.going_to = 2,
+      Elevator.state = 3;
+
+  process Person_4_Elevator 
+    guardBlock
+      temp bool t_493 = Person_4.state == 1,
+      temp bool t_494 = 3 != Person_4.at_floor,
+      temp bool t_495 = t_493 and t_494,
+      temp bool t_496 = Elevator.state == 2,
+      temp bool t_497 = 4 == Elevator.who,
+      temp bool t_498 = t_496 and t_497,
+      temp bool t_499 = t_495 and t_498;
+
+    guardCondition t_499;
+    effect
+      Person_4.state = 2,
+      Elevator.going_to = 3,
+      Elevator.state = 3;
+
+  process Person_4_Elevator 
+    guardBlock
+      temp bool t_500 = Person_4.state == 1,
+      temp bool t_501 = 4 != Person_4.at_floor,
+      temp bool t_502 = t_500 and t_501,
+      temp bool t_503 = Elevator.state == 2,
+      temp bool t_504 = 4 == Elevator.who,
+      temp bool t_505 = t_503 and t_504,
+      temp bool t_506 = t_502 and t_505;
+
+    guardCondition t_506;
+    effect
+      Person_4.state = 2,
+      Elevator.going_to = 4,
+      Elevator.state = 3;
+
+  process Person_4_Elevator 
+    guardBlock
+      temp bool t_507 = Person_4.state == 1,
+      temp bool t_508 = 5 != Person_4.at_floor,
+      temp bool t_509 = t_507 and t_508,
+      temp bool t_510 = Elevator.state == 2,
+      temp bool t_511 = 4 == Elevator.who,
+      temp bool t_512 = t_510 and t_511,
+      temp bool t_513 = t_509 and t_512;
+
+    guardCondition t_513;
+    effect
+      Person_4.state = 2,
+      Elevator.going_to = 5,
+      Elevator.state = 3;
+
+  process Elevator_Person_1 
+    guardBlock
+      temp bool t_514 = Elevator.state == 3,
+      temp bool t_515 = 1 == Elevator.who,
+      temp bool t_516 = Elevator.going_to == current,
+      temp bool t_517 = t_515 and t_516,
+      temp bool t_518 = t_514 and t_517,
+      temp bool t_519 = Person_1.state == 2,
+      temp bool t_520 = t_518 and t_519;
+
+    guardCondition t_520;
+    effect
+      Elevator.state = 0,
+      Elevator.going_to = 0,
+      Elevator.who = 0,
+      Elevator.serving = current,
+      Person_1.at_floor = current,
+      Person_1.state = 0;
+
+  process Person_3_Elevator 
+    guardBlock
+      temp bool t_521 = Person_3.state == 1,
+      temp bool t_522 = 0 != Person_3.at_floor,
+      temp bool t_523 = t_521 and t_522,
+      temp bool t_524 = Elevator.state == 2,
+      temp bool t_525 = 3 == Elevator.who,
+      temp bool t_526 = t_524 and t_525,
+      temp bool t_527 = t_523 and t_526;
+
+    guardCondition t_527;
+    effect
+      Person_3.state = 2,
+      Elevator.going_to = 0,
+      Elevator.state = 3;
+
+  process Person_3_Elevator 
+    guardBlock
+      temp bool t_528 = Person_3.state == 1,
+      temp bool t_529 = 1 != Person_3.at_floor,
+      temp bool t_530 = t_528 and t_529,
+      temp bool t_531 = Elevator.state == 2,
+      temp bool t_532 = 3 == Elevator.who,
+      temp bool t_533 = t_531 and t_532,
+      temp bool t_534 = t_530 and t_533;
+
+    guardCondition t_534;
+    effect
+      Person_3.state = 2,
+      Elevator.going_to = 1,
+      Elevator.state = 3;
+
+  process Person_3_Elevator 
+    guardBlock
+      temp bool t_535 = Person_3.state == 1,
+      temp bool t_536 = 2 != Person_3.at_floor,
+      temp bool t_537 = t_535 and t_536,
+      temp bool t_538 = Elevator.state == 2,
+      temp bool t_539 = 3 == Elevator.who,
+      temp bool t_540 = t_538 and t_539,
+      temp bool t_541 = t_537 and t_540;
+
+    guardCondition t_541;
+    effect
+      Person_3.state = 2,
+      Elevator.going_to = 2,
+      Elevator.state = 3;
+
+  process Person_3_Elevator 
+    guardBlock
+      temp bool t_542 = Person_3.state == 1,
+      temp bool t_543 = 3 != Person_3.at_floor,
+      temp bool t_544 = t_542 and t_543,
+      temp bool t_545 = Elevator.state == 2,
+      temp bool t_546 = 3 == Elevator.who,
+      temp bool t_547 = t_545 and t_546,
+      temp bool t_548 = t_544 and t_547;
+
+    guardCondition t_548;
+    effect
+      Person_3.state = 2,
+      Elevator.going_to = 3,
+      Elevator.state = 3;
+
+  process Person_3_Elevator 
+    guardBlock
+      temp bool t_549 = Person_3.state == 1,
+      temp bool t_550 = 4 != Person_3.at_floor,
+      temp bool t_551 = t_549 and t_550,
+      temp bool t_552 = Elevator.state == 2,
+      temp bool t_553 = 3 == Elevator.who,
+      temp bool t_554 = t_552 and t_553,
+      temp bool t_555 = t_551 and t_554;
+
+    guardCondition t_555;
+    effect
+      Person_3.state = 2,
+      Elevator.going_to = 4,
+      Elevator.state = 3;
+
+  process Person_3_Elevator 
+    guardBlock
+      temp bool t_556 = Person_3.state == 1,
+      temp bool t_557 = 5 != Person_3.at_floor,
+      temp bool t_558 = t_556 and t_557,
+      temp bool t_559 = Elevator.state == 2,
+      temp bool t_560 = 3 == Elevator.who,
+      temp bool t_561 = t_559 and t_560,
+      temp bool t_562 = t_558 and t_561;
+
+    guardCondition t_562;
+    effect
+      Person_3.state = 2,
+      Elevator.going_to = 5,
+      Elevator.state = 3;
+
+accepting conditions
+  LTL_property.state == 1
+

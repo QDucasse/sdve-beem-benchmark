@@ -1,10 +1,10 @@
 state {idle(0), dialing(1), calling(2), busy(3), q_i(4), talert(5), unobtainable(6), oalert(7), error_state(8), oconnected(9), oringout(10), tpickup(11), tconnected(12), ringback(13)} User_0.state = 0;
 state {idle(0), dialing(1), calling(2), busy(3), q_i(4), talert(5), unobtainable(6), oalert(7), error_state(8), oconnected(9), oringout(10), tpickup(11), tconnected(12), ringback(13)} User_1.state = 0;
 state {idle(0), dialing(1), calling(2), busy(3), q_i(4), talert(5), unobtainable(6), oalert(7), error_state(8), oconnected(9), oringout(10), tpickup(11), tconnected(12), ringback(13)} User_2.state = 0;
-byte chan[4] =  {255, 255, 255};
-byte partner[4] =  {255, 255, 255};
-byte call_forward_busy[4] =  {1, 2, 255};
-byte record[4] =  {255, 255, 255};
+byte chan[3] = {255, 255, 255};
+byte partner[3] = {255, 255, 255};
+byte call_forward_busy[3] = {1, 2, 255};
+byte record[3] = {255, 255, 255};
 byte User_0.dev = 1;
 byte User_0.mbit = 0;
 byte User_1.dev = 1;
@@ -12,128 +12,140 @@ byte User_1.mbit = 0;
 byte User_2.dev = 1;
 byte User_2.mbit = 0;
 
-  process User_0
+  process User_0 
     guardBlock
       temp bool t_0 = User_0.state == 0,
       temp byte t_1 = chan[0],
       temp bool t_2 = t_1 == 255,
       temp bool t_3 = t_0 and t_2;
+
     guardCondition t_3;
     effect
       User_0.state = 1,
       User_0.dev = 0,
       chan[0] = 0;
 
-  process User_0
+  process User_0 
     guardBlock
       temp bool t_4 = User_0.state == 0,
       temp byte t_5 = chan[0],
       temp bool t_6 = t_5 != 255,
       temp bool t_7 = t_4 and t_6;
+
     guardCondition t_7;
     effect
       User_0.state = 4,
       temp byte t_8 = chan[0],
-      temp int t_9 = t_8 % 20,
+      temp byte t_9 = t_8 % 20,
       partner[0] = t_9;
 
-  process User_0
+  process User_0 
     guardBlock
       temp bool t_10 = User_0.state == 4,
       temp byte t_11 = partner[0],
       temp byte t_12 = chan[t_11],
-      temp int t_13 = t_12 % 20,
+      temp byte t_13 = t_12 % 20,
       temp bool t_14 = t_13 == 0,
       temp bool t_15 = t_10 and t_14;
+
     guardCondition t_15;
     effect
       User_0.state = 5;
 
-  process User_0
+  process User_0 
     guardBlock
       temp bool t_16 = User_0.state == 4,
       temp byte t_17 = partner[0],
       temp byte t_18 = chan[t_17],
-      temp int t_19 = t_18 % 20,
+      temp byte t_19 = t_18 % 20,
       temp bool t_20 = t_19 != 0,
       temp bool t_21 = t_16 and t_20;
+
     guardCondition t_21;
     effect
       User_0.state = 0,
       partner[0] = 255;
 
-  process User_0
+  process User_0 
     guardBlock
       temp bool t_22 = User_0.state == 1;
+
     guardCondition t_22;
     effect
       User_0.state = 0,
       User_0.dev = 1,
       chan[0] = 255;
 
-  process User_0
+  process User_0 
     guardBlock
       temp bool t_23 = User_0.state == 1;
+
     guardCondition t_23;
     effect
       User_0.state = 2,
       partner[0] = 0;
 
-  process User_0
+  process User_0 
     guardBlock
       temp bool t_24 = User_0.state == 1;
+
     guardCondition t_24;
     effect
       User_0.state = 2,
       partner[0] = 1;
 
-  process User_0
+  process User_0 
     guardBlock
       temp bool t_25 = User_0.state == 1;
+
     guardCondition t_25;
     effect
       User_0.state = 2,
       partner[0] = 2;
 
-  process User_0
+  process User_0 
     guardBlock
       temp bool t_26 = User_0.state == 1;
+
     guardCondition t_26;
     effect
       User_0.state = 2,
       partner[0] = 3;
 
-  process User_0
+  process User_0 
     guardBlock
       temp bool t_27 = User_0.state == 2,
       temp byte t_28 = partner[0],
       temp bool t_29 = t_28 == 0,
       temp bool t_30 = t_27 and t_29;
+
     guardCondition t_30;
     effect
       User_0.state = 3;
 
-  process User_0
+  process User_0 
     guardBlock
       temp bool t_31 = User_0.state == 2,
       temp byte t_32 = partner[0],
       temp bool t_33 = t_32 == 3,
       temp bool t_34 = t_31 and t_33;
+
     guardCondition t_34;
     effect
       User_0.state = 6;
 
-  process User_0
+  process User_0 
     guardBlock
       temp bool t_35 = User_0.state == 2,
       temp byte t_36 = partner[0],
       temp bool t_37 = t_36 == 3,
       temp bool t_38 = t_35 and t_37;
+
     guardCondition t_38;
     effect
       User_0.state = 13;
 
-  process User_0
+  process User_0 
     guardBlock
       temp bool t_39 = User_0.state == 2,
       temp byte t_40 = partner[0],
@@ -150,12 +162,13 @@ byte User_2.mbit = 0;
       temp bool t_51 = t_50 == 255,
       temp bool t_52 = t_48 and t_51,
       temp bool t_53 = t_39 and t_52;
+
     guardCondition t_53;
     effect
       User_0.state = 3,
       record[partner[0]] = 0;
 
-  process User_0
+  process User_0 
     guardBlock
       temp bool t_54 = User_0.state == 2,
       temp byte t_55 = partner[0],
@@ -172,6 +185,7 @@ byte User_2.mbit = 0;
       temp bool t_66 = t_65 != 255,
       temp bool t_67 = t_63 and t_66,
       temp bool t_68 = t_54 and t_67;
+
     guardCondition t_68;
     effect
       User_0.state = 2,
@@ -180,7 +194,7 @@ byte User_2.mbit = 0;
       temp byte t_70 = call_forward_busy[t_69],
       partner[0] = t_70;
 
-  process User_0
+  process User_0 
     guardBlock
       temp bool t_71 = User_0.state == 2,
       temp byte t_72 = partner[0],
@@ -193,18 +207,20 @@ byte User_2.mbit = 0;
       temp bool t_79 = t_78 == 255,
       temp bool t_80 = t_76 and t_79,
       temp bool t_81 = t_71 and t_80;
+
     guardCondition t_81;
     effect
       User_0.state = 7,
       record[partner[0]] = 0,
       chan[partner[0]] = 0,
       temp byte t_82 = partner[0],
-      temp int t_83 = t_82 + 0,
+      temp byte t_83 = t_82 + 0,
       chan[0] = t_83;
 
-  process User_0
+  process User_0 
     guardBlock
       temp bool t_84 = User_0.state == 3;
+
     guardCondition t_84;
     effect
       User_0.state = 0,
@@ -212,53 +228,57 @@ byte User_2.mbit = 0;
       partner[0] = 255,
       User_0.dev = 1;
 
-  process User_0
+  process User_0 
     guardBlock
       temp bool t_85 = User_0.state == 7,
       temp byte t_86 = chan[0],
-      temp int t_87 = t_86 % 20,
+      temp byte t_87 = t_86 % 20,
       temp byte t_88 = partner[0],
       temp bool t_89 = t_87 != t_88,
       temp bool t_90 = t_85 and t_89;
+
     guardCondition t_90;
     effect
       User_0.state = 8;
 
-  process User_0
+  process User_0 
     guardBlock
       temp bool t_91 = User_0.state == 7,
       temp byte t_92 = chan[0],
-      temp int t_93 = t_92 % 20,
+      temp byte t_93 = t_92 % 20,
       temp byte t_94 = partner[0],
       temp bool t_95 = t_93 == t_94,
       temp byte t_96 = chan[0],
-      temp int t_97 = t_96 / 20,
+      temp byte t_97 = t_96 / 20,
       temp bool t_98 = t_97 == 1,
       temp bool t_99 = t_95 and t_98,
       temp bool t_100 = t_91 and t_99;
+
     guardCondition t_100;
     effect
       User_0.state = 9;
 
-  process User_0
+  process User_0 
     guardBlock
       temp bool t_101 = User_0.state == 7,
       temp byte t_102 = chan[0],
-      temp int t_103 = t_102 % 20,
+      temp byte t_103 = t_102 % 20,
       temp byte t_104 = partner[0],
       temp bool t_105 = t_103 == t_104,
       temp byte t_106 = chan[0],
-      temp int t_107 = t_106 / 20,
+      temp byte t_107 = t_106 / 20,
       temp bool t_108 = t_107 == 0,
       temp bool t_109 = t_105 and t_108,
       temp bool t_110 = t_101 and t_109;
+
     guardCondition t_110;
     effect
       User_0.state = 10;
 
-  process User_0
+  process User_0 
     guardBlock
       temp bool t_111 = User_0.state == 9;
+
     guardCondition t_111;
     effect
       User_0.state = 0,
@@ -266,22 +286,24 @@ byte User_2.mbit = 0;
       chan[0] = 255,
       chan[partner[0]] = 255;
 
-  process User_0
+  process User_0 
     guardBlock
       temp bool t_112 = User_0.state == 10;
+
     guardCondition t_112;
     effect
       User_0.state = 0,
       User_0.dev = 1,
       chan[0] = 255,
       temp byte t_113 = partner[0],
-      temp int t_114 = t_113 % 20,
-      temp int t_115 = t_114 + 0,
+      temp byte t_114 = t_113 % 20,
+      temp byte t_115 = t_114 + 0,
       partner[0] = t_115;
 
-  process User_0
+  process User_0 
     guardBlock
       temp bool t_116 = User_0.state == 6;
+
     guardCondition t_116;
     effect
       User_0.state = 0,
@@ -289,9 +311,10 @@ byte User_2.mbit = 0;
       partner[0] = 255,
       User_0.dev = 1;
 
-  process User_0
+  process User_0 
     guardBlock
       temp bool t_117 = User_0.state == 13;
+
     guardCondition t_117;
     effect
       User_0.state = 0,
@@ -299,19 +322,20 @@ byte User_2.mbit = 0;
       partner[0] = 255,
       User_0.dev = 1;
 
-  process User_0
+  process User_0 
     guardBlock
       temp bool t_118 = User_0.state == 13,
       temp byte t_119 = record[0],
       temp bool t_120 = t_119 != 255,
       temp bool t_121 = t_118 and t_120;
+
     guardCondition t_121;
     effect
       User_0.state = 2,
       temp byte t_122 = record[0],
       partner[0] = t_122;
 
-  process User_0
+  process User_0 
     guardBlock
       temp bool t_123 = User_0.state == 5,
       temp bool t_124 = User_0.dev != 1,
@@ -319,57 +343,61 @@ byte User_2.mbit = 0;
       temp bool t_126 = t_125 == 255,
       temp bool t_127 = t_124 or t_126,
       temp bool t_128 = t_123 and t_127;
+
     guardCondition t_128;
     effect
       User_0.state = 8;
 
-  process User_0
+  process User_0 
     guardBlock
       temp bool t_129 = User_0.state == 5,
       temp byte t_130 = partner[0],
       temp byte t_131 = chan[t_130],
-      temp int t_132 = t_131 % 20,
+      temp byte t_132 = t_131 % 20,
       temp bool t_133 = t_132 == 0,
       temp bool t_134 = t_129 and t_133;
+
     guardCondition t_134;
     effect
       User_0.state = 11;
 
-  process User_0
+  process User_0 
     guardBlock
       temp bool t_135 = User_0.state == 5,
       temp byte t_136 = partner[0],
       temp byte t_137 = chan[t_136],
-      temp int t_138 = t_137 % 20,
+      temp byte t_138 = t_137 % 20,
       temp bool t_139 = t_138 != 0,
       temp bool t_140 = t_135 and t_139;
+
     guardCondition t_140;
     effect
       User_0.state = 0;
 
-  process User_0
+  process User_0 
     guardBlock
       temp bool t_141 = User_0.state == 11,
       temp byte t_142 = partner[0],
       temp byte t_143 = chan[t_142],
-      temp int t_144 = t_143 % 20,
+      temp byte t_144 = t_143 % 20,
       temp bool t_145 = t_144 == 0,
       temp byte t_146 = partner[0],
       temp byte t_147 = chan[t_146],
-      temp int t_148 = t_147 / 20,
+      temp byte t_148 = t_147 / 20,
       temp bool t_149 = t_148 == 0,
       temp bool t_150 = t_145 and t_149,
       temp bool t_151 = t_141 and t_150;
+
     guardCondition t_151;
     effect
       User_0.state = 12,
       User_0.dev = 0,
       chan[partner[0]] = 20,
       temp byte t_152 = partner[0],
-      temp int t_153 = t_152 + 20,
+      temp byte t_153 = t_152 + 20,
       chan[0] = t_153;
 
-  process User_0
+  process User_0 
     guardBlock
       temp bool t_154 = User_0.state == 11,
       temp byte t_155 = partner[0],
@@ -377,10 +405,11 @@ byte User_2.mbit = 0;
       temp bool t_157 = t_156 == 255,
       temp byte t_158 = partner[0],
       temp byte t_159 = chan[t_158],
-      temp int t_160 = t_159 % 20,
+      temp byte t_160 = t_159 % 20,
       temp bool t_161 = t_160 != 0,
       temp bool t_162 = t_157 or t_161,
       temp bool t_163 = t_154 and t_162;
+
     guardCondition t_163;
     effect
       User_0.state = 0,
@@ -388,169 +417,184 @@ byte User_2.mbit = 0;
       partner[0] = 255,
       chan[0] = 255;
 
-  process User_0
+  process User_0 
     guardBlock
       temp bool t_164 = User_0.state == 12,
       temp byte t_165 = chan[0],
-      temp int t_166 = t_165 / 20,
+      temp byte t_166 = t_165 / 20,
       temp bool t_167 = t_166 == 1,
       temp bool t_168 = User_0.dev == 0,
       temp bool t_169 = t_167 and t_168,
       temp bool t_170 = t_164 and t_169;
+
     guardCondition t_170;
     effect
       User_0.state = 12,
       User_0.dev = 1;
 
-  process User_0
+  process User_0 
     guardBlock
       temp bool t_171 = User_0.state == 12,
       temp byte t_172 = chan[0],
-      temp int t_173 = t_172 / 20,
+      temp byte t_173 = t_172 / 20,
       temp bool t_174 = t_173 == 1,
       temp bool t_175 = User_0.dev == 1,
       temp bool t_176 = t_174 and t_175,
       temp bool t_177 = t_171 and t_176;
+
     guardCondition t_177;
     effect
       User_0.state = 12,
       User_0.dev = 0;
 
-  process User_0
+  process User_0 
     guardBlock
       temp bool t_178 = User_0.state == 12,
       temp byte t_179 = chan[0],
-      temp int t_180 = t_179 / 20,
+      temp byte t_180 = t_179 / 20,
       temp bool t_181 = t_180 == 0,
       temp bool t_182 = t_178 and t_181;
+
     guardCondition t_182;
     effect
       User_0.state = 0,
       partner[0] = 255,
       chan[0] = 255;
 
-  process User_1
+  process User_1 
     guardBlock
       temp bool t_183 = User_1.state == 0,
       temp byte t_184 = chan[1],
       temp bool t_185 = t_184 == 255,
       temp bool t_186 = t_183 and t_185;
+
     guardCondition t_186;
     effect
       User_1.state = 1,
       User_1.dev = 0,
       chan[1] = 1;
 
-  process User_1
+  process User_1 
     guardBlock
       temp bool t_187 = User_1.state == 0,
       temp byte t_188 = chan[1],
       temp bool t_189 = t_188 != 255,
       temp bool t_190 = t_187 and t_189;
+
     guardCondition t_190;
     effect
       User_1.state = 4,
       temp byte t_191 = chan[1],
-      temp int t_192 = t_191 % 20,
+      temp byte t_192 = t_191 % 20,
       partner[1] = t_192;
 
-  process User_1
+  process User_1 
     guardBlock
       temp bool t_193 = User_1.state == 4,
       temp byte t_194 = partner[1],
       temp byte t_195 = chan[t_194],
-      temp int t_196 = t_195 % 20,
+      temp byte t_196 = t_195 % 20,
       temp bool t_197 = t_196 == 1,
       temp bool t_198 = t_193 and t_197;
+
     guardCondition t_198;
     effect
       User_1.state = 5;
 
-  process User_1
+  process User_1 
     guardBlock
       temp bool t_199 = User_1.state == 4,
       temp byte t_200 = partner[1],
       temp byte t_201 = chan[t_200],
-      temp int t_202 = t_201 % 20,
+      temp byte t_202 = t_201 % 20,
       temp bool t_203 = t_202 != 1,
       temp bool t_204 = t_199 and t_203;
+
     guardCondition t_204;
     effect
       User_1.state = 0,
       partner[1] = 255;
 
-  process User_1
+  process User_1 
     guardBlock
       temp bool t_205 = User_1.state == 1;
+
     guardCondition t_205;
     effect
       User_1.state = 0,
       User_1.dev = 1,
       chan[1] = 255;
 
-  process User_1
+  process User_1 
     guardBlock
       temp bool t_206 = User_1.state == 1;
+
     guardCondition t_206;
     effect
       User_1.state = 2,
       partner[1] = 0;
 
-  process User_1
+  process User_1 
     guardBlock
       temp bool t_207 = User_1.state == 1;
+
     guardCondition t_207;
     effect
       User_1.state = 2,
       partner[1] = 1;
 
-  process User_1
+  process User_1 
     guardBlock
       temp bool t_208 = User_1.state == 1;
+
     guardCondition t_208;
     effect
       User_1.state = 2,
       partner[1] = 2;
 
-  process User_1
+  process User_1 
     guardBlock
       temp bool t_209 = User_1.state == 1;
+
     guardCondition t_209;
     effect
       User_1.state = 2,
       partner[1] = 3;
 
-  process User_1
+  process User_1 
     guardBlock
       temp bool t_210 = User_1.state == 2,
       temp byte t_211 = partner[1],
       temp bool t_212 = t_211 == 1,
       temp bool t_213 = t_210 and t_212;
+
     guardCondition t_213;
     effect
       User_1.state = 3;
 
-  process User_1
+  process User_1 
     guardBlock
       temp bool t_214 = User_1.state == 2,
       temp byte t_215 = partner[1],
       temp bool t_216 = t_215 == 3,
       temp bool t_217 = t_214 and t_216;
+
     guardCondition t_217;
     effect
       User_1.state = 6;
 
-  process User_1
+  process User_1 
     guardBlock
       temp bool t_218 = User_1.state == 2,
       temp byte t_219 = partner[1],
       temp bool t_220 = t_219 == 3,
       temp bool t_221 = t_218 and t_220;
+
     guardCondition t_221;
     effect
       User_1.state = 13;
 
-  process User_1
+  process User_1 
     guardBlock
       temp bool t_222 = User_1.state == 2,
       temp byte t_223 = partner[1],
@@ -567,12 +611,13 @@ byte User_2.mbit = 0;
       temp bool t_234 = t_233 == 255,
       temp bool t_235 = t_231 and t_234,
       temp bool t_236 = t_222 and t_235;
+
     guardCondition t_236;
     effect
       User_1.state = 3,
       record[partner[1]] = 1;
 
-  process User_1
+  process User_1 
     guardBlock
       temp bool t_237 = User_1.state == 2,
       temp byte t_238 = partner[1],
@@ -589,6 +634,7 @@ byte User_2.mbit = 0;
       temp bool t_249 = t_248 != 255,
       temp bool t_250 = t_246 and t_249,
       temp bool t_251 = t_237 and t_250;
+
     guardCondition t_251;
     effect
       User_1.state = 2,
@@ -597,7 +643,7 @@ byte User_2.mbit = 0;
       temp byte t_253 = call_forward_busy[t_252],
       partner[1] = t_253;
 
-  process User_1
+  process User_1 
     guardBlock
       temp bool t_254 = User_1.state == 2,
       temp byte t_255 = partner[1],
@@ -610,18 +656,20 @@ byte User_2.mbit = 0;
       temp bool t_262 = t_261 == 255,
       temp bool t_263 = t_259 and t_262,
       temp bool t_264 = t_254 and t_263;
+
     guardCondition t_264;
     effect
       User_1.state = 7,
       record[partner[1]] = 1,
       chan[partner[1]] = 1,
       temp byte t_265 = partner[1],
-      temp int t_266 = t_265 + 0,
+      temp byte t_266 = t_265 + 0,
       chan[1] = t_266;
 
-  process User_1
+  process User_1 
     guardBlock
       temp bool t_267 = User_1.state == 3;
+
     guardCondition t_267;
     effect
       User_1.state = 0,
@@ -629,53 +677,57 @@ byte User_2.mbit = 0;
       partner[1] = 255,
       User_1.dev = 1;
 
-  process User_1
+  process User_1 
     guardBlock
       temp bool t_268 = User_1.state == 7,
       temp byte t_269 = chan[1],
-      temp int t_270 = t_269 % 20,
+      temp byte t_270 = t_269 % 20,
       temp byte t_271 = partner[1],
       temp bool t_272 = t_270 != t_271,
       temp bool t_273 = t_268 and t_272;
+
     guardCondition t_273;
     effect
       User_1.state = 8;
 
-  process User_1
+  process User_1 
     guardBlock
       temp bool t_274 = User_1.state == 7,
       temp byte t_275 = chan[1],
-      temp int t_276 = t_275 % 20,
+      temp byte t_276 = t_275 % 20,
       temp byte t_277 = partner[1],
       temp bool t_278 = t_276 == t_277,
       temp byte t_279 = chan[1],
-      temp int t_280 = t_279 / 20,
+      temp byte t_280 = t_279 / 20,
       temp bool t_281 = t_280 == 1,
       temp bool t_282 = t_278 and t_281,
       temp bool t_283 = t_274 and t_282;
+
     guardCondition t_283;
     effect
       User_1.state = 9;
 
-  process User_1
+  process User_1 
     guardBlock
       temp bool t_284 = User_1.state == 7,
       temp byte t_285 = chan[1],
-      temp int t_286 = t_285 % 20,
+      temp byte t_286 = t_285 % 20,
       temp byte t_287 = partner[1],
       temp bool t_288 = t_286 == t_287,
       temp byte t_289 = chan[1],
-      temp int t_290 = t_289 / 20,
+      temp byte t_290 = t_289 / 20,
       temp bool t_291 = t_290 == 0,
       temp bool t_292 = t_288 and t_291,
       temp bool t_293 = t_284 and t_292;
+
     guardCondition t_293;
     effect
       User_1.state = 10;
 
-  process User_1
+  process User_1 
     guardBlock
       temp bool t_294 = User_1.state == 9;
+
     guardCondition t_294;
     effect
       User_1.state = 0,
@@ -683,22 +735,24 @@ byte User_2.mbit = 0;
       chan[1] = 255,
       chan[partner[1]] = 255;
 
-  process User_1
+  process User_1 
     guardBlock
       temp bool t_295 = User_1.state == 10;
+
     guardCondition t_295;
     effect
       User_1.state = 0,
       User_1.dev = 1,
       chan[1] = 255,
       temp byte t_296 = partner[1],
-      temp int t_297 = t_296 % 20,
-      temp int t_298 = t_297 + 0,
+      temp byte t_297 = t_296 % 20,
+      temp byte t_298 = t_297 + 0,
       partner[1] = t_298;
 
-  process User_1
+  process User_1 
     guardBlock
       temp bool t_299 = User_1.state == 6;
+
     guardCondition t_299;
     effect
       User_1.state = 0,
@@ -706,9 +760,10 @@ byte User_2.mbit = 0;
       partner[1] = 255,
       User_1.dev = 1;
 
-  process User_1
+  process User_1 
     guardBlock
       temp bool t_300 = User_1.state == 13;
+
     guardCondition t_300;
     effect
       User_1.state = 0,
@@ -716,19 +771,20 @@ byte User_2.mbit = 0;
       partner[1] = 255,
       User_1.dev = 1;
 
-  process User_1
+  process User_1 
     guardBlock
       temp bool t_301 = User_1.state == 13,
       temp byte t_302 = record[1],
       temp bool t_303 = t_302 != 255,
       temp bool t_304 = t_301 and t_303;
+
     guardCondition t_304;
     effect
       User_1.state = 2,
       temp byte t_305 = record[1],
       partner[1] = t_305;
 
-  process User_1
+  process User_1 
     guardBlock
       temp bool t_306 = User_1.state == 5,
       temp bool t_307 = User_1.dev != 1,
@@ -736,57 +792,61 @@ byte User_2.mbit = 0;
       temp bool t_309 = t_308 == 255,
       temp bool t_310 = t_307 or t_309,
       temp bool t_311 = t_306 and t_310;
+
     guardCondition t_311;
     effect
       User_1.state = 8;
 
-  process User_1
+  process User_1 
     guardBlock
       temp bool t_312 = User_1.state == 5,
       temp byte t_313 = partner[1],
       temp byte t_314 = chan[t_313],
-      temp int t_315 = t_314 % 20,
+      temp byte t_315 = t_314 % 20,
       temp bool t_316 = t_315 == 1,
       temp bool t_317 = t_312 and t_316;
+
     guardCondition t_317;
     effect
       User_1.state = 11;
 
-  process User_1
+  process User_1 
     guardBlock
       temp bool t_318 = User_1.state == 5,
       temp byte t_319 = partner[1],
       temp byte t_320 = chan[t_319],
-      temp int t_321 = t_320 % 20,
+      temp byte t_321 = t_320 % 20,
       temp bool t_322 = t_321 != 1,
       temp bool t_323 = t_318 and t_322;
+
     guardCondition t_323;
     effect
       User_1.state = 0;
 
-  process User_1
+  process User_1 
     guardBlock
       temp bool t_324 = User_1.state == 11,
       temp byte t_325 = partner[1],
       temp byte t_326 = chan[t_325],
-      temp int t_327 = t_326 % 20,
+      temp byte t_327 = t_326 % 20,
       temp bool t_328 = t_327 == 1,
       temp byte t_329 = partner[1],
       temp byte t_330 = chan[t_329],
-      temp int t_331 = t_330 / 20,
+      temp byte t_331 = t_330 / 20,
       temp bool t_332 = t_331 == 0,
       temp bool t_333 = t_328 and t_332,
       temp bool t_334 = t_324 and t_333;
+
     guardCondition t_334;
     effect
       User_1.state = 12,
       User_1.dev = 0,
       chan[partner[1]] = 21,
       temp byte t_335 = partner[1],
-      temp int t_336 = t_335 + 20,
+      temp byte t_336 = t_335 + 20,
       chan[1] = t_336;
 
-  process User_1
+  process User_1 
     guardBlock
       temp bool t_337 = User_1.state == 11,
       temp byte t_338 = partner[1],
@@ -794,10 +854,11 @@ byte User_2.mbit = 0;
       temp bool t_340 = t_339 == 255,
       temp byte t_341 = partner[1],
       temp byte t_342 = chan[t_341],
-      temp int t_343 = t_342 % 20,
+      temp byte t_343 = t_342 % 20,
       temp bool t_344 = t_343 != 1,
       temp bool t_345 = t_340 or t_344,
       temp bool t_346 = t_337 and t_345;
+
     guardCondition t_346;
     effect
       User_1.state = 0,
@@ -805,169 +866,184 @@ byte User_2.mbit = 0;
       partner[1] = 255,
       chan[1] = 255;
 
-  process User_1
+  process User_1 
     guardBlock
       temp bool t_347 = User_1.state == 12,
       temp byte t_348 = chan[1],
-      temp int t_349 = t_348 / 20,
+      temp byte t_349 = t_348 / 20,
       temp bool t_350 = t_349 == 1,
       temp bool t_351 = User_1.dev == 0,
       temp bool t_352 = t_350 and t_351,
       temp bool t_353 = t_347 and t_352;
+
     guardCondition t_353;
     effect
       User_1.state = 12,
       User_1.dev = 1;
 
-  process User_1
+  process User_1 
     guardBlock
       temp bool t_354 = User_1.state == 12,
       temp byte t_355 = chan[1],
-      temp int t_356 = t_355 / 20,
+      temp byte t_356 = t_355 / 20,
       temp bool t_357 = t_356 == 1,
       temp bool t_358 = User_1.dev == 1,
       temp bool t_359 = t_357 and t_358,
       temp bool t_360 = t_354 and t_359;
+
     guardCondition t_360;
     effect
       User_1.state = 12,
       User_1.dev = 0;
 
-  process User_1
+  process User_1 
     guardBlock
       temp bool t_361 = User_1.state == 12,
       temp byte t_362 = chan[1],
-      temp int t_363 = t_362 / 20,
+      temp byte t_363 = t_362 / 20,
       temp bool t_364 = t_363 == 0,
       temp bool t_365 = t_361 and t_364;
+
     guardCondition t_365;
     effect
       User_1.state = 0,
       partner[1] = 255,
       chan[1] = 255;
 
-  process User_2
+  process User_2 
     guardBlock
       temp bool t_366 = User_2.state == 0,
       temp byte t_367 = chan[2],
       temp bool t_368 = t_367 == 255,
       temp bool t_369 = t_366 and t_368;
+
     guardCondition t_369;
     effect
       User_2.state = 1,
       User_2.dev = 0,
       chan[2] = 2;
 
-  process User_2
+  process User_2 
     guardBlock
       temp bool t_370 = User_2.state == 0,
       temp byte t_371 = chan[2],
       temp bool t_372 = t_371 != 255,
       temp bool t_373 = t_370 and t_372;
+
     guardCondition t_373;
     effect
       User_2.state = 4,
       temp byte t_374 = chan[2],
-      temp int t_375 = t_374 % 20,
+      temp byte t_375 = t_374 % 20,
       partner[2] = t_375;
 
-  process User_2
+  process User_2 
     guardBlock
       temp bool t_376 = User_2.state == 4,
       temp byte t_377 = partner[2],
       temp byte t_378 = chan[t_377],
-      temp int t_379 = t_378 % 20,
+      temp byte t_379 = t_378 % 20,
       temp bool t_380 = t_379 == 2,
       temp bool t_381 = t_376 and t_380;
+
     guardCondition t_381;
     effect
       User_2.state = 5;
 
-  process User_2
+  process User_2 
     guardBlock
       temp bool t_382 = User_2.state == 4,
       temp byte t_383 = partner[2],
       temp byte t_384 = chan[t_383],
-      temp int t_385 = t_384 % 20,
+      temp byte t_385 = t_384 % 20,
       temp bool t_386 = t_385 != 2,
       temp bool t_387 = t_382 and t_386;
+
     guardCondition t_387;
     effect
       User_2.state = 0,
       partner[2] = 255;
 
-  process User_2
+  process User_2 
     guardBlock
       temp bool t_388 = User_2.state == 1;
+
     guardCondition t_388;
     effect
       User_2.state = 0,
       User_2.dev = 1,
       chan[2] = 255;
 
-  process User_2
+  process User_2 
     guardBlock
       temp bool t_389 = User_2.state == 1;
+
     guardCondition t_389;
     effect
       User_2.state = 2,
       partner[2] = 0;
 
-  process User_2
+  process User_2 
     guardBlock
       temp bool t_390 = User_2.state == 1;
+
     guardCondition t_390;
     effect
       User_2.state = 2,
       partner[2] = 1;
 
-  process User_2
+  process User_2 
     guardBlock
       temp bool t_391 = User_2.state == 1;
+
     guardCondition t_391;
     effect
       User_2.state = 2,
       partner[2] = 2;
 
-  process User_2
+  process User_2 
     guardBlock
       temp bool t_392 = User_2.state == 1;
+
     guardCondition t_392;
     effect
       User_2.state = 2,
       partner[2] = 3;
 
-  process User_2
+  process User_2 
     guardBlock
       temp bool t_393 = User_2.state == 2,
       temp byte t_394 = partner[2],
       temp bool t_395 = t_394 == 2,
       temp bool t_396 = t_393 and t_395;
+
     guardCondition t_396;
     effect
       User_2.state = 3;
 
-  process User_2
+  process User_2 
     guardBlock
       temp bool t_397 = User_2.state == 2,
       temp byte t_398 = partner[2],
       temp bool t_399 = t_398 == 3,
       temp bool t_400 = t_397 and t_399;
+
     guardCondition t_400;
     effect
       User_2.state = 6;
 
-  process User_2
+  process User_2 
     guardBlock
       temp bool t_401 = User_2.state == 2,
       temp byte t_402 = partner[2],
       temp bool t_403 = t_402 == 3,
       temp bool t_404 = t_401 and t_403;
+
     guardCondition t_404;
     effect
       User_2.state = 13;
 
-  process User_2
+  process User_2 
     guardBlock
       temp bool t_405 = User_2.state == 2,
       temp byte t_406 = partner[2],
@@ -984,12 +1060,13 @@ byte User_2.mbit = 0;
       temp bool t_417 = t_416 == 255,
       temp bool t_418 = t_414 and t_417,
       temp bool t_419 = t_405 and t_418;
+
     guardCondition t_419;
     effect
       User_2.state = 3,
       record[partner[2]] = 2;
 
-  process User_2
+  process User_2 
     guardBlock
       temp bool t_420 = User_2.state == 2,
       temp byte t_421 = partner[2],
@@ -1006,6 +1083,7 @@ byte User_2.mbit = 0;
       temp bool t_432 = t_431 != 255,
       temp bool t_433 = t_429 and t_432,
       temp bool t_434 = t_420 and t_433;
+
     guardCondition t_434;
     effect
       User_2.state = 2,
@@ -1014,7 +1092,7 @@ byte User_2.mbit = 0;
       temp byte t_436 = call_forward_busy[t_435],
       partner[2] = t_436;
 
-  process User_2
+  process User_2 
     guardBlock
       temp bool t_437 = User_2.state == 2,
       temp byte t_438 = partner[2],
@@ -1027,18 +1105,20 @@ byte User_2.mbit = 0;
       temp bool t_445 = t_444 == 255,
       temp bool t_446 = t_442 and t_445,
       temp bool t_447 = t_437 and t_446;
+
     guardCondition t_447;
     effect
       User_2.state = 7,
       record[partner[2]] = 2,
       chan[partner[2]] = 2,
       temp byte t_448 = partner[2],
-      temp int t_449 = t_448 + 0,
+      temp byte t_449 = t_448 + 0,
       chan[2] = t_449;
 
-  process User_2
+  process User_2 
     guardBlock
       temp bool t_450 = User_2.state == 3;
+
     guardCondition t_450;
     effect
       User_2.state = 0,
@@ -1046,53 +1126,57 @@ byte User_2.mbit = 0;
       partner[2] = 255,
       User_2.dev = 1;
 
-  process User_2
+  process User_2 
     guardBlock
       temp bool t_451 = User_2.state == 7,
       temp byte t_452 = chan[2],
-      temp int t_453 = t_452 % 20,
+      temp byte t_453 = t_452 % 20,
       temp byte t_454 = partner[2],
       temp bool t_455 = t_453 != t_454,
       temp bool t_456 = t_451 and t_455;
+
     guardCondition t_456;
     effect
       User_2.state = 8;
 
-  process User_2
+  process User_2 
     guardBlock
       temp bool t_457 = User_2.state == 7,
       temp byte t_458 = chan[2],
-      temp int t_459 = t_458 % 20,
+      temp byte t_459 = t_458 % 20,
       temp byte t_460 = partner[2],
       temp bool t_461 = t_459 == t_460,
       temp byte t_462 = chan[2],
-      temp int t_463 = t_462 / 20,
+      temp byte t_463 = t_462 / 20,
       temp bool t_464 = t_463 == 1,
       temp bool t_465 = t_461 and t_464,
       temp bool t_466 = t_457 and t_465;
+
     guardCondition t_466;
     effect
       User_2.state = 9;
 
-  process User_2
+  process User_2 
     guardBlock
       temp bool t_467 = User_2.state == 7,
       temp byte t_468 = chan[2],
-      temp int t_469 = t_468 % 20,
+      temp byte t_469 = t_468 % 20,
       temp byte t_470 = partner[2],
       temp bool t_471 = t_469 == t_470,
       temp byte t_472 = chan[2],
-      temp int t_473 = t_472 / 20,
+      temp byte t_473 = t_472 / 20,
       temp bool t_474 = t_473 == 0,
       temp bool t_475 = t_471 and t_474,
       temp bool t_476 = t_467 and t_475;
+
     guardCondition t_476;
     effect
       User_2.state = 10;
 
-  process User_2
+  process User_2 
     guardBlock
       temp bool t_477 = User_2.state == 9;
+
     guardCondition t_477;
     effect
       User_2.state = 0,
@@ -1100,22 +1184,24 @@ byte User_2.mbit = 0;
       chan[2] = 255,
       chan[partner[2]] = 255;
 
-  process User_2
+  process User_2 
     guardBlock
       temp bool t_478 = User_2.state == 10;
+
     guardCondition t_478;
     effect
       User_2.state = 0,
       User_2.dev = 1,
       chan[2] = 255,
       temp byte t_479 = partner[2],
-      temp int t_480 = t_479 % 20,
-      temp int t_481 = t_480 + 0,
+      temp byte t_480 = t_479 % 20,
+      temp byte t_481 = t_480 + 0,
       partner[2] = t_481;
 
-  process User_2
+  process User_2 
     guardBlock
       temp bool t_482 = User_2.state == 6;
+
     guardCondition t_482;
     effect
       User_2.state = 0,
@@ -1123,9 +1209,10 @@ byte User_2.mbit = 0;
       partner[2] = 255,
       User_2.dev = 1;
 
-  process User_2
+  process User_2 
     guardBlock
       temp bool t_483 = User_2.state == 13;
+
     guardCondition t_483;
     effect
       User_2.state = 0,
@@ -1133,19 +1220,20 @@ byte User_2.mbit = 0;
       partner[2] = 255,
       User_2.dev = 1;
 
-  process User_2
+  process User_2 
     guardBlock
       temp bool t_484 = User_2.state == 13,
       temp byte t_485 = record[2],
       temp bool t_486 = t_485 != 255,
       temp bool t_487 = t_484 and t_486;
+
     guardCondition t_487;
     effect
       User_2.state = 2,
       temp byte t_488 = record[2],
       partner[2] = t_488;
 
-  process User_2
+  process User_2 
     guardBlock
       temp bool t_489 = User_2.state == 5,
       temp bool t_490 = User_2.dev != 1,
@@ -1153,57 +1241,61 @@ byte User_2.mbit = 0;
       temp bool t_492 = t_491 == 255,
       temp bool t_493 = t_490 or t_492,
       temp bool t_494 = t_489 and t_493;
+
     guardCondition t_494;
     effect
       User_2.state = 8;
 
-  process User_2
+  process User_2 
     guardBlock
       temp bool t_495 = User_2.state == 5,
       temp byte t_496 = partner[2],
       temp byte t_497 = chan[t_496],
-      temp int t_498 = t_497 % 20,
+      temp byte t_498 = t_497 % 20,
       temp bool t_499 = t_498 == 2,
       temp bool t_500 = t_495 and t_499;
+
     guardCondition t_500;
     effect
       User_2.state = 11;
 
-  process User_2
+  process User_2 
     guardBlock
       temp bool t_501 = User_2.state == 5,
       temp byte t_502 = partner[2],
       temp byte t_503 = chan[t_502],
-      temp int t_504 = t_503 % 20,
+      temp byte t_504 = t_503 % 20,
       temp bool t_505 = t_504 != 2,
       temp bool t_506 = t_501 and t_505;
+
     guardCondition t_506;
     effect
       User_2.state = 0;
 
-  process User_2
+  process User_2 
     guardBlock
       temp bool t_507 = User_2.state == 11,
       temp byte t_508 = partner[2],
       temp byte t_509 = chan[t_508],
-      temp int t_510 = t_509 % 20,
+      temp byte t_510 = t_509 % 20,
       temp bool t_511 = t_510 == 2,
       temp byte t_512 = partner[2],
       temp byte t_513 = chan[t_512],
-      temp int t_514 = t_513 / 20,
+      temp byte t_514 = t_513 / 20,
       temp bool t_515 = t_514 == 0,
       temp bool t_516 = t_511 and t_515,
       temp bool t_517 = t_507 and t_516;
+
     guardCondition t_517;
     effect
       User_2.state = 12,
       User_2.dev = 0,
       chan[partner[2]] = 22,
       temp byte t_518 = partner[2],
-      temp int t_519 = t_518 + 20,
+      temp byte t_519 = t_518 + 20,
       chan[2] = t_519;
 
-  process User_2
+  process User_2 
     guardBlock
       temp bool t_520 = User_2.state == 11,
       temp byte t_521 = partner[2],
@@ -1211,10 +1303,11 @@ byte User_2.mbit = 0;
       temp bool t_523 = t_522 == 255,
       temp byte t_524 = partner[2],
       temp byte t_525 = chan[t_524],
-      temp int t_526 = t_525 % 20,
+      temp byte t_526 = t_525 % 20,
       temp bool t_527 = t_526 != 2,
       temp bool t_528 = t_523 or t_527,
       temp bool t_529 = t_520 and t_528;
+
     guardCondition t_529;
     effect
       User_2.state = 0,
@@ -1222,43 +1315,48 @@ byte User_2.mbit = 0;
       partner[2] = 255,
       chan[2] = 255;
 
-  process User_2
+  process User_2 
     guardBlock
       temp bool t_530 = User_2.state == 12,
       temp byte t_531 = chan[2],
-      temp int t_532 = t_531 / 20,
+      temp byte t_532 = t_531 / 20,
       temp bool t_533 = t_532 == 1,
       temp bool t_534 = User_2.dev == 0,
       temp bool t_535 = t_533 and t_534,
       temp bool t_536 = t_530 and t_535;
+
     guardCondition t_536;
     effect
       User_2.state = 12,
       User_2.dev = 1;
 
-  process User_2
+  process User_2 
     guardBlock
       temp bool t_537 = User_2.state == 12,
       temp byte t_538 = chan[2],
-      temp int t_539 = t_538 / 20,
+      temp byte t_539 = t_538 / 20,
       temp bool t_540 = t_539 == 1,
       temp bool t_541 = User_2.dev == 1,
       temp bool t_542 = t_540 and t_541,
       temp bool t_543 = t_537 and t_542;
+
     guardCondition t_543;
     effect
       User_2.state = 12,
       User_2.dev = 0;
 
-  process User_2
+  process User_2 
     guardBlock
       temp bool t_544 = User_2.state == 12,
       temp byte t_545 = chan[2],
-      temp int t_546 = t_545 / 20,
+      temp byte t_546 = t_545 / 20,
       temp bool t_547 = t_546 == 0,
       temp bool t_548 = t_544 and t_547;
+
     guardCondition t_548;
     effect
       User_2.state = 0,
       partner[2] = 255,
       chan[2] = 255;
+
+

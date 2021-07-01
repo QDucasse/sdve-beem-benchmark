@@ -1,6 +1,6 @@
-int res0[3] =  {0, 0};
-int res1[3] =  {0, 0};
-int acquiring[3] =  {0, 0};
+int res0[2] = {0, 0};
+int res1[2] = {0, 0};
+int acquiring[2] = {0, 0};
 int entryRound = 1;
 int round_about.i = 0;
 int phil_0.i = 0;
@@ -8,17 +8,18 @@ int phil_1.i = 0;
 state {reset(0), begin0(1), begin1(2), begin2(3), begin3(4), action(5), end0(6), end1(7), end2(8)} round_about.state = 0;
 state {action(0), end(1), mutex(2)} phil_0.state = 0;
 state {action(0), end(1), mutex(2)} phil_1.state = 0;
-byte request[3] =  {0, 0};
-byte starvers[3] =  {0, 0};
-byte resources[3] =  {0, 0};
+byte request[2] = {0, 0};
+byte starvers[2] = {0, 0};
+byte resources[2] = {0, 0};
 byte phase = 0;
 byte fire = 0;
 
-  process round_about
+  process round_about 
     guardBlock
       temp bool t_0 = round_about.state == 0,
       temp bool t_1 = round_about.i < 2,
       temp bool t_2 = t_0 and t_1;
+
     guardCondition t_2;
     effect
       round_about.state = 0,
@@ -28,22 +29,24 @@ byte fire = 0;
       temp int t_3 = round_about.i + 1,
       round_about.i = t_3;
 
-  process round_about
+  process round_about 
     guardBlock
       temp bool t_4 = round_about.state == 0,
       temp bool t_5 = round_about.i == 2,
       temp bool t_6 = t_4 and t_5;
+
     guardCondition t_6;
     effect
       round_about.state = 1,
       round_about.i = 0,
       phase = 0;
 
-  process round_about
+  process round_about 
     guardBlock
       temp bool t_7 = round_about.state == 1,
       temp bool t_8 = round_about.i < 2,
       temp bool t_9 = t_7 and t_8;
+
     guardCondition t_9;
     effect
       round_about.state = 1,
@@ -51,17 +54,18 @@ byte fire = 0;
       temp int t_10 = round_about.i + 1,
       round_about.i = t_10;
 
-  process round_about
+  process round_about 
     guardBlock
       temp bool t_11 = round_about.state == 1,
       temp bool t_12 = round_about.i == 2,
       temp bool t_13 = t_11 and t_12;
+
     guardCondition t_13;
     effect
       round_about.state = 2,
       round_about.i = 0;
 
-  process round_about
+  process round_about 
     guardBlock
       temp bool t_14 = round_about.state == 2,
       temp bool t_15 = round_about.i < 2,
@@ -69,6 +73,7 @@ byte fire = 0;
       temp bool t_17 = t_16 != -1,
       temp bool t_18 = t_15 and t_17,
       temp bool t_19 = t_14 and t_18;
+
     guardCondition t_19;
     effect
       round_about.state = 2,
@@ -80,7 +85,7 @@ byte fire = 0;
       temp int t_23 = round_about.i + 1,
       round_about.i = t_23;
 
-  process round_about
+  process round_about 
     guardBlock
       temp bool t_24 = round_about.state == 2,
       temp bool t_25 = round_about.i < 2,
@@ -88,23 +93,25 @@ byte fire = 0;
       temp bool t_27 = t_26 == -1,
       temp bool t_28 = t_25 and t_27,
       temp bool t_29 = t_24 and t_28;
+
     guardCondition t_29;
     effect
       round_about.state = 2,
       temp int t_30 = round_about.i + 1,
       round_about.i = t_30;
 
-  process round_about
+  process round_about 
     guardBlock
       temp bool t_31 = round_about.state == 2,
       temp bool t_32 = round_about.i == 2,
       temp bool t_33 = t_31 and t_32;
+
     guardCondition t_33;
     effect
       round_about.state = 3,
       round_about.i = 0;
 
-  process round_about
+  process round_about 
     guardBlock
       temp bool t_34 = round_about.state == 3,
       temp bool t_35 = round_about.i < 2,
@@ -112,6 +119,7 @@ byte fire = 0;
       temp bool t_37 = t_36 != -1,
       temp bool t_38 = t_35 and t_37,
       temp bool t_39 = t_34 and t_38;
+
     guardCondition t_39;
     effect
       round_about.state = 3,
@@ -123,7 +131,7 @@ byte fire = 0;
       temp int t_43 = round_about.i + 1,
       round_about.i = t_43;
 
-  process round_about
+  process round_about 
     guardBlock
       temp bool t_44 = round_about.state == 3,
       temp bool t_45 = round_about.i < 2,
@@ -131,17 +139,19 @@ byte fire = 0;
       temp bool t_47 = t_46 == -1,
       temp bool t_48 = t_45 and t_47,
       temp bool t_49 = t_44 and t_48;
+
     guardCondition t_49;
     effect
       round_about.state = 3,
       temp int t_50 = round_about.i + 1,
       round_about.i = t_50;
 
-  process round_about
+  process round_about 
     guardBlock
       temp bool t_51 = round_about.state == 3,
       temp bool t_52 = round_about.i == 2,
       temp bool t_53 = t_51 and t_52;
+
     guardCondition t_53;
     effect
       round_about.state = 5,
@@ -149,18 +159,19 @@ byte fire = 0;
       phase = 1,
       fire = 0;
 
-  process round_about
+  process round_about 
     guardBlock
       temp bool t_54 = round_about.state == 5,
       temp bool t_55 = fire == 2,
       temp bool t_56 = t_54 and t_55;
+
     guardCondition t_56;
     effect
       round_about.state = 6,
       fire = 0,
       phase = 2;
 
-  process round_about
+  process round_about 
     guardBlock
       temp bool t_57 = round_about.state == 6,
       temp bool t_58 = round_about.i < 1,
@@ -169,23 +180,24 @@ byte fire = 0;
       temp bool t_61 = t_60 != 0,
       temp bool t_62 = t_58 and t_61,
       temp bool t_63 = t_57 and t_62;
+
     guardCondition t_63;
     effect
       round_about.state = 6,
       temp int t_64 = 2 * round_about.i,
       temp int t_65 = t_64 + 1,
-      temp int t_66 = 1 * resources[t_65],
+      temp byte t_66 = 1 * resources[t_65],
       temp int t_67 = t_66 + round_about.i,
       request[t_67] = 0,
       temp int t_68 = 2 * round_about.i,
       temp int t_69 = t_68 + 1,
-      temp int t_70 = 1 * resources[t_69],
+      temp byte t_70 = 1 * resources[t_69],
       temp int t_71 = t_70 + round_about.i,
       starvers[t_71] = 0,
       temp int t_72 = round_about.i + 1,
       round_about.i = t_72;
 
-  process round_about
+  process round_about 
     guardBlock
       temp bool t_73 = round_about.state == 6,
       temp bool t_74 = round_about.i < 1,
@@ -194,47 +206,51 @@ byte fire = 0;
       temp bool t_77 = t_76 == 0,
       temp bool t_78 = t_74 and t_77,
       temp bool t_79 = t_73 and t_78;
+
     guardCondition t_79;
     effect
       round_about.state = 6,
       temp int t_80 = round_about.i + 1,
       round_about.i = t_80;
 
-  process round_about
+  process round_about 
     guardBlock
       temp bool t_81 = round_about.state == 6,
       temp bool t_82 = round_about.i == 1,
       temp bool t_83 = t_81 and t_82;
+
     guardCondition t_83;
     effect
       round_about.state = 7,
       round_about.i = 0;
 
-  process round_about
+  process round_about 
     guardBlock
       temp bool t_84 = round_about.state == 7,
       temp bool t_85 = round_about.i < 2,
       temp bool t_86 = t_84 and t_85;
+
     guardCondition t_86;
     effect
       round_about.state = 7,
       temp int t_87 = round_about.i + 1,
       round_about.i = t_87;
 
-  process round_about
+  process round_about 
     guardBlock
       temp bool t_88 = round_about.state == 7,
       temp bool t_89 = round_about.i == 2,
       temp bool t_90 = fire == 2,
       temp bool t_91 = t_89 and t_90,
       temp bool t_92 = t_88 and t_91;
+
     guardCondition t_92;
     effect
       round_about.state = 1,
       phase = 0,
       round_about.i = 0;
 
-  process phil_0
+  process phil_0 
     guardBlock
       temp bool t_93 = phil_0.state == 0,
       temp bool t_94 = phase == 1,
@@ -242,6 +258,7 @@ byte fire = 0;
       temp bool t_96 = t_95 != -1,
       temp bool t_97 = t_94 and t_96,
       temp bool t_98 = t_93 and t_97;
+
     guardCondition t_98;
     effect
       phil_0.state = 1,
@@ -251,10 +268,10 @@ byte fire = 0;
       temp int t_100 = res1[0],
       res0[0] = t_100,
       res1[0] = -1,
-      temp int t_101 = fire + 1,
+      temp byte t_101 = fire + 1,
       fire = t_101;
 
-  process phil_0
+  process phil_0 
     guardBlock
       temp bool t_102 = phil_0.state == 0,
       temp bool t_103 = phase == 1,
@@ -265,26 +282,28 @@ byte fire = 0;
       temp bool t_108 = t_107 == -1,
       temp bool t_109 = t_106 and t_108,
       temp bool t_110 = t_102 and t_109;
+
     guardCondition t_110;
     effect
       phil_0.state = 1,
       acquiring[0] = 0,
-      temp int t_111 = fire + 1,
+      temp byte t_111 = fire + 1,
       fire = t_111,
       request[0] = entryRound;
 
-  process phil_0
+  process phil_0 
     guardBlock
       temp bool t_112 = phil_0.state == 0,
       temp bool t_113 = phase == 1,
       temp bool t_114 = t_112 and t_113;
+
     guardCondition t_114;
     effect
       phil_0.state = 1,
-      temp int t_115 = fire + 1,
+      temp byte t_115 = fire + 1,
       fire = t_115;
 
-  process phil_0
+  process phil_0 
     guardBlock
       temp bool t_116 = phil_0.state == 1,
       temp bool t_117 = phase == 2,
@@ -292,13 +311,14 @@ byte fire = 0;
       temp bool t_119 = t_118 == -1,
       temp bool t_120 = t_117 and t_119,
       temp bool t_121 = t_116 and t_120;
+
     guardCondition t_121;
     effect
       phil_0.state = 0,
-      temp int t_122 = fire + 1,
+      temp byte t_122 = fire + 1,
       fire = t_122;
 
-  process phil_0
+  process phil_0 
     guardBlock
       temp bool t_123 = phil_0.state == 1,
       temp bool t_124 = phase == 2,
@@ -308,11 +328,12 @@ byte fire = 0;
       temp bool t_128 = fire == 0,
       temp bool t_129 = t_127 and t_128,
       temp bool t_130 = t_123 and t_129;
+
     guardCondition t_130;
     effect
       phil_0.state = 2;
 
-  process phil_0
+  process phil_0 
     guardBlock
       temp bool t_131 = phil_0.state == 2,
       temp bool t_132 = phil_0.i < 2,
@@ -325,13 +346,14 @@ byte fire = 0;
       temp bool t_139 = t_137 != t_138,
       temp bool t_140 = t_136 and t_139,
       temp bool t_141 = t_131 and t_140;
+
     guardCondition t_141;
     effect
       phil_0.state = 2,
       temp int t_142 = phil_0.i + 1,
       phil_0.i = t_142;
 
-  process phil_0
+  process phil_0 
     guardBlock
       temp bool t_143 = phil_0.state == 2,
       temp bool t_144 = phil_0.i < 2,
@@ -344,15 +366,16 @@ byte fire = 0;
       temp bool t_151 = t_147 or t_150,
       temp bool t_152 = t_144 and t_151,
       temp bool t_153 = t_143 and t_152;
+
     guardCondition t_153;
     effect
       phil_0.state = 0,
-      temp int t_154 = fire + 1,
+      temp byte t_154 = fire + 1,
       fire = t_154,
       temp int t_155 = phil_0.i + 1,
       phil_0.i = t_155;
 
-  process phil_0
+  process phil_0 
     guardBlock
       temp bool t_156 = phil_0.state == 2,
       temp bool t_157 = phil_0.i == 2,
@@ -360,17 +383,18 @@ byte fire = 0;
       temp bool t_159 = t_158 == -1,
       temp bool t_160 = t_157 and t_159,
       temp bool t_161 = t_156 and t_160;
+
     guardCondition t_161;
     effect
       phil_0.state = 0,
       temp int t_162 = acquiring[0],
       res0[0] = t_162,
       acquiring[0] = -1,
-      temp int t_163 = fire + 1,
+      temp byte t_163 = fire + 1,
       fire = t_163,
       phil_0.i = 0;
 
-  process phil_0
+  process phil_0 
     guardBlock
       temp bool t_164 = phil_0.state == 2,
       temp bool t_165 = phil_0.i == 2,
@@ -378,17 +402,18 @@ byte fire = 0;
       temp bool t_167 = t_166 != -1,
       temp bool t_168 = t_165 and t_167,
       temp bool t_169 = t_164 and t_168;
+
     guardCondition t_169;
     effect
       phil_0.state = 0,
       temp int t_170 = acquiring[0],
       res1[0] = t_170,
       acquiring[0] = -1,
-      temp int t_171 = fire + 1,
+      temp byte t_171 = fire + 1,
       fire = t_171,
       phil_0.i = 0;
 
-  process phil_0
+  process phil_0 
     guardBlock
       temp bool t_172 = phil_0.state == 1,
       temp bool t_173 = phase == 2,
@@ -396,13 +421,14 @@ byte fire = 0;
       temp bool t_175 = t_174 != -1,
       temp bool t_176 = t_173 and t_175,
       temp bool t_177 = t_172 and t_176;
+
     guardCondition t_177;
     effect
       phil_0.state = 0,
-      temp int t_178 = fire + 1,
+      temp byte t_178 = fire + 1,
       fire = t_178;
 
-  process phil_1
+  process phil_1 
     guardBlock
       temp bool t_179 = phil_1.state == 0,
       temp bool t_180 = phase == 1,
@@ -410,6 +436,7 @@ byte fire = 0;
       temp bool t_182 = t_181 != -1,
       temp bool t_183 = t_180 and t_182,
       temp bool t_184 = t_179 and t_183;
+
     guardCondition t_184;
     effect
       phil_1.state = 1,
@@ -419,10 +446,10 @@ byte fire = 0;
       temp int t_186 = res1[1],
       res0[1] = t_186,
       res1[1] = -1,
-      temp int t_187 = fire + 1,
+      temp byte t_187 = fire + 1,
       fire = t_187;
 
-  process phil_1
+  process phil_1 
     guardBlock
       temp bool t_188 = phil_1.state == 0,
       temp bool t_189 = phase == 1,
@@ -433,26 +460,28 @@ byte fire = 0;
       temp bool t_194 = t_193 == -1,
       temp bool t_195 = t_192 and t_194,
       temp bool t_196 = t_188 and t_195;
+
     guardCondition t_196;
     effect
       phil_1.state = 1,
       acquiring[1] = 0,
-      temp int t_197 = fire + 1,
+      temp byte t_197 = fire + 1,
       fire = t_197,
       request[1] = entryRound;
 
-  process phil_1
+  process phil_1 
     guardBlock
       temp bool t_198 = phil_1.state == 0,
       temp bool t_199 = phase == 1,
       temp bool t_200 = t_198 and t_199;
+
     guardCondition t_200;
     effect
       phil_1.state = 1,
-      temp int t_201 = fire + 1,
+      temp byte t_201 = fire + 1,
       fire = t_201;
 
-  process phil_1
+  process phil_1 
     guardBlock
       temp bool t_202 = phil_1.state == 1,
       temp bool t_203 = phase == 2,
@@ -460,13 +489,14 @@ byte fire = 0;
       temp bool t_205 = t_204 == -1,
       temp bool t_206 = t_203 and t_205,
       temp bool t_207 = t_202 and t_206;
+
     guardCondition t_207;
     effect
       phil_1.state = 0,
-      temp int t_208 = fire + 1,
+      temp byte t_208 = fire + 1,
       fire = t_208;
 
-  process phil_1
+  process phil_1 
     guardBlock
       temp bool t_209 = phil_1.state == 1,
       temp bool t_210 = phase == 2,
@@ -476,11 +506,12 @@ byte fire = 0;
       temp bool t_214 = fire == 1,
       temp bool t_215 = t_213 and t_214,
       temp bool t_216 = t_209 and t_215;
+
     guardCondition t_216;
     effect
       phil_1.state = 2;
 
-  process phil_1
+  process phil_1 
     guardBlock
       temp bool t_217 = phil_1.state == 2,
       temp bool t_218 = phil_1.i < 2,
@@ -493,13 +524,14 @@ byte fire = 0;
       temp bool t_225 = t_223 != t_224,
       temp bool t_226 = t_222 and t_225,
       temp bool t_227 = t_217 and t_226;
+
     guardCondition t_227;
     effect
       phil_1.state = 2,
       temp int t_228 = phil_1.i + 1,
       phil_1.i = t_228;
 
-  process phil_1
+  process phil_1 
     guardBlock
       temp bool t_229 = phil_1.state == 2,
       temp bool t_230 = phil_1.i < 2,
@@ -512,15 +544,16 @@ byte fire = 0;
       temp bool t_237 = t_233 or t_236,
       temp bool t_238 = t_230 and t_237,
       temp bool t_239 = t_229 and t_238;
+
     guardCondition t_239;
     effect
       phil_1.state = 0,
-      temp int t_240 = fire + 1,
+      temp byte t_240 = fire + 1,
       fire = t_240,
       temp int t_241 = phil_1.i + 1,
       phil_1.i = t_241;
 
-  process phil_1
+  process phil_1 
     guardBlock
       temp bool t_242 = phil_1.state == 2,
       temp bool t_243 = phil_1.i == 2,
@@ -528,17 +561,18 @@ byte fire = 0;
       temp bool t_245 = t_244 == -1,
       temp bool t_246 = t_243 and t_245,
       temp bool t_247 = t_242 and t_246;
+
     guardCondition t_247;
     effect
       phil_1.state = 0,
       temp int t_248 = acquiring[1],
       res0[1] = t_248,
       acquiring[1] = -1,
-      temp int t_249 = fire + 1,
+      temp byte t_249 = fire + 1,
       fire = t_249,
       phil_1.i = 0;
 
-  process phil_1
+  process phil_1 
     guardBlock
       temp bool t_250 = phil_1.state == 2,
       temp bool t_251 = phil_1.i == 2,
@@ -546,17 +580,18 @@ byte fire = 0;
       temp bool t_253 = t_252 != -1,
       temp bool t_254 = t_251 and t_253,
       temp bool t_255 = t_250 and t_254;
+
     guardCondition t_255;
     effect
       phil_1.state = 0,
       temp int t_256 = acquiring[1],
       res1[1] = t_256,
       acquiring[1] = -1,
-      temp int t_257 = fire + 1,
+      temp byte t_257 = fire + 1,
       fire = t_257,
       phil_1.i = 0;
 
-  process phil_1
+  process phil_1 
     guardBlock
       temp bool t_258 = phil_1.state == 1,
       temp bool t_259 = phase == 2,
@@ -564,8 +599,11 @@ byte fire = 0;
       temp bool t_261 = t_260 != -1,
       temp bool t_262 = t_259 and t_261,
       temp bool t_263 = t_258 and t_262;
+
     guardCondition t_263;
     effect
       phil_1.state = 0,
-      temp int t_264 = fire + 1,
+      temp byte t_264 = fire + 1,
       fire = t_264;
+
+

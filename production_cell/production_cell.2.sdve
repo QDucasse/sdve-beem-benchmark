@@ -17,34 +17,37 @@ byte Robot.at_table = 0;
 byte Robot.A = 255;
 byte Robot.B = 255;
 
-  process Table
+  process Table 
     guardBlock
       temp bool t_0 = Table.state == 2;
+
     guardCondition t_0;
     effect
       Table.state = 0;
 
-  process Robot
+  process Robot 
     guardBlock
       temp bool t_1 = Robot.state == 0,
       temp bool t_2 = Robot.A != 255,
       temp bool t_3 = t_1 and t_2;
+
     guardCondition t_3;
     effect
       Robot.state = 1;
 
-  process Robot
+  process Robot 
     guardBlock
       temp bool t_4 = Robot.state == 1,
       temp bool t_5 = Robot.A == 255,
       temp bool t_6 = Robot.at_table == 1,
       temp bool t_7 = t_5 and t_6,
       temp bool t_8 = t_4 and t_7;
+
     guardCondition t_8;
     effect
       Robot.state = 0;
 
-  process Robot
+  process Robot 
     guardBlock
       temp bool t_9 = Robot.state == 1,
       temp bool t_10 = Robot.A != 255,
@@ -57,11 +60,12 @@ byte Robot.B = 255;
       temp bool t_17 = t_13 and t_16,
       temp bool t_18 = t_12 or t_17,
       temp bool t_19 = t_9 and t_18;
+
     guardCondition t_19;
     effect
       Robot.state = 2;
 
-  process Robot
+  process Robot 
     guardBlock
       temp bool t_20 = Robot.state == 2,
       temp bool t_21 = Robot.B == 255,
@@ -72,11 +76,12 @@ byte Robot.B = 255;
       temp bool t_26 = t_24 and t_25,
       temp bool t_27 = t_23 or t_26,
       temp bool t_28 = t_20 and t_27;
+
     guardCondition t_28;
     effect
       Robot.state = 1;
 
-  process Robot
+  process Robot 
     guardBlock
       temp bool t_29 = Robot.state == 2,
       temp bool t_30 = Robot.A != 255,
@@ -85,20 +90,22 @@ byte Robot.B = 255;
       temp bool t_33 = Robot.B != 255,
       temp bool t_34 = t_32 or t_33,
       temp bool t_35 = t_29 and t_34;
+
     guardCondition t_35;
     effect
       Robot.state = 3;
 
-  process Robot
+  process Robot 
     guardBlock
       temp bool t_36 = Robot.state == 3,
       temp bool t_37 = Robot.B != 255,
       temp bool t_38 = t_36 and t_37;
+
     guardCondition t_38;
     effect
       Robot.state = 4;
 
-  process Robot
+  process Robot 
     guardBlock
       temp bool t_39 = Robot.state == 3,
       temp bool t_40 = Robot.A == 255,
@@ -107,93 +114,125 @@ byte Robot.B = 255;
       temp bool t_43 = Robot.B == 255,
       temp bool t_44 = t_42 and t_43,
       temp bool t_45 = t_39 and t_44;
+
     guardCondition t_45;
     effect
       Robot.state = 2;
 
-  process Robot
+  process Robot 
     guardBlock
       temp bool t_46 = Robot.state == 4,
       temp bool t_47 = Robot.B == 255,
       temp bool t_48 = t_46 and t_47;
+
     guardCondition t_48;
     effect
       Robot.state = 3;
 
-  process Robot_Deposit
+  process Plate_1_Deposit 
     guardBlock
-      temp bool t_49 = Robot.state == 4,
-      temp bool t_50 = Robot.B != 255,
+      temp bool t_49 = Plate_1.state == 4,
+      temp bool t_50 = done < 5,
       temp bool t_51 = t_49 and t_50,
-      temp bool t_52 = Deposit.state == 0,
-      temp bool t_53 = t_51 and t_52;
-    guardCondition t_53;
+      temp bool t_52 = Deposit.state == 1,
+      temp bool t_53 = Deposit.k == 1,
+      temp bool t_54 = t_52 and t_53,
+      temp bool t_55 = t_51 and t_54;
+
+    guardCondition t_55;
+    effect
+      Plate_1.state = 0,
+      temp byte t_56 = done + 1,
+      done = t_56,
+      Deposit.state = 0;
+
+  process Plate_1_Belt 
+    guardBlock
+      temp bool t_57 = Plate_1.state == 1,
+      temp bool t_58 = Belt.state == 2,
+      temp bool t_59 = Belt.k == 1,
+      temp bool t_60 = t_58 and t_59,
+      temp bool t_61 = t_57 and t_60;
+
+    guardCondition t_61;
+    effect
+      Plate_1.state = 2,
+      Belt.state = 3;
+
+  process Sensor_Robot 
+    guardBlock
+      temp bool t_62 = Sensor.state == 0,
+      temp bool t_63 = Sensor.count > 0,
+      temp bool t_64 = t_62 and t_63,
+      temp bool t_65 = Robot.state == 2,
+      temp bool t_66 = Robot.at_table == 0,
+      temp bool t_67 = t_65 and t_66,
+      temp bool t_68 = t_64 and t_67;
+
+    guardCondition t_68;
+    effect
+      Sensor.state = 0,
+      temp byte t_69 = Sensor.count - 1,
+      Sensor.count = t_69,
+      Robot.state = 2,
+      Robot.at_table = 1;
+
+  process Table_Robot 
+    guardBlock
+      temp bool t_70 = Table.state == 3,
+      temp bool t_71 = Robot.state == 0,
+      temp bool t_72 = Robot.at_table == 1,
+      temp bool t_73 = Robot.A == 255,
+      temp bool t_74 = t_72 and t_73,
+      temp bool t_75 = t_71 and t_74,
+      temp bool t_76 = t_70 and t_75;
+
+    guardCondition t_76;
+    effect
+      Table.state = 2,
+      Robot.A = Table.k,
+      Robot.state = 0,
+      Robot.at_table = 0;
+
+  process Robot_Deposit 
+    guardBlock
+      temp bool t_77 = Robot.state == 4,
+      temp bool t_78 = Robot.B != 255,
+      temp bool t_79 = t_77 and t_78,
+      temp bool t_80 = Deposit.state == 0,
+      temp bool t_81 = t_79 and t_80;
+
+    guardCondition t_81;
     effect
       Robot.state = 4,
       Robot.B = 255,
       Deposit.k = Robot.B,
       Deposit.state = 1;
 
-  process Plate_1_Press
+  process Belt_Sensor 
     guardBlock
-      temp bool t_54 = Plate_1.state == 3,
-      temp bool t_55 = Press.state == 1,
-      temp bool t_56 = Press.k == 1,
-      temp bool t_57 = t_55 and t_56,
-      temp bool t_58 = t_54 and t_57;
-    guardCondition t_58;
-    effect
-      Plate_1.state = 4,
-      Press.state = 2;
+      temp bool t_82 = Belt.state == 1,
+      temp bool t_83 = Sensor.state == 0,
+      temp bool t_84 = t_82 and t_83;
 
-  process Plate_0_Belt
-    guardBlock
-      temp bool t_59 = Plate_0.state == 0,
-      temp bool t_60 = Belt.state == 0,
-      temp bool t_61 = t_59 and t_60;
-    guardCondition t_61;
+    guardCondition t_84;
     effect
-      Plate_0.state = 1,
-      Belt.k = 0,
-      Belt.state = 1;
+      Belt.state = 2,
+      Sensor.state = 0,
+      temp byte t_85 = Sensor.count + 1,
+      Sensor.count = t_85;
 
-  process Plate_1_Belt
+  process Robot_Press 
     guardBlock
-      temp bool t_62 = Plate_1.state == 0,
-      temp bool t_63 = Belt.state == 0,
-      temp bool t_64 = t_62 and t_63;
-    guardCondition t_64;
-    effect
-      Plate_1.state = 1,
-      Belt.k = 1,
-      Belt.state = 1;
+      temp bool t_86 = Robot.state == 3,
+      temp bool t_87 = Robot.A != 255,
+      temp bool t_88 = Robot.at_press == 0,
+      temp bool t_89 = t_87 and t_88,
+      temp bool t_90 = t_86 and t_89,
+      temp bool t_91 = Press.state == 0,
+      temp bool t_92 = t_90 and t_91;
 
-  process Plate_1_Deposit
-    guardBlock
-      temp bool t_65 = Plate_1.state == 4,
-      temp bool t_66 = done < 5,
-      temp bool t_67 = t_65 and t_66,
-      temp bool t_68 = Deposit.state == 1,
-      temp bool t_69 = Deposit.k == 1,
-      temp bool t_70 = t_68 and t_69,
-      temp bool t_71 = t_67 and t_70;
-    guardCondition t_71;
-    effect
-      Plate_1.state = 0,
-      temp int t_72 = done + 1,
-      done = t_72,
-      Deposit.state = 0;
-
-  process Robot_Press
-    guardBlock
-      temp bool t_73 = Robot.state == 3,
-      temp bool t_74 = Robot.A != 255,
-      temp bool t_75 = Robot.at_press == 0,
-      temp bool t_76 = t_74 and t_75,
-      temp bool t_77 = t_73 and t_76,
-      temp bool t_78 = Press.state == 0,
-      temp bool t_79 = t_77 and t_78;
-    guardCondition t_79;
+    guardCondition t_92;
     effect
       Robot.state = 3,
       Robot.A = 255,
@@ -201,150 +240,139 @@ byte Robot.B = 255;
       Press.k = Robot.A,
       Press.state = 1;
 
-  process Plate_0_Belt
+  process Plate_0_Belt 
     guardBlock
-      temp bool t_80 = Plate_0.state == 1,
-      temp bool t_81 = Belt.state == 2,
-      temp bool t_82 = Belt.k == 0,
-      temp bool t_83 = t_81 and t_82,
-      temp bool t_84 = t_80 and t_83;
-    guardCondition t_84;
+      temp bool t_93 = Plate_0.state == 1,
+      temp bool t_94 = Belt.state == 2,
+      temp bool t_95 = Belt.k == 0,
+      temp bool t_96 = t_94 and t_95,
+      temp bool t_97 = t_93 and t_96;
+
+    guardCondition t_97;
     effect
       Plate_0.state = 2,
       Belt.state = 3;
 
-  process Table_Robot
+  process Plate_0_Belt 
     guardBlock
-      temp bool t_85 = Table.state == 3,
-      temp bool t_86 = Robot.state == 0,
-      temp bool t_87 = Robot.at_table == 1,
-      temp bool t_88 = Robot.A == 255,
-      temp bool t_89 = t_87 and t_88,
-      temp bool t_90 = t_86 and t_89,
-      temp bool t_91 = t_85 and t_90;
-    guardCondition t_91;
-    effect
-      Table.state = 2,
-      Robot.A = Table.k,
-      Robot.state = 0,
-      Robot.at_table = 0;
+      temp bool t_98 = Plate_0.state == 0,
+      temp bool t_99 = Belt.state == 0,
+      temp bool t_100 = t_98 and t_99;
 
-  process Plate_0_Table
-    guardBlock
-      temp bool t_92 = Plate_0.state == 2,
-      temp bool t_93 = Table.state == 1,
-      temp bool t_94 = Table.k == 0,
-      temp bool t_95 = t_93 and t_94,
-      temp bool t_96 = t_92 and t_95;
-    guardCondition t_96;
+    guardCondition t_100;
     effect
-      Plate_0.state = 3,
-      Table.state = 3;
+      Plate_0.state = 1,
+      Belt.k = 0,
+      Belt.state = 1;
 
-  process Press_Robot
+  process Plate_1_Belt 
     guardBlock
-      temp bool t_97 = Press.state == 2,
-      temp bool t_98 = Robot.state == 1,
-      temp bool t_99 = Robot.B == 255,
-      temp bool t_100 = Robot.at_press == 1,
-      temp bool t_101 = t_99 and t_100,
-      temp bool t_102 = t_98 and t_101,
-      temp bool t_103 = t_97 and t_102;
+      temp bool t_101 = Plate_1.state == 0,
+      temp bool t_102 = Belt.state == 0,
+      temp bool t_103 = t_101 and t_102;
+
     guardCondition t_103;
+    effect
+      Plate_1.state = 1,
+      Belt.k = 1,
+      Belt.state = 1;
+
+  process Press_Robot 
+    guardBlock
+      temp bool t_104 = Press.state == 2,
+      temp bool t_105 = Robot.state == 1,
+      temp bool t_106 = Robot.B == 255,
+      temp bool t_107 = Robot.at_press == 1,
+      temp bool t_108 = t_106 and t_107,
+      temp bool t_109 = t_105 and t_108,
+      temp bool t_110 = t_104 and t_109;
+
+    guardCondition t_110;
     effect
       Press.state = 0,
       Robot.B = Press.k,
       Robot.state = 1,
       Robot.at_press = 0;
 
-  process Plate_0_Deposit
+  process Plate_1_Table 
     guardBlock
-      temp bool t_104 = Plate_0.state == 4,
-      temp bool t_105 = done < 5,
-      temp bool t_106 = t_104 and t_105,
-      temp bool t_107 = Deposit.state == 1,
-      temp bool t_108 = Deposit.k == 0,
-      temp bool t_109 = t_107 and t_108,
-      temp bool t_110 = t_106 and t_109;
-    guardCondition t_110;
-    effect
-      Plate_0.state = 0,
-      temp int t_111 = done + 1,
-      done = t_111,
-      Deposit.state = 0;
+      temp bool t_111 = Plate_1.state == 2,
+      temp bool t_112 = Table.state == 1,
+      temp bool t_113 = Table.k == 1,
+      temp bool t_114 = t_112 and t_113,
+      temp bool t_115 = t_111 and t_114;
 
-  process Plate_1_Table
-    guardBlock
-      temp bool t_112 = Plate_1.state == 2,
-      temp bool t_113 = Table.state == 1,
-      temp bool t_114 = Table.k == 1,
-      temp bool t_115 = t_113 and t_114,
-      temp bool t_116 = t_112 and t_115;
-    guardCondition t_116;
+    guardCondition t_115;
     effect
       Plate_1.state = 3,
       Table.state = 3;
 
-  process Plate_0_Press
+  process Plate_0_Table 
     guardBlock
-      temp bool t_117 = Plate_0.state == 3,
-      temp bool t_118 = Press.state == 1,
-      temp bool t_119 = Press.k == 0,
-      temp bool t_120 = t_118 and t_119,
-      temp bool t_121 = t_117 and t_120;
-    guardCondition t_121;
+      temp bool t_116 = Plate_0.state == 2,
+      temp bool t_117 = Table.state == 1,
+      temp bool t_118 = Table.k == 0,
+      temp bool t_119 = t_117 and t_118,
+      temp bool t_120 = t_116 and t_119;
+
+    guardCondition t_120;
+    effect
+      Plate_0.state = 3,
+      Table.state = 3;
+
+  process Plate_0_Deposit 
+    guardBlock
+      temp bool t_121 = Plate_0.state == 4,
+      temp bool t_122 = done < 5,
+      temp bool t_123 = t_121 and t_122,
+      temp bool t_124 = Deposit.state == 1,
+      temp bool t_125 = Deposit.k == 0,
+      temp bool t_126 = t_124 and t_125,
+      temp bool t_127 = t_123 and t_126;
+
+    guardCondition t_127;
+    effect
+      Plate_0.state = 0,
+      temp byte t_128 = done + 1,
+      done = t_128,
+      Deposit.state = 0;
+
+  process Plate_1_Press 
+    guardBlock
+      temp bool t_129 = Plate_1.state == 3,
+      temp bool t_130 = Press.state == 1,
+      temp bool t_131 = Press.k == 1,
+      temp bool t_132 = t_130 and t_131,
+      temp bool t_133 = t_129 and t_132;
+
+    guardCondition t_133;
+    effect
+      Plate_1.state = 4,
+      Press.state = 2;
+
+  process Plate_0_Press 
+    guardBlock
+      temp bool t_134 = Plate_0.state == 3,
+      temp bool t_135 = Press.state == 1,
+      temp bool t_136 = Press.k == 0,
+      temp bool t_137 = t_135 and t_136,
+      temp bool t_138 = t_134 and t_137;
+
+    guardCondition t_138;
     effect
       Plate_0.state = 4,
       Press.state = 2;
 
-  process Plate_1_Belt
-    guardBlock
-      temp bool t_122 = Plate_1.state == 1,
-      temp bool t_123 = Belt.state == 2,
-      temp bool t_124 = Belt.k == 1,
-      temp bool t_125 = t_123 and t_124,
-      temp bool t_126 = t_122 and t_125;
-    guardCondition t_126;
-    effect
-      Plate_1.state = 2,
-      Belt.state = 3;
-
-  process Belt_Sensor
-    guardBlock
-      temp bool t_127 = Belt.state == 1,
-      temp bool t_128 = Sensor.state == 0,
-      temp bool t_129 = t_127 and t_128;
-    guardCondition t_129;
-    effect
-      Belt.state = 2,
-      Sensor.state = 0,
-      temp int t_130 = Sensor.count + 1,
-      Sensor.count = t_130;
-
-  process Sensor_Robot
-    guardBlock
-      temp bool t_131 = Sensor.state == 0,
-      temp bool t_132 = Sensor.count > 0,
-      temp bool t_133 = t_131 and t_132,
-      temp bool t_134 = Robot.state == 2,
-      temp bool t_135 = Robot.at_table == 0,
-      temp bool t_136 = t_134 and t_135,
-      temp bool t_137 = t_133 and t_136;
-    guardCondition t_137;
-    effect
-      Sensor.state = 0,
-      temp int t_138 = Sensor.count - 1,
-      Sensor.count = t_138,
-      Robot.state = 2,
-      Robot.at_table = 1;
-
-  process Belt_Table
+  process Belt_Table 
     guardBlock
       temp bool t_139 = Belt.state == 3,
       temp bool t_140 = Table.state == 0,
       temp bool t_141 = t_139 and t_140;
+
     guardCondition t_141;
     effect
       Belt.state = 0,
       Table.k = Belt.k,
       Table.state = 1;
+
+

@@ -1,291 +1,323 @@
 state {p1(0), p2(1), p3(2), p4(3), p5(4), p6(5), p7(6), p8(7), p9(8), elected(9)} P_0.state = 0;
 state {p1(0), p2(1), p3(2), p4(3), p5(4), p6(5), p7(6), p8(7), p9(8), elected(9)} P_1.state = 0;
 state {p1(0), p2(1), p3(2), p4(3), p5(4), p6(5), p7(6), p8(7), p9(8), elected(9)} P_2.state = 0;
-byte turn[6] =  {0, 0, 0, 0, 0};
-byte b[6] =  {0, 0, 0, 0, 0};
-byte c[6] =  {0, 0, 0, 0, 0};
+byte turn[5] = {0, 0, 0, 0, 0};
+byte b[5] = {0, 0, 0, 0, 0};
+byte c[5] = {0, 0, 0, 0, 0};
 byte P_0.curr = 0;
 byte P_1.curr = 0;
 byte P_2.curr = 0;
 
-  process P_0
+  process P_0 
     guardBlock
       temp bool t_0 = P_0.state == 0;
+
     guardCondition t_0;
     effect
       P_0.state = 1,
       turn[P_0.curr] = 0;
 
-  process P_0
+  process P_0 
     guardBlock
       temp bool t_1 = P_0.state == 1;
+
     guardCondition t_1;
     effect
       P_0.state = 2;
 
-  process P_0
+  process P_0 
     guardBlock
       temp bool t_2 = P_0.state == 2;
+
     guardCondition t_2;
     effect
       P_0.state = 3,
       b[P_0.curr] = 1;
 
-  process P_0
+  process P_0 
     guardBlock
       temp bool t_3 = P_0.state == 3,
       temp byte t_4 = turn[P_0.curr],
       temp bool t_5 = t_4 != 0,
       temp bool t_6 = t_3 and t_5;
+
     guardCondition t_6;
     effect
       P_0.state = 4;
 
-  process P_0
+  process P_0 
     guardBlock
       temp bool t_7 = P_0.state == 4;
+
     guardCondition t_7;
     effect
       P_0.state = 5,
       c[P_0.curr] = 1;
 
-  process P_0
+  process P_0 
     guardBlock
       temp bool t_8 = P_0.state == 5;
+
     guardCondition t_8;
     effect
       P_0.state = 6,
       b[P_0.curr] = 0;
 
-  process P_0
+  process P_0 
     guardBlock
       temp bool t_9 = P_0.state == 3,
       temp byte t_10 = turn[P_0.curr],
       temp bool t_11 = t_10 == 0,
       temp bool t_12 = t_9 and t_11;
+
     guardCondition t_12;
     effect
       P_0.state = 7;
 
-  process P_0
+  process P_0 
     guardBlock
       temp bool t_13 = P_0.state == 7,
       temp bool t_14 = P_0.curr > 0,
-      temp int t_15 = P_0.curr - 1,
+      temp byte t_15 = P_0.curr - 1,
       temp byte t_16 = c[t_15],
       temp bool t_17 = t_16 == 0,
       temp bool t_18 = t_14 and t_17,
       temp bool t_19 = t_13 and t_18;
+
     guardCondition t_19;
     effect
       P_0.state = 8;
 
-  process P_0
+  process P_0 
     guardBlock
       temp bool t_20 = P_0.state == 8;
+
     guardCondition t_20;
     effect
       P_0.state = 9;
 
-  process P_0
+  process P_0 
     guardBlock
       temp bool t_21 = P_0.state == 7,
       temp bool t_22 = P_0.curr == 0,
-      temp int t_23 = P_0.curr - 1,
+      temp byte t_23 = P_0.curr - 1,
       temp byte t_24 = c[t_23],
       temp bool t_25 = t_24 == 1,
       temp bool t_26 = t_22 or t_25,
       temp bool t_27 = t_21 and t_26;
+
     guardCondition t_27;
     effect
       P_0.state = 0,
-      temp int t_28 = P_0.curr + 1,
+      temp byte t_28 = P_0.curr + 1,
       P_0.curr = t_28;
 
-  process P_1
+  process P_1 
     guardBlock
       temp bool t_29 = P_1.state == 0;
+
     guardCondition t_29;
     effect
       P_1.state = 1,
       turn[P_1.curr] = 1;
 
-  process P_1
+  process P_1 
     guardBlock
       temp bool t_30 = P_1.state == 1;
+
     guardCondition t_30;
     effect
       P_1.state = 2;
 
-  process P_1
+  process P_1 
     guardBlock
       temp bool t_31 = P_1.state == 2;
+
     guardCondition t_31;
     effect
       P_1.state = 3,
       b[P_1.curr] = 1;
 
-  process P_1
+  process P_1 
     guardBlock
       temp bool t_32 = P_1.state == 3,
       temp byte t_33 = turn[P_1.curr],
       temp bool t_34 = t_33 != 1,
       temp bool t_35 = t_32 and t_34;
+
     guardCondition t_35;
     effect
       P_1.state = 4;
 
-  process P_1
+  process P_1 
     guardBlock
       temp bool t_36 = P_1.state == 4;
+
     guardCondition t_36;
     effect
       P_1.state = 5,
       c[P_1.curr] = 1;
 
-  process P_1
+  process P_1 
     guardBlock
       temp bool t_37 = P_1.state == 5;
+
     guardCondition t_37;
     effect
       P_1.state = 6,
       b[P_1.curr] = 0;
 
-  process P_1
+  process P_1 
     guardBlock
       temp bool t_38 = P_1.state == 3,
       temp byte t_39 = turn[P_1.curr],
       temp bool t_40 = t_39 == 1,
       temp bool t_41 = t_38 and t_40;
+
     guardCondition t_41;
     effect
       P_1.state = 7;
 
-  process P_1
+  process P_1 
     guardBlock
       temp bool t_42 = P_1.state == 7,
       temp bool t_43 = P_1.curr > 0,
-      temp int t_44 = P_1.curr - 1,
+      temp byte t_44 = P_1.curr - 1,
       temp byte t_45 = c[t_44],
       temp bool t_46 = t_45 == 0,
       temp bool t_47 = t_43 and t_46,
       temp bool t_48 = t_42 and t_47;
+
     guardCondition t_48;
     effect
       P_1.state = 8;
 
-  process P_1
+  process P_1 
     guardBlock
       temp bool t_49 = P_1.state == 8;
+
     guardCondition t_49;
     effect
       P_1.state = 9;
 
-  process P_1
+  process P_1 
     guardBlock
       temp bool t_50 = P_1.state == 7,
       temp bool t_51 = P_1.curr == 0,
-      temp int t_52 = P_1.curr - 1,
+      temp byte t_52 = P_1.curr - 1,
       temp byte t_53 = c[t_52],
       temp bool t_54 = t_53 == 1,
       temp bool t_55 = t_51 or t_54,
       temp bool t_56 = t_50 and t_55;
+
     guardCondition t_56;
     effect
       P_1.state = 0,
-      temp int t_57 = P_1.curr + 1,
+      temp byte t_57 = P_1.curr + 1,
       P_1.curr = t_57;
 
-  process P_2
+  process P_2 
     guardBlock
       temp bool t_58 = P_2.state == 0;
+
     guardCondition t_58;
     effect
       P_2.state = 1,
       turn[P_2.curr] = 2;
 
-  process P_2
+  process P_2 
     guardBlock
       temp bool t_59 = P_2.state == 1;
+
     guardCondition t_59;
     effect
       P_2.state = 2;
 
-  process P_2
+  process P_2 
     guardBlock
       temp bool t_60 = P_2.state == 2;
+
     guardCondition t_60;
     effect
       P_2.state = 3,
       b[P_2.curr] = 1;
 
-  process P_2
+  process P_2 
     guardBlock
       temp bool t_61 = P_2.state == 3,
       temp byte t_62 = turn[P_2.curr],
       temp bool t_63 = t_62 != 2,
       temp bool t_64 = t_61 and t_63;
+
     guardCondition t_64;
     effect
       P_2.state = 4;
 
-  process P_2
+  process P_2 
     guardBlock
       temp bool t_65 = P_2.state == 4;
+
     guardCondition t_65;
     effect
       P_2.state = 5,
       c[P_2.curr] = 1;
 
-  process P_2
+  process P_2 
     guardBlock
       temp bool t_66 = P_2.state == 5;
+
     guardCondition t_66;
     effect
       P_2.state = 6,
       b[P_2.curr] = 0;
 
-  process P_2
+  process P_2 
     guardBlock
       temp bool t_67 = P_2.state == 3,
       temp byte t_68 = turn[P_2.curr],
       temp bool t_69 = t_68 == 2,
       temp bool t_70 = t_67 and t_69;
+
     guardCondition t_70;
     effect
       P_2.state = 7;
 
-  process P_2
+  process P_2 
     guardBlock
       temp bool t_71 = P_2.state == 7,
       temp bool t_72 = P_2.curr > 0,
-      temp int t_73 = P_2.curr - 1,
+      temp byte t_73 = P_2.curr - 1,
       temp byte t_74 = c[t_73],
       temp bool t_75 = t_74 == 0,
       temp bool t_76 = t_72 and t_75,
       temp bool t_77 = t_71 and t_76;
+
     guardCondition t_77;
     effect
       P_2.state = 8;
 
-  process P_2
+  process P_2 
     guardBlock
       temp bool t_78 = P_2.state == 8;
+
     guardCondition t_78;
     effect
       P_2.state = 9;
 
-  process P_2
+  process P_2 
     guardBlock
       temp bool t_79 = P_2.state == 7,
       temp bool t_80 = P_2.curr == 0,
-      temp int t_81 = P_2.curr - 1,
+      temp byte t_81 = P_2.curr - 1,
       temp byte t_82 = c[t_81],
       temp bool t_83 = t_82 == 1,
       temp bool t_84 = t_80 or t_83,
       temp bool t_85 = t_79 and t_84;
+
     guardCondition t_85;
     effect
       P_2.state = 0,
-      temp int t_86 = P_2.curr + 1,
+      temp byte t_86 = P_2.curr + 1,
       P_2.curr = t_86;
+
+

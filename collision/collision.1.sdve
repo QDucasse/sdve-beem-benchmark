@@ -3,7 +3,6 @@ int Slave1.m = 0;
 int User1.m = 0;
 int Slave2.m = 0;
 int User2.m = 0;
-int Master.m = 0;
 state {wait(0), got(1), broadcast(2), collision(3)} Medium.state = 0;
 state {wait(0), got(1), enquire(2)} Slave1.state = 0;
 state {wait(0), got(1), wrong_data(2)} User1.state = 0;
@@ -13,27 +12,29 @@ state {send(0), wait(1)} Master.state = 0;
 byte Medium.i = 0;
 byte Master.next = 1;
 
-  process Medium
+  process Medium 
     guardBlock
       temp bool t_0 = Medium.state == 1;
+
     guardCondition t_0;
     effect
       Medium.state = 2,
       Medium.i = 0;
 
-  process Medium
+  process Medium 
     guardBlock
       temp bool t_1 = Medium.state == 2,
       temp int t_2 = Medium.m % 10,
       temp bool t_3 = Medium.i == t_2,
       temp bool t_4 = t_1 and t_3;
+
     guardCondition t_4;
     effect
       Medium.state = 2,
-      temp int t_5 = Medium.i + 1,
+      temp byte t_5 = Medium.i + 1,
       Medium.i = t_5;
 
-  process Medium
+  process Medium 
     guardBlock
       temp bool t_6 = Medium.state == 2,
       temp int t_7 = Medium.m % 10,
@@ -41,98 +42,108 @@ byte Master.next = 1;
       temp bool t_9 = Medium.i <= 2,
       temp bool t_10 = t_8 and t_9,
       temp bool t_11 = t_6 and t_10;
+
     guardCondition t_11;
     effect
       Medium.state = 2,
-      temp int t_12 = Medium.i + 1,
+      temp byte t_12 = Medium.i + 1,
       Medium.i = t_12;
 
-  process Medium
+  process Medium 
     guardBlock
       temp bool t_13 = Medium.state == 2,
       temp bool t_14 = Medium.i == 3,
       temp bool t_15 = t_13 and t_14;
+
     guardCondition t_15;
     effect
       Medium.state = 0;
 
-  process Slave1
+  process Slave1 
     guardBlock
       temp bool t_16 = Slave1.state == 1,
       temp int t_17 = Slave1.m % 100,
       temp int t_18 = t_17 / 10,
       temp bool t_19 = t_18 != 1,
       temp bool t_20 = t_16 and t_19;
+
     guardCondition t_20;
     effect
       Slave1.state = 0;
 
-  process Slave1
+  process Slave1 
     guardBlock
       temp bool t_21 = Slave1.state == 2,
       temp bool t_22 = Slave1.m == 0,
       temp bool t_23 = t_21 and t_22;
+
     guardCondition t_23;
     effect
       Slave1.state = 0;
 
-  process User1
+  process User1 
     guardBlock
       temp bool t_24 = User1.state == 1,
       temp bool t_25 = 1 == User1.m,
       temp bool t_26 = t_24 and t_25;
+
     guardCondition t_26;
     effect
       User1.state = 0;
 
-  process User1
+  process User1 
     guardBlock
       temp bool t_27 = User1.state == 1,
       temp bool t_28 = 1 != User1.m,
       temp bool t_29 = t_27 and t_28;
+
     guardCondition t_29;
     effect
       User1.state = 2;
 
-  process Slave2
+  process Slave2 
     guardBlock
       temp bool t_30 = Slave2.state == 1,
       temp int t_31 = Slave2.m % 100,
       temp int t_32 = t_31 / 10,
       temp bool t_33 = t_32 != 2,
       temp bool t_34 = t_30 and t_33;
+
     guardCondition t_34;
     effect
       Slave2.state = 0;
 
-  process Slave2
+  process Slave2 
     guardBlock
       temp bool t_35 = Slave2.state == 2,
       temp bool t_36 = Slave2.m == 0,
       temp bool t_37 = t_35 and t_36;
+
     guardCondition t_37;
     effect
       Slave2.state = 0;
 
-  process User2
+  process User2 
     guardBlock
       temp bool t_38 = User2.state == 1,
       temp bool t_39 = 2 == User2.m,
       temp bool t_40 = t_38 and t_39;
+
     guardCondition t_40;
     effect
       User2.state = 0;
 
-  process User2
+  process User2 
     guardBlock
       temp bool t_41 = User2.state == 1,
       temp bool t_42 = 2 != User2.m,
       temp bool t_43 = t_41 and t_42;
+
     guardCondition t_43;
     effect
       User2.state = 2;
 
-  process Master
+  process Master 
     guardBlock
       temp bool t_44 = Master.state == 1,
       temp bool t_45 = Medium.state == 0,
@@ -141,341 +152,362 @@ byte Master.next = 1;
       temp bool t_48 = Slave2.state == 0,
       temp bool t_49 = t_47 and t_48,
       temp bool t_50 = t_44 and t_49;
+
     guardCondition t_50;
     effect
       Master.state = 0,
-      temp int t_51 = Master.next % 2,
-      temp int t_52 = t_51 + 1,
+      temp byte t_51 = Master.next % 2,
+      temp byte t_52 = t_51 + 1,
       Master.next = t_52;
 
-  process Slave1_Medium
+  process User2_Slave2 
     guardBlock
-      temp bool t_53 = Slave1.state == 2,
-      temp bool t_54 = Slave1.m != 0,
-      temp bool t_55 = t_53 and t_54,
-      temp bool t_56 = Medium.state == 0,
-      temp bool t_57 = t_55 and t_56;
-    guardCondition t_57;
-    effect
-      Slave1.state = 0,
-      temp int t_58 = Slave1.m % 10,
-      temp int t_59 = t_58 * 10,
-      temp int t_60 = 1 + t_59,
-      temp int t_61 = Slave1.m % 100,
-      temp int t_62 = t_61 / 10,
-      temp int t_63 = t_62 * 10,
-      temp int t_64 = t_63 * 10,
-      temp int t_65 = t_60 + t_64,
-      Medium.m = t_65,
-      Medium.state = 0;
+      temp bool t_53 = User2.state == 0,
+      temp bool t_54 = Slave2.state == 1,
+      temp int t_55 = Slave2.m % 100,
+      temp int t_56 = t_55 / 10,
+      temp bool t_57 = t_56 == 2,
+      temp int t_58 = Slave2.m / 100,
+      temp bool t_59 = t_58 == 0,
+      temp bool t_60 = t_57 and t_59,
+      temp bool t_61 = t_54 and t_60,
+      temp bool t_62 = t_53 and t_61;
 
-  process Slave1_Medium
-    guardBlock
-      temp bool t_66 = Slave1.state == 2,
-      temp bool t_67 = Slave1.m != 0,
-      temp bool t_68 = t_66 and t_67,
-      temp bool t_69 = Medium.state == 0,
-      temp bool t_70 = t_68 and t_69;
-    guardCondition t_70;
-    effect
-      Slave1.state = 0,
-      temp int t_71 = Slave1.m % 10,
-      temp int t_72 = t_71 * 10,
-      temp int t_73 = 1 + t_72,
-      temp int t_74 = Slave1.m % 100,
-      temp int t_75 = t_74 / 10,
-      temp int t_76 = t_75 * 10,
-      temp int t_77 = t_76 * 10,
-      temp int t_78 = t_73 + t_77,
-      Medium.m = t_78,
-      Medium.state = 1;
-
-  process Slave1_Medium
-    guardBlock
-      temp bool t_79 = Slave1.state == 2,
-      temp bool t_80 = Slave1.m != 0,
-      temp bool t_81 = t_79 and t_80,
-      temp bool t_82 = Medium.state == 1,
-      temp bool t_83 = t_81 and t_82;
-    guardCondition t_83;
-    effect
-      Slave1.state = 0,
-      temp int t_84 = Slave1.m % 10,
-      temp int t_85 = t_84 * 10,
-      temp int t_86 = 1 + t_85,
-      temp int t_87 = Slave1.m % 100,
-      temp int t_88 = t_87 / 10,
-      temp int t_89 = t_88 * 10,
-      temp int t_90 = t_89 * 10,
-      temp int t_91 = t_86 + t_90,
-      Medium.m = t_91,
-      Medium.state = 3;
-
-  process Slave2_Medium
-    guardBlock
-      temp bool t_92 = Slave2.state == 2,
-      temp bool t_93 = Slave2.m != 0,
-      temp bool t_94 = t_92 and t_93,
-      temp bool t_95 = Medium.state == 0,
-      temp bool t_96 = t_94 and t_95;
-    guardCondition t_96;
-    effect
-      Slave2.state = 0,
-      temp int t_97 = Slave2.m % 10,
-      temp int t_98 = t_97 * 10,
-      temp int t_99 = 2 + t_98,
-      temp int t_100 = Slave2.m % 100,
-      temp int t_101 = t_100 / 10,
-      temp int t_102 = t_101 * 10,
-      temp int t_103 = t_102 * 10,
-      temp int t_104 = t_99 + t_103,
-      Medium.m = t_104,
-      Medium.state = 0;
-
-  process Slave2_Medium
-    guardBlock
-      temp bool t_105 = Slave2.state == 2,
-      temp bool t_106 = Slave2.m != 0,
-      temp bool t_107 = t_105 and t_106,
-      temp bool t_108 = Medium.state == 0,
-      temp bool t_109 = t_107 and t_108;
-    guardCondition t_109;
-    effect
-      Slave2.state = 0,
-      temp int t_110 = Slave2.m % 10,
-      temp int t_111 = t_110 * 10,
-      temp int t_112 = 2 + t_111,
-      temp int t_113 = Slave2.m % 100,
-      temp int t_114 = t_113 / 10,
-      temp int t_115 = t_114 * 10,
-      temp int t_116 = t_115 * 10,
-      temp int t_117 = t_112 + t_116,
-      Medium.m = t_117,
-      Medium.state = 1;
-
-  process Slave2_Medium
-    guardBlock
-      temp bool t_118 = Slave2.state == 2,
-      temp bool t_119 = Slave2.m != 0,
-      temp bool t_120 = t_118 and t_119,
-      temp bool t_121 = Medium.state == 1,
-      temp bool t_122 = t_120 and t_121;
-    guardCondition t_122;
-    effect
-      Slave2.state = 0,
-      temp int t_123 = Slave2.m % 10,
-      temp int t_124 = t_123 * 10,
-      temp int t_125 = 2 + t_124,
-      temp int t_126 = Slave2.m % 100,
-      temp int t_127 = t_126 / 10,
-      temp int t_128 = t_127 * 10,
-      temp int t_129 = t_128 * 10,
-      temp int t_130 = t_125 + t_129,
-      Medium.m = t_130,
-      Medium.state = 3;
-
-  process Master_Medium
-    guardBlock
-      temp bool t_131 = Master.state == 0,
-      temp bool t_132 = Medium.state == 0,
-      temp bool t_133 = t_131 and t_132;
-    guardCondition t_133;
-    effect
-      Master.state = 1,
-      temp int t_134 = Master.next * 10,
-      temp int t_135 = 0 + t_134,
-      temp int t_136 = t_135 + 0,
-      Medium.m = t_136,
-      Medium.state = 0;
-
-  process Master_Medium
-    guardBlock
-      temp bool t_137 = Master.state == 0,
-      temp bool t_138 = Medium.state == 0,
-      temp bool t_139 = t_137 and t_138;
-    guardCondition t_139;
-    effect
-      Master.state = 1,
-      temp int t_140 = Master.next * 10,
-      temp int t_141 = 0 + t_140,
-      temp int t_142 = t_141 + 0,
-      Medium.m = t_142,
-      Medium.state = 1;
-
-  process Master_Medium
-    guardBlock
-      temp bool t_143 = Master.state == 0,
-      temp bool t_144 = Medium.state == 1,
-      temp bool t_145 = t_143 and t_144;
-    guardCondition t_145;
-    effect
-      Master.state = 1,
-      temp int t_146 = Master.next * 10,
-      temp int t_147 = 0 + t_146,
-      temp int t_148 = t_147 + 0,
-      Medium.m = t_148,
-      Medium.state = 3;
-
-  process Medium_Slave1
-    guardBlock
-      temp bool t_149 = Medium.state == 2,
-      temp int t_150 = Medium.m % 10,
-      temp bool t_151 = 1 != t_150,
-      temp bool t_152 = 1 == Medium.i,
-      temp bool t_153 = t_151 and t_152,
-      temp bool t_154 = t_149 and t_153,
-      temp bool t_155 = Slave1.state == 0,
-      temp bool t_156 = t_154 and t_155;
-    guardCondition t_156;
-    effect
-      Medium.state = 2,
-      temp int t_157 = Medium.i + 1,
-      Medium.i = t_157,
-      Slave1.m = Medium.m,
-      Slave1.state = 1;
-
-  process Medium_Slave2
-    guardBlock
-      temp bool t_158 = Medium.state == 2,
-      temp int t_159 = Medium.m % 10,
-      temp bool t_160 = 2 != t_159,
-      temp bool t_161 = 2 == Medium.i,
-      temp bool t_162 = t_160 and t_161,
-      temp bool t_163 = t_158 and t_162,
-      temp bool t_164 = Slave2.state == 0,
-      temp bool t_165 = t_163 and t_164;
-    guardCondition t_165;
-    effect
-      Medium.state = 2,
-      temp int t_166 = Medium.i + 1,
-      Medium.i = t_166,
-      Slave2.m = Medium.m,
-      Slave2.state = 1;
-
-  process User1_Slave1
-    guardBlock
-      temp bool t_167 = User1.state == 0,
-      temp bool t_168 = Slave1.state == 1,
-      temp int t_169 = Slave1.m % 100,
-      temp int t_170 = t_169 / 10,
-      temp bool t_171 = t_170 == 1,
-      temp int t_172 = Slave1.m / 100,
-      temp bool t_173 = t_172 == 0,
-      temp bool t_174 = t_171 and t_173,
-      temp bool t_175 = t_168 and t_174,
-      temp bool t_176 = t_167 and t_175;
-    guardCondition t_176;
-    effect
-      User1.state = 0,
-      Slave1.m = 0,
-      Slave1.state = 2;
-
-  process User1_Slave1
-    guardBlock
-      temp bool t_177 = User1.state == 0,
-      temp bool t_178 = Slave1.state == 1,
-      temp int t_179 = Slave1.m % 100,
-      temp int t_180 = t_179 / 10,
-      temp bool t_181 = t_180 == 1,
-      temp int t_182 = Slave1.m / 100,
-      temp bool t_183 = t_182 == 0,
-      temp bool t_184 = t_181 and t_183,
-      temp bool t_185 = t_178 and t_184,
-      temp bool t_186 = t_177 and t_185;
-    guardCondition t_186;
-    effect
-      User1.state = 0,
-      Slave1.m = 22,
-      Slave1.state = 2;
-
-  process Slave2_User2
-    guardBlock
-      temp bool t_187 = Slave2.state == 1,
-      temp int t_188 = Slave2.m % 100,
-      temp int t_189 = t_188 / 10,
-      temp bool t_190 = t_189 == 2,
-      temp int t_191 = Slave2.m / 100,
-      temp bool t_192 = t_191 != 0,
-      temp bool t_193 = t_190 and t_192,
-      temp bool t_194 = t_187 and t_193,
-      temp bool t_195 = User2.state == 0,
-      temp bool t_196 = t_194 and t_195;
-    guardCondition t_196;
-    effect
-      Slave2.state = 0,
-      temp int t_197 = Slave2.m / 100,
-      User2.m = t_197,
-      User2.state = 1;
-
-  process Slave1_User1
-    guardBlock
-      temp bool t_198 = Slave1.state == 1,
-      temp int t_199 = Slave1.m % 100,
-      temp int t_200 = t_199 / 10,
-      temp bool t_201 = t_200 == 1,
-      temp int t_202 = Slave1.m / 100,
-      temp bool t_203 = t_202 != 0,
-      temp bool t_204 = t_201 and t_203,
-      temp bool t_205 = t_198 and t_204,
-      temp bool t_206 = User1.state == 0,
-      temp bool t_207 = t_205 and t_206;
-    guardCondition t_207;
-    effect
-      Slave1.state = 0,
-      temp int t_208 = Slave1.m / 100,
-      User1.m = t_208,
-      User1.state = 1;
-
-  process Medium_Master
-    guardBlock
-      temp bool t_209 = Medium.state == 2,
-      temp int t_210 = Medium.m % 10,
-      temp bool t_211 = 0 != t_210,
-      temp bool t_212 = 0 == Medium.i,
-      temp bool t_213 = t_211 and t_212,
-      temp bool t_214 = t_209 and t_213,
-      temp bool t_215 = Master.state == 1,
-      temp bool t_216 = t_214 and t_215;
-    guardCondition t_216;
-    effect
-      Medium.state = 2,
-      temp int t_217 = Medium.i + 1,
-      Medium.i = t_217,
-      Master.m = Medium.m,
-      Master.state = 1;
-
-  process User2_Slave2
-    guardBlock
-      temp bool t_218 = User2.state == 0,
-      temp bool t_219 = Slave2.state == 1,
-      temp int t_220 = Slave2.m % 100,
-      temp int t_221 = t_220 / 10,
-      temp bool t_222 = t_221 == 2,
-      temp int t_223 = Slave2.m / 100,
-      temp bool t_224 = t_223 == 0,
-      temp bool t_225 = t_222 and t_224,
-      temp bool t_226 = t_219 and t_225,
-      temp bool t_227 = t_218 and t_226;
-    guardCondition t_227;
+    guardCondition t_62;
     effect
       User2.state = 0,
       Slave2.m = 0,
       Slave2.state = 2;
 
-  process User2_Slave2
+  process User2_Slave2 
     guardBlock
-      temp bool t_228 = User2.state == 0,
-      temp bool t_229 = Slave2.state == 1,
-      temp int t_230 = Slave2.m % 100,
-      temp int t_231 = t_230 / 10,
-      temp bool t_232 = t_231 == 2,
-      temp int t_233 = Slave2.m / 100,
-      temp bool t_234 = t_233 == 0,
-      temp bool t_235 = t_232 and t_234,
-      temp bool t_236 = t_229 and t_235,
-      temp bool t_237 = t_228 and t_236;
-    guardCondition t_237;
+      temp bool t_63 = User2.state == 0,
+      temp bool t_64 = Slave2.state == 1,
+      temp int t_65 = Slave2.m % 100,
+      temp int t_66 = t_65 / 10,
+      temp bool t_67 = t_66 == 2,
+      temp int t_68 = Slave2.m / 100,
+      temp bool t_69 = t_68 == 0,
+      temp bool t_70 = t_67 and t_69,
+      temp bool t_71 = t_64 and t_70,
+      temp bool t_72 = t_63 and t_71;
+
+    guardCondition t_72;
     effect
       User2.state = 0,
       Slave2.m = 11,
       Slave2.state = 2;
+
+  process Slave2_User2 
+    guardBlock
+      temp bool t_73 = Slave2.state == 1,
+      temp int t_74 = Slave2.m % 100,
+      temp int t_75 = t_74 / 10,
+      temp bool t_76 = t_75 == 2,
+      temp int t_77 = Slave2.m / 100,
+      temp bool t_78 = t_77 != 0,
+      temp bool t_79 = t_76 and t_78,
+      temp bool t_80 = t_73 and t_79,
+      temp bool t_81 = User2.state == 0,
+      temp bool t_82 = t_80 and t_81;
+
+    guardCondition t_82;
+    effect
+      Slave2.state = 0,
+      temp int t_83 = Slave2.m / 100,
+      User2.m = t_83,
+      User2.state = 1;
+
+  process Medium_Slave2 
+    guardBlock
+      temp bool t_84 = Medium.state == 2,
+      temp int t_85 = Medium.m % 10,
+      temp bool t_86 = 2 != t_85,
+      temp bool t_87 = 2 == Medium.i,
+      temp bool t_88 = t_86 and t_87,
+      temp bool t_89 = t_84 and t_88,
+      temp bool t_90 = Slave2.state == 0,
+      temp bool t_91 = t_89 and t_90;
+
+    guardCondition t_91;
+    effect
+      Medium.state = 2,
+      temp byte t_92 = Medium.i + 1,
+      Medium.i = t_92,
+      Slave2.m = Medium.m,
+      Slave2.state = 1;
+
+  process User1_Slave1 
+    guardBlock
+      temp bool t_93 = User1.state == 0,
+      temp bool t_94 = Slave1.state == 1,
+      temp int t_95 = Slave1.m % 100,
+      temp int t_96 = t_95 / 10,
+      temp bool t_97 = t_96 == 1,
+      temp int t_98 = Slave1.m / 100,
+      temp bool t_99 = t_98 == 0,
+      temp bool t_100 = t_97 and t_99,
+      temp bool t_101 = t_94 and t_100,
+      temp bool t_102 = t_93 and t_101;
+
+    guardCondition t_102;
+    effect
+      User1.state = 0,
+      Slave1.m = 0,
+      Slave1.state = 2;
+
+  process User1_Slave1 
+    guardBlock
+      temp bool t_103 = User1.state == 0,
+      temp bool t_104 = Slave1.state == 1,
+      temp int t_105 = Slave1.m % 100,
+      temp int t_106 = t_105 / 10,
+      temp bool t_107 = t_106 == 1,
+      temp int t_108 = Slave1.m / 100,
+      temp bool t_109 = t_108 == 0,
+      temp bool t_110 = t_107 and t_109,
+      temp bool t_111 = t_104 and t_110,
+      temp bool t_112 = t_103 and t_111;
+
+    guardCondition t_112;
+    effect
+      User1.state = 0,
+      Slave1.m = 22,
+      Slave1.state = 2;
+
+  process Slave1_Medium 
+    guardBlock
+      temp bool t_113 = Slave1.state == 2,
+      temp bool t_114 = Slave1.m != 0,
+      temp bool t_115 = t_113 and t_114,
+      temp bool t_116 = Medium.state == 0,
+      temp bool t_117 = t_115 and t_116;
+
+    guardCondition t_117;
+    effect
+      Slave1.state = 0,
+      temp int t_118 = Slave1.m % 10,
+      temp int t_119 = t_118 * 10,
+      temp int t_120 = 1 + t_119,
+      temp int t_121 = Slave1.m % 100,
+      temp int t_122 = t_121 / 10,
+      temp int t_123 = t_122 * 10,
+      temp int t_124 = t_123 * 10,
+      temp int t_125 = t_120 + t_124,
+      Medium.m = t_125,
+      Medium.state = 0;
+
+  process Slave1_Medium 
+    guardBlock
+      temp bool t_126 = Slave1.state == 2,
+      temp bool t_127 = Slave1.m != 0,
+      temp bool t_128 = t_126 and t_127,
+      temp bool t_129 = Medium.state == 0,
+      temp bool t_130 = t_128 and t_129;
+
+    guardCondition t_130;
+    effect
+      Slave1.state = 0,
+      temp int t_131 = Slave1.m % 10,
+      temp int t_132 = t_131 * 10,
+      temp int t_133 = 1 + t_132,
+      temp int t_134 = Slave1.m % 100,
+      temp int t_135 = t_134 / 10,
+      temp int t_136 = t_135 * 10,
+      temp int t_137 = t_136 * 10,
+      temp int t_138 = t_133 + t_137,
+      Medium.m = t_138,
+      Medium.state = 1;
+
+  process Slave1_Medium 
+    guardBlock
+      temp bool t_139 = Slave1.state == 2,
+      temp bool t_140 = Slave1.m != 0,
+      temp bool t_141 = t_139 and t_140,
+      temp bool t_142 = Medium.state == 1,
+      temp bool t_143 = t_141 and t_142;
+
+    guardCondition t_143;
+    effect
+      Slave1.state = 0,
+      temp int t_144 = Slave1.m % 10,
+      temp int t_145 = t_144 * 10,
+      temp int t_146 = 1 + t_145,
+      temp int t_147 = Slave1.m % 100,
+      temp int t_148 = t_147 / 10,
+      temp int t_149 = t_148 * 10,
+      temp int t_150 = t_149 * 10,
+      temp int t_151 = t_146 + t_150,
+      Medium.m = t_151,
+      Medium.state = 3;
+
+  process Slave2_Medium 
+    guardBlock
+      temp bool t_152 = Slave2.state == 2,
+      temp bool t_153 = Slave2.m != 0,
+      temp bool t_154 = t_152 and t_153,
+      temp bool t_155 = Medium.state == 0,
+      temp bool t_156 = t_154 and t_155;
+
+    guardCondition t_156;
+    effect
+      Slave2.state = 0,
+      temp int t_157 = Slave2.m % 10,
+      temp int t_158 = t_157 * 10,
+      temp int t_159 = 2 + t_158,
+      temp int t_160 = Slave2.m % 100,
+      temp int t_161 = t_160 / 10,
+      temp int t_162 = t_161 * 10,
+      temp int t_163 = t_162 * 10,
+      temp int t_164 = t_159 + t_163,
+      Medium.m = t_164,
+      Medium.state = 0;
+
+  process Slave2_Medium 
+    guardBlock
+      temp bool t_165 = Slave2.state == 2,
+      temp bool t_166 = Slave2.m != 0,
+      temp bool t_167 = t_165 and t_166,
+      temp bool t_168 = Medium.state == 0,
+      temp bool t_169 = t_167 and t_168;
+
+    guardCondition t_169;
+    effect
+      Slave2.state = 0,
+      temp int t_170 = Slave2.m % 10,
+      temp int t_171 = t_170 * 10,
+      temp int t_172 = 2 + t_171,
+      temp int t_173 = Slave2.m % 100,
+      temp int t_174 = t_173 / 10,
+      temp int t_175 = t_174 * 10,
+      temp int t_176 = t_175 * 10,
+      temp int t_177 = t_172 + t_176,
+      Medium.m = t_177,
+      Medium.state = 1;
+
+  process Slave2_Medium 
+    guardBlock
+      temp bool t_178 = Slave2.state == 2,
+      temp bool t_179 = Slave2.m != 0,
+      temp bool t_180 = t_178 and t_179,
+      temp bool t_181 = Medium.state == 1,
+      temp bool t_182 = t_180 and t_181;
+
+    guardCondition t_182;
+    effect
+      Slave2.state = 0,
+      temp int t_183 = Slave2.m % 10,
+      temp int t_184 = t_183 * 10,
+      temp int t_185 = 2 + t_184,
+      temp int t_186 = Slave2.m % 100,
+      temp int t_187 = t_186 / 10,
+      temp int t_188 = t_187 * 10,
+      temp int t_189 = t_188 * 10,
+      temp int t_190 = t_185 + t_189,
+      Medium.m = t_190,
+      Medium.state = 3;
+
+  process Master_Medium 
+    guardBlock
+      temp bool t_191 = Master.state == 0,
+      temp bool t_192 = Medium.state == 0,
+      temp bool t_193 = t_191 and t_192;
+
+    guardCondition t_193;
+    effect
+      Master.state = 1,
+      temp byte t_194 = Master.next * 10,
+      temp byte t_195 = 0 + t_194,
+      temp byte t_196 = t_195 + 0,
+      Medium.m = t_196,
+      Medium.state = 0;
+
+  process Master_Medium 
+    guardBlock
+      temp bool t_197 = Master.state == 0,
+      temp bool t_198 = Medium.state == 0,
+      temp bool t_199 = t_197 and t_198;
+
+    guardCondition t_199;
+    effect
+      Master.state = 1,
+      temp byte t_200 = Master.next * 10,
+      temp byte t_201 = 0 + t_200,
+      temp byte t_202 = t_201 + 0,
+      Medium.m = t_202,
+      Medium.state = 1;
+
+  process Master_Medium 
+    guardBlock
+      temp bool t_203 = Master.state == 0,
+      temp bool t_204 = Medium.state == 1,
+      temp bool t_205 = t_203 and t_204;
+
+    guardCondition t_205;
+    effect
+      Master.state = 1,
+      temp byte t_206 = Master.next * 10,
+      temp byte t_207 = 0 + t_206,
+      temp byte t_208 = t_207 + 0,
+      Medium.m = t_208,
+      Medium.state = 3;
+
+  process Medium_Slave1 
+    guardBlock
+      temp bool t_209 = Medium.state == 2,
+      temp int t_210 = Medium.m % 10,
+      temp bool t_211 = 1 != t_210,
+      temp bool t_212 = 1 == Medium.i,
+      temp bool t_213 = t_211 and t_212,
+      temp bool t_214 = t_209 and t_213,
+      temp bool t_215 = Slave1.state == 0,
+      temp bool t_216 = t_214 and t_215;
+
+    guardCondition t_216;
+    effect
+      Medium.state = 2,
+      temp byte t_217 = Medium.i + 1,
+      Medium.i = t_217,
+      Slave1.m = Medium.m,
+      Slave1.state = 1;
+
+  process Slave1_User1 
+    guardBlock
+      temp bool t_218 = Slave1.state == 1,
+      temp int t_219 = Slave1.m % 100,
+      temp int t_220 = t_219 / 10,
+      temp bool t_221 = t_220 == 1,
+      temp int t_222 = Slave1.m / 100,
+      temp bool t_223 = t_222 != 0,
+      temp bool t_224 = t_221 and t_223,
+      temp bool t_225 = t_218 and t_224,
+      temp bool t_226 = User1.state == 0,
+      temp bool t_227 = t_225 and t_226;
+
+    guardCondition t_227;
+    effect
+      Slave1.state = 0,
+      temp int t_228 = Slave1.m / 100,
+      User1.m = t_228,
+      User1.state = 1;
+
+  process Medium_Master 
+    guardBlock
+      temp bool t_229 = Medium.state == 2,
+      temp int t_230 = Medium.m % 10,
+      temp bool t_231 = 0 != t_230,
+      temp bool t_232 = 0 == Medium.i,
+      temp bool t_233 = t_231 and t_232,
+      temp bool t_234 = t_229 and t_233,
+      temp bool t_235 = Master.state == 1,
+      temp bool t_236 = t_234 and t_235;
+
+    guardCondition t_236;
+    effect
+      Medium.state = 2,
+      temp byte t_237 = Medium.i + 1,
+      Medium.i = t_237,
+      Master.m = Medium.m,
+      Master.state = 1;
+
+

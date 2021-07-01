@@ -8,9 +8,9 @@ state {NCS(0), try(1), wait(2), CS(3)} P_5.state = 0;
 state {NCS(0), try(1), wait(2), CS(3)} P_6.state = 0;
 state {q1(0), q2(1)} LTL_property.state = 0;
 byte id = 0;
-byte t[8] =  {255, 255, 255, 255, 255, 255, 255};
+byte t[7] = {255, 255, 255, 255, 255, 255, 255};
 
-  process Timer
+  process Timer 
     guardBlock
       temp bool t_0 = Timer.state == 0,
       temp byte t_1 = t[0],
@@ -34,90 +34,94 @@ byte t[8] =  {255, 255, 255, 255, 255, 255, 255};
       temp bool t_19 = t_18 != 0,
       temp bool t_20 = t_17 and t_19,
       temp bool t_21 = t_0 and t_20;
+
     guardCondition t_21;
     effect
       Timer.state = 0,
       temp byte t_22 = t[0],
-      temp int t_23 = t_22 - 1,
+      temp byte t_23 = t_22 - 1,
       temp byte t_24 = t[0],
       temp bool t_25 = t_24 == 255,
-      temp int t_26 = t_25 * 255,
-      temp int t_27 = t_23 or t_26,
+      temp byte t_26 = t_25 * 255,
+      temp byte t_27 = t_23 or t_26,
       t[0] = t_27,
       temp byte t_28 = t[1],
-      temp int t_29 = t_28 - 1,
+      temp byte t_29 = t_28 - 1,
       temp byte t_30 = t[1],
       temp bool t_31 = t_30 == 255,
-      temp int t_32 = t_31 * 255,
-      temp int t_33 = t_29 or t_32,
+      temp byte t_32 = t_31 * 255,
+      temp byte t_33 = t_29 or t_32,
       t[1] = t_33,
       temp byte t_34 = t[2],
-      temp int t_35 = t_34 - 1,
+      temp byte t_35 = t_34 - 1,
       temp byte t_36 = t[2],
       temp bool t_37 = t_36 == 255,
-      temp int t_38 = t_37 * 255,
-      temp int t_39 = t_35 or t_38,
+      temp byte t_38 = t_37 * 255,
+      temp byte t_39 = t_35 or t_38,
       t[2] = t_39,
       temp byte t_40 = t[3],
-      temp int t_41 = t_40 - 1,
+      temp byte t_41 = t_40 - 1,
       temp byte t_42 = t[3],
       temp bool t_43 = t_42 == 255,
-      temp int t_44 = t_43 * 255,
-      temp int t_45 = t_41 or t_44,
+      temp byte t_44 = t_43 * 255,
+      temp byte t_45 = t_41 or t_44,
       t[3] = t_45,
       temp byte t_46 = t[4],
-      temp int t_47 = t_46 - 1,
+      temp byte t_47 = t_46 - 1,
       temp byte t_48 = t[4],
       temp bool t_49 = t_48 == 255,
-      temp int t_50 = t_49 * 255,
-      temp int t_51 = t_47 or t_50,
+      temp byte t_50 = t_49 * 255,
+      temp byte t_51 = t_47 or t_50,
       t[4] = t_51,
       temp byte t_52 = t[5],
-      temp int t_53 = t_52 - 1,
+      temp byte t_53 = t_52 - 1,
       temp byte t_54 = t[5],
       temp bool t_55 = t_54 == 255,
-      temp int t_56 = t_55 * 255,
-      temp int t_57 = t_53 or t_56,
+      temp byte t_56 = t_55 * 255,
+      temp byte t_57 = t_53 or t_56,
       t[5] = t_57,
       temp byte t_58 = t[6],
-      temp int t_59 = t_58 - 1,
+      temp byte t_59 = t_58 - 1,
       temp byte t_60 = t[6],
       temp bool t_61 = t_60 == 255,
-      temp int t_62 = t_61 * 255,
-      temp int t_63 = t_59 or t_62,
+      temp byte t_62 = t_61 * 255,
+      temp byte t_63 = t_59 or t_62,
       t[6] = t_63;
 
-  process P_0
+  process P_0 
     guardBlock
       temp bool t_64 = P_0.state == 0,
       temp bool t_65 = id == 0,
       temp bool t_66 = t_64 and t_65;
+
     guardCondition t_66;
     effect
       P_0.state = 1,
       t[0] = 2;
 
-  process P_0
+  process P_0 
     guardBlock
       temp bool t_67 = P_0.state == 1;
+
     guardCondition t_67;
     effect
       P_0.state = 2,
       t[0] = 3,
       id = 1;
 
-  process P_0
+  process P_0 
     guardBlock
       temp bool t_68 = P_0.state == 2,
       temp byte t_69 = t[0],
       temp bool t_70 = t_69 == 0,
       temp bool t_71 = t_68 and t_70;
+
     guardCondition t_71;
     effect
       P_0.state = 2,
       t[0] = 255;
 
-  process P_0
+  process P_0 
     guardBlock
       temp bool t_72 = P_0.state == 2,
       temp byte t_73 = t[0],
@@ -125,11 +129,12 @@ byte t[8] =  {255, 255, 255, 255, 255, 255, 255};
       temp bool t_75 = id == 1,
       temp bool t_76 = t_74 and t_75,
       temp bool t_77 = t_72 and t_76;
+
     guardCondition t_77;
     effect
       P_0.state = 3;
 
-  process P_0
+  process P_0 
     guardBlock
       temp bool t_78 = P_0.state == 2,
       temp bool t_79 = id != 1,
@@ -137,49 +142,54 @@ byte t[8] =  {255, 255, 255, 255, 255, 255, 255};
       temp bool t_81 = t_80 == 255,
       temp bool t_82 = t_79 and t_81,
       temp bool t_83 = t_78 and t_82;
+
     guardCondition t_83;
     effect
       P_0.state = 0;
 
-  process P_0
+  process P_0 
     guardBlock
       temp bool t_84 = P_0.state == 3;
+
     guardCondition t_84;
     effect
       P_0.state = 0,
       id = 0;
 
-  process P_1
+  process P_1 
     guardBlock
       temp bool t_85 = P_1.state == 0,
       temp bool t_86 = id == 0,
       temp bool t_87 = t_85 and t_86;
+
     guardCondition t_87;
     effect
       P_1.state = 1,
       t[1] = 2;
 
-  process P_1
+  process P_1 
     guardBlock
       temp bool t_88 = P_1.state == 1;
+
     guardCondition t_88;
     effect
       P_1.state = 2,
       t[1] = 3,
       id = 2;
 
-  process P_1
+  process P_1 
     guardBlock
       temp bool t_89 = P_1.state == 2,
       temp byte t_90 = t[1],
       temp bool t_91 = t_90 == 0,
       temp bool t_92 = t_89 and t_91;
+
     guardCondition t_92;
     effect
       P_1.state = 2,
       t[1] = 255;
 
-  process P_1
+  process P_1 
     guardBlock
       temp bool t_93 = P_1.state == 2,
       temp byte t_94 = t[1],
@@ -187,11 +197,12 @@ byte t[8] =  {255, 255, 255, 255, 255, 255, 255};
       temp bool t_96 = id == 2,
       temp bool t_97 = t_95 and t_96,
       temp bool t_98 = t_93 and t_97;
+
     guardCondition t_98;
     effect
       P_1.state = 3;
 
-  process P_1
+  process P_1 
     guardBlock
       temp bool t_99 = P_1.state == 2,
       temp bool t_100 = id != 2,
@@ -199,49 +210,54 @@ byte t[8] =  {255, 255, 255, 255, 255, 255, 255};
       temp bool t_102 = t_101 == 255,
       temp bool t_103 = t_100 and t_102,
       temp bool t_104 = t_99 and t_103;
+
     guardCondition t_104;
     effect
       P_1.state = 0;
 
-  process P_1
+  process P_1 
     guardBlock
       temp bool t_105 = P_1.state == 3;
+
     guardCondition t_105;
     effect
       P_1.state = 0,
       id = 0;
 
-  process P_2
+  process P_2 
     guardBlock
       temp bool t_106 = P_2.state == 0,
       temp bool t_107 = id == 0,
       temp bool t_108 = t_106 and t_107;
+
     guardCondition t_108;
     effect
       P_2.state = 1,
       t[2] = 2;
 
-  process P_2
+  process P_2 
     guardBlock
       temp bool t_109 = P_2.state == 1;
+
     guardCondition t_109;
     effect
       P_2.state = 2,
       t[2] = 3,
       id = 3;
 
-  process P_2
+  process P_2 
     guardBlock
       temp bool t_110 = P_2.state == 2,
       temp byte t_111 = t[2],
       temp bool t_112 = t_111 == 0,
       temp bool t_113 = t_110 and t_112;
+
     guardCondition t_113;
     effect
       P_2.state = 2,
       t[2] = 255;
 
-  process P_2
+  process P_2 
     guardBlock
       temp bool t_114 = P_2.state == 2,
       temp byte t_115 = t[2],
@@ -249,11 +265,12 @@ byte t[8] =  {255, 255, 255, 255, 255, 255, 255};
       temp bool t_117 = id == 3,
       temp bool t_118 = t_116 and t_117,
       temp bool t_119 = t_114 and t_118;
+
     guardCondition t_119;
     effect
       P_2.state = 3;
 
-  process P_2
+  process P_2 
     guardBlock
       temp bool t_120 = P_2.state == 2,
       temp bool t_121 = id != 3,
@@ -261,49 +278,54 @@ byte t[8] =  {255, 255, 255, 255, 255, 255, 255};
       temp bool t_123 = t_122 == 255,
       temp bool t_124 = t_121 and t_123,
       temp bool t_125 = t_120 and t_124;
+
     guardCondition t_125;
     effect
       P_2.state = 0;
 
-  process P_2
+  process P_2 
     guardBlock
       temp bool t_126 = P_2.state == 3;
+
     guardCondition t_126;
     effect
       P_2.state = 0,
       id = 0;
 
-  process P_3
+  process P_3 
     guardBlock
       temp bool t_127 = P_3.state == 0,
       temp bool t_128 = id == 0,
       temp bool t_129 = t_127 and t_128;
+
     guardCondition t_129;
     effect
       P_3.state = 1,
       t[3] = 2;
 
-  process P_3
+  process P_3 
     guardBlock
       temp bool t_130 = P_3.state == 1;
+
     guardCondition t_130;
     effect
       P_3.state = 2,
       t[3] = 3,
       id = 4;
 
-  process P_3
+  process P_3 
     guardBlock
       temp bool t_131 = P_3.state == 2,
       temp byte t_132 = t[3],
       temp bool t_133 = t_132 == 0,
       temp bool t_134 = t_131 and t_133;
+
     guardCondition t_134;
     effect
       P_3.state = 2,
       t[3] = 255;
 
-  process P_3
+  process P_3 
     guardBlock
       temp bool t_135 = P_3.state == 2,
       temp byte t_136 = t[3],
@@ -311,11 +333,12 @@ byte t[8] =  {255, 255, 255, 255, 255, 255, 255};
       temp bool t_138 = id == 4,
       temp bool t_139 = t_137 and t_138,
       temp bool t_140 = t_135 and t_139;
+
     guardCondition t_140;
     effect
       P_3.state = 3;
 
-  process P_3
+  process P_3 
     guardBlock
       temp bool t_141 = P_3.state == 2,
       temp bool t_142 = id != 4,
@@ -323,49 +346,54 @@ byte t[8] =  {255, 255, 255, 255, 255, 255, 255};
       temp bool t_144 = t_143 == 255,
       temp bool t_145 = t_142 and t_144,
       temp bool t_146 = t_141 and t_145;
+
     guardCondition t_146;
     effect
       P_3.state = 0;
 
-  process P_3
+  process P_3 
     guardBlock
       temp bool t_147 = P_3.state == 3;
+
     guardCondition t_147;
     effect
       P_3.state = 0,
       id = 0;
 
-  process P_4
+  process P_4 
     guardBlock
       temp bool t_148 = P_4.state == 0,
       temp bool t_149 = id == 0,
       temp bool t_150 = t_148 and t_149;
+
     guardCondition t_150;
     effect
       P_4.state = 1,
       t[4] = 2;
 
-  process P_4
+  process P_4 
     guardBlock
       temp bool t_151 = P_4.state == 1;
+
     guardCondition t_151;
     effect
       P_4.state = 2,
       t[4] = 3,
       id = 5;
 
-  process P_4
+  process P_4 
     guardBlock
       temp bool t_152 = P_4.state == 2,
       temp byte t_153 = t[4],
       temp bool t_154 = t_153 == 0,
       temp bool t_155 = t_152 and t_154;
+
     guardCondition t_155;
     effect
       P_4.state = 2,
       t[4] = 255;
 
-  process P_4
+  process P_4 
     guardBlock
       temp bool t_156 = P_4.state == 2,
       temp byte t_157 = t[4],
@@ -373,11 +401,12 @@ byte t[8] =  {255, 255, 255, 255, 255, 255, 255};
       temp bool t_159 = id == 5,
       temp bool t_160 = t_158 and t_159,
       temp bool t_161 = t_156 and t_160;
+
     guardCondition t_161;
     effect
       P_4.state = 3;
 
-  process P_4
+  process P_4 
     guardBlock
       temp bool t_162 = P_4.state == 2,
       temp bool t_163 = id != 5,
@@ -385,49 +414,54 @@ byte t[8] =  {255, 255, 255, 255, 255, 255, 255};
       temp bool t_165 = t_164 == 255,
       temp bool t_166 = t_163 and t_165,
       temp bool t_167 = t_162 and t_166;
+
     guardCondition t_167;
     effect
       P_4.state = 0;
 
-  process P_4
+  process P_4 
     guardBlock
       temp bool t_168 = P_4.state == 3;
+
     guardCondition t_168;
     effect
       P_4.state = 0,
       id = 0;
 
-  process P_5
+  process P_5 
     guardBlock
       temp bool t_169 = P_5.state == 0,
       temp bool t_170 = id == 0,
       temp bool t_171 = t_169 and t_170;
+
     guardCondition t_171;
     effect
       P_5.state = 1,
       t[5] = 2;
 
-  process P_5
+  process P_5 
     guardBlock
       temp bool t_172 = P_5.state == 1;
+
     guardCondition t_172;
     effect
       P_5.state = 2,
       t[5] = 3,
       id = 6;
 
-  process P_5
+  process P_5 
     guardBlock
       temp bool t_173 = P_5.state == 2,
       temp byte t_174 = t[5],
       temp bool t_175 = t_174 == 0,
       temp bool t_176 = t_173 and t_175;
+
     guardCondition t_176;
     effect
       P_5.state = 2,
       t[5] = 255;
 
-  process P_5
+  process P_5 
     guardBlock
       temp bool t_177 = P_5.state == 2,
       temp byte t_178 = t[5],
@@ -435,11 +469,12 @@ byte t[8] =  {255, 255, 255, 255, 255, 255, 255};
       temp bool t_180 = id == 6,
       temp bool t_181 = t_179 and t_180,
       temp bool t_182 = t_177 and t_181;
+
     guardCondition t_182;
     effect
       P_5.state = 3;
 
-  process P_5
+  process P_5 
     guardBlock
       temp bool t_183 = P_5.state == 2,
       temp bool t_184 = id != 6,
@@ -447,49 +482,54 @@ byte t[8] =  {255, 255, 255, 255, 255, 255, 255};
       temp bool t_186 = t_185 == 255,
       temp bool t_187 = t_184 and t_186,
       temp bool t_188 = t_183 and t_187;
+
     guardCondition t_188;
     effect
       P_5.state = 0;
 
-  process P_5
+  process P_5 
     guardBlock
       temp bool t_189 = P_5.state == 3;
+
     guardCondition t_189;
     effect
       P_5.state = 0,
       id = 0;
 
-  process P_6
+  process P_6 
     guardBlock
       temp bool t_190 = P_6.state == 0,
       temp bool t_191 = id == 0,
       temp bool t_192 = t_190 and t_191;
+
     guardCondition t_192;
     effect
       P_6.state = 1,
       t[6] = 2;
 
-  process P_6
+  process P_6 
     guardBlock
       temp bool t_193 = P_6.state == 1;
+
     guardCondition t_193;
     effect
       P_6.state = 2,
       t[6] = 3,
       id = 7;
 
-  process P_6
+  process P_6 
     guardBlock
       temp bool t_194 = P_6.state == 2,
       temp byte t_195 = t[6],
       temp bool t_196 = t_195 == 0,
       temp bool t_197 = t_194 and t_196;
+
     guardCondition t_197;
     effect
       P_6.state = 2,
       t[6] = 255;
 
-  process P_6
+  process P_6 
     guardBlock
       temp bool t_198 = P_6.state == 2,
       temp byte t_199 = t[6],
@@ -497,11 +537,12 @@ byte t[8] =  {255, 255, 255, 255, 255, 255, 255};
       temp bool t_201 = id == 7,
       temp bool t_202 = t_200 and t_201,
       temp bool t_203 = t_198 and t_202;
+
     guardCondition t_203;
     effect
       P_6.state = 3;
 
-  process P_6
+  process P_6 
     guardBlock
       temp bool t_204 = P_6.state == 2,
       temp bool t_205 = id != 7,
@@ -509,26 +550,29 @@ byte t[8] =  {255, 255, 255, 255, 255, 255, 255};
       temp bool t_207 = t_206 == 255,
       temp bool t_208 = t_205 and t_207,
       temp bool t_209 = t_204 and t_208;
+
     guardCondition t_209;
     effect
       P_6.state = 0;
 
-  process P_6
+  process P_6 
     guardBlock
       temp bool t_210 = P_6.state == 3;
+
     guardCondition t_210;
     effect
       P_6.state = 0,
       id = 0;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_211 = LTL_property.state == 0;
+
     guardCondition t_211;
     effect
       LTL_property.state = 0;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_212 = LTL_property.state == 0,
       temp bool t_213 = P_0.state == 1,
@@ -536,18 +580,22 @@ byte t[8] =  {255, 255, 255, 255, 255, 255, 255};
       temp bool t_215 = not t_214,
       temp bool t_216 = t_213 and t_215,
       temp bool t_217 = t_212 and t_216;
+
     guardCondition t_217;
     effect
       LTL_property.state = 1;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_218 = LTL_property.state == 1,
       temp bool t_219 = P_0.state == 3,
       temp bool t_220 = not t_219,
       temp bool t_221 = t_218 and t_220;
+
     guardCondition t_221;
     effect
       LTL_property.state = 1;
-      // accepting conditions
-      // LTL_property.state == 1
+
+accepting conditions
+  LTL_property.state == 1
+

@@ -8,7 +8,7 @@ state {idle(0), start(1), RT_action(2), NRT_action(3), want_RT(4), reserved(5), 
 state {idle(0), start(1), RT_action(2), NRT_action(3), want_RT(4), reserved(5), finish(6), error_st(7), wait_ok(8)} Node_6.state = 0;
 state {start(0), RT_phase(1), RT_wait(2), NRT_phase(3), NRT_wait(4), cycle_end(5)} Token.state = 0;
 state {q1(0), q2(1), q3(2), q4(3), q5(4), q6(5), q7(6)} LTL_property.state = 1;
-byte in_RT[8] =  {0, 0, 0, 0, 0, 0, 0};
+byte in_RT[7] = {0, 0, 0, 0, 0, 0, 0};
 byte RT_count = 0;
 byte Bandwidth.i = 0;
 byte Node_0.rt = 0;
@@ -29,368 +29,412 @@ byte Token.i = 0;
 byte Token.NRT_count = 3;
 byte Token.next = 0;
 
-  process Bandwidth
+  process Bandwidth 
     guardBlock
       temp bool t_0 = Bandwidth.state == 1,
       temp byte t_1 = in_RT[Bandwidth.i],
       temp bool t_2 = t_1 == 0,
       temp bool t_3 = t_0 and t_2;
+
     guardCondition t_3;
     effect
       Bandwidth.state = 3;
 
-  process Node_0
+  process Node_0 
     guardBlock
       temp bool t_4 = Node_0.state == 1,
       temp bool t_5 = Node_0.rt == 1,
       temp bool t_6 = t_4 and t_5;
+
     guardCondition t_6;
     effect
       Node_0.state = 2;
 
-  process Node_0
+  process Node_0 
     guardBlock
       temp bool t_7 = Node_0.state == 1,
       temp bool t_8 = Node_0.rt == 0,
       temp bool t_9 = t_7 and t_8;
+
     guardCondition t_9;
     effect
       Node_0.state = 3;
 
-  process Node_0
+  process Node_0 
     guardBlock
       temp bool t_10 = Node_0.state == 2,
       temp bool t_11 = Node_0.granted == 0,
       temp bool t_12 = t_10 and t_11;
+
     guardCondition t_12;
     effect
       Node_0.state = 7;
 
-  process Node_0
+  process Node_0 
     guardBlock
       temp bool t_13 = Node_0.state == 2;
+
     guardCondition t_13;
     effect
       Node_0.state = 6;
 
-  process Node_0
+  process Node_0 
     guardBlock
       temp bool t_14 = Node_0.state == 3;
+
     guardCondition t_14;
     effect
       Node_0.state = 6;
 
-  process Node_0
+  process Node_0 
     guardBlock
       temp bool t_15 = Node_0.state == 5;
+
     guardCondition t_15;
     effect
       Node_0.state = 6,
       Node_0.granted = 1;
 
-  process Node_1
+  process Node_1 
     guardBlock
       temp bool t_16 = Node_1.state == 1,
       temp bool t_17 = Node_1.rt == 1,
       temp bool t_18 = t_16 and t_17;
+
     guardCondition t_18;
     effect
       Node_1.state = 2;
 
-  process Node_1
+  process Node_1 
     guardBlock
       temp bool t_19 = Node_1.state == 1,
       temp bool t_20 = Node_1.rt == 0,
       temp bool t_21 = t_19 and t_20;
+
     guardCondition t_21;
     effect
       Node_1.state = 3;
 
-  process Node_1
+  process Node_1 
     guardBlock
       temp bool t_22 = Node_1.state == 2,
       temp bool t_23 = Node_1.granted == 0,
       temp bool t_24 = t_22 and t_23;
+
     guardCondition t_24;
     effect
       Node_1.state = 7;
 
-  process Node_1
+  process Node_1 
     guardBlock
       temp bool t_25 = Node_1.state == 2;
+
     guardCondition t_25;
     effect
       Node_1.state = 6;
 
-  process Node_1
+  process Node_1 
     guardBlock
       temp bool t_26 = Node_1.state == 3;
+
     guardCondition t_26;
     effect
       Node_1.state = 6;
 
-  process Node_1
+  process Node_1 
     guardBlock
       temp bool t_27 = Node_1.state == 5;
+
     guardCondition t_27;
     effect
       Node_1.state = 6,
       Node_1.granted = 1;
 
-  process Node_2
+  process Node_2 
     guardBlock
       temp bool t_28 = Node_2.state == 1,
       temp bool t_29 = Node_2.rt == 1,
       temp bool t_30 = t_28 and t_29;
+
     guardCondition t_30;
     effect
       Node_2.state = 2;
 
-  process Node_2
+  process Node_2 
     guardBlock
       temp bool t_31 = Node_2.state == 1,
       temp bool t_32 = Node_2.rt == 0,
       temp bool t_33 = t_31 and t_32;
+
     guardCondition t_33;
     effect
       Node_2.state = 3;
 
-  process Node_2
+  process Node_2 
     guardBlock
       temp bool t_34 = Node_2.state == 2,
       temp bool t_35 = Node_2.granted == 0,
       temp bool t_36 = t_34 and t_35;
+
     guardCondition t_36;
     effect
       Node_2.state = 7;
 
-  process Node_2
+  process Node_2 
     guardBlock
       temp bool t_37 = Node_2.state == 2;
+
     guardCondition t_37;
     effect
       Node_2.state = 6;
 
-  process Node_2
+  process Node_2 
     guardBlock
       temp bool t_38 = Node_2.state == 3;
+
     guardCondition t_38;
     effect
       Node_2.state = 6;
 
-  process Node_2
+  process Node_2 
     guardBlock
       temp bool t_39 = Node_2.state == 5;
+
     guardCondition t_39;
     effect
       Node_2.state = 6,
       Node_2.granted = 1;
 
-  process Node_3
+  process Node_3 
     guardBlock
       temp bool t_40 = Node_3.state == 1,
       temp bool t_41 = Node_3.rt == 1,
       temp bool t_42 = t_40 and t_41;
+
     guardCondition t_42;
     effect
       Node_3.state = 2;
 
-  process Node_3
+  process Node_3 
     guardBlock
       temp bool t_43 = Node_3.state == 1,
       temp bool t_44 = Node_3.rt == 0,
       temp bool t_45 = t_43 and t_44;
+
     guardCondition t_45;
     effect
       Node_3.state = 3;
 
-  process Node_3
+  process Node_3 
     guardBlock
       temp bool t_46 = Node_3.state == 2,
       temp bool t_47 = Node_3.granted == 0,
       temp bool t_48 = t_46 and t_47;
+
     guardCondition t_48;
     effect
       Node_3.state = 7;
 
-  process Node_3
+  process Node_3 
     guardBlock
       temp bool t_49 = Node_3.state == 2;
+
     guardCondition t_49;
     effect
       Node_3.state = 6;
 
-  process Node_3
+  process Node_3 
     guardBlock
       temp bool t_50 = Node_3.state == 3;
+
     guardCondition t_50;
     effect
       Node_3.state = 6;
 
-  process Node_3
+  process Node_3 
     guardBlock
       temp bool t_51 = Node_3.state == 5;
+
     guardCondition t_51;
     effect
       Node_3.state = 6,
       Node_3.granted = 1;
 
-  process Node_4
+  process Node_4 
     guardBlock
       temp bool t_52 = Node_4.state == 1,
       temp bool t_53 = Node_4.rt == 1,
       temp bool t_54 = t_52 and t_53;
+
     guardCondition t_54;
     effect
       Node_4.state = 2;
 
-  process Node_4
+  process Node_4 
     guardBlock
       temp bool t_55 = Node_4.state == 1,
       temp bool t_56 = Node_4.rt == 0,
       temp bool t_57 = t_55 and t_56;
+
     guardCondition t_57;
     effect
       Node_4.state = 3;
 
-  process Node_4
+  process Node_4 
     guardBlock
       temp bool t_58 = Node_4.state == 2,
       temp bool t_59 = Node_4.granted == 0,
       temp bool t_60 = t_58 and t_59;
+
     guardCondition t_60;
     effect
       Node_4.state = 7;
 
-  process Node_4
+  process Node_4 
     guardBlock
       temp bool t_61 = Node_4.state == 2;
+
     guardCondition t_61;
     effect
       Node_4.state = 6;
 
-  process Node_4
+  process Node_4 
     guardBlock
       temp bool t_62 = Node_4.state == 3;
+
     guardCondition t_62;
     effect
       Node_4.state = 6;
 
-  process Node_4
+  process Node_4 
     guardBlock
       temp bool t_63 = Node_4.state == 5;
+
     guardCondition t_63;
     effect
       Node_4.state = 6,
       Node_4.granted = 1;
 
-  process Node_5
+  process Node_5 
     guardBlock
       temp bool t_64 = Node_5.state == 1,
       temp bool t_65 = Node_5.rt == 1,
       temp bool t_66 = t_64 and t_65;
+
     guardCondition t_66;
     effect
       Node_5.state = 2;
 
-  process Node_5
+  process Node_5 
     guardBlock
       temp bool t_67 = Node_5.state == 1,
       temp bool t_68 = Node_5.rt == 0,
       temp bool t_69 = t_67 and t_68;
+
     guardCondition t_69;
     effect
       Node_5.state = 3;
 
-  process Node_5
+  process Node_5 
     guardBlock
       temp bool t_70 = Node_5.state == 2,
       temp bool t_71 = Node_5.granted == 0,
       temp bool t_72 = t_70 and t_71;
+
     guardCondition t_72;
     effect
       Node_5.state = 7;
 
-  process Node_5
+  process Node_5 
     guardBlock
       temp bool t_73 = Node_5.state == 2;
+
     guardCondition t_73;
     effect
       Node_5.state = 6;
 
-  process Node_5
+  process Node_5 
     guardBlock
       temp bool t_74 = Node_5.state == 3;
+
     guardCondition t_74;
     effect
       Node_5.state = 6;
 
-  process Node_5
+  process Node_5 
     guardBlock
       temp bool t_75 = Node_5.state == 5;
+
     guardCondition t_75;
     effect
       Node_5.state = 6,
       Node_5.granted = 1;
 
-  process Node_6
+  process Node_6 
     guardBlock
       temp bool t_76 = Node_6.state == 1,
       temp bool t_77 = Node_6.rt == 1,
       temp bool t_78 = t_76 and t_77;
+
     guardCondition t_78;
     effect
       Node_6.state = 2;
 
-  process Node_6
+  process Node_6 
     guardBlock
       temp bool t_79 = Node_6.state == 1,
       temp bool t_80 = Node_6.rt == 0,
       temp bool t_81 = t_79 and t_80;
+
     guardCondition t_81;
     effect
       Node_6.state = 3;
 
-  process Node_6
+  process Node_6 
     guardBlock
       temp bool t_82 = Node_6.state == 2,
       temp bool t_83 = Node_6.granted == 0,
       temp bool t_84 = t_82 and t_83;
+
     guardCondition t_84;
     effect
       Node_6.state = 7;
 
-  process Node_6
+  process Node_6 
     guardBlock
       temp bool t_85 = Node_6.state == 2;
+
     guardCondition t_85;
     effect
       Node_6.state = 6;
 
-  process Node_6
+  process Node_6 
     guardBlock
       temp bool t_86 = Node_6.state == 3;
+
     guardCondition t_86;
     effect
       Node_6.state = 6;
 
-  process Node_6
+  process Node_6 
     guardBlock
       temp bool t_87 = Node_6.state == 5;
+
     guardCondition t_87;
     effect
       Node_6.state = 6,
       Node_6.granted = 1;
 
-  process Token
+  process Token 
     guardBlock
       temp bool t_88 = Token.state == 0;
+
     guardCondition t_88;
     effect
       Token.state = 1,
       Token.i = 0;
 
-  process Token
+  process Token 
     guardBlock
       temp bool t_89 = Token.state == 1,
       temp bool t_90 = Token.i < 7,
@@ -398,54 +442,60 @@ byte Token.next = 0;
       temp bool t_92 = t_91 == 0,
       temp bool t_93 = t_90 and t_92,
       temp bool t_94 = t_89 and t_93;
+
     guardCondition t_94;
     effect
       Token.state = 1,
-      temp int t_95 = Token.i + 1,
+      temp byte t_95 = Token.i + 1,
       Token.i = t_95;
 
-  process Token
+  process Token 
     guardBlock
       temp bool t_96 = Token.state == 1,
       temp bool t_97 = Token.i == 7,
       temp bool t_98 = t_96 and t_97;
+
     guardCondition t_98;
     effect
       Token.state = 3;
 
-  process Token
+  process Token 
     guardBlock
       temp bool t_99 = Token.state == 3,
       temp bool t_100 = Token.NRT_count == 0,
       temp bool t_101 = t_99 and t_100;
+
     guardCondition t_101;
     effect
       Token.state = 5;
 
-  process Token
+  process Token 
     guardBlock
       temp bool t_102 = Token.state == 5;
+
     guardCondition t_102;
     effect
       Token.state = 0,
-      temp int t_103 = 3 - RT_count,
+      temp byte t_103 = 3 - RT_count,
       Token.NRT_count = t_103;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_104 = LTL_property.state == 0;
+
     guardCondition t_104;
     effect
       LTL_property.state = 0;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_105 = LTL_property.state == 1;
+
     guardCondition t_105;
     effect
       LTL_property.state = 1;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_106 = LTL_property.state == 1,
       temp bool t_107 = Node_0.state == 4,
@@ -453,60 +503,66 @@ byte Token.next = 0;
       temp bool t_109 = not t_108,
       temp bool t_110 = t_107 and t_109,
       temp bool t_111 = t_106 and t_110;
+
     guardCondition t_111;
     effect
       LTL_property.state = 2;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_112 = LTL_property.state == 1,
       temp bool t_113 = Node_0.state == 4,
       temp bool t_114 = Token.state == 5,
       temp bool t_115 = t_113 and t_114,
       temp bool t_116 = t_112 and t_115;
+
     guardCondition t_116;
     effect
       LTL_property.state = 3;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_117 = LTL_property.state == 2,
       temp bool t_118 = Node_0.state == 2,
       temp bool t_119 = not t_118,
       temp bool t_120 = t_117 and t_119;
+
     guardCondition t_120;
     effect
       LTL_property.state = 2;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_121 = LTL_property.state == 2,
       temp bool t_122 = Token.state == 5,
       temp bool t_123 = t_121 and t_122;
+
     guardCondition t_123;
     effect
       LTL_property.state = 4;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_124 = LTL_property.state == 3,
       temp bool t_125 = Node_0.state == 2,
       temp bool t_126 = not t_125,
       temp bool t_127 = t_124 and t_126;
+
     guardCondition t_127;
     effect
       LTL_property.state = 5;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_128 = LTL_property.state == 3,
       temp bool t_129 = Token.state == 5,
       temp bool t_130 = t_128 and t_129;
+
     guardCondition t_130;
     effect
       LTL_property.state = 4;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_131 = LTL_property.state == 3,
       temp bool t_132 = Node_0.state == 2,
@@ -515,30 +571,33 @@ byte Token.next = 0;
       temp bool t_135 = not t_134,
       temp bool t_136 = t_133 and t_135,
       temp bool t_137 = t_131 and t_136;
+
     guardCondition t_137;
     effect
       LTL_property.state = 6;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_138 = LTL_property.state == 4,
       temp bool t_139 = Node_0.state == 2,
       temp bool t_140 = not t_139,
       temp bool t_141 = t_138 and t_140;
+
     guardCondition t_141;
     effect
       LTL_property.state = 3;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_142 = LTL_property.state == 4,
       temp bool t_143 = Token.state == 5,
       temp bool t_144 = t_142 and t_143;
+
     guardCondition t_144;
     effect
       LTL_property.state = 3;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_145 = LTL_property.state == 4,
       temp bool t_146 = Node_0.state == 2,
@@ -547,30 +606,33 @@ byte Token.next = 0;
       temp bool t_149 = not t_148,
       temp bool t_150 = t_147 and t_149,
       temp bool t_151 = t_145 and t_150;
+
     guardCondition t_151;
     effect
       LTL_property.state = 6;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_152 = LTL_property.state == 5,
       temp bool t_153 = Node_0.state == 2,
       temp bool t_154 = not t_153,
       temp bool t_155 = t_152 and t_154;
+
     guardCondition t_155;
     effect
       LTL_property.state = 5;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_156 = LTL_property.state == 5,
       temp bool t_157 = Token.state == 5,
       temp bool t_158 = t_156 and t_157;
+
     guardCondition t_158;
     effect
       LTL_property.state = 4;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_159 = LTL_property.state == 5,
       temp bool t_160 = Node_0.state == 2,
@@ -579,910 +641,978 @@ byte Token.next = 0;
       temp bool t_163 = not t_162,
       temp bool t_164 = t_161 and t_163,
       temp bool t_165 = t_159 and t_164;
+
     guardCondition t_165;
     effect
       LTL_property.state = 6;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_166 = LTL_property.state == 6,
       temp bool t_167 = Node_0.state == 2,
       temp bool t_168 = not t_167,
       temp bool t_169 = t_166 and t_168;
+
     guardCondition t_169;
     effect
       LTL_property.state = 6;
 
-  process LTL_property
+  process LTL_property 
     guardBlock
       temp bool t_170 = LTL_property.state == 6,
       temp bool t_171 = Token.state == 5,
       temp bool t_172 = t_170 and t_171;
+
     guardCondition t_172;
     effect
       LTL_property.state = 0;
 
-  process Token_Node_6
+  process Bandwidth_Node_0 
     guardBlock
-      temp bool t_173 = Token.state == 1,
-      temp bool t_174 = Token.i == 6,
-      temp byte t_175 = in_RT[Token.i],
-      temp bool t_176 = t_175 == 1,
-      temp bool t_177 = t_174 and t_176,
-      temp bool t_178 = t_173 and t_177,
-      temp bool t_179 = Node_6.state == 0,
-      temp bool t_180 = t_178 and t_179;
-    guardCondition t_180;
+      temp bool t_173 = Bandwidth.state == 2,
+      temp bool t_174 = RT_count < 2,
+      temp bool t_175 = t_173 and t_174,
+      temp bool t_176 = Node_0.state == 4,
+      temp bool t_177 = t_175 and t_176;
+
+    guardCondition t_177;
+    effect
+      Bandwidth.state = 0,
+      temp byte t_178 = RT_count + 1,
+      RT_count = t_178,
+      in_RT[Bandwidth.i] = 1,
+      Node_0.state = 5;
+
+  process Bandwidth_Node_1 
+    guardBlock
+      temp bool t_179 = Bandwidth.state == 2,
+      temp bool t_180 = RT_count < 2,
+      temp bool t_181 = t_179 and t_180,
+      temp bool t_182 = Node_1.state == 4,
+      temp bool t_183 = t_181 and t_182;
+
+    guardCondition t_183;
+    effect
+      Bandwidth.state = 0,
+      temp byte t_184 = RT_count + 1,
+      RT_count = t_184,
+      in_RT[Bandwidth.i] = 1,
+      Node_1.state = 5;
+
+  process Bandwidth_Node_2 
+    guardBlock
+      temp bool t_185 = Bandwidth.state == 2,
+      temp bool t_186 = RT_count < 2,
+      temp bool t_187 = t_185 and t_186,
+      temp bool t_188 = Node_2.state == 4,
+      temp bool t_189 = t_187 and t_188;
+
+    guardCondition t_189;
+    effect
+      Bandwidth.state = 0,
+      temp byte t_190 = RT_count + 1,
+      RT_count = t_190,
+      in_RT[Bandwidth.i] = 1,
+      Node_2.state = 5;
+
+  process Bandwidth_Node_3 
+    guardBlock
+      temp bool t_191 = Bandwidth.state == 2,
+      temp bool t_192 = RT_count < 2,
+      temp bool t_193 = t_191 and t_192,
+      temp bool t_194 = Node_3.state == 4,
+      temp bool t_195 = t_193 and t_194;
+
+    guardCondition t_195;
+    effect
+      Bandwidth.state = 0,
+      temp byte t_196 = RT_count + 1,
+      RT_count = t_196,
+      in_RT[Bandwidth.i] = 1,
+      Node_3.state = 5;
+
+  process Bandwidth_Node_4 
+    guardBlock
+      temp bool t_197 = Bandwidth.state == 2,
+      temp bool t_198 = RT_count < 2,
+      temp bool t_199 = t_197 and t_198,
+      temp bool t_200 = Node_4.state == 4,
+      temp bool t_201 = t_199 and t_200;
+
+    guardCondition t_201;
+    effect
+      Bandwidth.state = 0,
+      temp byte t_202 = RT_count + 1,
+      RT_count = t_202,
+      in_RT[Bandwidth.i] = 1,
+      Node_4.state = 5;
+
+  process Bandwidth_Node_5 
+    guardBlock
+      temp bool t_203 = Bandwidth.state == 2,
+      temp bool t_204 = RT_count < 2,
+      temp bool t_205 = t_203 and t_204,
+      temp bool t_206 = Node_5.state == 4,
+      temp bool t_207 = t_205 and t_206;
+
+    guardCondition t_207;
+    effect
+      Bandwidth.state = 0,
+      temp byte t_208 = RT_count + 1,
+      RT_count = t_208,
+      in_RT[Bandwidth.i] = 1,
+      Node_5.state = 5;
+
+  process Bandwidth_Node_6 
+    guardBlock
+      temp bool t_209 = Bandwidth.state == 2,
+      temp bool t_210 = RT_count < 2,
+      temp bool t_211 = t_209 and t_210,
+      temp bool t_212 = Node_6.state == 4,
+      temp bool t_213 = t_211 and t_212;
+
+    guardCondition t_213;
+    effect
+      Bandwidth.state = 0,
+      temp byte t_214 = RT_count + 1,
+      RT_count = t_214,
+      in_RT[Bandwidth.i] = 1,
+      Node_6.state = 5;
+
+  process Token_Node_6 
+    guardBlock
+      temp bool t_215 = Token.state == 1,
+      temp bool t_216 = Token.i == 6,
+      temp byte t_217 = in_RT[Token.i],
+      temp bool t_218 = t_217 == 1,
+      temp bool t_219 = t_216 and t_218,
+      temp bool t_220 = t_215 and t_219,
+      temp bool t_221 = Node_6.state == 0,
+      temp bool t_222 = t_220 and t_221;
+
+    guardCondition t_222;
     effect
       Token.state = 2,
       Node_6.rt = 1,
       Node_6.state = 1;
 
-  process Token_Node_6
+  process Token_Node_6 
     guardBlock
-      temp bool t_181 = Token.state == 3,
-      temp bool t_182 = Token.NRT_count > 0,
-      temp bool t_183 = Token.next == 6,
-      temp bool t_184 = t_182 and t_183,
-      temp bool t_185 = t_181 and t_184,
-      temp bool t_186 = Node_6.state == 0,
-      temp bool t_187 = t_185 and t_186;
-    guardCondition t_187;
+      temp bool t_223 = Token.state == 3,
+      temp bool t_224 = Token.NRT_count > 0,
+      temp bool t_225 = Token.next == 6,
+      temp bool t_226 = t_224 and t_225,
+      temp bool t_227 = t_223 and t_226,
+      temp bool t_228 = Node_6.state == 0,
+      temp bool t_229 = t_227 and t_228;
+
+    guardCondition t_229;
     effect
       Token.state = 4,
       Node_6.rt = 0,
       Node_6.state = 1;
 
-  process Node_0_Bandwidth
+  process Token_Node_3 
     guardBlock
-      temp bool t_188 = Node_0.state == 2,
-      temp bool t_189 = Bandwidth.state == 0,
-      temp bool t_190 = t_188 and t_189;
-    guardCondition t_190;
+      temp bool t_230 = Token.state == 1,
+      temp bool t_231 = Token.i == 3,
+      temp byte t_232 = in_RT[Token.i],
+      temp bool t_233 = t_232 == 1,
+      temp bool t_234 = t_231 and t_233,
+      temp bool t_235 = t_230 and t_234,
+      temp bool t_236 = Node_3.state == 0,
+      temp bool t_237 = t_235 and t_236;
+
+    guardCondition t_237;
+    effect
+      Token.state = 2,
+      Node_3.rt = 1,
+      Node_3.state = 1;
+
+  process Token_Node_3 
+    guardBlock
+      temp bool t_238 = Token.state == 3,
+      temp bool t_239 = Token.NRT_count > 0,
+      temp bool t_240 = Token.next == 3,
+      temp bool t_241 = t_239 and t_240,
+      temp bool t_242 = t_238 and t_241,
+      temp bool t_243 = Node_3.state == 0,
+      temp bool t_244 = t_242 and t_243;
+
+    guardCondition t_244;
+    effect
+      Token.state = 4,
+      Node_3.rt = 0,
+      Node_3.state = 1;
+
+  process Bandwidth_Node_0 
+    guardBlock
+      temp bool t_245 = Bandwidth.state == 2,
+      temp bool t_246 = RT_count >= 2,
+      temp bool t_247 = t_245 and t_246,
+      temp bool t_248 = Node_0.state == 4,
+      temp bool t_249 = t_247 and t_248;
+
+    guardCondition t_249;
+    effect
+      Bandwidth.state = 0,
+      Node_0.state = 6;
+
+  process Bandwidth_Node_1 
+    guardBlock
+      temp bool t_250 = Bandwidth.state == 2,
+      temp bool t_251 = RT_count >= 2,
+      temp bool t_252 = t_250 and t_251,
+      temp bool t_253 = Node_1.state == 4,
+      temp bool t_254 = t_252 and t_253;
+
+    guardCondition t_254;
+    effect
+      Bandwidth.state = 0,
+      Node_1.state = 6;
+
+  process Bandwidth_Node_2 
+    guardBlock
+      temp bool t_255 = Bandwidth.state == 2,
+      temp bool t_256 = RT_count >= 2,
+      temp bool t_257 = t_255 and t_256,
+      temp bool t_258 = Node_2.state == 4,
+      temp bool t_259 = t_257 and t_258;
+
+    guardCondition t_259;
+    effect
+      Bandwidth.state = 0,
+      Node_2.state = 6;
+
+  process Bandwidth_Node_3 
+    guardBlock
+      temp bool t_260 = Bandwidth.state == 2,
+      temp bool t_261 = RT_count >= 2,
+      temp bool t_262 = t_260 and t_261,
+      temp bool t_263 = Node_3.state == 4,
+      temp bool t_264 = t_262 and t_263;
+
+    guardCondition t_264;
+    effect
+      Bandwidth.state = 0,
+      Node_3.state = 6;
+
+  process Bandwidth_Node_4 
+    guardBlock
+      temp bool t_265 = Bandwidth.state == 2,
+      temp bool t_266 = RT_count >= 2,
+      temp bool t_267 = t_265 and t_266,
+      temp bool t_268 = Node_4.state == 4,
+      temp bool t_269 = t_267 and t_268;
+
+    guardCondition t_269;
+    effect
+      Bandwidth.state = 0,
+      Node_4.state = 6;
+
+  process Bandwidth_Node_5 
+    guardBlock
+      temp bool t_270 = Bandwidth.state == 2,
+      temp bool t_271 = RT_count >= 2,
+      temp bool t_272 = t_270 and t_271,
+      temp bool t_273 = Node_5.state == 4,
+      temp bool t_274 = t_272 and t_273;
+
+    guardCondition t_274;
+    effect
+      Bandwidth.state = 0,
+      Node_5.state = 6;
+
+  process Bandwidth_Node_6 
+    guardBlock
+      temp bool t_275 = Bandwidth.state == 2,
+      temp bool t_276 = RT_count >= 2,
+      temp bool t_277 = t_275 and t_276,
+      temp bool t_278 = Node_6.state == 4,
+      temp bool t_279 = t_277 and t_278;
+
+    guardCondition t_279;
+    effect
+      Bandwidth.state = 0,
+      Node_6.state = 6;
+
+  process Node_0_Token 
+    guardBlock
+      temp bool t_280 = Node_0.state == 6,
+      temp bool t_281 = Token.state == 2,
+      temp bool t_282 = t_280 and t_281;
+
+    guardCondition t_282;
+    effect
+      Node_0.state = 0,
+      Token.state = 1,
+      temp byte t_283 = Token.i + 1,
+      Token.i = t_283;
+
+  process Node_0_Token 
+    guardBlock
+      temp bool t_284 = Node_0.state == 6,
+      temp bool t_285 = Token.state == 4,
+      temp bool t_286 = t_284 and t_285;
+
+    guardCondition t_286;
+    effect
+      Node_0.state = 0,
+      Token.state = 3,
+      temp byte t_287 = Token.next + 1,
+      temp byte t_288 = t_287 % 7,
+      Token.next = t_288,
+      temp byte t_289 = Token.NRT_count - 1,
+      Token.NRT_count = t_289;
+
+  process Node_1_Token 
+    guardBlock
+      temp bool t_290 = Node_1.state == 6,
+      temp bool t_291 = Token.state == 2,
+      temp bool t_292 = t_290 and t_291;
+
+    guardCondition t_292;
+    effect
+      Node_1.state = 0,
+      Token.state = 1,
+      temp byte t_293 = Token.i + 1,
+      Token.i = t_293;
+
+  process Node_1_Token 
+    guardBlock
+      temp bool t_294 = Node_1.state == 6,
+      temp bool t_295 = Token.state == 4,
+      temp bool t_296 = t_294 and t_295;
+
+    guardCondition t_296;
+    effect
+      Node_1.state = 0,
+      Token.state = 3,
+      temp byte t_297 = Token.next + 1,
+      temp byte t_298 = t_297 % 7,
+      Token.next = t_298,
+      temp byte t_299 = Token.NRT_count - 1,
+      Token.NRT_count = t_299;
+
+  process Node_2_Token 
+    guardBlock
+      temp bool t_300 = Node_2.state == 6,
+      temp bool t_301 = Token.state == 2,
+      temp bool t_302 = t_300 and t_301;
+
+    guardCondition t_302;
+    effect
+      Node_2.state = 0,
+      Token.state = 1,
+      temp byte t_303 = Token.i + 1,
+      Token.i = t_303;
+
+  process Node_2_Token 
+    guardBlock
+      temp bool t_304 = Node_2.state == 6,
+      temp bool t_305 = Token.state == 4,
+      temp bool t_306 = t_304 and t_305;
+
+    guardCondition t_306;
+    effect
+      Node_2.state = 0,
+      Token.state = 3,
+      temp byte t_307 = Token.next + 1,
+      temp byte t_308 = t_307 % 7,
+      Token.next = t_308,
+      temp byte t_309 = Token.NRT_count - 1,
+      Token.NRT_count = t_309;
+
+  process Node_3_Token 
+    guardBlock
+      temp bool t_310 = Node_3.state == 6,
+      temp bool t_311 = Token.state == 2,
+      temp bool t_312 = t_310 and t_311;
+
+    guardCondition t_312;
+    effect
+      Node_3.state = 0,
+      Token.state = 1,
+      temp byte t_313 = Token.i + 1,
+      Token.i = t_313;
+
+  process Node_3_Token 
+    guardBlock
+      temp bool t_314 = Node_3.state == 6,
+      temp bool t_315 = Token.state == 4,
+      temp bool t_316 = t_314 and t_315;
+
+    guardCondition t_316;
+    effect
+      Node_3.state = 0,
+      Token.state = 3,
+      temp byte t_317 = Token.next + 1,
+      temp byte t_318 = t_317 % 7,
+      Token.next = t_318,
+      temp byte t_319 = Token.NRT_count - 1,
+      Token.NRT_count = t_319;
+
+  process Node_4_Token 
+    guardBlock
+      temp bool t_320 = Node_4.state == 6,
+      temp bool t_321 = Token.state == 2,
+      temp bool t_322 = t_320 and t_321;
+
+    guardCondition t_322;
+    effect
+      Node_4.state = 0,
+      Token.state = 1,
+      temp byte t_323 = Token.i + 1,
+      Token.i = t_323;
+
+  process Node_4_Token 
+    guardBlock
+      temp bool t_324 = Node_4.state == 6,
+      temp bool t_325 = Token.state == 4,
+      temp bool t_326 = t_324 and t_325;
+
+    guardCondition t_326;
+    effect
+      Node_4.state = 0,
+      Token.state = 3,
+      temp byte t_327 = Token.next + 1,
+      temp byte t_328 = t_327 % 7,
+      Token.next = t_328,
+      temp byte t_329 = Token.NRT_count - 1,
+      Token.NRT_count = t_329;
+
+  process Node_5_Token 
+    guardBlock
+      temp bool t_330 = Node_5.state == 6,
+      temp bool t_331 = Token.state == 2,
+      temp bool t_332 = t_330 and t_331;
+
+    guardCondition t_332;
+    effect
+      Node_5.state = 0,
+      Token.state = 1,
+      temp byte t_333 = Token.i + 1,
+      Token.i = t_333;
+
+  process Node_5_Token 
+    guardBlock
+      temp bool t_334 = Node_5.state == 6,
+      temp bool t_335 = Token.state == 4,
+      temp bool t_336 = t_334 and t_335;
+
+    guardCondition t_336;
+    effect
+      Node_5.state = 0,
+      Token.state = 3,
+      temp byte t_337 = Token.next + 1,
+      temp byte t_338 = t_337 % 7,
+      Token.next = t_338,
+      temp byte t_339 = Token.NRT_count - 1,
+      Token.NRT_count = t_339;
+
+  process Node_6_Token 
+    guardBlock
+      temp bool t_340 = Node_6.state == 6,
+      temp bool t_341 = Token.state == 2,
+      temp bool t_342 = t_340 and t_341;
+
+    guardCondition t_342;
+    effect
+      Node_6.state = 0,
+      Token.state = 1,
+      temp byte t_343 = Token.i + 1,
+      Token.i = t_343;
+
+  process Node_6_Token 
+    guardBlock
+      temp bool t_344 = Node_6.state == 6,
+      temp bool t_345 = Token.state == 4,
+      temp bool t_346 = t_344 and t_345;
+
+    guardCondition t_346;
+    effect
+      Node_6.state = 0,
+      Token.state = 3,
+      temp byte t_347 = Token.next + 1,
+      temp byte t_348 = t_347 % 7,
+      Token.next = t_348,
+      temp byte t_349 = Token.NRT_count - 1,
+      Token.NRT_count = t_349;
+
+  process Node_0_Bandwidth 
+    guardBlock
+      temp bool t_350 = Node_0.state == 2,
+      temp bool t_351 = Bandwidth.state == 0,
+      temp bool t_352 = t_350 and t_351;
+
+    guardCondition t_352;
     effect
       Node_0.state = 8,
       Node_0.granted = 0,
       Bandwidth.i = 0,
       Bandwidth.state = 1;
 
-  process Node_1_Bandwidth
+  process Node_1_Bandwidth 
     guardBlock
-      temp bool t_191 = Node_1.state == 2,
-      temp bool t_192 = Bandwidth.state == 0,
-      temp bool t_193 = t_191 and t_192;
-    guardCondition t_193;
+      temp bool t_353 = Node_1.state == 2,
+      temp bool t_354 = Bandwidth.state == 0,
+      temp bool t_355 = t_353 and t_354;
+
+    guardCondition t_355;
     effect
       Node_1.state = 8,
       Node_1.granted = 0,
       Bandwidth.i = 1,
       Bandwidth.state = 1;
 
-  process Node_2_Bandwidth
+  process Node_2_Bandwidth 
     guardBlock
-      temp bool t_194 = Node_2.state == 2,
-      temp bool t_195 = Bandwidth.state == 0,
-      temp bool t_196 = t_194 and t_195;
-    guardCondition t_196;
+      temp bool t_356 = Node_2.state == 2,
+      temp bool t_357 = Bandwidth.state == 0,
+      temp bool t_358 = t_356 and t_357;
+
+    guardCondition t_358;
     effect
       Node_2.state = 8,
       Node_2.granted = 0,
       Bandwidth.i = 2,
       Bandwidth.state = 1;
 
-  process Node_3_Bandwidth
+  process Node_3_Bandwidth 
     guardBlock
-      temp bool t_197 = Node_3.state == 2,
-      temp bool t_198 = Bandwidth.state == 0,
-      temp bool t_199 = t_197 and t_198;
-    guardCondition t_199;
+      temp bool t_359 = Node_3.state == 2,
+      temp bool t_360 = Bandwidth.state == 0,
+      temp bool t_361 = t_359 and t_360;
+
+    guardCondition t_361;
     effect
       Node_3.state = 8,
       Node_3.granted = 0,
       Bandwidth.i = 3,
       Bandwidth.state = 1;
 
-  process Node_4_Bandwidth
+  process Node_4_Bandwidth 
     guardBlock
-      temp bool t_200 = Node_4.state == 2,
-      temp bool t_201 = Bandwidth.state == 0,
-      temp bool t_202 = t_200 and t_201;
-    guardCondition t_202;
+      temp bool t_362 = Node_4.state == 2,
+      temp bool t_363 = Bandwidth.state == 0,
+      temp bool t_364 = t_362 and t_363;
+
+    guardCondition t_364;
     effect
       Node_4.state = 8,
       Node_4.granted = 0,
       Bandwidth.i = 4,
       Bandwidth.state = 1;
 
-  process Node_5_Bandwidth
+  process Node_5_Bandwidth 
     guardBlock
-      temp bool t_203 = Node_5.state == 2,
-      temp bool t_204 = Bandwidth.state == 0,
-      temp bool t_205 = t_203 and t_204;
-    guardCondition t_205;
+      temp bool t_365 = Node_5.state == 2,
+      temp bool t_366 = Bandwidth.state == 0,
+      temp bool t_367 = t_365 and t_366;
+
+    guardCondition t_367;
     effect
       Node_5.state = 8,
       Node_5.granted = 0,
       Bandwidth.i = 5,
       Bandwidth.state = 1;
 
-  process Node_6_Bandwidth
+  process Node_6_Bandwidth 
     guardBlock
-      temp bool t_206 = Node_6.state == 2,
-      temp bool t_207 = Bandwidth.state == 0,
-      temp bool t_208 = t_206 and t_207;
-    guardCondition t_208;
+      temp bool t_368 = Node_6.state == 2,
+      temp bool t_369 = Bandwidth.state == 0,
+      temp bool t_370 = t_368 and t_369;
+
+    guardCondition t_370;
     effect
       Node_6.state = 8,
       Node_6.granted = 0,
       Bandwidth.i = 6,
       Bandwidth.state = 1;
 
-  process Bandwidth_Node_0
+  process Token_Node_4 
     guardBlock
-      temp bool t_209 = Bandwidth.state == 2,
-      temp bool t_210 = RT_count >= 2,
-      temp bool t_211 = t_209 and t_210,
-      temp bool t_212 = Node_0.state == 4,
-      temp bool t_213 = t_211 and t_212;
-    guardCondition t_213;
-    effect
-      Bandwidth.state = 0,
-      Node_0.state = 6;
+      temp bool t_371 = Token.state == 1,
+      temp bool t_372 = Token.i == 4,
+      temp byte t_373 = in_RT[Token.i],
+      temp bool t_374 = t_373 == 1,
+      temp bool t_375 = t_372 and t_374,
+      temp bool t_376 = t_371 and t_375,
+      temp bool t_377 = Node_4.state == 0,
+      temp bool t_378 = t_376 and t_377;
 
-  process Bandwidth_Node_1
-    guardBlock
-      temp bool t_214 = Bandwidth.state == 2,
-      temp bool t_215 = RT_count >= 2,
-      temp bool t_216 = t_214 and t_215,
-      temp bool t_217 = Node_1.state == 4,
-      temp bool t_218 = t_216 and t_217;
-    guardCondition t_218;
-    effect
-      Bandwidth.state = 0,
-      Node_1.state = 6;
-
-  process Bandwidth_Node_2
-    guardBlock
-      temp bool t_219 = Bandwidth.state == 2,
-      temp bool t_220 = RT_count >= 2,
-      temp bool t_221 = t_219 and t_220,
-      temp bool t_222 = Node_2.state == 4,
-      temp bool t_223 = t_221 and t_222;
-    guardCondition t_223;
-    effect
-      Bandwidth.state = 0,
-      Node_2.state = 6;
-
-  process Bandwidth_Node_3
-    guardBlock
-      temp bool t_224 = Bandwidth.state == 2,
-      temp bool t_225 = RT_count >= 2,
-      temp bool t_226 = t_224 and t_225,
-      temp bool t_227 = Node_3.state == 4,
-      temp bool t_228 = t_226 and t_227;
-    guardCondition t_228;
-    effect
-      Bandwidth.state = 0,
-      Node_3.state = 6;
-
-  process Bandwidth_Node_4
-    guardBlock
-      temp bool t_229 = Bandwidth.state == 2,
-      temp bool t_230 = RT_count >= 2,
-      temp bool t_231 = t_229 and t_230,
-      temp bool t_232 = Node_4.state == 4,
-      temp bool t_233 = t_231 and t_232;
-    guardCondition t_233;
-    effect
-      Bandwidth.state = 0,
-      Node_4.state = 6;
-
-  process Bandwidth_Node_5
-    guardBlock
-      temp bool t_234 = Bandwidth.state == 2,
-      temp bool t_235 = RT_count >= 2,
-      temp bool t_236 = t_234 and t_235,
-      temp bool t_237 = Node_5.state == 4,
-      temp bool t_238 = t_236 and t_237;
-    guardCondition t_238;
-    effect
-      Bandwidth.state = 0,
-      Node_5.state = 6;
-
-  process Bandwidth_Node_6
-    guardBlock
-      temp bool t_239 = Bandwidth.state == 2,
-      temp bool t_240 = RT_count >= 2,
-      temp bool t_241 = t_239 and t_240,
-      temp bool t_242 = Node_6.state == 4,
-      temp bool t_243 = t_241 and t_242;
-    guardCondition t_243;
-    effect
-      Bandwidth.state = 0,
-      Node_6.state = 6;
-
-  process Token_Node_1
-    guardBlock
-      temp bool t_244 = Token.state == 1,
-      temp bool t_245 = Token.i == 1,
-      temp byte t_246 = in_RT[Token.i],
-      temp bool t_247 = t_246 == 1,
-      temp bool t_248 = t_245 and t_247,
-      temp bool t_249 = t_244 and t_248,
-      temp bool t_250 = Node_1.state == 0,
-      temp bool t_251 = t_249 and t_250;
-    guardCondition t_251;
-    effect
-      Token.state = 2,
-      Node_1.rt = 1,
-      Node_1.state = 1;
-
-  process Token_Node_1
-    guardBlock
-      temp bool t_252 = Token.state == 3,
-      temp bool t_253 = Token.NRT_count > 0,
-      temp bool t_254 = Token.next == 1,
-      temp bool t_255 = t_253 and t_254,
-      temp bool t_256 = t_252 and t_255,
-      temp bool t_257 = Node_1.state == 0,
-      temp bool t_258 = t_256 and t_257;
-    guardCondition t_258;
-    effect
-      Token.state = 4,
-      Node_1.rt = 0,
-      Node_1.state = 1;
-
-  process Node_0_Bandwidth
-    guardBlock
-      temp bool t_259 = Node_0.state == 3,
-      temp bool t_260 = Node_0.granted == 0,
-      temp bool t_261 = t_259 and t_260,
-      temp bool t_262 = Bandwidth.state == 0,
-      temp bool t_263 = t_261 and t_262;
-    guardCondition t_263;
-    effect
-      Node_0.state = 4,
-      Bandwidth.i = 0,
-      Bandwidth.state = 2;
-
-  process Node_1_Bandwidth
-    guardBlock
-      temp bool t_264 = Node_1.state == 3,
-      temp bool t_265 = Node_1.granted == 0,
-      temp bool t_266 = t_264 and t_265,
-      temp bool t_267 = Bandwidth.state == 0,
-      temp bool t_268 = t_266 and t_267;
-    guardCondition t_268;
-    effect
-      Node_1.state = 4,
-      Bandwidth.i = 1,
-      Bandwidth.state = 2;
-
-  process Node_2_Bandwidth
-    guardBlock
-      temp bool t_269 = Node_2.state == 3,
-      temp bool t_270 = Node_2.granted == 0,
-      temp bool t_271 = t_269 and t_270,
-      temp bool t_272 = Bandwidth.state == 0,
-      temp bool t_273 = t_271 and t_272;
-    guardCondition t_273;
-    effect
-      Node_2.state = 4,
-      Bandwidth.i = 2,
-      Bandwidth.state = 2;
-
-  process Node_3_Bandwidth
-    guardBlock
-      temp bool t_274 = Node_3.state == 3,
-      temp bool t_275 = Node_3.granted == 0,
-      temp bool t_276 = t_274 and t_275,
-      temp bool t_277 = Bandwidth.state == 0,
-      temp bool t_278 = t_276 and t_277;
-    guardCondition t_278;
-    effect
-      Node_3.state = 4,
-      Bandwidth.i = 3,
-      Bandwidth.state = 2;
-
-  process Node_4_Bandwidth
-    guardBlock
-      temp bool t_279 = Node_4.state == 3,
-      temp bool t_280 = Node_4.granted == 0,
-      temp bool t_281 = t_279 and t_280,
-      temp bool t_282 = Bandwidth.state == 0,
-      temp bool t_283 = t_281 and t_282;
-    guardCondition t_283;
-    effect
-      Node_4.state = 4,
-      Bandwidth.i = 4,
-      Bandwidth.state = 2;
-
-  process Node_5_Bandwidth
-    guardBlock
-      temp bool t_284 = Node_5.state == 3,
-      temp bool t_285 = Node_5.granted == 0,
-      temp bool t_286 = t_284 and t_285,
-      temp bool t_287 = Bandwidth.state == 0,
-      temp bool t_288 = t_286 and t_287;
-    guardCondition t_288;
-    effect
-      Node_5.state = 4,
-      Bandwidth.i = 5,
-      Bandwidth.state = 2;
-
-  process Node_6_Bandwidth
-    guardBlock
-      temp bool t_289 = Node_6.state == 3,
-      temp bool t_290 = Node_6.granted == 0,
-      temp bool t_291 = t_289 and t_290,
-      temp bool t_292 = Bandwidth.state == 0,
-      temp bool t_293 = t_291 and t_292;
-    guardCondition t_293;
-    effect
-      Node_6.state = 4,
-      Bandwidth.i = 6,
-      Bandwidth.state = 2;
-
-  process Bandwidth_Node_0
-    guardBlock
-      temp bool t_294 = Bandwidth.state == 2,
-      temp bool t_295 = RT_count < 2,
-      temp bool t_296 = t_294 and t_295,
-      temp bool t_297 = Node_0.state == 4,
-      temp bool t_298 = t_296 and t_297;
-    guardCondition t_298;
-    effect
-      Bandwidth.state = 0,
-      temp int t_299 = RT_count + 1,
-      RT_count = t_299,
-      in_RT[Bandwidth.i] = 1,
-      Node_0.state = 5;
-
-  process Bandwidth_Node_1
-    guardBlock
-      temp bool t_300 = Bandwidth.state == 2,
-      temp bool t_301 = RT_count < 2,
-      temp bool t_302 = t_300 and t_301,
-      temp bool t_303 = Node_1.state == 4,
-      temp bool t_304 = t_302 and t_303;
-    guardCondition t_304;
-    effect
-      Bandwidth.state = 0,
-      temp int t_305 = RT_count + 1,
-      RT_count = t_305,
-      in_RT[Bandwidth.i] = 1,
-      Node_1.state = 5;
-
-  process Bandwidth_Node_2
-    guardBlock
-      temp bool t_306 = Bandwidth.state == 2,
-      temp bool t_307 = RT_count < 2,
-      temp bool t_308 = t_306 and t_307,
-      temp bool t_309 = Node_2.state == 4,
-      temp bool t_310 = t_308 and t_309;
-    guardCondition t_310;
-    effect
-      Bandwidth.state = 0,
-      temp int t_311 = RT_count + 1,
-      RT_count = t_311,
-      in_RT[Bandwidth.i] = 1,
-      Node_2.state = 5;
-
-  process Bandwidth_Node_3
-    guardBlock
-      temp bool t_312 = Bandwidth.state == 2,
-      temp bool t_313 = RT_count < 2,
-      temp bool t_314 = t_312 and t_313,
-      temp bool t_315 = Node_3.state == 4,
-      temp bool t_316 = t_314 and t_315;
-    guardCondition t_316;
-    effect
-      Bandwidth.state = 0,
-      temp int t_317 = RT_count + 1,
-      RT_count = t_317,
-      in_RT[Bandwidth.i] = 1,
-      Node_3.state = 5;
-
-  process Bandwidth_Node_4
-    guardBlock
-      temp bool t_318 = Bandwidth.state == 2,
-      temp bool t_319 = RT_count < 2,
-      temp bool t_320 = t_318 and t_319,
-      temp bool t_321 = Node_4.state == 4,
-      temp bool t_322 = t_320 and t_321;
-    guardCondition t_322;
-    effect
-      Bandwidth.state = 0,
-      temp int t_323 = RT_count + 1,
-      RT_count = t_323,
-      in_RT[Bandwidth.i] = 1,
-      Node_4.state = 5;
-
-  process Bandwidth_Node_5
-    guardBlock
-      temp bool t_324 = Bandwidth.state == 2,
-      temp bool t_325 = RT_count < 2,
-      temp bool t_326 = t_324 and t_325,
-      temp bool t_327 = Node_5.state == 4,
-      temp bool t_328 = t_326 and t_327;
-    guardCondition t_328;
-    effect
-      Bandwidth.state = 0,
-      temp int t_329 = RT_count + 1,
-      RT_count = t_329,
-      in_RT[Bandwidth.i] = 1,
-      Node_5.state = 5;
-
-  process Bandwidth_Node_6
-    guardBlock
-      temp bool t_330 = Bandwidth.state == 2,
-      temp bool t_331 = RT_count < 2,
-      temp bool t_332 = t_330 and t_331,
-      temp bool t_333 = Node_6.state == 4,
-      temp bool t_334 = t_332 and t_333;
-    guardCondition t_334;
-    effect
-      Bandwidth.state = 0,
-      temp int t_335 = RT_count + 1,
-      RT_count = t_335,
-      in_RT[Bandwidth.i] = 1,
-      Node_6.state = 5;
-
-  process Bandwidth_Node_0
-    guardBlock
-      temp bool t_336 = Bandwidth.state == 1,
-      temp byte t_337 = in_RT[Bandwidth.i],
-      temp bool t_338 = t_337 == 1,
-      temp bool t_339 = t_336 and t_338,
-      temp bool t_340 = Node_0.state == 8,
-      temp bool t_341 = t_339 and t_340;
-    guardCondition t_341;
-    effect
-      Bandwidth.state = 0,
-      in_RT[Bandwidth.i] = 0,
-      temp int t_342 = RT_count - 1,
-      RT_count = t_342,
-      Node_0.state = 6;
-
-  process Bandwidth_Node_1
-    guardBlock
-      temp bool t_343 = Bandwidth.state == 1,
-      temp byte t_344 = in_RT[Bandwidth.i],
-      temp bool t_345 = t_344 == 1,
-      temp bool t_346 = t_343 and t_345,
-      temp bool t_347 = Node_1.state == 8,
-      temp bool t_348 = t_346 and t_347;
-    guardCondition t_348;
-    effect
-      Bandwidth.state = 0,
-      in_RT[Bandwidth.i] = 0,
-      temp int t_349 = RT_count - 1,
-      RT_count = t_349,
-      Node_1.state = 6;
-
-  process Bandwidth_Node_2
-    guardBlock
-      temp bool t_350 = Bandwidth.state == 1,
-      temp byte t_351 = in_RT[Bandwidth.i],
-      temp bool t_352 = t_351 == 1,
-      temp bool t_353 = t_350 and t_352,
-      temp bool t_354 = Node_2.state == 8,
-      temp bool t_355 = t_353 and t_354;
-    guardCondition t_355;
-    effect
-      Bandwidth.state = 0,
-      in_RT[Bandwidth.i] = 0,
-      temp int t_356 = RT_count - 1,
-      RT_count = t_356,
-      Node_2.state = 6;
-
-  process Bandwidth_Node_3
-    guardBlock
-      temp bool t_357 = Bandwidth.state == 1,
-      temp byte t_358 = in_RT[Bandwidth.i],
-      temp bool t_359 = t_358 == 1,
-      temp bool t_360 = t_357 and t_359,
-      temp bool t_361 = Node_3.state == 8,
-      temp bool t_362 = t_360 and t_361;
-    guardCondition t_362;
-    effect
-      Bandwidth.state = 0,
-      in_RT[Bandwidth.i] = 0,
-      temp int t_363 = RT_count - 1,
-      RT_count = t_363,
-      Node_3.state = 6;
-
-  process Bandwidth_Node_4
-    guardBlock
-      temp bool t_364 = Bandwidth.state == 1,
-      temp byte t_365 = in_RT[Bandwidth.i],
-      temp bool t_366 = t_365 == 1,
-      temp bool t_367 = t_364 and t_366,
-      temp bool t_368 = Node_4.state == 8,
-      temp bool t_369 = t_367 and t_368;
-    guardCondition t_369;
-    effect
-      Bandwidth.state = 0,
-      in_RT[Bandwidth.i] = 0,
-      temp int t_370 = RT_count - 1,
-      RT_count = t_370,
-      Node_4.state = 6;
-
-  process Bandwidth_Node_5
-    guardBlock
-      temp bool t_371 = Bandwidth.state == 1,
-      temp byte t_372 = in_RT[Bandwidth.i],
-      temp bool t_373 = t_372 == 1,
-      temp bool t_374 = t_371 and t_373,
-      temp bool t_375 = Node_5.state == 8,
-      temp bool t_376 = t_374 and t_375;
-    guardCondition t_376;
-    effect
-      Bandwidth.state = 0,
-      in_RT[Bandwidth.i] = 0,
-      temp int t_377 = RT_count - 1,
-      RT_count = t_377,
-      Node_5.state = 6;
-
-  process Bandwidth_Node_6
-    guardBlock
-      temp bool t_378 = Bandwidth.state == 1,
-      temp byte t_379 = in_RT[Bandwidth.i],
-      temp bool t_380 = t_379 == 1,
-      temp bool t_381 = t_378 and t_380,
-      temp bool t_382 = Node_6.state == 8,
-      temp bool t_383 = t_381 and t_382;
-    guardCondition t_383;
-    effect
-      Bandwidth.state = 0,
-      in_RT[Bandwidth.i] = 0,
-      temp int t_384 = RT_count - 1,
-      RT_count = t_384,
-      Node_6.state = 6;
-
-  process Token_Node_3
-    guardBlock
-      temp bool t_385 = Token.state == 1,
-      temp bool t_386 = Token.i == 3,
-      temp byte t_387 = in_RT[Token.i],
-      temp bool t_388 = t_387 == 1,
-      temp bool t_389 = t_386 and t_388,
-      temp bool t_390 = t_385 and t_389,
-      temp bool t_391 = Node_3.state == 0,
-      temp bool t_392 = t_390 and t_391;
-    guardCondition t_392;
-    effect
-      Token.state = 2,
-      Node_3.rt = 1,
-      Node_3.state = 1;
-
-  process Token_Node_3
-    guardBlock
-      temp bool t_393 = Token.state == 3,
-      temp bool t_394 = Token.NRT_count > 0,
-      temp bool t_395 = Token.next == 3,
-      temp bool t_396 = t_394 and t_395,
-      temp bool t_397 = t_393 and t_396,
-      temp bool t_398 = Node_3.state == 0,
-      temp bool t_399 = t_397 and t_398;
-    guardCondition t_399;
-    effect
-      Token.state = 4,
-      Node_3.rt = 0,
-      Node_3.state = 1;
-
-  process Node_0_Token
-    guardBlock
-      temp bool t_400 = Node_0.state == 6,
-      temp bool t_401 = Token.state == 2,
-      temp bool t_402 = t_400 and t_401;
-    guardCondition t_402;
-    effect
-      Node_0.state = 0,
-      Token.state = 1,
-      temp int t_403 = Token.i + 1,
-      Token.i = t_403;
-
-  process Node_0_Token
-    guardBlock
-      temp bool t_404 = Node_0.state == 6,
-      temp bool t_405 = Token.state == 4,
-      temp bool t_406 = t_404 and t_405;
-    guardCondition t_406;
-    effect
-      Node_0.state = 0,
-      Token.state = 3,
-      temp int t_407 = Token.next + 1,
-      temp int t_408 = t_407 % 7,
-      Token.next = t_408,
-      temp int t_409 = Token.NRT_count - 1,
-      Token.NRT_count = t_409;
-
-  process Node_1_Token
-    guardBlock
-      temp bool t_410 = Node_1.state == 6,
-      temp bool t_411 = Token.state == 2,
-      temp bool t_412 = t_410 and t_411;
-    guardCondition t_412;
-    effect
-      Node_1.state = 0,
-      Token.state = 1,
-      temp int t_413 = Token.i + 1,
-      Token.i = t_413;
-
-  process Node_1_Token
-    guardBlock
-      temp bool t_414 = Node_1.state == 6,
-      temp bool t_415 = Token.state == 4,
-      temp bool t_416 = t_414 and t_415;
-    guardCondition t_416;
-    effect
-      Node_1.state = 0,
-      Token.state = 3,
-      temp int t_417 = Token.next + 1,
-      temp int t_418 = t_417 % 7,
-      Token.next = t_418,
-      temp int t_419 = Token.NRT_count - 1,
-      Token.NRT_count = t_419;
-
-  process Node_2_Token
-    guardBlock
-      temp bool t_420 = Node_2.state == 6,
-      temp bool t_421 = Token.state == 2,
-      temp bool t_422 = t_420 and t_421;
-    guardCondition t_422;
-    effect
-      Node_2.state = 0,
-      Token.state = 1,
-      temp int t_423 = Token.i + 1,
-      Token.i = t_423;
-
-  process Node_2_Token
-    guardBlock
-      temp bool t_424 = Node_2.state == 6,
-      temp bool t_425 = Token.state == 4,
-      temp bool t_426 = t_424 and t_425;
-    guardCondition t_426;
-    effect
-      Node_2.state = 0,
-      Token.state = 3,
-      temp int t_427 = Token.next + 1,
-      temp int t_428 = t_427 % 7,
-      Token.next = t_428,
-      temp int t_429 = Token.NRT_count - 1,
-      Token.NRT_count = t_429;
-
-  process Node_3_Token
-    guardBlock
-      temp bool t_430 = Node_3.state == 6,
-      temp bool t_431 = Token.state == 2,
-      temp bool t_432 = t_430 and t_431;
-    guardCondition t_432;
-    effect
-      Node_3.state = 0,
-      Token.state = 1,
-      temp int t_433 = Token.i + 1,
-      Token.i = t_433;
-
-  process Node_3_Token
-    guardBlock
-      temp bool t_434 = Node_3.state == 6,
-      temp bool t_435 = Token.state == 4,
-      temp bool t_436 = t_434 and t_435;
-    guardCondition t_436;
-    effect
-      Node_3.state = 0,
-      Token.state = 3,
-      temp int t_437 = Token.next + 1,
-      temp int t_438 = t_437 % 7,
-      Token.next = t_438,
-      temp int t_439 = Token.NRT_count - 1,
-      Token.NRT_count = t_439;
-
-  process Node_4_Token
-    guardBlock
-      temp bool t_440 = Node_4.state == 6,
-      temp bool t_441 = Token.state == 2,
-      temp bool t_442 = t_440 and t_441;
-    guardCondition t_442;
-    effect
-      Node_4.state = 0,
-      Token.state = 1,
-      temp int t_443 = Token.i + 1,
-      Token.i = t_443;
-
-  process Node_4_Token
-    guardBlock
-      temp bool t_444 = Node_4.state == 6,
-      temp bool t_445 = Token.state == 4,
-      temp bool t_446 = t_444 and t_445;
-    guardCondition t_446;
-    effect
-      Node_4.state = 0,
-      Token.state = 3,
-      temp int t_447 = Token.next + 1,
-      temp int t_448 = t_447 % 7,
-      Token.next = t_448,
-      temp int t_449 = Token.NRT_count - 1,
-      Token.NRT_count = t_449;
-
-  process Node_5_Token
-    guardBlock
-      temp bool t_450 = Node_5.state == 6,
-      temp bool t_451 = Token.state == 2,
-      temp bool t_452 = t_450 and t_451;
-    guardCondition t_452;
-    effect
-      Node_5.state = 0,
-      Token.state = 1,
-      temp int t_453 = Token.i + 1,
-      Token.i = t_453;
-
-  process Node_5_Token
-    guardBlock
-      temp bool t_454 = Node_5.state == 6,
-      temp bool t_455 = Token.state == 4,
-      temp bool t_456 = t_454 and t_455;
-    guardCondition t_456;
-    effect
-      Node_5.state = 0,
-      Token.state = 3,
-      temp int t_457 = Token.next + 1,
-      temp int t_458 = t_457 % 7,
-      Token.next = t_458,
-      temp int t_459 = Token.NRT_count - 1,
-      Token.NRT_count = t_459;
-
-  process Node_6_Token
-    guardBlock
-      temp bool t_460 = Node_6.state == 6,
-      temp bool t_461 = Token.state == 2,
-      temp bool t_462 = t_460 and t_461;
-    guardCondition t_462;
-    effect
-      Node_6.state = 0,
-      Token.state = 1,
-      temp int t_463 = Token.i + 1,
-      Token.i = t_463;
-
-  process Node_6_Token
-    guardBlock
-      temp bool t_464 = Node_6.state == 6,
-      temp bool t_465 = Token.state == 4,
-      temp bool t_466 = t_464 and t_465;
-    guardCondition t_466;
-    effect
-      Node_6.state = 0,
-      Token.state = 3,
-      temp int t_467 = Token.next + 1,
-      temp int t_468 = t_467 % 7,
-      Token.next = t_468,
-      temp int t_469 = Token.NRT_count - 1,
-      Token.NRT_count = t_469;
-
-  process Token_Node_5
-    guardBlock
-      temp bool t_470 = Token.state == 1,
-      temp bool t_471 = Token.i == 5,
-      temp byte t_472 = in_RT[Token.i],
-      temp bool t_473 = t_472 == 1,
-      temp bool t_474 = t_471 and t_473,
-      temp bool t_475 = t_470 and t_474,
-      temp bool t_476 = Node_5.state == 0,
-      temp bool t_477 = t_475 and t_476;
-    guardCondition t_477;
-    effect
-      Token.state = 2,
-      Node_5.rt = 1,
-      Node_5.state = 1;
-
-  process Token_Node_5
-    guardBlock
-      temp bool t_478 = Token.state == 3,
-      temp bool t_479 = Token.NRT_count > 0,
-      temp bool t_480 = Token.next == 5,
-      temp bool t_481 = t_479 and t_480,
-      temp bool t_482 = t_478 and t_481,
-      temp bool t_483 = Node_5.state == 0,
-      temp bool t_484 = t_482 and t_483;
-    guardCondition t_484;
-    effect
-      Token.state = 4,
-      Node_5.rt = 0,
-      Node_5.state = 1;
-
-  process Token_Node_0
-    guardBlock
-      temp bool t_485 = Token.state == 1,
-      temp bool t_486 = Token.i == 0,
-      temp byte t_487 = in_RT[Token.i],
-      temp bool t_488 = t_487 == 1,
-      temp bool t_489 = t_486 and t_488,
-      temp bool t_490 = t_485 and t_489,
-      temp bool t_491 = Node_0.state == 0,
-      temp bool t_492 = t_490 and t_491;
-    guardCondition t_492;
-    effect
-      Token.state = 2,
-      Node_0.rt = 1,
-      Node_0.state = 1;
-
-  process Token_Node_0
-    guardBlock
-      temp bool t_493 = Token.state == 3,
-      temp bool t_494 = Token.NRT_count > 0,
-      temp bool t_495 = Token.next == 0,
-      temp bool t_496 = t_494 and t_495,
-      temp bool t_497 = t_493 and t_496,
-      temp bool t_498 = Node_0.state == 0,
-      temp bool t_499 = t_497 and t_498;
-    guardCondition t_499;
-    effect
-      Token.state = 4,
-      Node_0.rt = 0,
-      Node_0.state = 1;
-
-  process Token_Node_2
-    guardBlock
-      temp bool t_500 = Token.state == 1,
-      temp bool t_501 = Token.i == 2,
-      temp byte t_502 = in_RT[Token.i],
-      temp bool t_503 = t_502 == 1,
-      temp bool t_504 = t_501 and t_503,
-      temp bool t_505 = t_500 and t_504,
-      temp bool t_506 = Node_2.state == 0,
-      temp bool t_507 = t_505 and t_506;
-    guardCondition t_507;
-    effect
-      Token.state = 2,
-      Node_2.rt = 1,
-      Node_2.state = 1;
-
-  process Token_Node_2
-    guardBlock
-      temp bool t_508 = Token.state == 3,
-      temp bool t_509 = Token.NRT_count > 0,
-      temp bool t_510 = Token.next == 2,
-      temp bool t_511 = t_509 and t_510,
-      temp bool t_512 = t_508 and t_511,
-      temp bool t_513 = Node_2.state == 0,
-      temp bool t_514 = t_512 and t_513;
-    guardCondition t_514;
-    effect
-      Token.state = 4,
-      Node_2.rt = 0,
-      Node_2.state = 1;
-
-  process Token_Node_4
-    guardBlock
-      temp bool t_515 = Token.state == 1,
-      temp bool t_516 = Token.i == 4,
-      temp byte t_517 = in_RT[Token.i],
-      temp bool t_518 = t_517 == 1,
-      temp bool t_519 = t_516 and t_518,
-      temp bool t_520 = t_515 and t_519,
-      temp bool t_521 = Node_4.state == 0,
-      temp bool t_522 = t_520 and t_521;
-    guardCondition t_522;
+    guardCondition t_378;
     effect
       Token.state = 2,
       Node_4.rt = 1,
       Node_4.state = 1;
 
-  process Token_Node_4
+  process Token_Node_4 
     guardBlock
-      temp bool t_523 = Token.state == 3,
-      temp bool t_524 = Token.NRT_count > 0,
-      temp bool t_525 = Token.next == 4,
-      temp bool t_526 = t_524 and t_525,
-      temp bool t_527 = t_523 and t_526,
-      temp bool t_528 = Node_4.state == 0,
-      temp bool t_529 = t_527 and t_528;
-    guardCondition t_529;
+      temp bool t_379 = Token.state == 3,
+      temp bool t_380 = Token.NRT_count > 0,
+      temp bool t_381 = Token.next == 4,
+      temp bool t_382 = t_380 and t_381,
+      temp bool t_383 = t_379 and t_382,
+      temp bool t_384 = Node_4.state == 0,
+      temp bool t_385 = t_383 and t_384;
+
+    guardCondition t_385;
     effect
       Token.state = 4,
       Node_4.rt = 0,
       Node_4.state = 1;
-      // accepting conditions
-      // LTL_property.state == 0
-      // LTL_property.state == 3
+
+  process Token_Node_0 
+    guardBlock
+      temp bool t_386 = Token.state == 1,
+      temp bool t_387 = Token.i == 0,
+      temp byte t_388 = in_RT[Token.i],
+      temp bool t_389 = t_388 == 1,
+      temp bool t_390 = t_387 and t_389,
+      temp bool t_391 = t_386 and t_390,
+      temp bool t_392 = Node_0.state == 0,
+      temp bool t_393 = t_391 and t_392;
+
+    guardCondition t_393;
+    effect
+      Token.state = 2,
+      Node_0.rt = 1,
+      Node_0.state = 1;
+
+  process Token_Node_0 
+    guardBlock
+      temp bool t_394 = Token.state == 3,
+      temp bool t_395 = Token.NRT_count > 0,
+      temp bool t_396 = Token.next == 0,
+      temp bool t_397 = t_395 and t_396,
+      temp bool t_398 = t_394 and t_397,
+      temp bool t_399 = Node_0.state == 0,
+      temp bool t_400 = t_398 and t_399;
+
+    guardCondition t_400;
+    effect
+      Token.state = 4,
+      Node_0.rt = 0,
+      Node_0.state = 1;
+
+  process Bandwidth_Node_0 
+    guardBlock
+      temp bool t_401 = Bandwidth.state == 1,
+      temp byte t_402 = in_RT[Bandwidth.i],
+      temp bool t_403 = t_402 == 1,
+      temp bool t_404 = t_401 and t_403,
+      temp bool t_405 = Node_0.state == 8,
+      temp bool t_406 = t_404 and t_405;
+
+    guardCondition t_406;
+    effect
+      Bandwidth.state = 0,
+      in_RT[Bandwidth.i] = 0,
+      temp byte t_407 = RT_count - 1,
+      RT_count = t_407,
+      Node_0.state = 6;
+
+  process Bandwidth_Node_1 
+    guardBlock
+      temp bool t_408 = Bandwidth.state == 1,
+      temp byte t_409 = in_RT[Bandwidth.i],
+      temp bool t_410 = t_409 == 1,
+      temp bool t_411 = t_408 and t_410,
+      temp bool t_412 = Node_1.state == 8,
+      temp bool t_413 = t_411 and t_412;
+
+    guardCondition t_413;
+    effect
+      Bandwidth.state = 0,
+      in_RT[Bandwidth.i] = 0,
+      temp byte t_414 = RT_count - 1,
+      RT_count = t_414,
+      Node_1.state = 6;
+
+  process Bandwidth_Node_2 
+    guardBlock
+      temp bool t_415 = Bandwidth.state == 1,
+      temp byte t_416 = in_RT[Bandwidth.i],
+      temp bool t_417 = t_416 == 1,
+      temp bool t_418 = t_415 and t_417,
+      temp bool t_419 = Node_2.state == 8,
+      temp bool t_420 = t_418 and t_419;
+
+    guardCondition t_420;
+    effect
+      Bandwidth.state = 0,
+      in_RT[Bandwidth.i] = 0,
+      temp byte t_421 = RT_count - 1,
+      RT_count = t_421,
+      Node_2.state = 6;
+
+  process Bandwidth_Node_3 
+    guardBlock
+      temp bool t_422 = Bandwidth.state == 1,
+      temp byte t_423 = in_RT[Bandwidth.i],
+      temp bool t_424 = t_423 == 1,
+      temp bool t_425 = t_422 and t_424,
+      temp bool t_426 = Node_3.state == 8,
+      temp bool t_427 = t_425 and t_426;
+
+    guardCondition t_427;
+    effect
+      Bandwidth.state = 0,
+      in_RT[Bandwidth.i] = 0,
+      temp byte t_428 = RT_count - 1,
+      RT_count = t_428,
+      Node_3.state = 6;
+
+  process Bandwidth_Node_4 
+    guardBlock
+      temp bool t_429 = Bandwidth.state == 1,
+      temp byte t_430 = in_RT[Bandwidth.i],
+      temp bool t_431 = t_430 == 1,
+      temp bool t_432 = t_429 and t_431,
+      temp bool t_433 = Node_4.state == 8,
+      temp bool t_434 = t_432 and t_433;
+
+    guardCondition t_434;
+    effect
+      Bandwidth.state = 0,
+      in_RT[Bandwidth.i] = 0,
+      temp byte t_435 = RT_count - 1,
+      RT_count = t_435,
+      Node_4.state = 6;
+
+  process Bandwidth_Node_5 
+    guardBlock
+      temp bool t_436 = Bandwidth.state == 1,
+      temp byte t_437 = in_RT[Bandwidth.i],
+      temp bool t_438 = t_437 == 1,
+      temp bool t_439 = t_436 and t_438,
+      temp bool t_440 = Node_5.state == 8,
+      temp bool t_441 = t_439 and t_440;
+
+    guardCondition t_441;
+    effect
+      Bandwidth.state = 0,
+      in_RT[Bandwidth.i] = 0,
+      temp byte t_442 = RT_count - 1,
+      RT_count = t_442,
+      Node_5.state = 6;
+
+  process Bandwidth_Node_6 
+    guardBlock
+      temp bool t_443 = Bandwidth.state == 1,
+      temp byte t_444 = in_RT[Bandwidth.i],
+      temp bool t_445 = t_444 == 1,
+      temp bool t_446 = t_443 and t_445,
+      temp bool t_447 = Node_6.state == 8,
+      temp bool t_448 = t_446 and t_447;
+
+    guardCondition t_448;
+    effect
+      Bandwidth.state = 0,
+      in_RT[Bandwidth.i] = 0,
+      temp byte t_449 = RT_count - 1,
+      RT_count = t_449,
+      Node_6.state = 6;
+
+  process Token_Node_1 
+    guardBlock
+      temp bool t_450 = Token.state == 1,
+      temp bool t_451 = Token.i == 1,
+      temp byte t_452 = in_RT[Token.i],
+      temp bool t_453 = t_452 == 1,
+      temp bool t_454 = t_451 and t_453,
+      temp bool t_455 = t_450 and t_454,
+      temp bool t_456 = Node_1.state == 0,
+      temp bool t_457 = t_455 and t_456;
+
+    guardCondition t_457;
+    effect
+      Token.state = 2,
+      Node_1.rt = 1,
+      Node_1.state = 1;
+
+  process Token_Node_1 
+    guardBlock
+      temp bool t_458 = Token.state == 3,
+      temp bool t_459 = Token.NRT_count > 0,
+      temp bool t_460 = Token.next == 1,
+      temp bool t_461 = t_459 and t_460,
+      temp bool t_462 = t_458 and t_461,
+      temp bool t_463 = Node_1.state == 0,
+      temp bool t_464 = t_462 and t_463;
+
+    guardCondition t_464;
+    effect
+      Token.state = 4,
+      Node_1.rt = 0,
+      Node_1.state = 1;
+
+  process Node_0_Bandwidth 
+    guardBlock
+      temp bool t_465 = Node_0.state == 3,
+      temp bool t_466 = Node_0.granted == 0,
+      temp bool t_467 = t_465 and t_466,
+      temp bool t_468 = Bandwidth.state == 0,
+      temp bool t_469 = t_467 and t_468;
+
+    guardCondition t_469;
+    effect
+      Node_0.state = 4,
+      Bandwidth.i = 0,
+      Bandwidth.state = 2;
+
+  process Node_1_Bandwidth 
+    guardBlock
+      temp bool t_470 = Node_1.state == 3,
+      temp bool t_471 = Node_1.granted == 0,
+      temp bool t_472 = t_470 and t_471,
+      temp bool t_473 = Bandwidth.state == 0,
+      temp bool t_474 = t_472 and t_473;
+
+    guardCondition t_474;
+    effect
+      Node_1.state = 4,
+      Bandwidth.i = 1,
+      Bandwidth.state = 2;
+
+  process Node_2_Bandwidth 
+    guardBlock
+      temp bool t_475 = Node_2.state == 3,
+      temp bool t_476 = Node_2.granted == 0,
+      temp bool t_477 = t_475 and t_476,
+      temp bool t_478 = Bandwidth.state == 0,
+      temp bool t_479 = t_477 and t_478;
+
+    guardCondition t_479;
+    effect
+      Node_2.state = 4,
+      Bandwidth.i = 2,
+      Bandwidth.state = 2;
+
+  process Node_3_Bandwidth 
+    guardBlock
+      temp bool t_480 = Node_3.state == 3,
+      temp bool t_481 = Node_3.granted == 0,
+      temp bool t_482 = t_480 and t_481,
+      temp bool t_483 = Bandwidth.state == 0,
+      temp bool t_484 = t_482 and t_483;
+
+    guardCondition t_484;
+    effect
+      Node_3.state = 4,
+      Bandwidth.i = 3,
+      Bandwidth.state = 2;
+
+  process Node_4_Bandwidth 
+    guardBlock
+      temp bool t_485 = Node_4.state == 3,
+      temp bool t_486 = Node_4.granted == 0,
+      temp bool t_487 = t_485 and t_486,
+      temp bool t_488 = Bandwidth.state == 0,
+      temp bool t_489 = t_487 and t_488;
+
+    guardCondition t_489;
+    effect
+      Node_4.state = 4,
+      Bandwidth.i = 4,
+      Bandwidth.state = 2;
+
+  process Node_5_Bandwidth 
+    guardBlock
+      temp bool t_490 = Node_5.state == 3,
+      temp bool t_491 = Node_5.granted == 0,
+      temp bool t_492 = t_490 and t_491,
+      temp bool t_493 = Bandwidth.state == 0,
+      temp bool t_494 = t_492 and t_493;
+
+    guardCondition t_494;
+    effect
+      Node_5.state = 4,
+      Bandwidth.i = 5,
+      Bandwidth.state = 2;
+
+  process Node_6_Bandwidth 
+    guardBlock
+      temp bool t_495 = Node_6.state == 3,
+      temp bool t_496 = Node_6.granted == 0,
+      temp bool t_497 = t_495 and t_496,
+      temp bool t_498 = Bandwidth.state == 0,
+      temp bool t_499 = t_497 and t_498;
+
+    guardCondition t_499;
+    effect
+      Node_6.state = 4,
+      Bandwidth.i = 6,
+      Bandwidth.state = 2;
+
+  process Token_Node_5 
+    guardBlock
+      temp bool t_500 = Token.state == 1,
+      temp bool t_501 = Token.i == 5,
+      temp byte t_502 = in_RT[Token.i],
+      temp bool t_503 = t_502 == 1,
+      temp bool t_504 = t_501 and t_503,
+      temp bool t_505 = t_500 and t_504,
+      temp bool t_506 = Node_5.state == 0,
+      temp bool t_507 = t_505 and t_506;
+
+    guardCondition t_507;
+    effect
+      Token.state = 2,
+      Node_5.rt = 1,
+      Node_5.state = 1;
+
+  process Token_Node_5 
+    guardBlock
+      temp bool t_508 = Token.state == 3,
+      temp bool t_509 = Token.NRT_count > 0,
+      temp bool t_510 = Token.next == 5,
+      temp bool t_511 = t_509 and t_510,
+      temp bool t_512 = t_508 and t_511,
+      temp bool t_513 = Node_5.state == 0,
+      temp bool t_514 = t_512 and t_513;
+
+    guardCondition t_514;
+    effect
+      Token.state = 4,
+      Node_5.rt = 0,
+      Node_5.state = 1;
+
+  process Token_Node_2 
+    guardBlock
+      temp bool t_515 = Token.state == 1,
+      temp bool t_516 = Token.i == 2,
+      temp byte t_517 = in_RT[Token.i],
+      temp bool t_518 = t_517 == 1,
+      temp bool t_519 = t_516 and t_518,
+      temp bool t_520 = t_515 and t_519,
+      temp bool t_521 = Node_2.state == 0,
+      temp bool t_522 = t_520 and t_521;
+
+    guardCondition t_522;
+    effect
+      Token.state = 2,
+      Node_2.rt = 1,
+      Node_2.state = 1;
+
+  process Token_Node_2 
+    guardBlock
+      temp bool t_523 = Token.state == 3,
+      temp bool t_524 = Token.NRT_count > 0,
+      temp bool t_525 = Token.next == 2,
+      temp bool t_526 = t_524 and t_525,
+      temp bool t_527 = t_523 and t_526,
+      temp bool t_528 = Node_2.state == 0,
+      temp bool t_529 = t_527 and t_528;
+
+    guardCondition t_529;
+    effect
+      Token.state = 4,
+      Node_2.rt = 0,
+      Node_2.state = 1;
+
+accepting conditions
+  LTL_property.state == 0
+  LTL_property.state == 3
+

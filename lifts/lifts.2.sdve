@@ -2,8 +2,7 @@ state {wait(0), send_up(1), send_down(2)} Bus.state = 0;
 state {staying(0), moving_down(1), moving_up(2), error_state(3)} Wheels.state = 0;
 state {wait(0), q1(1), q2(2), q3(3), q4(4), q5(5), r1(6), r2(7), r3(8), r4(9), passive(10), p_msg(11), p_send(12), active(13), a_msg(14), a_send(15), error_state(16), a_move(17)} Lift_0.state = 0;
 state {wait(0), q1(1), q2(2), q3(3), q4(4), q5(5), r1(6), r2(7), r3(8), r4(9), passive(10), p_msg(11), p_send(12), active(13), a_msg(14), a_send(15), error_state(16), a_move(17)} Lift_1.state = 0;
-state {pressed_up_0(0), pressed_down_0(1), pressed_up_1(2), pressed_down_1(3), q(4)} Environment.state = 4;
-byte relay[3] =  {0, 0};
+byte relay[2] = {0, 0};
 byte atomic = 0;
 byte Bus.sender = 0;
 byte Bus.j = 0;
@@ -20,36 +19,38 @@ byte Lift_1.nos = 0;
 byte Lift_1.m = 0;
 byte Lift_1.count = 0;
 
-  process Bus
+  process Bus 
     guardBlock
       temp bool t_0 = Bus.state == 1,
       temp bool t_1 = Bus.j == Bus.sender,
       temp bool t_2 = t_0 and t_1;
+
     guardCondition t_2;
     effect
       Bus.state = 0,
       atomic = 0;
 
-  process Bus
+  process Bus 
     guardBlock
       temp bool t_3 = Bus.state == 1,
       temp bool t_4 = Bus.j != Bus.sender,
-      temp int t_5 = Bus.j + 2,
-      temp int t_6 = t_5 - 1,
-      temp int t_7 = t_6 % 2,
+      temp byte t_5 = Bus.j + 2,
+      temp byte t_6 = t_5 - 1,
+      temp byte t_7 = t_6 % 2,
       temp byte t_8 = relay[t_7],
       temp bool t_9 = t_8 == 0,
       temp bool t_10 = t_4 and t_9,
       temp bool t_11 = t_3 and t_10;
+
     guardCondition t_11;
     effect
       Bus.state = 2,
-      temp int t_12 = Bus.sender + 2,
-      temp int t_13 = t_12 - 1,
-      temp int t_14 = t_13 % 2,
+      temp byte t_12 = Bus.sender + 2,
+      temp byte t_13 = t_12 - 1,
+      temp byte t_14 = t_13 % 2,
       Bus.j = t_14;
 
-  process Bus
+  process Bus 
     guardBlock
       temp bool t_15 = Bus.state == 2,
       temp bool t_16 = Bus.j == Bus.sender,
@@ -57,1767 +58,1653 @@ byte Lift_1.count = 0;
       temp bool t_18 = t_17 == 0,
       temp bool t_19 = t_16 or t_18,
       temp bool t_20 = t_15 and t_19;
+
     guardCondition t_20;
     effect
       Bus.state = 0,
       atomic = 0;
 
-  process Lift_0
+  process Lift_0 
     guardBlock
       temp bool t_21 = Lift_0.state == 2,
       temp bool t_22 = atomic == 0,
       temp bool t_23 = t_21 and t_22;
+
     guardCondition t_23;
     effect
       Lift_0.state = 3,
       relay[0] = 0;
 
-  process Lift_0
+  process Lift_0 
     guardBlock
       temp bool t_24 = Lift_0.state == 4,
-      temp int t_25 = Lift_0.m / 8,
+      temp byte t_25 = Lift_0.m / 8,
       temp bool t_26 = t_25 == 4,
       temp bool t_27 = t_24 and t_26;
+
     guardCondition t_27;
     effect
       Lift_0.state = 5,
-      temp int t_28 = Lift_0.m % 8,
-      temp int t_29 = t_28 + 1,
+      temp byte t_28 = Lift_0.m % 8,
+      temp byte t_29 = t_28 + 1,
       Lift_0.nos = t_29;
 
-  process Lift_0
+  process Lift_0 
     guardBlock
       temp bool t_30 = Lift_0.state == 6,
       temp bool t_31 = atomic == 0,
-      temp int t_32 = Lift_0.m / 8,
+      temp byte t_32 = Lift_0.m / 8,
       temp bool t_33 = t_32 == 4,
       temp bool t_34 = t_31 and t_33,
       temp bool t_35 = t_30 and t_34;
+
     guardCondition t_35;
     effect
       Lift_0.state = 7,
-      temp int t_36 = Lift_0.m % 8,
-      temp int t_37 = t_36 + 1,
+      temp byte t_36 = Lift_0.m % 8,
+      temp byte t_37 = t_36 + 1,
       Lift_0.pos = t_37,
-      temp int t_38 = Lift_0.pos + 1,
+      temp byte t_38 = Lift_0.pos + 1,
       Lift_0.nos = t_38,
       relay[0] = 1;
 
-  process Lift_0
+  process Lift_0 
     guardBlock
       temp bool t_39 = Lift_0.state == 9,
-      temp int t_40 = Lift_0.m / 8,
+      temp byte t_40 = Lift_0.m / 8,
       temp bool t_41 = t_40 == 4,
       temp bool t_42 = t_39 and t_41;
+
     guardCondition t_42;
     effect
       Lift_0.state = 8,
-      temp int t_43 = Lift_0.m % 8,
-      temp int t_44 = t_43 + 1,
+      temp byte t_43 = Lift_0.m % 8,
+      temp byte t_44 = t_43 + 1,
       Lift_0.nos = t_44;
 
-  process Lift_0
+  process Lift_0 
     guardBlock
       temp bool t_45 = Lift_0.state == 9,
-      temp int t_46 = Lift_0.m / 8,
+      temp byte t_46 = Lift_0.m / 8,
       temp bool t_47 = t_46 == 0,
       temp bool t_48 = Lift_0.pos != 1,
       temp bool t_49 = t_47 and t_48,
       temp bool t_50 = t_45 and t_49;
+
     guardCondition t_50;
     effect
       Lift_0.state = 10;
 
-  process Lift_0
+  process Lift_0 
     guardBlock
       temp bool t_51 = Lift_0.state == 11,
-      temp int t_52 = Lift_0.m / 8,
+      temp byte t_52 = Lift_0.m / 8,
       temp bool t_53 = t_52 != 3,
-      temp int t_54 = Lift_0.m % 8,
-      temp int t_55 = t_54 + 1,
-      temp int t_56 = t_55 % Lift_0.nos,
+      temp byte t_54 = Lift_0.m % 8,
+      temp byte t_55 = t_54 + 1,
+      temp byte t_56 = t_55 % Lift_0.nos,
       temp bool t_57 = t_56 != Lift_0.pos,
       temp bool t_58 = t_53 and t_57,
       temp bool t_59 = t_51 and t_58;
+
     guardCondition t_59;
     effect
       Lift_0.state = 10,
-      temp int t_60 = Lift_0.m / 8,
+      temp byte t_60 = Lift_0.m / 8,
       Lift_0.status = t_60;
 
-  process Lift_0
+  process Lift_0 
     guardBlock
       temp bool t_61 = Lift_0.state == 11,
-      temp int t_62 = Lift_0.m / 8,
+      temp byte t_62 = Lift_0.m / 8,
       temp bool t_63 = t_62 != 3,
-      temp int t_64 = Lift_0.m % 8,
-      temp int t_65 = t_64 + 1,
-      temp int t_66 = t_65 % Lift_0.nos,
+      temp byte t_64 = Lift_0.m % 8,
+      temp byte t_65 = t_64 + 1,
+      temp byte t_66 = t_65 % Lift_0.nos,
       temp bool t_67 = t_66 == Lift_0.pos,
       temp bool t_68 = t_63 and t_67,
       temp bool t_69 = t_61 and t_68;
+
     guardCondition t_69;
     effect
       Lift_0.state = 12,
-      temp int t_70 = Lift_0.m / 8,
+      temp byte t_70 = Lift_0.m / 8,
       Lift_0.status = t_70;
 
-  process Lift_0
+  process Lift_0 
     guardBlock
       temp bool t_71 = Lift_0.state == 11,
       temp bool t_72 = atomic == 0,
-      temp int t_73 = Lift_0.m / 8,
+      temp byte t_73 = Lift_0.m / 8,
       temp bool t_74 = t_73 == 3,
       temp bool t_75 = t_72 and t_74,
       temp bool t_76 = Lift_0.status == 0,
       temp bool t_77 = t_75 and t_76,
       temp bool t_78 = t_71 and t_77;
+
     guardCondition t_78;
     effect
       Lift_0.state = 16;
 
-  process Lift_0
+  process Lift_0 
     guardBlock
       temp bool t_79 = Lift_0.state == 14,
-      temp int t_80 = Lift_0.m / 8,
+      temp byte t_80 = Lift_0.m / 8,
       temp bool t_81 = t_80 == Lift_0.status,
-      temp int t_82 = Lift_0.m % 8,
-      temp int t_83 = t_82 + 1,
-      temp int t_84 = t_83 % Lift_0.nos,
+      temp byte t_82 = Lift_0.m % 8,
+      temp byte t_83 = t_82 + 1,
+      temp byte t_84 = t_83 % Lift_0.nos,
       temp bool t_85 = t_84 != Lift_0.pos,
       temp bool t_86 = t_81 and t_85,
       temp bool t_87 = t_79 and t_86;
+
     guardCondition t_87;
     effect
       Lift_0.state = 13,
-      temp int t_88 = Lift_0.count + 1,
+      temp byte t_88 = Lift_0.count + 1,
       Lift_0.count = t_88;
 
-  process Lift_0
+  process Lift_0 
     guardBlock
       temp bool t_89 = Lift_0.state == 14,
-      temp int t_90 = Lift_0.m / 8,
+      temp byte t_90 = Lift_0.m / 8,
       temp bool t_91 = t_90 != Lift_0.status,
-      temp int t_92 = Lift_0.m % 8,
-      temp int t_93 = t_92 + 1,
-      temp int t_94 = t_93 % Lift_0.nos,
+      temp byte t_92 = Lift_0.m % 8,
+      temp byte t_93 = t_92 + 1,
+      temp byte t_94 = t_93 % Lift_0.nos,
       temp bool t_95 = t_94 != Lift_0.pos,
       temp bool t_96 = t_91 and t_95,
       temp bool t_97 = t_89 and t_96;
+
     guardCondition t_97;
     effect
       Lift_0.state = 13;
 
-  process Lift_0
+  process Lift_0 
     guardBlock
       temp bool t_98 = Lift_0.state == 14,
-      temp int t_99 = Lift_0.m / 8,
+      temp byte t_99 = Lift_0.m / 8,
       temp bool t_100 = t_99 == Lift_0.status,
-      temp int t_101 = Lift_0.m % 8,
-      temp int t_102 = t_101 + 1,
-      temp int t_103 = t_102 % Lift_0.nos,
+      temp byte t_101 = Lift_0.m % 8,
+      temp byte t_102 = t_101 + 1,
+      temp byte t_103 = t_102 % Lift_0.nos,
       temp bool t_104 = t_103 == Lift_0.pos,
       temp bool t_105 = t_100 and t_104,
       temp bool t_106 = t_98 and t_105;
+
     guardCondition t_106;
     effect
       Lift_0.state = 15,
-      temp int t_107 = Lift_0.count + 1,
+      temp byte t_107 = Lift_0.count + 1,
       Lift_0.count = t_107;
 
-  process Lift_0
+  process Lift_0 
     guardBlock
       temp bool t_108 = Lift_0.state == 14,
-      temp int t_109 = Lift_0.m / 8,
+      temp byte t_109 = Lift_0.m / 8,
       temp bool t_110 = t_109 != Lift_0.status,
-      temp int t_111 = Lift_0.m % 8,
-      temp int t_112 = t_111 + 1,
-      temp int t_113 = t_112 % Lift_0.nos,
+      temp byte t_111 = Lift_0.m % 8,
+      temp byte t_112 = t_111 + 1,
+      temp byte t_113 = t_112 % Lift_0.nos,
       temp bool t_114 = t_113 == Lift_0.pos,
       temp bool t_115 = t_110 and t_114,
       temp bool t_116 = t_108 and t_115;
+
     guardCondition t_116;
     effect
       Lift_0.state = 15;
 
-  process Lift_1
+  process Lift_1 
     guardBlock
       temp bool t_117 = Lift_1.state == 2,
       temp bool t_118 = atomic == 0,
       temp bool t_119 = t_117 and t_118;
+
     guardCondition t_119;
     effect
       Lift_1.state = 3,
       relay[1] = 0;
 
-  process Lift_1
+  process Lift_1 
     guardBlock
       temp bool t_120 = Lift_1.state == 4,
-      temp int t_121 = Lift_1.m / 8,
+      temp byte t_121 = Lift_1.m / 8,
       temp bool t_122 = t_121 == 4,
       temp bool t_123 = t_120 and t_122;
+
     guardCondition t_123;
     effect
       Lift_1.state = 5,
-      temp int t_124 = Lift_1.m % 8,
-      temp int t_125 = t_124 + 1,
+      temp byte t_124 = Lift_1.m % 8,
+      temp byte t_125 = t_124 + 1,
       Lift_1.nos = t_125;
 
-  process Lift_1
+  process Lift_1 
     guardBlock
       temp bool t_126 = Lift_1.state == 6,
       temp bool t_127 = atomic == 0,
-      temp int t_128 = Lift_1.m / 8,
+      temp byte t_128 = Lift_1.m / 8,
       temp bool t_129 = t_128 == 4,
       temp bool t_130 = t_127 and t_129,
       temp bool t_131 = t_126 and t_130;
+
     guardCondition t_131;
     effect
       Lift_1.state = 7,
-      temp int t_132 = Lift_1.m % 8,
-      temp int t_133 = t_132 + 1,
+      temp byte t_132 = Lift_1.m % 8,
+      temp byte t_133 = t_132 + 1,
       Lift_1.pos = t_133,
-      temp int t_134 = Lift_1.pos + 1,
+      temp byte t_134 = Lift_1.pos + 1,
       Lift_1.nos = t_134,
       relay[1] = 1;
 
-  process Lift_1
+  process Lift_1 
     guardBlock
       temp bool t_135 = Lift_1.state == 9,
-      temp int t_136 = Lift_1.m / 8,
+      temp byte t_136 = Lift_1.m / 8,
       temp bool t_137 = t_136 == 4,
       temp bool t_138 = t_135 and t_137;
+
     guardCondition t_138;
     effect
       Lift_1.state = 8,
-      temp int t_139 = Lift_1.m % 8,
-      temp int t_140 = t_139 + 1,
+      temp byte t_139 = Lift_1.m % 8,
+      temp byte t_140 = t_139 + 1,
       Lift_1.nos = t_140;
 
-  process Lift_1
+  process Lift_1 
     guardBlock
       temp bool t_141 = Lift_1.state == 9,
-      temp int t_142 = Lift_1.m / 8,
+      temp byte t_142 = Lift_1.m / 8,
       temp bool t_143 = t_142 == 0,
       temp bool t_144 = Lift_1.pos != 1,
       temp bool t_145 = t_143 and t_144,
       temp bool t_146 = t_141 and t_145;
+
     guardCondition t_146;
     effect
       Lift_1.state = 10;
 
-  process Lift_1
+  process Lift_1 
     guardBlock
       temp bool t_147 = Lift_1.state == 11,
-      temp int t_148 = Lift_1.m / 8,
+      temp byte t_148 = Lift_1.m / 8,
       temp bool t_149 = t_148 != 3,
-      temp int t_150 = Lift_1.m % 8,
-      temp int t_151 = t_150 + 1,
-      temp int t_152 = t_151 % Lift_1.nos,
+      temp byte t_150 = Lift_1.m % 8,
+      temp byte t_151 = t_150 + 1,
+      temp byte t_152 = t_151 % Lift_1.nos,
       temp bool t_153 = t_152 != Lift_1.pos,
       temp bool t_154 = t_149 and t_153,
       temp bool t_155 = t_147 and t_154;
+
     guardCondition t_155;
     effect
       Lift_1.state = 10,
-      temp int t_156 = Lift_1.m / 8,
+      temp byte t_156 = Lift_1.m / 8,
       Lift_1.status = t_156;
 
-  process Lift_1
+  process Lift_1 
     guardBlock
       temp bool t_157 = Lift_1.state == 11,
-      temp int t_158 = Lift_1.m / 8,
+      temp byte t_158 = Lift_1.m / 8,
       temp bool t_159 = t_158 != 3,
-      temp int t_160 = Lift_1.m % 8,
-      temp int t_161 = t_160 + 1,
-      temp int t_162 = t_161 % Lift_1.nos,
+      temp byte t_160 = Lift_1.m % 8,
+      temp byte t_161 = t_160 + 1,
+      temp byte t_162 = t_161 % Lift_1.nos,
       temp bool t_163 = t_162 == Lift_1.pos,
       temp bool t_164 = t_159 and t_163,
       temp bool t_165 = t_157 and t_164;
+
     guardCondition t_165;
     effect
       Lift_1.state = 12,
-      temp int t_166 = Lift_1.m / 8,
+      temp byte t_166 = Lift_1.m / 8,
       Lift_1.status = t_166;
 
-  process Lift_1
+  process Lift_1 
     guardBlock
       temp bool t_167 = Lift_1.state == 11,
       temp bool t_168 = atomic == 0,
-      temp int t_169 = Lift_1.m / 8,
+      temp byte t_169 = Lift_1.m / 8,
       temp bool t_170 = t_169 == 3,
       temp bool t_171 = t_168 and t_170,
       temp bool t_172 = Lift_1.status == 0,
       temp bool t_173 = t_171 and t_172,
       temp bool t_174 = t_167 and t_173;
+
     guardCondition t_174;
     effect
       Lift_1.state = 16;
 
-  process Lift_1
+  process Lift_1 
     guardBlock
       temp bool t_175 = Lift_1.state == 14,
-      temp int t_176 = Lift_1.m / 8,
+      temp byte t_176 = Lift_1.m / 8,
       temp bool t_177 = t_176 == Lift_1.status,
-      temp int t_178 = Lift_1.m % 8,
-      temp int t_179 = t_178 + 1,
-      temp int t_180 = t_179 % Lift_1.nos,
+      temp byte t_178 = Lift_1.m % 8,
+      temp byte t_179 = t_178 + 1,
+      temp byte t_180 = t_179 % Lift_1.nos,
       temp bool t_181 = t_180 != Lift_1.pos,
       temp bool t_182 = t_177 and t_181,
       temp bool t_183 = t_175 and t_182;
+
     guardCondition t_183;
     effect
       Lift_1.state = 13,
-      temp int t_184 = Lift_1.count + 1,
+      temp byte t_184 = Lift_1.count + 1,
       Lift_1.count = t_184;
 
-  process Lift_1
+  process Lift_1 
     guardBlock
       temp bool t_185 = Lift_1.state == 14,
-      temp int t_186 = Lift_1.m / 8,
+      temp byte t_186 = Lift_1.m / 8,
       temp bool t_187 = t_186 != Lift_1.status,
-      temp int t_188 = Lift_1.m % 8,
-      temp int t_189 = t_188 + 1,
-      temp int t_190 = t_189 % Lift_1.nos,
+      temp byte t_188 = Lift_1.m % 8,
+      temp byte t_189 = t_188 + 1,
+      temp byte t_190 = t_189 % Lift_1.nos,
       temp bool t_191 = t_190 != Lift_1.pos,
       temp bool t_192 = t_187 and t_191,
       temp bool t_193 = t_185 and t_192;
+
     guardCondition t_193;
     effect
       Lift_1.state = 13;
 
-  process Lift_1
+  process Lift_1 
     guardBlock
       temp bool t_194 = Lift_1.state == 14,
-      temp int t_195 = Lift_1.m / 8,
+      temp byte t_195 = Lift_1.m / 8,
       temp bool t_196 = t_195 == Lift_1.status,
-      temp int t_197 = Lift_1.m % 8,
-      temp int t_198 = t_197 + 1,
-      temp int t_199 = t_198 % Lift_1.nos,
+      temp byte t_197 = Lift_1.m % 8,
+      temp byte t_198 = t_197 + 1,
+      temp byte t_199 = t_198 % Lift_1.nos,
       temp bool t_200 = t_199 == Lift_1.pos,
       temp bool t_201 = t_196 and t_200,
       temp bool t_202 = t_194 and t_201;
+
     guardCondition t_202;
     effect
       Lift_1.state = 15,
-      temp int t_203 = Lift_1.count + 1,
+      temp byte t_203 = Lift_1.count + 1,
       Lift_1.count = t_203;
 
-  process Lift_1
+  process Lift_1 
     guardBlock
       temp bool t_204 = Lift_1.state == 14,
-      temp int t_205 = Lift_1.m / 8,
+      temp byte t_205 = Lift_1.m / 8,
       temp bool t_206 = t_205 != Lift_1.status,
-      temp int t_207 = Lift_1.m % 8,
-      temp int t_208 = t_207 + 1,
-      temp int t_209 = t_208 % Lift_1.nos,
+      temp byte t_207 = Lift_1.m % 8,
+      temp byte t_208 = t_207 + 1,
+      temp byte t_209 = t_208 % Lift_1.nos,
       temp bool t_210 = t_209 == Lift_1.pos,
       temp bool t_211 = t_206 and t_210,
       temp bool t_212 = t_204 and t_211;
+
     guardCondition t_212;
     effect
       Lift_1.state = 15;
 
-  process Environment_Lift_0
+  process Lift_0_Wheels 
     guardBlock
-      temp bool t_213 = Environment.state == 4,
-      temp bool t_214 = Lift_0.state == 10,
-      temp bool t_215 = atomic == 0,
-      temp bool t_216 = t_214 and t_215,
-      temp bool t_217 = t_213 and t_216;
-    guardCondition t_217;
+      temp bool t_213 = Lift_0.state == 11,
+      temp byte t_214 = Lift_0.m / 8,
+      temp bool t_215 = t_214 == 3,
+      temp bool t_216 = Lift_0.status == 1,
+      temp bool t_217 = t_215 and t_216,
+      temp byte t_218 = Lift_0.m % 8,
+      temp byte t_219 = t_218 + 1,
+      temp byte t_220 = t_219 % Lift_0.nos,
+      temp bool t_221 = t_220 != Lift_0.pos,
+      temp bool t_222 = t_217 and t_221,
+      temp bool t_223 = t_213 and t_222,
+      temp bool t_224 = Wheels.state == 2,
+      temp bool t_225 = t_223 and t_224;
+
+    guardCondition t_225;
     effect
-      Environment.state = 1,
+      Lift_0.state = 10,
+      Wheels.state = 3;
+
+  process Lift_0_Wheels 
+    guardBlock
+      temp bool t_226 = Lift_0.state == 11,
+      temp byte t_227 = Lift_0.m / 8,
+      temp bool t_228 = t_227 == 3,
+      temp bool t_229 = Lift_0.status == 1,
+      temp bool t_230 = t_228 and t_229,
+      temp byte t_231 = Lift_0.m % 8,
+      temp byte t_232 = t_231 + 1,
+      temp byte t_233 = t_232 % Lift_0.nos,
+      temp bool t_234 = t_233 != Lift_0.pos,
+      temp bool t_235 = t_230 and t_234,
+      temp bool t_236 = t_226 and t_235,
+      temp bool t_237 = Wheels.state == 0,
+      temp bool t_238 = t_236 and t_237;
+
+    guardCondition t_238;
+    effect
+      Lift_0.state = 10,
+      Wheels.state = 1,
+      Wheels.count = 1;
+
+  process Lift_0_Wheels 
+    guardBlock
+      temp bool t_239 = Lift_0.state == 11,
+      temp byte t_240 = Lift_0.m / 8,
+      temp bool t_241 = t_240 == 3,
+      temp bool t_242 = Lift_0.status == 1,
+      temp bool t_243 = t_241 and t_242,
+      temp byte t_244 = Lift_0.m % 8,
+      temp byte t_245 = t_244 + 1,
+      temp byte t_246 = t_245 % Lift_0.nos,
+      temp bool t_247 = t_246 != Lift_0.pos,
+      temp bool t_248 = t_243 and t_247,
+      temp bool t_249 = t_239 and t_248,
+      temp bool t_250 = Wheels.state == 1,
+      temp bool t_251 = Wheels.count < 1,
+      temp bool t_252 = t_250 and t_251,
+      temp bool t_253 = t_249 and t_252;
+
+    guardCondition t_253;
+    effect
+      Lift_0.state = 10,
+      Wheels.state = 1,
+      temp byte t_254 = Wheels.count + 1,
+      Wheels.count = t_254;
+
+  process Lift_0_Wheels 
+    guardBlock
+      temp bool t_255 = Lift_0.state == 11,
+      temp byte t_256 = Lift_0.m / 8,
+      temp bool t_257 = t_256 == 3,
+      temp bool t_258 = Lift_0.status == 1,
+      temp bool t_259 = t_257 and t_258,
+      temp byte t_260 = Lift_0.m % 8,
+      temp byte t_261 = t_260 + 1,
+      temp byte t_262 = t_261 % Lift_0.nos,
+      temp bool t_263 = t_262 != Lift_0.pos,
+      temp bool t_264 = t_259 and t_263,
+      temp bool t_265 = t_255 and t_264,
+      temp bool t_266 = Wheels.state == 1,
+      temp bool t_267 = Wheels.count == 1,
+      temp bool t_268 = t_266 and t_267,
+      temp bool t_269 = t_265 and t_268;
+
+    guardCondition t_269;
+    effect
+      Lift_0.state = 10,
+      Wheels.state = 0;
+
+  process Lift_0_Wheels 
+    guardBlock
+      temp bool t_270 = Lift_0.state == 11,
+      temp byte t_271 = Lift_0.m / 8,
+      temp bool t_272 = t_271 == 3,
+      temp bool t_273 = Lift_0.status == 1,
+      temp bool t_274 = t_272 and t_273,
+      temp byte t_275 = Lift_0.m % 8,
+      temp byte t_276 = t_275 + 1,
+      temp byte t_277 = t_276 % Lift_0.nos,
+      temp bool t_278 = t_277 == Lift_0.pos,
+      temp bool t_279 = t_274 and t_278,
+      temp bool t_280 = t_270 and t_279,
+      temp bool t_281 = Wheels.state == 2,
+      temp bool t_282 = t_280 and t_281;
+
+    guardCondition t_282;
+    effect
+      Lift_0.state = 12,
+      Wheels.state = 3;
+
+  process Lift_0_Wheels 
+    guardBlock
+      temp bool t_283 = Lift_0.state == 11,
+      temp byte t_284 = Lift_0.m / 8,
+      temp bool t_285 = t_284 == 3,
+      temp bool t_286 = Lift_0.status == 1,
+      temp bool t_287 = t_285 and t_286,
+      temp byte t_288 = Lift_0.m % 8,
+      temp byte t_289 = t_288 + 1,
+      temp byte t_290 = t_289 % Lift_0.nos,
+      temp bool t_291 = t_290 == Lift_0.pos,
+      temp bool t_292 = t_287 and t_291,
+      temp bool t_293 = t_283 and t_292,
+      temp bool t_294 = Wheels.state == 0,
+      temp bool t_295 = t_293 and t_294;
+
+    guardCondition t_295;
+    effect
+      Lift_0.state = 12,
+      Wheels.state = 1,
+      Wheels.count = 1;
+
+  process Lift_0_Wheels 
+    guardBlock
+      temp bool t_296 = Lift_0.state == 11,
+      temp byte t_297 = Lift_0.m / 8,
+      temp bool t_298 = t_297 == 3,
+      temp bool t_299 = Lift_0.status == 1,
+      temp bool t_300 = t_298 and t_299,
+      temp byte t_301 = Lift_0.m % 8,
+      temp byte t_302 = t_301 + 1,
+      temp byte t_303 = t_302 % Lift_0.nos,
+      temp bool t_304 = t_303 == Lift_0.pos,
+      temp bool t_305 = t_300 and t_304,
+      temp bool t_306 = t_296 and t_305,
+      temp bool t_307 = Wheels.state == 1,
+      temp bool t_308 = Wheels.count < 1,
+      temp bool t_309 = t_307 and t_308,
+      temp bool t_310 = t_306 and t_309;
+
+    guardCondition t_310;
+    effect
+      Lift_0.state = 12,
+      Wheels.state = 1,
+      temp byte t_311 = Wheels.count + 1,
+      Wheels.count = t_311;
+
+  process Lift_0_Wheels 
+    guardBlock
+      temp bool t_312 = Lift_0.state == 11,
+      temp byte t_313 = Lift_0.m / 8,
+      temp bool t_314 = t_313 == 3,
+      temp bool t_315 = Lift_0.status == 1,
+      temp bool t_316 = t_314 and t_315,
+      temp byte t_317 = Lift_0.m % 8,
+      temp byte t_318 = t_317 + 1,
+      temp byte t_319 = t_318 % Lift_0.nos,
+      temp bool t_320 = t_319 == Lift_0.pos,
+      temp bool t_321 = t_316 and t_320,
+      temp bool t_322 = t_312 and t_321,
+      temp bool t_323 = Wheels.state == 1,
+      temp bool t_324 = Wheels.count == 1,
+      temp bool t_325 = t_323 and t_324,
+      temp bool t_326 = t_322 and t_325;
+
+    guardCondition t_326;
+    effect
+      Lift_0.state = 12,
+      Wheels.state = 0;
+
+  process Lift_0_Wheels 
+    guardBlock
+      temp bool t_327 = Lift_0.state == 14,
+      temp byte t_328 = Lift_0.m / 8,
+      temp bool t_329 = t_328 == 3,
+      temp bool t_330 = Lift_0.status == 1,
+      temp bool t_331 = t_329 and t_330,
+      temp bool t_332 = t_327 and t_331,
+      temp bool t_333 = Wheels.state == 2,
+      temp bool t_334 = t_332 and t_333;
+
+    guardCondition t_334;
+    effect
       Lift_0.state = 13,
-      Lift_0.status = 1,
-      Lift_0.count = 1;
+      Wheels.state = 3;
 
-  process Environment_Lift_1
+  process Lift_0_Wheels 
     guardBlock
-      temp bool t_218 = Environment.state == 4,
-      temp bool t_219 = Lift_1.state == 10,
-      temp bool t_220 = atomic == 0,
-      temp bool t_221 = t_219 and t_220,
-      temp bool t_222 = t_218 and t_221;
-    guardCondition t_222;
+      temp bool t_335 = Lift_0.state == 14,
+      temp byte t_336 = Lift_0.m / 8,
+      temp bool t_337 = t_336 == 3,
+      temp bool t_338 = Lift_0.status == 1,
+      temp bool t_339 = t_337 and t_338,
+      temp bool t_340 = t_335 and t_339,
+      temp bool t_341 = Wheels.state == 0,
+      temp bool t_342 = t_340 and t_341;
+
+    guardCondition t_342;
     effect
-      Environment.state = 3,
-      Lift_1.state = 13,
-      Lift_1.status = 1,
-      Lift_1.count = 1;
+      Lift_0.state = 13,
+      Wheels.state = 1,
+      Wheels.count = 1;
 
-  process Environment_Lift_1
+  process Lift_0_Wheels 
     guardBlock
-      temp bool t_223 = Environment.state == 4,
-      temp bool t_224 = Lift_1.state == 10,
-      temp bool t_225 = atomic == 0,
-      temp bool t_226 = t_224 and t_225,
-      temp bool t_227 = t_223 and t_226;
-    guardCondition t_227;
+      temp bool t_343 = Lift_0.state == 14,
+      temp byte t_344 = Lift_0.m / 8,
+      temp bool t_345 = t_344 == 3,
+      temp bool t_346 = Lift_0.status == 1,
+      temp bool t_347 = t_345 and t_346,
+      temp bool t_348 = t_343 and t_347,
+      temp bool t_349 = Wheels.state == 1,
+      temp bool t_350 = Wheels.count < 1,
+      temp bool t_351 = t_349 and t_350,
+      temp bool t_352 = t_348 and t_351;
+
+    guardCondition t_352;
     effect
-      Environment.state = 2,
-      Lift_1.state = 13,
-      Lift_1.status = 2,
-      Lift_1.count = 1;
+      Lift_0.state = 13,
+      Wheels.state = 1,
+      temp byte t_353 = Wheels.count + 1,
+      Wheels.count = t_353;
 
-  process Environment_Lift_0
+  process Lift_0_Wheels 
     guardBlock
-      temp bool t_228 = Environment.state == 4,
-      temp bool t_229 = Lift_0.state == 10,
-      temp bool t_230 = atomic == 0,
-      temp bool t_231 = t_229 and t_230,
-      temp bool t_232 = t_228 and t_231;
-    guardCondition t_232;
+      temp bool t_354 = Lift_0.state == 14,
+      temp byte t_355 = Lift_0.m / 8,
+      temp bool t_356 = t_355 == 3,
+      temp bool t_357 = Lift_0.status == 1,
+      temp bool t_358 = t_356 and t_357,
+      temp bool t_359 = t_354 and t_358,
+      temp bool t_360 = Wheels.state == 1,
+      temp bool t_361 = Wheels.count == 1,
+      temp bool t_362 = t_360 and t_361,
+      temp bool t_363 = t_359 and t_362;
+
+    guardCondition t_363;
+    effect
+      Lift_0.state = 13,
+      Wheels.state = 0;
+
+  process Lift_0_Wheels 
+    guardBlock
+      temp bool t_364 = Lift_0.state == 17,
+      temp bool t_365 = Lift_0.status == 1,
+      temp bool t_366 = t_364 and t_365,
+      temp bool t_367 = Wheels.state == 2,
+      temp bool t_368 = t_366 and t_367;
+
+    guardCondition t_368;
+    effect
+      Lift_0.state = 13,
+      Wheels.state = 3;
+
+  process Lift_0_Wheels 
+    guardBlock
+      temp bool t_369 = Lift_0.state == 17,
+      temp bool t_370 = Lift_0.status == 1,
+      temp bool t_371 = t_369 and t_370,
+      temp bool t_372 = Wheels.state == 0,
+      temp bool t_373 = t_371 and t_372;
+
+    guardCondition t_373;
+    effect
+      Lift_0.state = 13,
+      Wheels.state = 1,
+      Wheels.count = 1;
+
+  process Lift_0_Wheels 
+    guardBlock
+      temp bool t_374 = Lift_0.state == 17,
+      temp bool t_375 = Lift_0.status == 1,
+      temp bool t_376 = t_374 and t_375,
+      temp bool t_377 = Wheels.state == 1,
+      temp bool t_378 = Wheels.count < 1,
+      temp bool t_379 = t_377 and t_378,
+      temp bool t_380 = t_376 and t_379;
+
+    guardCondition t_380;
+    effect
+      Lift_0.state = 13,
+      Wheels.state = 1,
+      temp byte t_381 = Wheels.count + 1,
+      Wheels.count = t_381;
+
+  process Lift_0_Wheels 
+    guardBlock
+      temp bool t_382 = Lift_0.state == 17,
+      temp bool t_383 = Lift_0.status == 1,
+      temp bool t_384 = t_382 and t_383,
+      temp bool t_385 = Wheels.state == 1,
+      temp bool t_386 = Wheels.count == 1,
+      temp bool t_387 = t_385 and t_386,
+      temp bool t_388 = t_384 and t_387;
+
+    guardCondition t_388;
+    effect
+      Lift_0.state = 13,
+      Wheels.state = 0;
+
+  process Lift_1_Wheels 
+    guardBlock
+      temp bool t_389 = Lift_1.state == 11,
+      temp byte t_390 = Lift_1.m / 8,
+      temp bool t_391 = t_390 == 3,
+      temp bool t_392 = Lift_1.status == 1,
+      temp bool t_393 = t_391 and t_392,
+      temp byte t_394 = Lift_1.m % 8,
+      temp byte t_395 = t_394 + 1,
+      temp byte t_396 = t_395 % Lift_1.nos,
+      temp bool t_397 = t_396 != Lift_1.pos,
+      temp bool t_398 = t_393 and t_397,
+      temp bool t_399 = t_389 and t_398,
+      temp bool t_400 = Wheels.state == 2,
+      temp bool t_401 = t_399 and t_400;
+
+    guardCondition t_401;
+    effect
+      Lift_1.state = 10,
+      Wheels.state = 3;
+
+  process Lift_1_Wheels 
+    guardBlock
+      temp bool t_402 = Lift_1.state == 11,
+      temp byte t_403 = Lift_1.m / 8,
+      temp bool t_404 = t_403 == 3,
+      temp bool t_405 = Lift_1.status == 1,
+      temp bool t_406 = t_404 and t_405,
+      temp byte t_407 = Lift_1.m % 8,
+      temp byte t_408 = t_407 + 1,
+      temp byte t_409 = t_408 % Lift_1.nos,
+      temp bool t_410 = t_409 != Lift_1.pos,
+      temp bool t_411 = t_406 and t_410,
+      temp bool t_412 = t_402 and t_411,
+      temp bool t_413 = Wheels.state == 0,
+      temp bool t_414 = t_412 and t_413;
+
+    guardCondition t_414;
+    effect
+      Lift_1.state = 10,
+      Wheels.state = 1,
+      Wheels.count = 1;
+
+  process Lift_1_Wheels 
+    guardBlock
+      temp bool t_415 = Lift_1.state == 11,
+      temp byte t_416 = Lift_1.m / 8,
+      temp bool t_417 = t_416 == 3,
+      temp bool t_418 = Lift_1.status == 1,
+      temp bool t_419 = t_417 and t_418,
+      temp byte t_420 = Lift_1.m % 8,
+      temp byte t_421 = t_420 + 1,
+      temp byte t_422 = t_421 % Lift_1.nos,
+      temp bool t_423 = t_422 != Lift_1.pos,
+      temp bool t_424 = t_419 and t_423,
+      temp bool t_425 = t_415 and t_424,
+      temp bool t_426 = Wheels.state == 1,
+      temp bool t_427 = Wheels.count < 1,
+      temp bool t_428 = t_426 and t_427,
+      temp bool t_429 = t_425 and t_428;
+
+    guardCondition t_429;
+    effect
+      Lift_1.state = 10,
+      Wheels.state = 1,
+      temp byte t_430 = Wheels.count + 1,
+      Wheels.count = t_430;
+
+  process Lift_1_Wheels 
+    guardBlock
+      temp bool t_431 = Lift_1.state == 11,
+      temp byte t_432 = Lift_1.m / 8,
+      temp bool t_433 = t_432 == 3,
+      temp bool t_434 = Lift_1.status == 1,
+      temp bool t_435 = t_433 and t_434,
+      temp byte t_436 = Lift_1.m % 8,
+      temp byte t_437 = t_436 + 1,
+      temp byte t_438 = t_437 % Lift_1.nos,
+      temp bool t_439 = t_438 != Lift_1.pos,
+      temp bool t_440 = t_435 and t_439,
+      temp bool t_441 = t_431 and t_440,
+      temp bool t_442 = Wheels.state == 1,
+      temp bool t_443 = Wheels.count == 1,
+      temp bool t_444 = t_442 and t_443,
+      temp bool t_445 = t_441 and t_444;
+
+    guardCondition t_445;
+    effect
+      Lift_1.state = 10,
+      Wheels.state = 0;
+
+  process Lift_1_Wheels 
+    guardBlock
+      temp bool t_446 = Lift_1.state == 11,
+      temp byte t_447 = Lift_1.m / 8,
+      temp bool t_448 = t_447 == 3,
+      temp bool t_449 = Lift_1.status == 1,
+      temp bool t_450 = t_448 and t_449,
+      temp byte t_451 = Lift_1.m % 8,
+      temp byte t_452 = t_451 + 1,
+      temp byte t_453 = t_452 % Lift_1.nos,
+      temp bool t_454 = t_453 == Lift_1.pos,
+      temp bool t_455 = t_450 and t_454,
+      temp bool t_456 = t_446 and t_455,
+      temp bool t_457 = Wheels.state == 2,
+      temp bool t_458 = t_456 and t_457;
+
+    guardCondition t_458;
+    effect
+      Lift_1.state = 12,
+      Wheels.state = 3;
+
+  process Lift_1_Wheels 
+    guardBlock
+      temp bool t_459 = Lift_1.state == 11,
+      temp byte t_460 = Lift_1.m / 8,
+      temp bool t_461 = t_460 == 3,
+      temp bool t_462 = Lift_1.status == 1,
+      temp bool t_463 = t_461 and t_462,
+      temp byte t_464 = Lift_1.m % 8,
+      temp byte t_465 = t_464 + 1,
+      temp byte t_466 = t_465 % Lift_1.nos,
+      temp bool t_467 = t_466 == Lift_1.pos,
+      temp bool t_468 = t_463 and t_467,
+      temp bool t_469 = t_459 and t_468,
+      temp bool t_470 = Wheels.state == 0,
+      temp bool t_471 = t_469 and t_470;
+
+    guardCondition t_471;
+    effect
+      Lift_1.state = 12,
+      Wheels.state = 1,
+      Wheels.count = 1;
+
+  process Lift_1_Wheels 
+    guardBlock
+      temp bool t_472 = Lift_1.state == 11,
+      temp byte t_473 = Lift_1.m / 8,
+      temp bool t_474 = t_473 == 3,
+      temp bool t_475 = Lift_1.status == 1,
+      temp bool t_476 = t_474 and t_475,
+      temp byte t_477 = Lift_1.m % 8,
+      temp byte t_478 = t_477 + 1,
+      temp byte t_479 = t_478 % Lift_1.nos,
+      temp bool t_480 = t_479 == Lift_1.pos,
+      temp bool t_481 = t_476 and t_480,
+      temp bool t_482 = t_472 and t_481,
+      temp bool t_483 = Wheels.state == 1,
+      temp bool t_484 = Wheels.count < 1,
+      temp bool t_485 = t_483 and t_484,
+      temp bool t_486 = t_482 and t_485;
+
+    guardCondition t_486;
+    effect
+      Lift_1.state = 12,
+      Wheels.state = 1,
+      temp byte t_487 = Wheels.count + 1,
+      Wheels.count = t_487;
+
+  process Lift_1_Wheels 
+    guardBlock
+      temp bool t_488 = Lift_1.state == 11,
+      temp byte t_489 = Lift_1.m / 8,
+      temp bool t_490 = t_489 == 3,
+      temp bool t_491 = Lift_1.status == 1,
+      temp bool t_492 = t_490 and t_491,
+      temp byte t_493 = Lift_1.m % 8,
+      temp byte t_494 = t_493 + 1,
+      temp byte t_495 = t_494 % Lift_1.nos,
+      temp bool t_496 = t_495 == Lift_1.pos,
+      temp bool t_497 = t_492 and t_496,
+      temp bool t_498 = t_488 and t_497,
+      temp bool t_499 = Wheels.state == 1,
+      temp bool t_500 = Wheels.count == 1,
+      temp bool t_501 = t_499 and t_500,
+      temp bool t_502 = t_498 and t_501;
+
+    guardCondition t_502;
+    effect
+      Lift_1.state = 12,
+      Wheels.state = 0;
+
+  process Lift_1_Wheels 
+    guardBlock
+      temp bool t_503 = Lift_1.state == 14,
+      temp byte t_504 = Lift_1.m / 8,
+      temp bool t_505 = t_504 == 3,
+      temp bool t_506 = Lift_1.status == 1,
+      temp bool t_507 = t_505 and t_506,
+      temp bool t_508 = t_503 and t_507,
+      temp bool t_509 = Wheels.state == 2,
+      temp bool t_510 = t_508 and t_509;
+
+    guardCondition t_510;
+    effect
+      Lift_1.state = 13,
+      Wheels.state = 3;
+
+  process Lift_1_Wheels 
+    guardBlock
+      temp bool t_511 = Lift_1.state == 14,
+      temp byte t_512 = Lift_1.m / 8,
+      temp bool t_513 = t_512 == 3,
+      temp bool t_514 = Lift_1.status == 1,
+      temp bool t_515 = t_513 and t_514,
+      temp bool t_516 = t_511 and t_515,
+      temp bool t_517 = Wheels.state == 0,
+      temp bool t_518 = t_516 and t_517;
+
+    guardCondition t_518;
+    effect
+      Lift_1.state = 13,
+      Wheels.state = 1,
+      Wheels.count = 1;
+
+  process Lift_1_Wheels 
+    guardBlock
+      temp bool t_519 = Lift_1.state == 14,
+      temp byte t_520 = Lift_1.m / 8,
+      temp bool t_521 = t_520 == 3,
+      temp bool t_522 = Lift_1.status == 1,
+      temp bool t_523 = t_521 and t_522,
+      temp bool t_524 = t_519 and t_523,
+      temp bool t_525 = Wheels.state == 1,
+      temp bool t_526 = Wheels.count < 1,
+      temp bool t_527 = t_525 and t_526,
+      temp bool t_528 = t_524 and t_527;
+
+    guardCondition t_528;
+    effect
+      Lift_1.state = 13,
+      Wheels.state = 1,
+      temp byte t_529 = Wheels.count + 1,
+      Wheels.count = t_529;
+
+  process Lift_1_Wheels 
+    guardBlock
+      temp bool t_530 = Lift_1.state == 14,
+      temp byte t_531 = Lift_1.m / 8,
+      temp bool t_532 = t_531 == 3,
+      temp bool t_533 = Lift_1.status == 1,
+      temp bool t_534 = t_532 and t_533,
+      temp bool t_535 = t_530 and t_534,
+      temp bool t_536 = Wheels.state == 1,
+      temp bool t_537 = Wheels.count == 1,
+      temp bool t_538 = t_536 and t_537,
+      temp bool t_539 = t_535 and t_538;
+
+    guardCondition t_539;
+    effect
+      Lift_1.state = 13,
+      Wheels.state = 0;
+
+  process Lift_1_Wheels 
+    guardBlock
+      temp bool t_540 = Lift_1.state == 17,
+      temp bool t_541 = Lift_1.status == 1,
+      temp bool t_542 = t_540 and t_541,
+      temp bool t_543 = Wheels.state == 2,
+      temp bool t_544 = t_542 and t_543;
+
+    guardCondition t_544;
+    effect
+      Lift_1.state = 13,
+      Wheels.state = 3;
+
+  process Lift_1_Wheels 
+    guardBlock
+      temp bool t_545 = Lift_1.state == 17,
+      temp bool t_546 = Lift_1.status == 1,
+      temp bool t_547 = t_545 and t_546,
+      temp bool t_548 = Wheels.state == 0,
+      temp bool t_549 = t_547 and t_548;
+
+    guardCondition t_549;
+    effect
+      Lift_1.state = 13,
+      Wheels.state = 1,
+      Wheels.count = 1;
+
+  process Lift_1_Wheels 
+    guardBlock
+      temp bool t_550 = Lift_1.state == 17,
+      temp bool t_551 = Lift_1.status == 1,
+      temp bool t_552 = t_550 and t_551,
+      temp bool t_553 = Wheels.state == 1,
+      temp bool t_554 = Wheels.count < 1,
+      temp bool t_555 = t_553 and t_554,
+      temp bool t_556 = t_552 and t_555;
+
+    guardCondition t_556;
+    effect
+      Lift_1.state = 13,
+      Wheels.state = 1,
+      temp byte t_557 = Wheels.count + 1,
+      Wheels.count = t_557;
+
+  process Lift_1_Wheels 
+    guardBlock
+      temp bool t_558 = Lift_1.state == 17,
+      temp bool t_559 = Lift_1.status == 1,
+      temp bool t_560 = t_558 and t_559,
+      temp bool t_561 = Wheels.state == 1,
+      temp bool t_562 = Wheels.count == 1,
+      temp bool t_563 = t_561 and t_562,
+      temp bool t_564 = t_560 and t_563;
+
+    guardCondition t_564;
+    effect
+      Lift_1.state = 13,
+      Wheels.state = 0;
+
+  process Bus_Lift_0 
+    guardBlock
+      temp bool t_565 = Bus.state == 1,
+      temp bool t_566 = Bus.j == 0,
+      temp bool t_567 = Bus.j != Bus.sender,
+      temp bool t_568 = t_566 and t_567,
+      temp byte t_569 = Bus.j + 2,
+      temp byte t_570 = t_569 - 1,
+      temp byte t_571 = t_570 % 2,
+      temp byte t_572 = relay[t_571],
+      temp bool t_573 = t_572 == 1,
+      temp bool t_574 = t_568 and t_573,
+      temp bool t_575 = t_565 and t_574,
+      temp bool t_576 = Lift_0.state == 3,
+      temp bool t_577 = t_575 and t_576;
+
+    guardCondition t_577;
+    effect
+      Bus.state = 1,
+      temp byte t_578 = Bus.j + 1,
+      temp byte t_579 = t_578 % 2,
+      Bus.j = t_579,
+      Lift_0.m = Bus.m,
+      Lift_0.state = 4;
+
+  process Bus_Lift_0 
+    guardBlock
+      temp bool t_580 = Bus.state == 1,
+      temp bool t_581 = Bus.j == 0,
+      temp bool t_582 = Bus.j != Bus.sender,
+      temp bool t_583 = t_581 and t_582,
+      temp byte t_584 = Bus.j + 2,
+      temp byte t_585 = t_584 - 1,
+      temp byte t_586 = t_585 % 2,
+      temp byte t_587 = relay[t_586],
+      temp bool t_588 = t_587 == 1,
+      temp bool t_589 = t_583 and t_588,
+      temp bool t_590 = t_580 and t_589,
+      temp bool t_591 = Lift_0.state == 0,
+      temp bool t_592 = t_590 and t_591;
+
+    guardCondition t_592;
+    effect
+      Bus.state = 1,
+      temp byte t_593 = Bus.j + 1,
+      temp byte t_594 = t_593 % 2,
+      Bus.j = t_594,
+      Lift_0.m = Bus.m,
+      Lift_0.state = 6;
+
+  process Bus_Lift_0 
+    guardBlock
+      temp bool t_595 = Bus.state == 1,
+      temp bool t_596 = Bus.j == 0,
+      temp bool t_597 = Bus.j != Bus.sender,
+      temp bool t_598 = t_596 and t_597,
+      temp byte t_599 = Bus.j + 2,
+      temp byte t_600 = t_599 - 1,
+      temp byte t_601 = t_600 % 2,
+      temp byte t_602 = relay[t_601],
+      temp bool t_603 = t_602 == 1,
+      temp bool t_604 = t_598 and t_603,
+      temp bool t_605 = t_595 and t_604,
+      temp bool t_606 = Lift_0.state == 8,
+      temp bool t_607 = t_605 and t_606;
+
+    guardCondition t_607;
+    effect
+      Bus.state = 1,
+      temp byte t_608 = Bus.j + 1,
+      temp byte t_609 = t_608 % 2,
+      Bus.j = t_609,
+      Lift_0.m = Bus.m,
+      Lift_0.state = 9;
+
+  process Bus_Lift_0 
+    guardBlock
+      temp bool t_610 = Bus.state == 1,
+      temp bool t_611 = Bus.j == 0,
+      temp bool t_612 = Bus.j != Bus.sender,
+      temp bool t_613 = t_611 and t_612,
+      temp byte t_614 = Bus.j + 2,
+      temp byte t_615 = t_614 - 1,
+      temp byte t_616 = t_615 % 2,
+      temp byte t_617 = relay[t_616],
+      temp bool t_618 = t_617 == 1,
+      temp bool t_619 = t_613 and t_618,
+      temp bool t_620 = t_610 and t_619,
+      temp bool t_621 = Lift_0.state == 10,
+      temp bool t_622 = t_620 and t_621;
+
+    guardCondition t_622;
+    effect
+      Bus.state = 1,
+      temp byte t_623 = Bus.j + 1,
+      temp byte t_624 = t_623 % 2,
+      Bus.j = t_624,
+      Lift_0.m = Bus.m,
+      Lift_0.state = 11;
+
+  process Bus_Lift_0 
+    guardBlock
+      temp bool t_625 = Bus.state == 1,
+      temp bool t_626 = Bus.j == 0,
+      temp bool t_627 = Bus.j != Bus.sender,
+      temp bool t_628 = t_626 and t_627,
+      temp byte t_629 = Bus.j + 2,
+      temp byte t_630 = t_629 - 1,
+      temp byte t_631 = t_630 % 2,
+      temp byte t_632 = relay[t_631],
+      temp bool t_633 = t_632 == 1,
+      temp bool t_634 = t_628 and t_633,
+      temp bool t_635 = t_625 and t_634,
+      temp bool t_636 = Lift_0.state == 13,
+      temp bool t_637 = t_635 and t_636;
+
+    guardCondition t_637;
+    effect
+      Bus.state = 1,
+      temp byte t_638 = Bus.j + 1,
+      temp byte t_639 = t_638 % 2,
+      Bus.j = t_639,
+      Lift_0.m = Bus.m,
+      Lift_0.state = 14;
+
+  process Bus_Lift_0 
+    guardBlock
+      temp bool t_640 = Bus.state == 2,
+      temp bool t_641 = Bus.j == 0,
+      temp bool t_642 = Bus.j != Bus.sender,
+      temp bool t_643 = t_641 and t_642,
+      temp byte t_644 = relay[Bus.j],
+      temp bool t_645 = t_644 == 1,
+      temp bool t_646 = t_643 and t_645,
+      temp bool t_647 = t_640 and t_646,
+      temp bool t_648 = Lift_0.state == 3,
+      temp bool t_649 = t_647 and t_648;
+
+    guardCondition t_649;
+    effect
+      Bus.state = 2,
+      temp byte t_650 = Bus.j + 2,
+      temp byte t_651 = t_650 - 1,
+      temp byte t_652 = t_651 % 2,
+      Bus.j = t_652,
+      Lift_0.m = Bus.m,
+      Lift_0.state = 4;
+
+  process Bus_Lift_0 
+    guardBlock
+      temp bool t_653 = Bus.state == 2,
+      temp bool t_654 = Bus.j == 0,
+      temp bool t_655 = Bus.j != Bus.sender,
+      temp bool t_656 = t_654 and t_655,
+      temp byte t_657 = relay[Bus.j],
+      temp bool t_658 = t_657 == 1,
+      temp bool t_659 = t_656 and t_658,
+      temp bool t_660 = t_653 and t_659,
+      temp bool t_661 = Lift_0.state == 0,
+      temp bool t_662 = t_660 and t_661;
+
+    guardCondition t_662;
+    effect
+      Bus.state = 2,
+      temp byte t_663 = Bus.j + 2,
+      temp byte t_664 = t_663 - 1,
+      temp byte t_665 = t_664 % 2,
+      Bus.j = t_665,
+      Lift_0.m = Bus.m,
+      Lift_0.state = 6;
+
+  process Bus_Lift_0 
+    guardBlock
+      temp bool t_666 = Bus.state == 2,
+      temp bool t_667 = Bus.j == 0,
+      temp bool t_668 = Bus.j != Bus.sender,
+      temp bool t_669 = t_667 and t_668,
+      temp byte t_670 = relay[Bus.j],
+      temp bool t_671 = t_670 == 1,
+      temp bool t_672 = t_669 and t_671,
+      temp bool t_673 = t_666 and t_672,
+      temp bool t_674 = Lift_0.state == 8,
+      temp bool t_675 = t_673 and t_674;
+
+    guardCondition t_675;
+    effect
+      Bus.state = 2,
+      temp byte t_676 = Bus.j + 2,
+      temp byte t_677 = t_676 - 1,
+      temp byte t_678 = t_677 % 2,
+      Bus.j = t_678,
+      Lift_0.m = Bus.m,
+      Lift_0.state = 9;
+
+  process Bus_Lift_0 
+    guardBlock
+      temp bool t_679 = Bus.state == 2,
+      temp bool t_680 = Bus.j == 0,
+      temp bool t_681 = Bus.j != Bus.sender,
+      temp bool t_682 = t_680 and t_681,
+      temp byte t_683 = relay[Bus.j],
+      temp bool t_684 = t_683 == 1,
+      temp bool t_685 = t_682 and t_684,
+      temp bool t_686 = t_679 and t_685,
+      temp bool t_687 = Lift_0.state == 10,
+      temp bool t_688 = t_686 and t_687;
+
+    guardCondition t_688;
+    effect
+      Bus.state = 2,
+      temp byte t_689 = Bus.j + 2,
+      temp byte t_690 = t_689 - 1,
+      temp byte t_691 = t_690 % 2,
+      Bus.j = t_691,
+      Lift_0.m = Bus.m,
+      Lift_0.state = 11;
+
+  process Bus_Lift_0 
+    guardBlock
+      temp bool t_692 = Bus.state == 2,
+      temp bool t_693 = Bus.j == 0,
+      temp bool t_694 = Bus.j != Bus.sender,
+      temp bool t_695 = t_693 and t_694,
+      temp byte t_696 = relay[Bus.j],
+      temp bool t_697 = t_696 == 1,
+      temp bool t_698 = t_695 and t_697,
+      temp bool t_699 = t_692 and t_698,
+      temp bool t_700 = Lift_0.state == 13,
+      temp bool t_701 = t_699 and t_700;
+
+    guardCondition t_701;
+    effect
+      Bus.state = 2,
+      temp byte t_702 = Bus.j + 2,
+      temp byte t_703 = t_702 - 1,
+      temp byte t_704 = t_703 % 2,
+      Bus.j = t_704,
+      Lift_0.m = Bus.m,
+      Lift_0.state = 14;
+
+  process Lift_0_Bus 
+    guardBlock
+      temp bool t_705 = Lift_0.state == 1,
+      temp bool t_706 = atomic == 0,
+      temp bool t_707 = t_705 and t_706,
+      temp bool t_708 = Bus.state == 0,
+      temp bool t_709 = t_707 and t_708;
+
+    guardCondition t_709;
+    effect
+      Lift_0.state = 2,
+      temp byte t_710 = 32 + Lift_0.pos,
+      Bus.m = t_710,
+      Bus.state = 1,
+      Bus.sender = 0,
+      Bus.j = 1,
+      atomic = 1;
+
+  process Lift_0_Bus 
+    guardBlock
+      temp bool t_711 = Lift_0.state == 5,
+      temp bool t_712 = atomic == 0,
+      temp bool t_713 = t_711 and t_712,
+      temp bool t_714 = Bus.state == 0,
+      temp bool t_715 = t_713 and t_714;
+
+    guardCondition t_715;
+    effect
+      Lift_0.state = 10,
+      temp byte t_716 = 0 + Lift_0.pos,
+      Bus.m = t_716,
+      Bus.state = 1,
+      Bus.sender = 0,
+      Bus.j = 1,
+      atomic = 1;
+
+  process Lift_0_Bus 
+    guardBlock
+      temp bool t_717 = Lift_0.state == 7,
+      temp bool t_718 = atomic == 0,
+      temp bool t_719 = t_717 and t_718,
+      temp bool t_720 = Bus.state == 0,
+      temp bool t_721 = t_719 and t_720;
+
+    guardCondition t_721;
+    effect
+      Lift_0.state = 8,
+      temp byte t_722 = 32 + Lift_0.pos,
+      Bus.m = t_722,
+      Bus.state = 1,
+      Bus.sender = 0,
+      Bus.j = 1,
+      atomic = 1;
+
+  process Lift_0_Bus 
+    guardBlock
+      temp bool t_723 = Lift_0.state == 9,
+      temp bool t_724 = atomic == 0,
+      temp byte t_725 = Lift_0.m / 8,
+      temp bool t_726 = t_725 == 0,
+      temp bool t_727 = t_724 and t_726,
+      temp bool t_728 = Lift_0.pos == 1,
+      temp bool t_729 = t_727 and t_728,
+      temp bool t_730 = t_723 and t_729,
+      temp bool t_731 = Bus.state == 0,
+      temp bool t_732 = t_730 and t_731;
+
+    guardCondition t_732;
+    effect
+      Lift_0.state = 10,
+      temp byte t_733 = 0 + Lift_0.pos,
+      Bus.m = t_733,
+      Bus.state = 1,
+      Bus.sender = 0,
+      Bus.j = 1,
+      atomic = 1;
+
+  process Lift_0_Bus 
+    guardBlock
+      temp bool t_734 = Lift_0.state == 12,
+      temp bool t_735 = Bus.state == 0,
+      temp bool t_736 = t_734 and t_735;
+
+    guardCondition t_736;
+    effect
+      Lift_0.state = 10,
+      temp byte t_737 = Lift_0.status * 8,
+      temp byte t_738 = t_737 + Lift_0.pos,
+      Bus.m = t_738,
+      Bus.state = 1,
+      Bus.sender = 0,
+      Bus.j = 1,
+      atomic = 1;
+
+  process Lift_0_Bus 
+    guardBlock
+      temp bool t_739 = Lift_0.state == 15,
+      temp bool t_740 = Lift_0.count == Lift_0.nos,
+      temp bool t_741 = t_739 and t_740,
+      temp bool t_742 = Bus.state == 0,
+      temp bool t_743 = t_741 and t_742;
+
+    guardCondition t_743;
+    effect
+      Lift_0.state = 17,
+      Lift_0.count = 1,
+      temp byte t_744 = 24 + Lift_0.pos,
+      Bus.m = t_744,
+      Bus.state = 1,
+      Bus.sender = 0,
+      Bus.j = 1,
+      atomic = 1;
+
+  process Lift_0_Bus 
+    guardBlock
+      temp bool t_745 = Lift_0.state == 15,
+      temp bool t_746 = Lift_0.count != Lift_0.nos,
+      temp bool t_747 = t_745 and t_746,
+      temp bool t_748 = Bus.state == 0,
+      temp bool t_749 = t_747 and t_748;
+
+    guardCondition t_749;
+    effect
+      Lift_0.state = 13,
+      Lift_0.count = 1,
+      temp byte t_750 = Lift_0.status * 8,
+      temp byte t_751 = t_750 + Lift_0.pos,
+      Bus.m = t_751,
+      Bus.state = 1,
+      Bus.sender = 0,
+      Bus.j = 1,
+      atomic = 1;
+
+  process Environment_Lift_0 
+    guardBlock
+      temp bool t_752 = Environment.state == 4,
+      temp bool t_753 = Lift_0.state == 10,
+      temp bool t_754 = atomic == 0,
+      temp bool t_755 = t_753 and t_754,
+      temp bool t_756 = t_752 and t_755;
+
+    guardCondition t_756;
     effect
       Environment.state = 0,
       Lift_0.state = 13,
       Lift_0.status = 2,
       Lift_0.count = 1;
 
-  process Environment_Lift_1
+  process Bus_Lift_1 
     guardBlock
-      temp bool t_233 = Environment.state == 2,
-      temp bool t_234 = Lift_1.state == 13,
-      temp bool t_235 = atomic == 0,
-      temp bool t_236 = t_234 and t_235,
-      temp bool t_237 = t_233 and t_236;
-    guardCondition t_237;
-    effect
-      Environment.state = 4,
-      Lift_1.state = 10,
-      Lift_1.status = 0;
-
-  process Environment_Lift_1
-    guardBlock
-      temp bool t_238 = Environment.state == 3,
-      temp bool t_239 = Lift_1.state == 13,
-      temp bool t_240 = atomic == 0,
-      temp bool t_241 = t_239 and t_240,
-      temp bool t_242 = t_238 and t_241;
-    guardCondition t_242;
-    effect
-      Environment.state = 4,
-      Lift_1.state = 10,
-      Lift_1.status = 0;
-
-  process Lift_0_Bus
-    guardBlock
-      temp bool t_243 = Lift_0.state == 1,
-      temp bool t_244 = atomic == 0,
-      temp bool t_245 = t_243 and t_244,
-      temp bool t_246 = Bus.state == 0,
-      temp bool t_247 = t_245 and t_246;
-    guardCondition t_247;
-    effect
-      Lift_0.state = 2,
-      temp int t_248 = 32 + Lift_0.pos,
-      Bus.m = t_248,
-      Bus.state = 1,
-      Bus.sender = 0,
-      Bus.j = 1,
-      atomic = 1;
-
-  process Lift_0_Bus
-    guardBlock
-      temp bool t_249 = Lift_0.state == 5,
-      temp bool t_250 = atomic == 0,
-      temp bool t_251 = t_249 and t_250,
-      temp bool t_252 = Bus.state == 0,
-      temp bool t_253 = t_251 and t_252;
-    guardCondition t_253;
-    effect
-      Lift_0.state = 10,
-      temp int t_254 = 0 + Lift_0.pos,
-      Bus.m = t_254,
-      Bus.state = 1,
-      Bus.sender = 0,
-      Bus.j = 1,
-      atomic = 1;
-
-  process Lift_0_Bus
-    guardBlock
-      temp bool t_255 = Lift_0.state == 7,
-      temp bool t_256 = atomic == 0,
-      temp bool t_257 = t_255 and t_256,
-      temp bool t_258 = Bus.state == 0,
-      temp bool t_259 = t_257 and t_258;
-    guardCondition t_259;
-    effect
-      Lift_0.state = 8,
-      temp int t_260 = 32 + Lift_0.pos,
-      Bus.m = t_260,
-      Bus.state = 1,
-      Bus.sender = 0,
-      Bus.j = 1,
-      atomic = 1;
-
-  process Lift_0_Bus
-    guardBlock
-      temp bool t_261 = Lift_0.state == 9,
-      temp bool t_262 = atomic == 0,
-      temp int t_263 = Lift_0.m / 8,
-      temp bool t_264 = t_263 == 0,
-      temp bool t_265 = t_262 and t_264,
-      temp bool t_266 = Lift_0.pos == 1,
-      temp bool t_267 = t_265 and t_266,
-      temp bool t_268 = t_261 and t_267,
-      temp bool t_269 = Bus.state == 0,
-      temp bool t_270 = t_268 and t_269;
-    guardCondition t_270;
-    effect
-      Lift_0.state = 10,
-      temp int t_271 = 0 + Lift_0.pos,
-      Bus.m = t_271,
-      Bus.state = 1,
-      Bus.sender = 0,
-      Bus.j = 1,
-      atomic = 1;
-
-  process Lift_0_Bus
-    guardBlock
-      temp bool t_272 = Lift_0.state == 12,
-      temp bool t_273 = Bus.state == 0,
-      temp bool t_274 = t_272 and t_273;
-    guardCondition t_274;
-    effect
-      Lift_0.state = 10,
-      temp int t_275 = Lift_0.status * 8,
-      temp int t_276 = t_275 + Lift_0.pos,
-      Bus.m = t_276,
-      Bus.state = 1,
-      Bus.sender = 0,
-      Bus.j = 1,
-      atomic = 1;
-
-  process Lift_0_Bus
-    guardBlock
-      temp bool t_277 = Lift_0.state == 15,
-      temp bool t_278 = Lift_0.count == Lift_0.nos,
-      temp bool t_279 = t_277 and t_278,
-      temp bool t_280 = Bus.state == 0,
-      temp bool t_281 = t_279 and t_280;
-    guardCondition t_281;
-    effect
-      Lift_0.state = 17,
-      Lift_0.count = 1,
-      temp int t_282 = 24 + Lift_0.pos,
-      Bus.m = t_282,
-      Bus.state = 1,
-      Bus.sender = 0,
-      Bus.j = 1,
-      atomic = 1;
-
-  process Lift_0_Bus
-    guardBlock
-      temp bool t_283 = Lift_0.state == 15,
-      temp bool t_284 = Lift_0.count != Lift_0.nos,
-      temp bool t_285 = t_283 and t_284,
-      temp bool t_286 = Bus.state == 0,
-      temp bool t_287 = t_285 and t_286;
-    guardCondition t_287;
-    effect
-      Lift_0.state = 13,
-      Lift_0.count = 1,
-      temp int t_288 = Lift_0.status * 8,
-      temp int t_289 = t_288 + Lift_0.pos,
-      Bus.m = t_289,
-      Bus.state = 1,
-      Bus.sender = 0,
-      Bus.j = 1,
-      atomic = 1;
-
-  process Lift_0_Wheels
-    guardBlock
-      temp bool t_290 = Lift_0.state == 11,
-      temp int t_291 = Lift_0.m / 8,
-      temp bool t_292 = t_291 == 3,
-      temp bool t_293 = Lift_0.status == 1,
-      temp bool t_294 = t_292 and t_293,
-      temp int t_295 = Lift_0.m % 8,
-      temp int t_296 = t_295 + 1,
-      temp int t_297 = t_296 % Lift_0.nos,
-      temp bool t_298 = t_297 != Lift_0.pos,
-      temp bool t_299 = t_294 and t_298,
-      temp bool t_300 = t_290 and t_299,
-      temp bool t_301 = Wheels.state == 2,
-      temp bool t_302 = t_300 and t_301;
-    guardCondition t_302;
-    effect
-      Lift_0.state = 10,
-      Wheels.state = 3;
-
-  process Lift_0_Wheels
-    guardBlock
-      temp bool t_303 = Lift_0.state == 11,
-      temp int t_304 = Lift_0.m / 8,
-      temp bool t_305 = t_304 == 3,
-      temp bool t_306 = Lift_0.status == 1,
-      temp bool t_307 = t_305 and t_306,
-      temp int t_308 = Lift_0.m % 8,
-      temp int t_309 = t_308 + 1,
-      temp int t_310 = t_309 % Lift_0.nos,
-      temp bool t_311 = t_310 != Lift_0.pos,
-      temp bool t_312 = t_307 and t_311,
-      temp bool t_313 = t_303 and t_312,
-      temp bool t_314 = Wheels.state == 0,
-      temp bool t_315 = t_313 and t_314;
-    guardCondition t_315;
-    effect
-      Lift_0.state = 10,
-      Wheels.state = 1,
-      Wheels.count = 1;
-
-  process Lift_0_Wheels
-    guardBlock
-      temp bool t_316 = Lift_0.state == 11,
-      temp int t_317 = Lift_0.m / 8,
-      temp bool t_318 = t_317 == 3,
-      temp bool t_319 = Lift_0.status == 1,
-      temp bool t_320 = t_318 and t_319,
-      temp int t_321 = Lift_0.m % 8,
-      temp int t_322 = t_321 + 1,
-      temp int t_323 = t_322 % Lift_0.nos,
-      temp bool t_324 = t_323 != Lift_0.pos,
-      temp bool t_325 = t_320 and t_324,
-      temp bool t_326 = t_316 and t_325,
-      temp bool t_327 = Wheels.state == 1,
-      temp bool t_328 = Wheels.count < 1,
-      temp bool t_329 = t_327 and t_328,
-      temp bool t_330 = t_326 and t_329;
-    guardCondition t_330;
-    effect
-      Lift_0.state = 10,
-      Wheels.state = 1,
-      temp int t_331 = Wheels.count + 1,
-      Wheels.count = t_331;
-
-  process Lift_0_Wheels
-    guardBlock
-      temp bool t_332 = Lift_0.state == 11,
-      temp int t_333 = Lift_0.m / 8,
-      temp bool t_334 = t_333 == 3,
-      temp bool t_335 = Lift_0.status == 1,
-      temp bool t_336 = t_334 and t_335,
-      temp int t_337 = Lift_0.m % 8,
-      temp int t_338 = t_337 + 1,
-      temp int t_339 = t_338 % Lift_0.nos,
-      temp bool t_340 = t_339 != Lift_0.pos,
-      temp bool t_341 = t_336 and t_340,
-      temp bool t_342 = t_332 and t_341,
-      temp bool t_343 = Wheels.state == 1,
-      temp bool t_344 = Wheels.count == 1,
-      temp bool t_345 = t_343 and t_344,
-      temp bool t_346 = t_342 and t_345;
-    guardCondition t_346;
-    effect
-      Lift_0.state = 10,
-      Wheels.state = 0;
-
-  process Lift_0_Wheels
-    guardBlock
-      temp bool t_347 = Lift_0.state == 11,
-      temp int t_348 = Lift_0.m / 8,
-      temp bool t_349 = t_348 == 3,
-      temp bool t_350 = Lift_0.status == 1,
-      temp bool t_351 = t_349 and t_350,
-      temp int t_352 = Lift_0.m % 8,
-      temp int t_353 = t_352 + 1,
-      temp int t_354 = t_353 % Lift_0.nos,
-      temp bool t_355 = t_354 == Lift_0.pos,
-      temp bool t_356 = t_351 and t_355,
-      temp bool t_357 = t_347 and t_356,
-      temp bool t_358 = Wheels.state == 2,
-      temp bool t_359 = t_357 and t_358;
-    guardCondition t_359;
-    effect
-      Lift_0.state = 12,
-      Wheels.state = 3;
-
-  process Lift_0_Wheels
-    guardBlock
-      temp bool t_360 = Lift_0.state == 11,
-      temp int t_361 = Lift_0.m / 8,
-      temp bool t_362 = t_361 == 3,
-      temp bool t_363 = Lift_0.status == 1,
-      temp bool t_364 = t_362 and t_363,
-      temp int t_365 = Lift_0.m % 8,
-      temp int t_366 = t_365 + 1,
-      temp int t_367 = t_366 % Lift_0.nos,
-      temp bool t_368 = t_367 == Lift_0.pos,
-      temp bool t_369 = t_364 and t_368,
-      temp bool t_370 = t_360 and t_369,
-      temp bool t_371 = Wheels.state == 0,
-      temp bool t_372 = t_370 and t_371;
-    guardCondition t_372;
-    effect
-      Lift_0.state = 12,
-      Wheels.state = 1,
-      Wheels.count = 1;
-
-  process Lift_0_Wheels
-    guardBlock
-      temp bool t_373 = Lift_0.state == 11,
-      temp int t_374 = Lift_0.m / 8,
-      temp bool t_375 = t_374 == 3,
-      temp bool t_376 = Lift_0.status == 1,
-      temp bool t_377 = t_375 and t_376,
-      temp int t_378 = Lift_0.m % 8,
-      temp int t_379 = t_378 + 1,
-      temp int t_380 = t_379 % Lift_0.nos,
-      temp bool t_381 = t_380 == Lift_0.pos,
-      temp bool t_382 = t_377 and t_381,
-      temp bool t_383 = t_373 and t_382,
-      temp bool t_384 = Wheels.state == 1,
-      temp bool t_385 = Wheels.count < 1,
-      temp bool t_386 = t_384 and t_385,
-      temp bool t_387 = t_383 and t_386;
-    guardCondition t_387;
-    effect
-      Lift_0.state = 12,
-      Wheels.state = 1,
-      temp int t_388 = Wheels.count + 1,
-      Wheels.count = t_388;
-
-  process Lift_0_Wheels
-    guardBlock
-      temp bool t_389 = Lift_0.state == 11,
-      temp int t_390 = Lift_0.m / 8,
-      temp bool t_391 = t_390 == 3,
-      temp bool t_392 = Lift_0.status == 1,
-      temp bool t_393 = t_391 and t_392,
-      temp int t_394 = Lift_0.m % 8,
-      temp int t_395 = t_394 + 1,
-      temp int t_396 = t_395 % Lift_0.nos,
-      temp bool t_397 = t_396 == Lift_0.pos,
-      temp bool t_398 = t_393 and t_397,
-      temp bool t_399 = t_389 and t_398,
-      temp bool t_400 = Wheels.state == 1,
-      temp bool t_401 = Wheels.count == 1,
-      temp bool t_402 = t_400 and t_401,
-      temp bool t_403 = t_399 and t_402;
-    guardCondition t_403;
-    effect
-      Lift_0.state = 12,
-      Wheels.state = 0;
-
-  process Lift_0_Wheels
-    guardBlock
-      temp bool t_404 = Lift_0.state == 14,
-      temp int t_405 = Lift_0.m / 8,
-      temp bool t_406 = t_405 == 3,
-      temp bool t_407 = Lift_0.status == 1,
-      temp bool t_408 = t_406 and t_407,
-      temp bool t_409 = t_404 and t_408,
-      temp bool t_410 = Wheels.state == 2,
-      temp bool t_411 = t_409 and t_410;
-    guardCondition t_411;
-    effect
-      Lift_0.state = 13,
-      Wheels.state = 3;
-
-  process Lift_0_Wheels
-    guardBlock
-      temp bool t_412 = Lift_0.state == 14,
-      temp int t_413 = Lift_0.m / 8,
-      temp bool t_414 = t_413 == 3,
-      temp bool t_415 = Lift_0.status == 1,
-      temp bool t_416 = t_414 and t_415,
-      temp bool t_417 = t_412 and t_416,
-      temp bool t_418 = Wheels.state == 0,
-      temp bool t_419 = t_417 and t_418;
-    guardCondition t_419;
-    effect
-      Lift_0.state = 13,
-      Wheels.state = 1,
-      Wheels.count = 1;
-
-  process Lift_0_Wheels
-    guardBlock
-      temp bool t_420 = Lift_0.state == 14,
-      temp int t_421 = Lift_0.m / 8,
-      temp bool t_422 = t_421 == 3,
-      temp bool t_423 = Lift_0.status == 1,
-      temp bool t_424 = t_422 and t_423,
-      temp bool t_425 = t_420 and t_424,
-      temp bool t_426 = Wheels.state == 1,
-      temp bool t_427 = Wheels.count < 1,
-      temp bool t_428 = t_426 and t_427,
-      temp bool t_429 = t_425 and t_428;
-    guardCondition t_429;
-    effect
-      Lift_0.state = 13,
-      Wheels.state = 1,
-      temp int t_430 = Wheels.count + 1,
-      Wheels.count = t_430;
-
-  process Lift_0_Wheels
-    guardBlock
-      temp bool t_431 = Lift_0.state == 14,
-      temp int t_432 = Lift_0.m / 8,
-      temp bool t_433 = t_432 == 3,
-      temp bool t_434 = Lift_0.status == 1,
-      temp bool t_435 = t_433 and t_434,
-      temp bool t_436 = t_431 and t_435,
-      temp bool t_437 = Wheels.state == 1,
-      temp bool t_438 = Wheels.count == 1,
-      temp bool t_439 = t_437 and t_438,
-      temp bool t_440 = t_436 and t_439;
-    guardCondition t_440;
-    effect
-      Lift_0.state = 13,
-      Wheels.state = 0;
-
-  process Lift_0_Wheels
-    guardBlock
-      temp bool t_441 = Lift_0.state == 17,
-      temp bool t_442 = Lift_0.status == 1,
-      temp bool t_443 = t_441 and t_442,
-      temp bool t_444 = Wheels.state == 2,
-      temp bool t_445 = t_443 and t_444;
-    guardCondition t_445;
-    effect
-      Lift_0.state = 13,
-      Wheels.state = 3;
-
-  process Lift_0_Wheels
-    guardBlock
-      temp bool t_446 = Lift_0.state == 17,
-      temp bool t_447 = Lift_0.status == 1,
-      temp bool t_448 = t_446 and t_447,
-      temp bool t_449 = Wheels.state == 0,
-      temp bool t_450 = t_448 and t_449;
-    guardCondition t_450;
-    effect
-      Lift_0.state = 13,
-      Wheels.state = 1,
-      Wheels.count = 1;
-
-  process Lift_0_Wheels
-    guardBlock
-      temp bool t_451 = Lift_0.state == 17,
-      temp bool t_452 = Lift_0.status == 1,
-      temp bool t_453 = t_451 and t_452,
-      temp bool t_454 = Wheels.state == 1,
-      temp bool t_455 = Wheels.count < 1,
-      temp bool t_456 = t_454 and t_455,
-      temp bool t_457 = t_453 and t_456;
-    guardCondition t_457;
-    effect
-      Lift_0.state = 13,
-      Wheels.state = 1,
-      temp int t_458 = Wheels.count + 1,
-      Wheels.count = t_458;
-
-  process Lift_0_Wheels
-    guardBlock
-      temp bool t_459 = Lift_0.state == 17,
-      temp bool t_460 = Lift_0.status == 1,
-      temp bool t_461 = t_459 and t_460,
-      temp bool t_462 = Wheels.state == 1,
-      temp bool t_463 = Wheels.count == 1,
-      temp bool t_464 = t_462 and t_463,
-      temp bool t_465 = t_461 and t_464;
-    guardCondition t_465;
-    effect
-      Lift_0.state = 13,
-      Wheels.state = 0;
-
-  process Lift_1_Wheels
-    guardBlock
-      temp bool t_466 = Lift_1.state == 11,
-      temp int t_467 = Lift_1.m / 8,
-      temp bool t_468 = t_467 == 3,
-      temp bool t_469 = Lift_1.status == 1,
-      temp bool t_470 = t_468 and t_469,
-      temp int t_471 = Lift_1.m % 8,
-      temp int t_472 = t_471 + 1,
-      temp int t_473 = t_472 % Lift_1.nos,
-      temp bool t_474 = t_473 != Lift_1.pos,
-      temp bool t_475 = t_470 and t_474,
-      temp bool t_476 = t_466 and t_475,
-      temp bool t_477 = Wheels.state == 2,
-      temp bool t_478 = t_476 and t_477;
-    guardCondition t_478;
-    effect
-      Lift_1.state = 10,
-      Wheels.state = 3;
-
-  process Lift_1_Wheels
-    guardBlock
-      temp bool t_479 = Lift_1.state == 11,
-      temp int t_480 = Lift_1.m / 8,
-      temp bool t_481 = t_480 == 3,
-      temp bool t_482 = Lift_1.status == 1,
-      temp bool t_483 = t_481 and t_482,
-      temp int t_484 = Lift_1.m % 8,
-      temp int t_485 = t_484 + 1,
-      temp int t_486 = t_485 % Lift_1.nos,
-      temp bool t_487 = t_486 != Lift_1.pos,
-      temp bool t_488 = t_483 and t_487,
-      temp bool t_489 = t_479 and t_488,
-      temp bool t_490 = Wheels.state == 0,
-      temp bool t_491 = t_489 and t_490;
-    guardCondition t_491;
-    effect
-      Lift_1.state = 10,
-      Wheels.state = 1,
-      Wheels.count = 1;
-
-  process Lift_1_Wheels
-    guardBlock
-      temp bool t_492 = Lift_1.state == 11,
-      temp int t_493 = Lift_1.m / 8,
-      temp bool t_494 = t_493 == 3,
-      temp bool t_495 = Lift_1.status == 1,
-      temp bool t_496 = t_494 and t_495,
-      temp int t_497 = Lift_1.m % 8,
-      temp int t_498 = t_497 + 1,
-      temp int t_499 = t_498 % Lift_1.nos,
-      temp bool t_500 = t_499 != Lift_1.pos,
-      temp bool t_501 = t_496 and t_500,
-      temp bool t_502 = t_492 and t_501,
-      temp bool t_503 = Wheels.state == 1,
-      temp bool t_504 = Wheels.count < 1,
-      temp bool t_505 = t_503 and t_504,
-      temp bool t_506 = t_502 and t_505;
-    guardCondition t_506;
-    effect
-      Lift_1.state = 10,
-      Wheels.state = 1,
-      temp int t_507 = Wheels.count + 1,
-      Wheels.count = t_507;
-
-  process Lift_1_Wheels
-    guardBlock
-      temp bool t_508 = Lift_1.state == 11,
-      temp int t_509 = Lift_1.m / 8,
-      temp bool t_510 = t_509 == 3,
-      temp bool t_511 = Lift_1.status == 1,
-      temp bool t_512 = t_510 and t_511,
-      temp int t_513 = Lift_1.m % 8,
-      temp int t_514 = t_513 + 1,
-      temp int t_515 = t_514 % Lift_1.nos,
-      temp bool t_516 = t_515 != Lift_1.pos,
-      temp bool t_517 = t_512 and t_516,
-      temp bool t_518 = t_508 and t_517,
-      temp bool t_519 = Wheels.state == 1,
-      temp bool t_520 = Wheels.count == 1,
-      temp bool t_521 = t_519 and t_520,
-      temp bool t_522 = t_518 and t_521;
-    guardCondition t_522;
-    effect
-      Lift_1.state = 10,
-      Wheels.state = 0;
-
-  process Lift_1_Wheels
-    guardBlock
-      temp bool t_523 = Lift_1.state == 11,
-      temp int t_524 = Lift_1.m / 8,
-      temp bool t_525 = t_524 == 3,
-      temp bool t_526 = Lift_1.status == 1,
-      temp bool t_527 = t_525 and t_526,
-      temp int t_528 = Lift_1.m % 8,
-      temp int t_529 = t_528 + 1,
-      temp int t_530 = t_529 % Lift_1.nos,
-      temp bool t_531 = t_530 == Lift_1.pos,
-      temp bool t_532 = t_527 and t_531,
-      temp bool t_533 = t_523 and t_532,
-      temp bool t_534 = Wheels.state == 2,
-      temp bool t_535 = t_533 and t_534;
-    guardCondition t_535;
-    effect
-      Lift_1.state = 12,
-      Wheels.state = 3;
-
-  process Lift_1_Wheels
-    guardBlock
-      temp bool t_536 = Lift_1.state == 11,
-      temp int t_537 = Lift_1.m / 8,
-      temp bool t_538 = t_537 == 3,
-      temp bool t_539 = Lift_1.status == 1,
-      temp bool t_540 = t_538 and t_539,
-      temp int t_541 = Lift_1.m % 8,
-      temp int t_542 = t_541 + 1,
-      temp int t_543 = t_542 % Lift_1.nos,
-      temp bool t_544 = t_543 == Lift_1.pos,
-      temp bool t_545 = t_540 and t_544,
-      temp bool t_546 = t_536 and t_545,
-      temp bool t_547 = Wheels.state == 0,
-      temp bool t_548 = t_546 and t_547;
-    guardCondition t_548;
-    effect
-      Lift_1.state = 12,
-      Wheels.state = 1,
-      Wheels.count = 1;
-
-  process Lift_1_Wheels
-    guardBlock
-      temp bool t_549 = Lift_1.state == 11,
-      temp int t_550 = Lift_1.m / 8,
-      temp bool t_551 = t_550 == 3,
-      temp bool t_552 = Lift_1.status == 1,
-      temp bool t_553 = t_551 and t_552,
-      temp int t_554 = Lift_1.m % 8,
-      temp int t_555 = t_554 + 1,
-      temp int t_556 = t_555 % Lift_1.nos,
-      temp bool t_557 = t_556 == Lift_1.pos,
-      temp bool t_558 = t_553 and t_557,
-      temp bool t_559 = t_549 and t_558,
-      temp bool t_560 = Wheels.state == 1,
-      temp bool t_561 = Wheels.count < 1,
-      temp bool t_562 = t_560 and t_561,
-      temp bool t_563 = t_559 and t_562;
-    guardCondition t_563;
-    effect
-      Lift_1.state = 12,
-      Wheels.state = 1,
-      temp int t_564 = Wheels.count + 1,
-      Wheels.count = t_564;
-
-  process Lift_1_Wheels
-    guardBlock
-      temp bool t_565 = Lift_1.state == 11,
-      temp int t_566 = Lift_1.m / 8,
-      temp bool t_567 = t_566 == 3,
-      temp bool t_568 = Lift_1.status == 1,
-      temp bool t_569 = t_567 and t_568,
-      temp int t_570 = Lift_1.m % 8,
-      temp int t_571 = t_570 + 1,
-      temp int t_572 = t_571 % Lift_1.nos,
-      temp bool t_573 = t_572 == Lift_1.pos,
-      temp bool t_574 = t_569 and t_573,
-      temp bool t_575 = t_565 and t_574,
-      temp bool t_576 = Wheels.state == 1,
-      temp bool t_577 = Wheels.count == 1,
-      temp bool t_578 = t_576 and t_577,
-      temp bool t_579 = t_575 and t_578;
-    guardCondition t_579;
-    effect
-      Lift_1.state = 12,
-      Wheels.state = 0;
-
-  process Lift_1_Wheels
-    guardBlock
-      temp bool t_580 = Lift_1.state == 14,
-      temp int t_581 = Lift_1.m / 8,
-      temp bool t_582 = t_581 == 3,
-      temp bool t_583 = Lift_1.status == 1,
-      temp bool t_584 = t_582 and t_583,
-      temp bool t_585 = t_580 and t_584,
-      temp bool t_586 = Wheels.state == 2,
-      temp bool t_587 = t_585 and t_586;
-    guardCondition t_587;
-    effect
-      Lift_1.state = 13,
-      Wheels.state = 3;
-
-  process Lift_1_Wheels
-    guardBlock
-      temp bool t_588 = Lift_1.state == 14,
-      temp int t_589 = Lift_1.m / 8,
-      temp bool t_590 = t_589 == 3,
-      temp bool t_591 = Lift_1.status == 1,
-      temp bool t_592 = t_590 and t_591,
-      temp bool t_593 = t_588 and t_592,
-      temp bool t_594 = Wheels.state == 0,
-      temp bool t_595 = t_593 and t_594;
-    guardCondition t_595;
-    effect
-      Lift_1.state = 13,
-      Wheels.state = 1,
-      Wheels.count = 1;
-
-  process Lift_1_Wheels
-    guardBlock
-      temp bool t_596 = Lift_1.state == 14,
-      temp int t_597 = Lift_1.m / 8,
-      temp bool t_598 = t_597 == 3,
-      temp bool t_599 = Lift_1.status == 1,
-      temp bool t_600 = t_598 and t_599,
-      temp bool t_601 = t_596 and t_600,
-      temp bool t_602 = Wheels.state == 1,
-      temp bool t_603 = Wheels.count < 1,
-      temp bool t_604 = t_602 and t_603,
-      temp bool t_605 = t_601 and t_604;
-    guardCondition t_605;
-    effect
-      Lift_1.state = 13,
-      Wheels.state = 1,
-      temp int t_606 = Wheels.count + 1,
-      Wheels.count = t_606;
-
-  process Lift_1_Wheels
-    guardBlock
-      temp bool t_607 = Lift_1.state == 14,
-      temp int t_608 = Lift_1.m / 8,
-      temp bool t_609 = t_608 == 3,
-      temp bool t_610 = Lift_1.status == 1,
-      temp bool t_611 = t_609 and t_610,
-      temp bool t_612 = t_607 and t_611,
-      temp bool t_613 = Wheels.state == 1,
-      temp bool t_614 = Wheels.count == 1,
-      temp bool t_615 = t_613 and t_614,
-      temp bool t_616 = t_612 and t_615;
-    guardCondition t_616;
-    effect
-      Lift_1.state = 13,
-      Wheels.state = 0;
-
-  process Lift_1_Wheels
-    guardBlock
-      temp bool t_617 = Lift_1.state == 17,
-      temp bool t_618 = Lift_1.status == 1,
-      temp bool t_619 = t_617 and t_618,
-      temp bool t_620 = Wheels.state == 2,
-      temp bool t_621 = t_619 and t_620;
-    guardCondition t_621;
-    effect
-      Lift_1.state = 13,
-      Wheels.state = 3;
-
-  process Lift_1_Wheels
-    guardBlock
-      temp bool t_622 = Lift_1.state == 17,
-      temp bool t_623 = Lift_1.status == 1,
-      temp bool t_624 = t_622 and t_623,
-      temp bool t_625 = Wheels.state == 0,
-      temp bool t_626 = t_624 and t_625;
-    guardCondition t_626;
-    effect
-      Lift_1.state = 13,
-      Wheels.state = 1,
-      Wheels.count = 1;
-
-  process Lift_1_Wheels
-    guardBlock
-      temp bool t_627 = Lift_1.state == 17,
-      temp bool t_628 = Lift_1.status == 1,
-      temp bool t_629 = t_627 and t_628,
-      temp bool t_630 = Wheels.state == 1,
-      temp bool t_631 = Wheels.count < 1,
-      temp bool t_632 = t_630 and t_631,
-      temp bool t_633 = t_629 and t_632;
-    guardCondition t_633;
-    effect
-      Lift_1.state = 13,
-      Wheels.state = 1,
-      temp int t_634 = Wheels.count + 1,
-      Wheels.count = t_634;
-
-  process Lift_1_Wheels
-    guardBlock
-      temp bool t_635 = Lift_1.state == 17,
-      temp bool t_636 = Lift_1.status == 1,
-      temp bool t_637 = t_635 and t_636,
-      temp bool t_638 = Wheels.state == 1,
-      temp bool t_639 = Wheels.count == 1,
-      temp bool t_640 = t_638 and t_639,
-      temp bool t_641 = t_637 and t_640;
-    guardCondition t_641;
-    effect
-      Lift_1.state = 13,
-      Wheels.state = 0;
-
-  process Lift_0_Wheels
-    guardBlock
-      temp bool t_642 = Lift_0.state == 11,
-      temp int t_643 = Lift_0.m / 8,
-      temp bool t_644 = t_643 == 3,
-      temp bool t_645 = Lift_0.status == 2,
-      temp bool t_646 = t_644 and t_645,
-      temp int t_647 = Lift_0.m % 8,
-      temp int t_648 = t_647 + 1,
-      temp int t_649 = t_648 % Lift_0.nos,
-      temp bool t_650 = t_649 != Lift_0.pos,
-      temp bool t_651 = t_646 and t_650,
-      temp bool t_652 = t_642 and t_651,
-      temp bool t_653 = Wheels.state == 0,
-      temp bool t_654 = t_652 and t_653;
-    guardCondition t_654;
-    effect
-      Lift_0.state = 10,
-      Wheels.state = 2,
-      Wheels.count = 1;
-
-  process Lift_0_Wheels
-    guardBlock
-      temp bool t_655 = Lift_0.state == 11,
-      temp int t_656 = Lift_0.m / 8,
-      temp bool t_657 = t_656 == 3,
-      temp bool t_658 = Lift_0.status == 2,
-      temp bool t_659 = t_657 and t_658,
-      temp int t_660 = Lift_0.m % 8,
-      temp int t_661 = t_660 + 1,
-      temp int t_662 = t_661 % Lift_0.nos,
-      temp bool t_663 = t_662 != Lift_0.pos,
-      temp bool t_664 = t_659 and t_663,
-      temp bool t_665 = t_655 and t_664,
-      temp bool t_666 = Wheels.state == 2,
-      temp bool t_667 = Wheels.count < 1,
-      temp bool t_668 = t_666 and t_667,
-      temp bool t_669 = t_665 and t_668;
-    guardCondition t_669;
-    effect
-      Lift_0.state = 10,
-      Wheels.state = 2,
-      temp int t_670 = Wheels.count + 1,
-      Wheels.count = t_670;
-
-  process Lift_0_Wheels
-    guardBlock
-      temp bool t_671 = Lift_0.state == 11,
-      temp int t_672 = Lift_0.m / 8,
-      temp bool t_673 = t_672 == 3,
-      temp bool t_674 = Lift_0.status == 2,
-      temp bool t_675 = t_673 and t_674,
-      temp int t_676 = Lift_0.m % 8,
-      temp int t_677 = t_676 + 1,
-      temp int t_678 = t_677 % Lift_0.nos,
-      temp bool t_679 = t_678 != Lift_0.pos,
-      temp bool t_680 = t_675 and t_679,
-      temp bool t_681 = t_671 and t_680,
-      temp bool t_682 = Wheels.state == 2,
-      temp bool t_683 = Wheels.count == 1,
-      temp bool t_684 = t_682 and t_683,
-      temp bool t_685 = t_681 and t_684;
-    guardCondition t_685;
-    effect
-      Lift_0.state = 10,
-      Wheels.state = 0;
-
-  process Lift_0_Wheels
-    guardBlock
-      temp bool t_686 = Lift_0.state == 11,
-      temp int t_687 = Lift_0.m / 8,
-      temp bool t_688 = t_687 == 3,
-      temp bool t_689 = Lift_0.status == 2,
-      temp bool t_690 = t_688 and t_689,
-      temp int t_691 = Lift_0.m % 8,
-      temp int t_692 = t_691 + 1,
-      temp int t_693 = t_692 % Lift_0.nos,
-      temp bool t_694 = t_693 != Lift_0.pos,
-      temp bool t_695 = t_690 and t_694,
-      temp bool t_696 = t_686 and t_695,
-      temp bool t_697 = Wheels.state == 1,
-      temp bool t_698 = t_696 and t_697;
-    guardCondition t_698;
-    effect
-      Lift_0.state = 10,
-      Wheels.state = 3;
-
-  process Lift_0_Wheels
-    guardBlock
-      temp bool t_699 = Lift_0.state == 11,
-      temp int t_700 = Lift_0.m / 8,
-      temp bool t_701 = t_700 == 3,
-      temp bool t_702 = Lift_0.status == 2,
-      temp bool t_703 = t_701 and t_702,
-      temp int t_704 = Lift_0.m % 8,
-      temp int t_705 = t_704 + 1,
-      temp int t_706 = t_705 % Lift_0.nos,
-      temp bool t_707 = t_706 == Lift_0.pos,
-      temp bool t_708 = t_703 and t_707,
-      temp bool t_709 = t_699 and t_708,
-      temp bool t_710 = Wheels.state == 0,
-      temp bool t_711 = t_709 and t_710;
-    guardCondition t_711;
-    effect
-      Lift_0.state = 12,
-      Wheels.state = 2,
-      Wheels.count = 1;
-
-  process Lift_0_Wheels
-    guardBlock
-      temp bool t_712 = Lift_0.state == 11,
-      temp int t_713 = Lift_0.m / 8,
-      temp bool t_714 = t_713 == 3,
-      temp bool t_715 = Lift_0.status == 2,
-      temp bool t_716 = t_714 and t_715,
-      temp int t_717 = Lift_0.m % 8,
-      temp int t_718 = t_717 + 1,
-      temp int t_719 = t_718 % Lift_0.nos,
-      temp bool t_720 = t_719 == Lift_0.pos,
-      temp bool t_721 = t_716 and t_720,
-      temp bool t_722 = t_712 and t_721,
-      temp bool t_723 = Wheels.state == 2,
-      temp bool t_724 = Wheels.count < 1,
-      temp bool t_725 = t_723 and t_724,
-      temp bool t_726 = t_722 and t_725;
-    guardCondition t_726;
-    effect
-      Lift_0.state = 12,
-      Wheels.state = 2,
-      temp int t_727 = Wheels.count + 1,
-      Wheels.count = t_727;
-
-  process Lift_0_Wheels
-    guardBlock
-      temp bool t_728 = Lift_0.state == 11,
-      temp int t_729 = Lift_0.m / 8,
-      temp bool t_730 = t_729 == 3,
-      temp bool t_731 = Lift_0.status == 2,
-      temp bool t_732 = t_730 and t_731,
-      temp int t_733 = Lift_0.m % 8,
-      temp int t_734 = t_733 + 1,
-      temp int t_735 = t_734 % Lift_0.nos,
-      temp bool t_736 = t_735 == Lift_0.pos,
-      temp bool t_737 = t_732 and t_736,
-      temp bool t_738 = t_728 and t_737,
-      temp bool t_739 = Wheels.state == 2,
-      temp bool t_740 = Wheels.count == 1,
-      temp bool t_741 = t_739 and t_740,
-      temp bool t_742 = t_738 and t_741;
-    guardCondition t_742;
-    effect
-      Lift_0.state = 12,
-      Wheels.state = 0;
-
-  process Lift_0_Wheels
-    guardBlock
-      temp bool t_743 = Lift_0.state == 11,
-      temp int t_744 = Lift_0.m / 8,
-      temp bool t_745 = t_744 == 3,
-      temp bool t_746 = Lift_0.status == 2,
-      temp bool t_747 = t_745 and t_746,
-      temp int t_748 = Lift_0.m % 8,
-      temp int t_749 = t_748 + 1,
-      temp int t_750 = t_749 % Lift_0.nos,
-      temp bool t_751 = t_750 == Lift_0.pos,
-      temp bool t_752 = t_747 and t_751,
-      temp bool t_753 = t_743 and t_752,
-      temp bool t_754 = Wheels.state == 1,
-      temp bool t_755 = t_753 and t_754;
-    guardCondition t_755;
-    effect
-      Lift_0.state = 12,
-      Wheels.state = 3;
-
-  process Lift_0_Wheels
-    guardBlock
-      temp bool t_756 = Lift_0.state == 14,
-      temp int t_757 = Lift_0.m / 8,
-      temp bool t_758 = t_757 == 3,
-      temp bool t_759 = Lift_0.status == 2,
+      temp bool t_757 = Bus.state == 1,
+      temp bool t_758 = Bus.j == 1,
+      temp bool t_759 = Bus.j != Bus.sender,
       temp bool t_760 = t_758 and t_759,
-      temp bool t_761 = t_756 and t_760,
-      temp bool t_762 = Wheels.state == 0,
-      temp bool t_763 = t_761 and t_762;
-    guardCondition t_763;
-    effect
-      Lift_0.state = 13,
-      Wheels.state = 2,
-      Wheels.count = 1;
+      temp byte t_761 = Bus.j + 2,
+      temp byte t_762 = t_761 - 1,
+      temp byte t_763 = t_762 % 2,
+      temp byte t_764 = relay[t_763],
+      temp bool t_765 = t_764 == 1,
+      temp bool t_766 = t_760 and t_765,
+      temp bool t_767 = t_757 and t_766,
+      temp bool t_768 = Lift_1.state == 3,
+      temp bool t_769 = t_767 and t_768;
 
-  process Lift_0_Wheels
-    guardBlock
-      temp bool t_764 = Lift_0.state == 14,
-      temp int t_765 = Lift_0.m / 8,
-      temp bool t_766 = t_765 == 3,
-      temp bool t_767 = Lift_0.status == 2,
-      temp bool t_768 = t_766 and t_767,
-      temp bool t_769 = t_764 and t_768,
-      temp bool t_770 = Wheels.state == 2,
-      temp bool t_771 = Wheels.count < 1,
-      temp bool t_772 = t_770 and t_771,
-      temp bool t_773 = t_769 and t_772;
-    guardCondition t_773;
+    guardCondition t_769;
     effect
-      Lift_0.state = 13,
-      Wheels.state = 2,
-      temp int t_774 = Wheels.count + 1,
-      Wheels.count = t_774;
+      Bus.state = 1,
+      temp byte t_770 = Bus.j + 1,
+      temp byte t_771 = t_770 % 2,
+      Bus.j = t_771,
+      Lift_1.m = Bus.m,
+      Lift_1.state = 4;
 
-  process Lift_0_Wheels
+  process Bus_Lift_1 
     guardBlock
-      temp bool t_775 = Lift_0.state == 14,
-      temp int t_776 = Lift_0.m / 8,
-      temp bool t_777 = t_776 == 3,
-      temp bool t_778 = Lift_0.status == 2,
-      temp bool t_779 = t_777 and t_778,
-      temp bool t_780 = t_775 and t_779,
-      temp bool t_781 = Wheels.state == 2,
-      temp bool t_782 = Wheels.count == 1,
-      temp bool t_783 = t_781 and t_782,
-      temp bool t_784 = t_780 and t_783;
+      temp bool t_772 = Bus.state == 1,
+      temp bool t_773 = Bus.j == 1,
+      temp bool t_774 = Bus.j != Bus.sender,
+      temp bool t_775 = t_773 and t_774,
+      temp byte t_776 = Bus.j + 2,
+      temp byte t_777 = t_776 - 1,
+      temp byte t_778 = t_777 % 2,
+      temp byte t_779 = relay[t_778],
+      temp bool t_780 = t_779 == 1,
+      temp bool t_781 = t_775 and t_780,
+      temp bool t_782 = t_772 and t_781,
+      temp bool t_783 = Lift_1.state == 0,
+      temp bool t_784 = t_782 and t_783;
+
     guardCondition t_784;
     effect
-      Lift_0.state = 13,
-      Wheels.state = 0;
+      Bus.state = 1,
+      temp byte t_785 = Bus.j + 1,
+      temp byte t_786 = t_785 % 2,
+      Bus.j = t_786,
+      Lift_1.m = Bus.m,
+      Lift_1.state = 6;
 
-  process Lift_0_Wheels
+  process Bus_Lift_1 
     guardBlock
-      temp bool t_785 = Lift_0.state == 14,
-      temp int t_786 = Lift_0.m / 8,
-      temp bool t_787 = t_786 == 3,
-      temp bool t_788 = Lift_0.status == 2,
-      temp bool t_789 = t_787 and t_788,
-      temp bool t_790 = t_785 and t_789,
-      temp bool t_791 = Wheels.state == 1,
-      temp bool t_792 = t_790 and t_791;
-    guardCondition t_792;
+      temp bool t_787 = Bus.state == 1,
+      temp bool t_788 = Bus.j == 1,
+      temp bool t_789 = Bus.j != Bus.sender,
+      temp bool t_790 = t_788 and t_789,
+      temp byte t_791 = Bus.j + 2,
+      temp byte t_792 = t_791 - 1,
+      temp byte t_793 = t_792 % 2,
+      temp byte t_794 = relay[t_793],
+      temp bool t_795 = t_794 == 1,
+      temp bool t_796 = t_790 and t_795,
+      temp bool t_797 = t_787 and t_796,
+      temp bool t_798 = Lift_1.state == 8,
+      temp bool t_799 = t_797 and t_798;
+
+    guardCondition t_799;
     effect
-      Lift_0.state = 13,
-      Wheels.state = 3;
+      Bus.state = 1,
+      temp byte t_800 = Bus.j + 1,
+      temp byte t_801 = t_800 % 2,
+      Bus.j = t_801,
+      Lift_1.m = Bus.m,
+      Lift_1.state = 9;
 
-  process Lift_0_Wheels
+  process Bus_Lift_1 
     guardBlock
-      temp bool t_793 = Lift_0.state == 17,
-      temp bool t_794 = Lift_0.status == 2,
-      temp bool t_795 = t_793 and t_794,
-      temp bool t_796 = Wheels.state == 0,
-      temp bool t_797 = t_795 and t_796;
-    guardCondition t_797;
+      temp bool t_802 = Bus.state == 1,
+      temp bool t_803 = Bus.j == 1,
+      temp bool t_804 = Bus.j != Bus.sender,
+      temp bool t_805 = t_803 and t_804,
+      temp byte t_806 = Bus.j + 2,
+      temp byte t_807 = t_806 - 1,
+      temp byte t_808 = t_807 % 2,
+      temp byte t_809 = relay[t_808],
+      temp bool t_810 = t_809 == 1,
+      temp bool t_811 = t_805 and t_810,
+      temp bool t_812 = t_802 and t_811,
+      temp bool t_813 = Lift_1.state == 10,
+      temp bool t_814 = t_812 and t_813;
+
+    guardCondition t_814;
     effect
-      Lift_0.state = 13,
-      Wheels.state = 2,
-      Wheels.count = 1;
+      Bus.state = 1,
+      temp byte t_815 = Bus.j + 1,
+      temp byte t_816 = t_815 % 2,
+      Bus.j = t_816,
+      Lift_1.m = Bus.m,
+      Lift_1.state = 11;
 
-  process Lift_0_Wheels
+  process Bus_Lift_1 
     guardBlock
-      temp bool t_798 = Lift_0.state == 17,
-      temp bool t_799 = Lift_0.status == 2,
-      temp bool t_800 = t_798 and t_799,
-      temp bool t_801 = Wheels.state == 2,
-      temp bool t_802 = Wheels.count < 1,
-      temp bool t_803 = t_801 and t_802,
-      temp bool t_804 = t_800 and t_803;
-    guardCondition t_804;
+      temp bool t_817 = Bus.state == 1,
+      temp bool t_818 = Bus.j == 1,
+      temp bool t_819 = Bus.j != Bus.sender,
+      temp bool t_820 = t_818 and t_819,
+      temp byte t_821 = Bus.j + 2,
+      temp byte t_822 = t_821 - 1,
+      temp byte t_823 = t_822 % 2,
+      temp byte t_824 = relay[t_823],
+      temp bool t_825 = t_824 == 1,
+      temp bool t_826 = t_820 and t_825,
+      temp bool t_827 = t_817 and t_826,
+      temp bool t_828 = Lift_1.state == 13,
+      temp bool t_829 = t_827 and t_828;
+
+    guardCondition t_829;
     effect
-      Lift_0.state = 13,
-      Wheels.state = 2,
-      temp int t_805 = Wheels.count + 1,
-      Wheels.count = t_805;
+      Bus.state = 1,
+      temp byte t_830 = Bus.j + 1,
+      temp byte t_831 = t_830 % 2,
+      Bus.j = t_831,
+      Lift_1.m = Bus.m,
+      Lift_1.state = 14;
 
-  process Lift_0_Wheels
+  process Bus_Lift_1 
     guardBlock
-      temp bool t_806 = Lift_0.state == 17,
-      temp bool t_807 = Lift_0.status == 2,
-      temp bool t_808 = t_806 and t_807,
-      temp bool t_809 = Wheels.state == 2,
-      temp bool t_810 = Wheels.count == 1,
-      temp bool t_811 = t_809 and t_810,
-      temp bool t_812 = t_808 and t_811;
-    guardCondition t_812;
-    effect
-      Lift_0.state = 13,
-      Wheels.state = 0;
-
-  process Lift_0_Wheels
-    guardBlock
-      temp bool t_813 = Lift_0.state == 17,
-      temp bool t_814 = Lift_0.status == 2,
-      temp bool t_815 = t_813 and t_814,
-      temp bool t_816 = Wheels.state == 1,
-      temp bool t_817 = t_815 and t_816;
-    guardCondition t_817;
-    effect
-      Lift_0.state = 13,
-      Wheels.state = 3;
-
-  process Lift_1_Wheels
-    guardBlock
-      temp bool t_818 = Lift_1.state == 11,
-      temp int t_819 = Lift_1.m / 8,
-      temp bool t_820 = t_819 == 3,
-      temp bool t_821 = Lift_1.status == 2,
-      temp bool t_822 = t_820 and t_821,
-      temp int t_823 = Lift_1.m % 8,
-      temp int t_824 = t_823 + 1,
-      temp int t_825 = t_824 % Lift_1.nos,
-      temp bool t_826 = t_825 != Lift_1.pos,
-      temp bool t_827 = t_822 and t_826,
-      temp bool t_828 = t_818 and t_827,
-      temp bool t_829 = Wheels.state == 0,
-      temp bool t_830 = t_828 and t_829;
-    guardCondition t_830;
-    effect
-      Lift_1.state = 10,
-      Wheels.state = 2,
-      Wheels.count = 1;
-
-  process Lift_1_Wheels
-    guardBlock
-      temp bool t_831 = Lift_1.state == 11,
-      temp int t_832 = Lift_1.m / 8,
-      temp bool t_833 = t_832 == 3,
-      temp bool t_834 = Lift_1.status == 2,
+      temp bool t_832 = Bus.state == 2,
+      temp bool t_833 = Bus.j == 1,
+      temp bool t_834 = Bus.j != Bus.sender,
       temp bool t_835 = t_833 and t_834,
-      temp int t_836 = Lift_1.m % 8,
-      temp int t_837 = t_836 + 1,
-      temp int t_838 = t_837 % Lift_1.nos,
-      temp bool t_839 = t_838 != Lift_1.pos,
-      temp bool t_840 = t_835 and t_839,
-      temp bool t_841 = t_831 and t_840,
-      temp bool t_842 = Wheels.state == 2,
-      temp bool t_843 = Wheels.count < 1,
-      temp bool t_844 = t_842 and t_843,
-      temp bool t_845 = t_841 and t_844;
-    guardCondition t_845;
-    effect
-      Lift_1.state = 10,
-      Wheels.state = 2,
-      temp int t_846 = Wheels.count + 1,
-      Wheels.count = t_846;
+      temp byte t_836 = relay[Bus.j],
+      temp bool t_837 = t_836 == 1,
+      temp bool t_838 = t_835 and t_837,
+      temp bool t_839 = t_832 and t_838,
+      temp bool t_840 = Lift_1.state == 3,
+      temp bool t_841 = t_839 and t_840;
 
-  process Lift_1_Wheels
-    guardBlock
-      temp bool t_847 = Lift_1.state == 11,
-      temp int t_848 = Lift_1.m / 8,
-      temp bool t_849 = t_848 == 3,
-      temp bool t_850 = Lift_1.status == 2,
-      temp bool t_851 = t_849 and t_850,
-      temp int t_852 = Lift_1.m % 8,
-      temp int t_853 = t_852 + 1,
-      temp int t_854 = t_853 % Lift_1.nos,
-      temp bool t_855 = t_854 != Lift_1.pos,
-      temp bool t_856 = t_851 and t_855,
-      temp bool t_857 = t_847 and t_856,
-      temp bool t_858 = Wheels.state == 2,
-      temp bool t_859 = Wheels.count == 1,
-      temp bool t_860 = t_858 and t_859,
-      temp bool t_861 = t_857 and t_860;
-    guardCondition t_861;
+    guardCondition t_841;
     effect
-      Lift_1.state = 10,
-      Wheels.state = 0;
+      Bus.state = 2,
+      temp byte t_842 = Bus.j + 2,
+      temp byte t_843 = t_842 - 1,
+      temp byte t_844 = t_843 % 2,
+      Bus.j = t_844,
+      Lift_1.m = Bus.m,
+      Lift_1.state = 4;
 
-  process Lift_1_Wheels
+  process Bus_Lift_1 
     guardBlock
-      temp bool t_862 = Lift_1.state == 11,
-      temp int t_863 = Lift_1.m / 8,
-      temp bool t_864 = t_863 == 3,
-      temp bool t_865 = Lift_1.status == 2,
-      temp bool t_866 = t_864 and t_865,
-      temp int t_867 = Lift_1.m % 8,
-      temp int t_868 = t_867 + 1,
-      temp int t_869 = t_868 % Lift_1.nos,
-      temp bool t_870 = t_869 != Lift_1.pos,
-      temp bool t_871 = t_866 and t_870,
-      temp bool t_872 = t_862 and t_871,
-      temp bool t_873 = Wheels.state == 1,
-      temp bool t_874 = t_872 and t_873;
-    guardCondition t_874;
+      temp bool t_845 = Bus.state == 2,
+      temp bool t_846 = Bus.j == 1,
+      temp bool t_847 = Bus.j != Bus.sender,
+      temp bool t_848 = t_846 and t_847,
+      temp byte t_849 = relay[Bus.j],
+      temp bool t_850 = t_849 == 1,
+      temp bool t_851 = t_848 and t_850,
+      temp bool t_852 = t_845 and t_851,
+      temp bool t_853 = Lift_1.state == 0,
+      temp bool t_854 = t_852 and t_853;
+
+    guardCondition t_854;
     effect
-      Lift_1.state = 10,
-      Wheels.state = 3;
+      Bus.state = 2,
+      temp byte t_855 = Bus.j + 2,
+      temp byte t_856 = t_855 - 1,
+      temp byte t_857 = t_856 % 2,
+      Bus.j = t_857,
+      Lift_1.m = Bus.m,
+      Lift_1.state = 6;
 
-  process Lift_1_Wheels
+  process Bus_Lift_1 
     guardBlock
-      temp bool t_875 = Lift_1.state == 11,
-      temp int t_876 = Lift_1.m / 8,
-      temp bool t_877 = t_876 == 3,
-      temp bool t_878 = Lift_1.status == 2,
-      temp bool t_879 = t_877 and t_878,
-      temp int t_880 = Lift_1.m % 8,
-      temp int t_881 = t_880 + 1,
-      temp int t_882 = t_881 % Lift_1.nos,
-      temp bool t_883 = t_882 == Lift_1.pos,
-      temp bool t_884 = t_879 and t_883,
-      temp bool t_885 = t_875 and t_884,
-      temp bool t_886 = Wheels.state == 0,
-      temp bool t_887 = t_885 and t_886;
-    guardCondition t_887;
+      temp bool t_858 = Bus.state == 2,
+      temp bool t_859 = Bus.j == 1,
+      temp bool t_860 = Bus.j != Bus.sender,
+      temp bool t_861 = t_859 and t_860,
+      temp byte t_862 = relay[Bus.j],
+      temp bool t_863 = t_862 == 1,
+      temp bool t_864 = t_861 and t_863,
+      temp bool t_865 = t_858 and t_864,
+      temp bool t_866 = Lift_1.state == 8,
+      temp bool t_867 = t_865 and t_866;
+
+    guardCondition t_867;
     effect
-      Lift_1.state = 12,
-      Wheels.state = 2,
-      Wheels.count = 1;
+      Bus.state = 2,
+      temp byte t_868 = Bus.j + 2,
+      temp byte t_869 = t_868 - 1,
+      temp byte t_870 = t_869 % 2,
+      Bus.j = t_870,
+      Lift_1.m = Bus.m,
+      Lift_1.state = 9;
 
-  process Lift_1_Wheels
+  process Bus_Lift_1 
     guardBlock
-      temp bool t_888 = Lift_1.state == 11,
-      temp int t_889 = Lift_1.m / 8,
-      temp bool t_890 = t_889 == 3,
-      temp bool t_891 = Lift_1.status == 2,
-      temp bool t_892 = t_890 and t_891,
-      temp int t_893 = Lift_1.m % 8,
-      temp int t_894 = t_893 + 1,
-      temp int t_895 = t_894 % Lift_1.nos,
-      temp bool t_896 = t_895 == Lift_1.pos,
-      temp bool t_897 = t_892 and t_896,
-      temp bool t_898 = t_888 and t_897,
-      temp bool t_899 = Wheels.state == 2,
-      temp bool t_900 = Wheels.count < 1,
-      temp bool t_901 = t_899 and t_900,
-      temp bool t_902 = t_898 and t_901;
-    guardCondition t_902;
+      temp bool t_871 = Bus.state == 2,
+      temp bool t_872 = Bus.j == 1,
+      temp bool t_873 = Bus.j != Bus.sender,
+      temp bool t_874 = t_872 and t_873,
+      temp byte t_875 = relay[Bus.j],
+      temp bool t_876 = t_875 == 1,
+      temp bool t_877 = t_874 and t_876,
+      temp bool t_878 = t_871 and t_877,
+      temp bool t_879 = Lift_1.state == 10,
+      temp bool t_880 = t_878 and t_879;
+
+    guardCondition t_880;
     effect
-      Lift_1.state = 12,
-      Wheels.state = 2,
-      temp int t_903 = Wheels.count + 1,
-      Wheels.count = t_903;
+      Bus.state = 2,
+      temp byte t_881 = Bus.j + 2,
+      temp byte t_882 = t_881 - 1,
+      temp byte t_883 = t_882 % 2,
+      Bus.j = t_883,
+      Lift_1.m = Bus.m,
+      Lift_1.state = 11;
 
-  process Lift_1_Wheels
+  process Bus_Lift_1 
     guardBlock
-      temp bool t_904 = Lift_1.state == 11,
-      temp int t_905 = Lift_1.m / 8,
-      temp bool t_906 = t_905 == 3,
-      temp bool t_907 = Lift_1.status == 2,
-      temp bool t_908 = t_906 and t_907,
-      temp int t_909 = Lift_1.m % 8,
-      temp int t_910 = t_909 + 1,
-      temp int t_911 = t_910 % Lift_1.nos,
-      temp bool t_912 = t_911 == Lift_1.pos,
-      temp bool t_913 = t_908 and t_912,
-      temp bool t_914 = t_904 and t_913,
-      temp bool t_915 = Wheels.state == 2,
-      temp bool t_916 = Wheels.count == 1,
-      temp bool t_917 = t_915 and t_916,
-      temp bool t_918 = t_914 and t_917;
-    guardCondition t_918;
+      temp bool t_884 = Bus.state == 2,
+      temp bool t_885 = Bus.j == 1,
+      temp bool t_886 = Bus.j != Bus.sender,
+      temp bool t_887 = t_885 and t_886,
+      temp byte t_888 = relay[Bus.j],
+      temp bool t_889 = t_888 == 1,
+      temp bool t_890 = t_887 and t_889,
+      temp bool t_891 = t_884 and t_890,
+      temp bool t_892 = Lift_1.state == 13,
+      temp bool t_893 = t_891 and t_892;
+
+    guardCondition t_893;
     effect
-      Lift_1.state = 12,
-      Wheels.state = 0;
+      Bus.state = 2,
+      temp byte t_894 = Bus.j + 2,
+      temp byte t_895 = t_894 - 1,
+      temp byte t_896 = t_895 % 2,
+      Bus.j = t_896,
+      Lift_1.m = Bus.m,
+      Lift_1.state = 14;
 
-  process Lift_1_Wheels
+  process Environment_Lift_0 
     guardBlock
-      temp bool t_919 = Lift_1.state == 11,
-      temp int t_920 = Lift_1.m / 8,
-      temp bool t_921 = t_920 == 3,
-      temp bool t_922 = Lift_1.status == 2,
-      temp bool t_923 = t_921 and t_922,
-      temp int t_924 = Lift_1.m % 8,
-      temp int t_925 = t_924 + 1,
-      temp int t_926 = t_925 % Lift_1.nos,
-      temp bool t_927 = t_926 == Lift_1.pos,
-      temp bool t_928 = t_923 and t_927,
-      temp bool t_929 = t_919 and t_928,
-      temp bool t_930 = Wheels.state == 1,
-      temp bool t_931 = t_929 and t_930;
-    guardCondition t_931;
-    effect
-      Lift_1.state = 12,
-      Wheels.state = 3;
+      temp bool t_897 = Environment.state == 4,
+      temp bool t_898 = Lift_0.state == 0,
+      temp bool t_899 = atomic == 0,
+      temp bool t_900 = t_898 and t_899,
+      temp bool t_901 = t_897 and t_900;
 
-  process Lift_1_Wheels
-    guardBlock
-      temp bool t_932 = Lift_1.state == 14,
-      temp int t_933 = Lift_1.m / 8,
-      temp bool t_934 = t_933 == 3,
-      temp bool t_935 = Lift_1.status == 2,
-      temp bool t_936 = t_934 and t_935,
-      temp bool t_937 = t_932 and t_936,
-      temp bool t_938 = Wheels.state == 0,
-      temp bool t_939 = t_937 and t_938;
-    guardCondition t_939;
-    effect
-      Lift_1.state = 13,
-      Wheels.state = 2,
-      Wheels.count = 1;
-
-  process Lift_1_Wheels
-    guardBlock
-      temp bool t_940 = Lift_1.state == 14,
-      temp int t_941 = Lift_1.m / 8,
-      temp bool t_942 = t_941 == 3,
-      temp bool t_943 = Lift_1.status == 2,
-      temp bool t_944 = t_942 and t_943,
-      temp bool t_945 = t_940 and t_944,
-      temp bool t_946 = Wheels.state == 2,
-      temp bool t_947 = Wheels.count < 1,
-      temp bool t_948 = t_946 and t_947,
-      temp bool t_949 = t_945 and t_948;
-    guardCondition t_949;
-    effect
-      Lift_1.state = 13,
-      Wheels.state = 2,
-      temp int t_950 = Wheels.count + 1,
-      Wheels.count = t_950;
-
-  process Lift_1_Wheels
-    guardBlock
-      temp bool t_951 = Lift_1.state == 14,
-      temp int t_952 = Lift_1.m / 8,
-      temp bool t_953 = t_952 == 3,
-      temp bool t_954 = Lift_1.status == 2,
-      temp bool t_955 = t_953 and t_954,
-      temp bool t_956 = t_951 and t_955,
-      temp bool t_957 = Wheels.state == 2,
-      temp bool t_958 = Wheels.count == 1,
-      temp bool t_959 = t_957 and t_958,
-      temp bool t_960 = t_956 and t_959;
-    guardCondition t_960;
-    effect
-      Lift_1.state = 13,
-      Wheels.state = 0;
-
-  process Lift_1_Wheels
-    guardBlock
-      temp bool t_961 = Lift_1.state == 14,
-      temp int t_962 = Lift_1.m / 8,
-      temp bool t_963 = t_962 == 3,
-      temp bool t_964 = Lift_1.status == 2,
-      temp bool t_965 = t_963 and t_964,
-      temp bool t_966 = t_961 and t_965,
-      temp bool t_967 = Wheels.state == 1,
-      temp bool t_968 = t_966 and t_967;
-    guardCondition t_968;
-    effect
-      Lift_1.state = 13,
-      Wheels.state = 3;
-
-  process Lift_1_Wheels
-    guardBlock
-      temp bool t_969 = Lift_1.state == 17,
-      temp bool t_970 = Lift_1.status == 2,
-      temp bool t_971 = t_969 and t_970,
-      temp bool t_972 = Wheels.state == 0,
-      temp bool t_973 = t_971 and t_972;
-    guardCondition t_973;
-    effect
-      Lift_1.state = 13,
-      Wheels.state = 2,
-      Wheels.count = 1;
-
-  process Lift_1_Wheels
-    guardBlock
-      temp bool t_974 = Lift_1.state == 17,
-      temp bool t_975 = Lift_1.status == 2,
-      temp bool t_976 = t_974 and t_975,
-      temp bool t_977 = Wheels.state == 2,
-      temp bool t_978 = Wheels.count < 1,
-      temp bool t_979 = t_977 and t_978,
-      temp bool t_980 = t_976 and t_979;
-    guardCondition t_980;
-    effect
-      Lift_1.state = 13,
-      Wheels.state = 2,
-      temp int t_981 = Wheels.count + 1,
-      Wheels.count = t_981;
-
-  process Lift_1_Wheels
-    guardBlock
-      temp bool t_982 = Lift_1.state == 17,
-      temp bool t_983 = Lift_1.status == 2,
-      temp bool t_984 = t_982 and t_983,
-      temp bool t_985 = Wheels.state == 2,
-      temp bool t_986 = Wheels.count == 1,
-      temp bool t_987 = t_985 and t_986,
-      temp bool t_988 = t_984 and t_987;
-    guardCondition t_988;
-    effect
-      Lift_1.state = 13,
-      Wheels.state = 0;
-
-  process Lift_1_Wheels
-    guardBlock
-      temp bool t_989 = Lift_1.state == 17,
-      temp bool t_990 = Lift_1.status == 2,
-      temp bool t_991 = t_989 and t_990,
-      temp bool t_992 = Wheels.state == 1,
-      temp bool t_993 = t_991 and t_992;
-    guardCondition t_993;
-    effect
-      Lift_1.state = 13,
-      Wheels.state = 3;
-
-  process Environment_Lift_0
-    guardBlock
-      temp bool t_994 = Environment.state == 4,
-      temp bool t_995 = Lift_0.state == 0,
-      temp bool t_996 = atomic == 0,
-      temp bool t_997 = t_995 and t_996,
-      temp bool t_998 = t_994 and t_997;
-    guardCondition t_998;
+    guardCondition t_901;
     effect
       Environment.state = 4,
       Lift_0.state = 1,
@@ -1825,600 +1712,725 @@ byte Lift_1.count = 0;
       relay[0] = 1,
       Lift_0.nos = 1;
 
-  process Bus_Lift_0
+  process Environment_Lift_0 
     guardBlock
-      temp bool t_999 = Bus.state == 1,
-      temp bool t_1000 = Bus.j == 0,
-      temp bool t_1001 = Bus.j != Bus.sender,
-      temp bool t_1002 = t_1000 and t_1001,
-      temp int t_1003 = Bus.j + 2,
-      temp int t_1004 = t_1003 - 1,
-      temp int t_1005 = t_1004 % 2,
-      temp byte t_1006 = relay[t_1005],
-      temp bool t_1007 = t_1006 == 1,
-      temp bool t_1008 = t_1002 and t_1007,
-      temp bool t_1009 = t_999 and t_1008,
-      temp bool t_1010 = Lift_0.state == 3,
-      temp bool t_1011 = t_1009 and t_1010;
-    guardCondition t_1011;
-    effect
-      Bus.state = 1,
-      temp int t_1012 = Bus.j + 1,
-      temp int t_1013 = t_1012 % 2,
-      Bus.j = t_1013,
-      Lift_0.m = Bus.m,
-      Lift_0.state = 4;
+      temp bool t_902 = Environment.state == 4,
+      temp bool t_903 = Lift_0.state == 10,
+      temp bool t_904 = atomic == 0,
+      temp bool t_905 = t_903 and t_904,
+      temp bool t_906 = t_902 and t_905;
 
-  process Bus_Lift_0
-    guardBlock
-      temp bool t_1014 = Bus.state == 1,
-      temp bool t_1015 = Bus.j == 0,
-      temp bool t_1016 = Bus.j != Bus.sender,
-      temp bool t_1017 = t_1015 and t_1016,
-      temp int t_1018 = Bus.j + 2,
-      temp int t_1019 = t_1018 - 1,
-      temp int t_1020 = t_1019 % 2,
-      temp byte t_1021 = relay[t_1020],
-      temp bool t_1022 = t_1021 == 1,
-      temp bool t_1023 = t_1017 and t_1022,
-      temp bool t_1024 = t_1014 and t_1023,
-      temp bool t_1025 = Lift_0.state == 0,
-      temp bool t_1026 = t_1024 and t_1025;
-    guardCondition t_1026;
+    guardCondition t_906;
     effect
-      Bus.state = 1,
-      temp int t_1027 = Bus.j + 1,
-      temp int t_1028 = t_1027 % 2,
-      Bus.j = t_1028,
-      Lift_0.m = Bus.m,
-      Lift_0.state = 6;
+      Environment.state = 1,
+      Lift_0.state = 13,
+      Lift_0.status = 1,
+      Lift_0.count = 1;
 
-  process Bus_Lift_0
+  process Environment_Lift_1 
     guardBlock
-      temp bool t_1029 = Bus.state == 1,
-      temp bool t_1030 = Bus.j == 0,
-      temp bool t_1031 = Bus.j != Bus.sender,
-      temp bool t_1032 = t_1030 and t_1031,
-      temp int t_1033 = Bus.j + 2,
-      temp int t_1034 = t_1033 - 1,
-      temp int t_1035 = t_1034 % 2,
-      temp byte t_1036 = relay[t_1035],
-      temp bool t_1037 = t_1036 == 1,
-      temp bool t_1038 = t_1032 and t_1037,
-      temp bool t_1039 = t_1029 and t_1038,
-      temp bool t_1040 = Lift_0.state == 8,
-      temp bool t_1041 = t_1039 and t_1040;
-    guardCondition t_1041;
+      temp bool t_907 = Environment.state == 2,
+      temp bool t_908 = Lift_1.state == 13,
+      temp bool t_909 = atomic == 0,
+      temp bool t_910 = t_908 and t_909,
+      temp bool t_911 = t_907 and t_910;
+
+    guardCondition t_911;
     effect
-      Bus.state = 1,
-      temp int t_1042 = Bus.j + 1,
-      temp int t_1043 = t_1042 % 2,
-      Bus.j = t_1043,
-      Lift_0.m = Bus.m,
-      Lift_0.state = 9;
+      Environment.state = 4,
+      Lift_1.state = 10,
+      Lift_1.status = 0;
 
-  process Bus_Lift_0
+  process Environment_Lift_1 
     guardBlock
-      temp bool t_1044 = Bus.state == 1,
-      temp bool t_1045 = Bus.j == 0,
-      temp bool t_1046 = Bus.j != Bus.sender,
-      temp bool t_1047 = t_1045 and t_1046,
-      temp int t_1048 = Bus.j + 2,
-      temp int t_1049 = t_1048 - 1,
-      temp int t_1050 = t_1049 % 2,
-      temp byte t_1051 = relay[t_1050],
-      temp bool t_1052 = t_1051 == 1,
-      temp bool t_1053 = t_1047 and t_1052,
-      temp bool t_1054 = t_1044 and t_1053,
-      temp bool t_1055 = Lift_0.state == 10,
-      temp bool t_1056 = t_1054 and t_1055;
-    guardCondition t_1056;
+      temp bool t_912 = Environment.state == 3,
+      temp bool t_913 = Lift_1.state == 13,
+      temp bool t_914 = atomic == 0,
+      temp bool t_915 = t_913 and t_914,
+      temp bool t_916 = t_912 and t_915;
+
+    guardCondition t_916;
     effect
-      Bus.state = 1,
-      temp int t_1057 = Bus.j + 1,
-      temp int t_1058 = t_1057 % 2,
-      Bus.j = t_1058,
-      Lift_0.m = Bus.m,
-      Lift_0.state = 11;
+      Environment.state = 4,
+      Lift_1.state = 10,
+      Lift_1.status = 0;
 
-  process Bus_Lift_0
+  process Environment_Lift_0 
     guardBlock
-      temp bool t_1059 = Bus.state == 1,
-      temp bool t_1060 = Bus.j == 0,
-      temp bool t_1061 = Bus.j != Bus.sender,
+      temp bool t_917 = Environment.state == 0,
+      temp bool t_918 = Lift_0.state == 13,
+      temp bool t_919 = atomic == 0,
+      temp bool t_920 = t_918 and t_919,
+      temp bool t_921 = t_917 and t_920;
+
+    guardCondition t_921;
+    effect
+      Environment.state = 4,
+      Lift_0.state = 10,
+      Lift_0.status = 0;
+
+  process Environment_Lift_0 
+    guardBlock
+      temp bool t_922 = Environment.state == 1,
+      temp bool t_923 = Lift_0.state == 13,
+      temp bool t_924 = atomic == 0,
+      temp bool t_925 = t_923 and t_924,
+      temp bool t_926 = t_922 and t_925;
+
+    guardCondition t_926;
+    effect
+      Environment.state = 4,
+      Lift_0.state = 10,
+      Lift_0.status = 0;
+
+  process Environment_Lift_1 
+    guardBlock
+      temp bool t_927 = Environment.state == 4,
+      temp bool t_928 = Lift_1.state == 10,
+      temp bool t_929 = atomic == 0,
+      temp bool t_930 = t_928 and t_929,
+      temp bool t_931 = t_927 and t_930;
+
+    guardCondition t_931;
+    effect
+      Environment.state = 3,
+      Lift_1.state = 13,
+      Lift_1.status = 1,
+      Lift_1.count = 1;
+
+  process Lift_0_Wheels 
+    guardBlock
+      temp bool t_932 = Lift_0.state == 11,
+      temp byte t_933 = Lift_0.m / 8,
+      temp bool t_934 = t_933 == 3,
+      temp bool t_935 = Lift_0.status == 2,
+      temp bool t_936 = t_934 and t_935,
+      temp byte t_937 = Lift_0.m % 8,
+      temp byte t_938 = t_937 + 1,
+      temp byte t_939 = t_938 % Lift_0.nos,
+      temp bool t_940 = t_939 != Lift_0.pos,
+      temp bool t_941 = t_936 and t_940,
+      temp bool t_942 = t_932 and t_941,
+      temp bool t_943 = Wheels.state == 0,
+      temp bool t_944 = t_942 and t_943;
+
+    guardCondition t_944;
+    effect
+      Lift_0.state = 10,
+      Wheels.state = 2,
+      Wheels.count = 1;
+
+  process Lift_0_Wheels 
+    guardBlock
+      temp bool t_945 = Lift_0.state == 11,
+      temp byte t_946 = Lift_0.m / 8,
+      temp bool t_947 = t_946 == 3,
+      temp bool t_948 = Lift_0.status == 2,
+      temp bool t_949 = t_947 and t_948,
+      temp byte t_950 = Lift_0.m % 8,
+      temp byte t_951 = t_950 + 1,
+      temp byte t_952 = t_951 % Lift_0.nos,
+      temp bool t_953 = t_952 != Lift_0.pos,
+      temp bool t_954 = t_949 and t_953,
+      temp bool t_955 = t_945 and t_954,
+      temp bool t_956 = Wheels.state == 2,
+      temp bool t_957 = Wheels.count < 1,
+      temp bool t_958 = t_956 and t_957,
+      temp bool t_959 = t_955 and t_958;
+
+    guardCondition t_959;
+    effect
+      Lift_0.state = 10,
+      Wheels.state = 2,
+      temp byte t_960 = Wheels.count + 1,
+      Wheels.count = t_960;
+
+  process Lift_0_Wheels 
+    guardBlock
+      temp bool t_961 = Lift_0.state == 11,
+      temp byte t_962 = Lift_0.m / 8,
+      temp bool t_963 = t_962 == 3,
+      temp bool t_964 = Lift_0.status == 2,
+      temp bool t_965 = t_963 and t_964,
+      temp byte t_966 = Lift_0.m % 8,
+      temp byte t_967 = t_966 + 1,
+      temp byte t_968 = t_967 % Lift_0.nos,
+      temp bool t_969 = t_968 != Lift_0.pos,
+      temp bool t_970 = t_965 and t_969,
+      temp bool t_971 = t_961 and t_970,
+      temp bool t_972 = Wheels.state == 2,
+      temp bool t_973 = Wheels.count == 1,
+      temp bool t_974 = t_972 and t_973,
+      temp bool t_975 = t_971 and t_974;
+
+    guardCondition t_975;
+    effect
+      Lift_0.state = 10,
+      Wheels.state = 0;
+
+  process Lift_0_Wheels 
+    guardBlock
+      temp bool t_976 = Lift_0.state == 11,
+      temp byte t_977 = Lift_0.m / 8,
+      temp bool t_978 = t_977 == 3,
+      temp bool t_979 = Lift_0.status == 2,
+      temp bool t_980 = t_978 and t_979,
+      temp byte t_981 = Lift_0.m % 8,
+      temp byte t_982 = t_981 + 1,
+      temp byte t_983 = t_982 % Lift_0.nos,
+      temp bool t_984 = t_983 != Lift_0.pos,
+      temp bool t_985 = t_980 and t_984,
+      temp bool t_986 = t_976 and t_985,
+      temp bool t_987 = Wheels.state == 1,
+      temp bool t_988 = t_986 and t_987;
+
+    guardCondition t_988;
+    effect
+      Lift_0.state = 10,
+      Wheels.state = 3;
+
+  process Lift_0_Wheels 
+    guardBlock
+      temp bool t_989 = Lift_0.state == 11,
+      temp byte t_990 = Lift_0.m / 8,
+      temp bool t_991 = t_990 == 3,
+      temp bool t_992 = Lift_0.status == 2,
+      temp bool t_993 = t_991 and t_992,
+      temp byte t_994 = Lift_0.m % 8,
+      temp byte t_995 = t_994 + 1,
+      temp byte t_996 = t_995 % Lift_0.nos,
+      temp bool t_997 = t_996 == Lift_0.pos,
+      temp bool t_998 = t_993 and t_997,
+      temp bool t_999 = t_989 and t_998,
+      temp bool t_1000 = Wheels.state == 0,
+      temp bool t_1001 = t_999 and t_1000;
+
+    guardCondition t_1001;
+    effect
+      Lift_0.state = 12,
+      Wheels.state = 2,
+      Wheels.count = 1;
+
+  process Lift_0_Wheels 
+    guardBlock
+      temp bool t_1002 = Lift_0.state == 11,
+      temp byte t_1003 = Lift_0.m / 8,
+      temp bool t_1004 = t_1003 == 3,
+      temp bool t_1005 = Lift_0.status == 2,
+      temp bool t_1006 = t_1004 and t_1005,
+      temp byte t_1007 = Lift_0.m % 8,
+      temp byte t_1008 = t_1007 + 1,
+      temp byte t_1009 = t_1008 % Lift_0.nos,
+      temp bool t_1010 = t_1009 == Lift_0.pos,
+      temp bool t_1011 = t_1006 and t_1010,
+      temp bool t_1012 = t_1002 and t_1011,
+      temp bool t_1013 = Wheels.state == 2,
+      temp bool t_1014 = Wheels.count < 1,
+      temp bool t_1015 = t_1013 and t_1014,
+      temp bool t_1016 = t_1012 and t_1015;
+
+    guardCondition t_1016;
+    effect
+      Lift_0.state = 12,
+      Wheels.state = 2,
+      temp byte t_1017 = Wheels.count + 1,
+      Wheels.count = t_1017;
+
+  process Lift_0_Wheels 
+    guardBlock
+      temp bool t_1018 = Lift_0.state == 11,
+      temp byte t_1019 = Lift_0.m / 8,
+      temp bool t_1020 = t_1019 == 3,
+      temp bool t_1021 = Lift_0.status == 2,
+      temp bool t_1022 = t_1020 and t_1021,
+      temp byte t_1023 = Lift_0.m % 8,
+      temp byte t_1024 = t_1023 + 1,
+      temp byte t_1025 = t_1024 % Lift_0.nos,
+      temp bool t_1026 = t_1025 == Lift_0.pos,
+      temp bool t_1027 = t_1022 and t_1026,
+      temp bool t_1028 = t_1018 and t_1027,
+      temp bool t_1029 = Wheels.state == 2,
+      temp bool t_1030 = Wheels.count == 1,
+      temp bool t_1031 = t_1029 and t_1030,
+      temp bool t_1032 = t_1028 and t_1031;
+
+    guardCondition t_1032;
+    effect
+      Lift_0.state = 12,
+      Wheels.state = 0;
+
+  process Lift_0_Wheels 
+    guardBlock
+      temp bool t_1033 = Lift_0.state == 11,
+      temp byte t_1034 = Lift_0.m / 8,
+      temp bool t_1035 = t_1034 == 3,
+      temp bool t_1036 = Lift_0.status == 2,
+      temp bool t_1037 = t_1035 and t_1036,
+      temp byte t_1038 = Lift_0.m % 8,
+      temp byte t_1039 = t_1038 + 1,
+      temp byte t_1040 = t_1039 % Lift_0.nos,
+      temp bool t_1041 = t_1040 == Lift_0.pos,
+      temp bool t_1042 = t_1037 and t_1041,
+      temp bool t_1043 = t_1033 and t_1042,
+      temp bool t_1044 = Wheels.state == 1,
+      temp bool t_1045 = t_1043 and t_1044;
+
+    guardCondition t_1045;
+    effect
+      Lift_0.state = 12,
+      Wheels.state = 3;
+
+  process Lift_0_Wheels 
+    guardBlock
+      temp bool t_1046 = Lift_0.state == 14,
+      temp byte t_1047 = Lift_0.m / 8,
+      temp bool t_1048 = t_1047 == 3,
+      temp bool t_1049 = Lift_0.status == 2,
+      temp bool t_1050 = t_1048 and t_1049,
+      temp bool t_1051 = t_1046 and t_1050,
+      temp bool t_1052 = Wheels.state == 0,
+      temp bool t_1053 = t_1051 and t_1052;
+
+    guardCondition t_1053;
+    effect
+      Lift_0.state = 13,
+      Wheels.state = 2,
+      Wheels.count = 1;
+
+  process Lift_0_Wheels 
+    guardBlock
+      temp bool t_1054 = Lift_0.state == 14,
+      temp byte t_1055 = Lift_0.m / 8,
+      temp bool t_1056 = t_1055 == 3,
+      temp bool t_1057 = Lift_0.status == 2,
+      temp bool t_1058 = t_1056 and t_1057,
+      temp bool t_1059 = t_1054 and t_1058,
+      temp bool t_1060 = Wheels.state == 2,
+      temp bool t_1061 = Wheels.count < 1,
       temp bool t_1062 = t_1060 and t_1061,
-      temp int t_1063 = Bus.j + 2,
-      temp int t_1064 = t_1063 - 1,
-      temp int t_1065 = t_1064 % 2,
-      temp byte t_1066 = relay[t_1065],
-      temp bool t_1067 = t_1066 == 1,
-      temp bool t_1068 = t_1062 and t_1067,
-      temp bool t_1069 = t_1059 and t_1068,
-      temp bool t_1070 = Lift_0.state == 13,
-      temp bool t_1071 = t_1069 and t_1070;
-    guardCondition t_1071;
-    effect
-      Bus.state = 1,
-      temp int t_1072 = Bus.j + 1,
-      temp int t_1073 = t_1072 % 2,
-      Bus.j = t_1073,
-      Lift_0.m = Bus.m,
-      Lift_0.state = 14;
+      temp bool t_1063 = t_1059 and t_1062;
 
-  process Bus_Lift_0
-    guardBlock
-      temp bool t_1074 = Bus.state == 2,
-      temp bool t_1075 = Bus.j == 0,
-      temp bool t_1076 = Bus.j != Bus.sender,
-      temp bool t_1077 = t_1075 and t_1076,
-      temp byte t_1078 = relay[Bus.j],
-      temp bool t_1079 = t_1078 == 1,
-      temp bool t_1080 = t_1077 and t_1079,
-      temp bool t_1081 = t_1074 and t_1080,
-      temp bool t_1082 = Lift_0.state == 3,
-      temp bool t_1083 = t_1081 and t_1082;
-    guardCondition t_1083;
+    guardCondition t_1063;
     effect
-      Bus.state = 2,
-      temp int t_1084 = Bus.j + 2,
-      temp int t_1085 = t_1084 - 1,
-      temp int t_1086 = t_1085 % 2,
-      Bus.j = t_1086,
-      Lift_0.m = Bus.m,
-      Lift_0.state = 4;
+      Lift_0.state = 13,
+      Wheels.state = 2,
+      temp byte t_1064 = Wheels.count + 1,
+      Wheels.count = t_1064;
 
-  process Bus_Lift_0
+  process Lift_0_Wheels 
     guardBlock
-      temp bool t_1087 = Bus.state == 2,
-      temp bool t_1088 = Bus.j == 0,
-      temp bool t_1089 = Bus.j != Bus.sender,
+      temp bool t_1065 = Lift_0.state == 14,
+      temp byte t_1066 = Lift_0.m / 8,
+      temp bool t_1067 = t_1066 == 3,
+      temp bool t_1068 = Lift_0.status == 2,
+      temp bool t_1069 = t_1067 and t_1068,
+      temp bool t_1070 = t_1065 and t_1069,
+      temp bool t_1071 = Wheels.state == 2,
+      temp bool t_1072 = Wheels.count == 1,
+      temp bool t_1073 = t_1071 and t_1072,
+      temp bool t_1074 = t_1070 and t_1073;
+
+    guardCondition t_1074;
+    effect
+      Lift_0.state = 13,
+      Wheels.state = 0;
+
+  process Lift_0_Wheels 
+    guardBlock
+      temp bool t_1075 = Lift_0.state == 14,
+      temp byte t_1076 = Lift_0.m / 8,
+      temp bool t_1077 = t_1076 == 3,
+      temp bool t_1078 = Lift_0.status == 2,
+      temp bool t_1079 = t_1077 and t_1078,
+      temp bool t_1080 = t_1075 and t_1079,
+      temp bool t_1081 = Wheels.state == 1,
+      temp bool t_1082 = t_1080 and t_1081;
+
+    guardCondition t_1082;
+    effect
+      Lift_0.state = 13,
+      Wheels.state = 3;
+
+  process Lift_0_Wheels 
+    guardBlock
+      temp bool t_1083 = Lift_0.state == 17,
+      temp bool t_1084 = Lift_0.status == 2,
+      temp bool t_1085 = t_1083 and t_1084,
+      temp bool t_1086 = Wheels.state == 0,
+      temp bool t_1087 = t_1085 and t_1086;
+
+    guardCondition t_1087;
+    effect
+      Lift_0.state = 13,
+      Wheels.state = 2,
+      Wheels.count = 1;
+
+  process Lift_0_Wheels 
+    guardBlock
+      temp bool t_1088 = Lift_0.state == 17,
+      temp bool t_1089 = Lift_0.status == 2,
       temp bool t_1090 = t_1088 and t_1089,
-      temp byte t_1091 = relay[Bus.j],
-      temp bool t_1092 = t_1091 == 1,
-      temp bool t_1093 = t_1090 and t_1092,
-      temp bool t_1094 = t_1087 and t_1093,
-      temp bool t_1095 = Lift_0.state == 0,
-      temp bool t_1096 = t_1094 and t_1095;
-    guardCondition t_1096;
-    effect
-      Bus.state = 2,
-      temp int t_1097 = Bus.j + 2,
-      temp int t_1098 = t_1097 - 1,
-      temp int t_1099 = t_1098 % 2,
-      Bus.j = t_1099,
-      Lift_0.m = Bus.m,
-      Lift_0.state = 6;
+      temp bool t_1091 = Wheels.state == 2,
+      temp bool t_1092 = Wheels.count < 1,
+      temp bool t_1093 = t_1091 and t_1092,
+      temp bool t_1094 = t_1090 and t_1093;
 
-  process Bus_Lift_0
-    guardBlock
-      temp bool t_1100 = Bus.state == 2,
-      temp bool t_1101 = Bus.j == 0,
-      temp bool t_1102 = Bus.j != Bus.sender,
-      temp bool t_1103 = t_1101 and t_1102,
-      temp byte t_1104 = relay[Bus.j],
-      temp bool t_1105 = t_1104 == 1,
-      temp bool t_1106 = t_1103 and t_1105,
-      temp bool t_1107 = t_1100 and t_1106,
-      temp bool t_1108 = Lift_0.state == 8,
-      temp bool t_1109 = t_1107 and t_1108;
-    guardCondition t_1109;
+    guardCondition t_1094;
     effect
-      Bus.state = 2,
-      temp int t_1110 = Bus.j + 2,
-      temp int t_1111 = t_1110 - 1,
-      temp int t_1112 = t_1111 % 2,
-      Bus.j = t_1112,
-      Lift_0.m = Bus.m,
-      Lift_0.state = 9;
+      Lift_0.state = 13,
+      Wheels.state = 2,
+      temp byte t_1095 = Wheels.count + 1,
+      Wheels.count = t_1095;
 
-  process Bus_Lift_0
+  process Lift_0_Wheels 
     guardBlock
-      temp bool t_1113 = Bus.state == 2,
-      temp bool t_1114 = Bus.j == 0,
-      temp bool t_1115 = Bus.j != Bus.sender,
-      temp bool t_1116 = t_1114 and t_1115,
-      temp byte t_1117 = relay[Bus.j],
-      temp bool t_1118 = t_1117 == 1,
-      temp bool t_1119 = t_1116 and t_1118,
-      temp bool t_1120 = t_1113 and t_1119,
-      temp bool t_1121 = Lift_0.state == 10,
-      temp bool t_1122 = t_1120 and t_1121;
-    guardCondition t_1122;
+      temp bool t_1096 = Lift_0.state == 17,
+      temp bool t_1097 = Lift_0.status == 2,
+      temp bool t_1098 = t_1096 and t_1097,
+      temp bool t_1099 = Wheels.state == 2,
+      temp bool t_1100 = Wheels.count == 1,
+      temp bool t_1101 = t_1099 and t_1100,
+      temp bool t_1102 = t_1098 and t_1101;
+
+    guardCondition t_1102;
     effect
-      Bus.state = 2,
-      temp int t_1123 = Bus.j + 2,
-      temp int t_1124 = t_1123 - 1,
-      temp int t_1125 = t_1124 % 2,
-      Bus.j = t_1125,
-      Lift_0.m = Bus.m,
-      Lift_0.state = 11;
+      Lift_0.state = 13,
+      Wheels.state = 0;
 
-  process Bus_Lift_0
+  process Lift_0_Wheels 
     guardBlock
-      temp bool t_1126 = Bus.state == 2,
-      temp bool t_1127 = Bus.j == 0,
-      temp bool t_1128 = Bus.j != Bus.sender,
-      temp bool t_1129 = t_1127 and t_1128,
-      temp byte t_1130 = relay[Bus.j],
-      temp bool t_1131 = t_1130 == 1,
-      temp bool t_1132 = t_1129 and t_1131,
-      temp bool t_1133 = t_1126 and t_1132,
-      temp bool t_1134 = Lift_0.state == 13,
-      temp bool t_1135 = t_1133 and t_1134;
+      temp bool t_1103 = Lift_0.state == 17,
+      temp bool t_1104 = Lift_0.status == 2,
+      temp bool t_1105 = t_1103 and t_1104,
+      temp bool t_1106 = Wheels.state == 1,
+      temp bool t_1107 = t_1105 and t_1106;
+
+    guardCondition t_1107;
+    effect
+      Lift_0.state = 13,
+      Wheels.state = 3;
+
+  process Lift_1_Wheels 
+    guardBlock
+      temp bool t_1108 = Lift_1.state == 11,
+      temp byte t_1109 = Lift_1.m / 8,
+      temp bool t_1110 = t_1109 == 3,
+      temp bool t_1111 = Lift_1.status == 2,
+      temp bool t_1112 = t_1110 and t_1111,
+      temp byte t_1113 = Lift_1.m % 8,
+      temp byte t_1114 = t_1113 + 1,
+      temp byte t_1115 = t_1114 % Lift_1.nos,
+      temp bool t_1116 = t_1115 != Lift_1.pos,
+      temp bool t_1117 = t_1112 and t_1116,
+      temp bool t_1118 = t_1108 and t_1117,
+      temp bool t_1119 = Wheels.state == 0,
+      temp bool t_1120 = t_1118 and t_1119;
+
+    guardCondition t_1120;
+    effect
+      Lift_1.state = 10,
+      Wheels.state = 2,
+      Wheels.count = 1;
+
+  process Lift_1_Wheels 
+    guardBlock
+      temp bool t_1121 = Lift_1.state == 11,
+      temp byte t_1122 = Lift_1.m / 8,
+      temp bool t_1123 = t_1122 == 3,
+      temp bool t_1124 = Lift_1.status == 2,
+      temp bool t_1125 = t_1123 and t_1124,
+      temp byte t_1126 = Lift_1.m % 8,
+      temp byte t_1127 = t_1126 + 1,
+      temp byte t_1128 = t_1127 % Lift_1.nos,
+      temp bool t_1129 = t_1128 != Lift_1.pos,
+      temp bool t_1130 = t_1125 and t_1129,
+      temp bool t_1131 = t_1121 and t_1130,
+      temp bool t_1132 = Wheels.state == 2,
+      temp bool t_1133 = Wheels.count < 1,
+      temp bool t_1134 = t_1132 and t_1133,
+      temp bool t_1135 = t_1131 and t_1134;
+
     guardCondition t_1135;
     effect
-      Bus.state = 2,
-      temp int t_1136 = Bus.j + 2,
-      temp int t_1137 = t_1136 - 1,
-      temp int t_1138 = t_1137 % 2,
-      Bus.j = t_1138,
-      Lift_0.m = Bus.m,
-      Lift_0.state = 14;
+      Lift_1.state = 10,
+      Wheels.state = 2,
+      temp byte t_1136 = Wheels.count + 1,
+      Wheels.count = t_1136;
 
-  process Lift_1_Bus
+  process Lift_1_Wheels 
     guardBlock
-      temp bool t_1139 = Lift_1.state == 1,
-      temp bool t_1140 = atomic == 0,
+      temp bool t_1137 = Lift_1.state == 11,
+      temp byte t_1138 = Lift_1.m / 8,
+      temp bool t_1139 = t_1138 == 3,
+      temp bool t_1140 = Lift_1.status == 2,
       temp bool t_1141 = t_1139 and t_1140,
-      temp bool t_1142 = Bus.state == 0,
-      temp bool t_1143 = t_1141 and t_1142;
-    guardCondition t_1143;
-    effect
-      Lift_1.state = 2,
-      temp int t_1144 = 32 + Lift_1.pos,
-      Bus.m = t_1144,
-      Bus.state = 1,
-      Bus.sender = 1,
-      Bus.j = 0,
-      atomic = 1;
+      temp byte t_1142 = Lift_1.m % 8,
+      temp byte t_1143 = t_1142 + 1,
+      temp byte t_1144 = t_1143 % Lift_1.nos,
+      temp bool t_1145 = t_1144 != Lift_1.pos,
+      temp bool t_1146 = t_1141 and t_1145,
+      temp bool t_1147 = t_1137 and t_1146,
+      temp bool t_1148 = Wheels.state == 2,
+      temp bool t_1149 = Wheels.count == 1,
+      temp bool t_1150 = t_1148 and t_1149,
+      temp bool t_1151 = t_1147 and t_1150;
 
-  process Lift_1_Bus
-    guardBlock
-      temp bool t_1145 = Lift_1.state == 5,
-      temp bool t_1146 = atomic == 0,
-      temp bool t_1147 = t_1145 and t_1146,
-      temp bool t_1148 = Bus.state == 0,
-      temp bool t_1149 = t_1147 and t_1148;
-    guardCondition t_1149;
+    guardCondition t_1151;
     effect
       Lift_1.state = 10,
-      temp int t_1150 = 0 + Lift_1.pos,
-      Bus.m = t_1150,
-      Bus.state = 1,
-      Bus.sender = 1,
-      Bus.j = 0,
-      atomic = 1;
+      Wheels.state = 0;
 
-  process Lift_1_Bus
+  process Lift_1_Wheels 
     guardBlock
-      temp bool t_1151 = Lift_1.state == 7,
-      temp bool t_1152 = atomic == 0,
-      temp bool t_1153 = t_1151 and t_1152,
-      temp bool t_1154 = Bus.state == 0,
-      temp bool t_1155 = t_1153 and t_1154;
-    guardCondition t_1155;
-    effect
-      Lift_1.state = 8,
-      temp int t_1156 = 32 + Lift_1.pos,
-      Bus.m = t_1156,
-      Bus.state = 1,
-      Bus.sender = 1,
-      Bus.j = 0,
-      atomic = 1;
+      temp bool t_1152 = Lift_1.state == 11,
+      temp byte t_1153 = Lift_1.m / 8,
+      temp bool t_1154 = t_1153 == 3,
+      temp bool t_1155 = Lift_1.status == 2,
+      temp bool t_1156 = t_1154 and t_1155,
+      temp byte t_1157 = Lift_1.m % 8,
+      temp byte t_1158 = t_1157 + 1,
+      temp byte t_1159 = t_1158 % Lift_1.nos,
+      temp bool t_1160 = t_1159 != Lift_1.pos,
+      temp bool t_1161 = t_1156 and t_1160,
+      temp bool t_1162 = t_1152 and t_1161,
+      temp bool t_1163 = Wheels.state == 1,
+      temp bool t_1164 = t_1162 and t_1163;
 
-  process Lift_1_Bus
-    guardBlock
-      temp bool t_1157 = Lift_1.state == 9,
-      temp bool t_1158 = atomic == 0,
-      temp int t_1159 = Lift_1.m / 8,
-      temp bool t_1160 = t_1159 == 0,
-      temp bool t_1161 = t_1158 and t_1160,
-      temp bool t_1162 = Lift_1.pos == 1,
-      temp bool t_1163 = t_1161 and t_1162,
-      temp bool t_1164 = t_1157 and t_1163,
-      temp bool t_1165 = Bus.state == 0,
-      temp bool t_1166 = t_1164 and t_1165;
-    guardCondition t_1166;
+    guardCondition t_1164;
     effect
       Lift_1.state = 10,
-      temp int t_1167 = 0 + Lift_1.pos,
-      Bus.m = t_1167,
-      Bus.state = 1,
-      Bus.sender = 1,
-      Bus.j = 0,
-      atomic = 1;
+      Wheels.state = 3;
 
-  process Lift_1_Bus
+  process Lift_1_Wheels 
     guardBlock
-      temp bool t_1168 = Lift_1.state == 12,
-      temp bool t_1169 = Bus.state == 0,
-      temp bool t_1170 = t_1168 and t_1169;
-    guardCondition t_1170;
-    effect
-      Lift_1.state = 10,
-      temp int t_1171 = Lift_1.status * 8,
-      temp int t_1172 = t_1171 + Lift_1.pos,
-      Bus.m = t_1172,
-      Bus.state = 1,
-      Bus.sender = 1,
-      Bus.j = 0,
-      atomic = 1;
-
-  process Lift_1_Bus
-    guardBlock
-      temp bool t_1173 = Lift_1.state == 15,
-      temp bool t_1174 = Lift_1.count == Lift_1.nos,
-      temp bool t_1175 = t_1173 and t_1174,
-      temp bool t_1176 = Bus.state == 0,
+      temp bool t_1165 = Lift_1.state == 11,
+      temp byte t_1166 = Lift_1.m / 8,
+      temp bool t_1167 = t_1166 == 3,
+      temp bool t_1168 = Lift_1.status == 2,
+      temp bool t_1169 = t_1167 and t_1168,
+      temp byte t_1170 = Lift_1.m % 8,
+      temp byte t_1171 = t_1170 + 1,
+      temp byte t_1172 = t_1171 % Lift_1.nos,
+      temp bool t_1173 = t_1172 == Lift_1.pos,
+      temp bool t_1174 = t_1169 and t_1173,
+      temp bool t_1175 = t_1165 and t_1174,
+      temp bool t_1176 = Wheels.state == 0,
       temp bool t_1177 = t_1175 and t_1176;
+
     guardCondition t_1177;
     effect
-      Lift_1.state = 17,
-      Lift_1.count = 1,
-      temp int t_1178 = 24 + Lift_1.pos,
-      Bus.m = t_1178,
-      Bus.state = 1,
-      Bus.sender = 1,
-      Bus.j = 0,
-      atomic = 1;
+      Lift_1.state = 12,
+      Wheels.state = 2,
+      Wheels.count = 1;
 
-  process Lift_1_Bus
+  process Lift_1_Wheels 
     guardBlock
-      temp bool t_1179 = Lift_1.state == 15,
-      temp bool t_1180 = Lift_1.count != Lift_1.nos,
-      temp bool t_1181 = t_1179 and t_1180,
-      temp bool t_1182 = Bus.state == 0,
-      temp bool t_1183 = t_1181 and t_1182;
-    guardCondition t_1183;
+      temp bool t_1178 = Lift_1.state == 11,
+      temp byte t_1179 = Lift_1.m / 8,
+      temp bool t_1180 = t_1179 == 3,
+      temp bool t_1181 = Lift_1.status == 2,
+      temp bool t_1182 = t_1180 and t_1181,
+      temp byte t_1183 = Lift_1.m % 8,
+      temp byte t_1184 = t_1183 + 1,
+      temp byte t_1185 = t_1184 % Lift_1.nos,
+      temp bool t_1186 = t_1185 == Lift_1.pos,
+      temp bool t_1187 = t_1182 and t_1186,
+      temp bool t_1188 = t_1178 and t_1187,
+      temp bool t_1189 = Wheels.state == 2,
+      temp bool t_1190 = Wheels.count < 1,
+      temp bool t_1191 = t_1189 and t_1190,
+      temp bool t_1192 = t_1188 and t_1191;
+
+    guardCondition t_1192;
+    effect
+      Lift_1.state = 12,
+      Wheels.state = 2,
+      temp byte t_1193 = Wheels.count + 1,
+      Wheels.count = t_1193;
+
+  process Lift_1_Wheels 
+    guardBlock
+      temp bool t_1194 = Lift_1.state == 11,
+      temp byte t_1195 = Lift_1.m / 8,
+      temp bool t_1196 = t_1195 == 3,
+      temp bool t_1197 = Lift_1.status == 2,
+      temp bool t_1198 = t_1196 and t_1197,
+      temp byte t_1199 = Lift_1.m % 8,
+      temp byte t_1200 = t_1199 + 1,
+      temp byte t_1201 = t_1200 % Lift_1.nos,
+      temp bool t_1202 = t_1201 == Lift_1.pos,
+      temp bool t_1203 = t_1198 and t_1202,
+      temp bool t_1204 = t_1194 and t_1203,
+      temp bool t_1205 = Wheels.state == 2,
+      temp bool t_1206 = Wheels.count == 1,
+      temp bool t_1207 = t_1205 and t_1206,
+      temp bool t_1208 = t_1204 and t_1207;
+
+    guardCondition t_1208;
+    effect
+      Lift_1.state = 12,
+      Wheels.state = 0;
+
+  process Lift_1_Wheels 
+    guardBlock
+      temp bool t_1209 = Lift_1.state == 11,
+      temp byte t_1210 = Lift_1.m / 8,
+      temp bool t_1211 = t_1210 == 3,
+      temp bool t_1212 = Lift_1.status == 2,
+      temp bool t_1213 = t_1211 and t_1212,
+      temp byte t_1214 = Lift_1.m % 8,
+      temp byte t_1215 = t_1214 + 1,
+      temp byte t_1216 = t_1215 % Lift_1.nos,
+      temp bool t_1217 = t_1216 == Lift_1.pos,
+      temp bool t_1218 = t_1213 and t_1217,
+      temp bool t_1219 = t_1209 and t_1218,
+      temp bool t_1220 = Wheels.state == 1,
+      temp bool t_1221 = t_1219 and t_1220;
+
+    guardCondition t_1221;
+    effect
+      Lift_1.state = 12,
+      Wheels.state = 3;
+
+  process Lift_1_Wheels 
+    guardBlock
+      temp bool t_1222 = Lift_1.state == 14,
+      temp byte t_1223 = Lift_1.m / 8,
+      temp bool t_1224 = t_1223 == 3,
+      temp bool t_1225 = Lift_1.status == 2,
+      temp bool t_1226 = t_1224 and t_1225,
+      temp bool t_1227 = t_1222 and t_1226,
+      temp bool t_1228 = Wheels.state == 0,
+      temp bool t_1229 = t_1227 and t_1228;
+
+    guardCondition t_1229;
     effect
       Lift_1.state = 13,
-      Lift_1.count = 1,
-      temp int t_1184 = Lift_1.status * 8,
-      temp int t_1185 = t_1184 + Lift_1.pos,
-      Bus.m = t_1185,
-      Bus.state = 1,
-      Bus.sender = 1,
-      Bus.j = 0,
-      atomic = 1;
+      Wheels.state = 2,
+      Wheels.count = 1;
 
-  process Bus_Lift_1
+  process Lift_1_Wheels 
     guardBlock
-      temp bool t_1186 = Bus.state == 1,
-      temp bool t_1187 = Bus.j == 1,
-      temp bool t_1188 = Bus.j != Bus.sender,
-      temp bool t_1189 = t_1187 and t_1188,
-      temp int t_1190 = Bus.j + 2,
-      temp int t_1191 = t_1190 - 1,
-      temp int t_1192 = t_1191 % 2,
-      temp byte t_1193 = relay[t_1192],
-      temp bool t_1194 = t_1193 == 1,
-      temp bool t_1195 = t_1189 and t_1194,
-      temp bool t_1196 = t_1186 and t_1195,
-      temp bool t_1197 = Lift_1.state == 3,
-      temp bool t_1198 = t_1196 and t_1197;
-    guardCondition t_1198;
-    effect
-      Bus.state = 1,
-      temp int t_1199 = Bus.j + 1,
-      temp int t_1200 = t_1199 % 2,
-      Bus.j = t_1200,
-      Lift_1.m = Bus.m,
-      Lift_1.state = 4;
-
-  process Bus_Lift_1
-    guardBlock
-      temp bool t_1201 = Bus.state == 1,
-      temp bool t_1202 = Bus.j == 1,
-      temp bool t_1203 = Bus.j != Bus.sender,
-      temp bool t_1204 = t_1202 and t_1203,
-      temp int t_1205 = Bus.j + 2,
-      temp int t_1206 = t_1205 - 1,
-      temp int t_1207 = t_1206 % 2,
-      temp byte t_1208 = relay[t_1207],
-      temp bool t_1209 = t_1208 == 1,
-      temp bool t_1210 = t_1204 and t_1209,
-      temp bool t_1211 = t_1201 and t_1210,
-      temp bool t_1212 = Lift_1.state == 0,
-      temp bool t_1213 = t_1211 and t_1212;
-    guardCondition t_1213;
-    effect
-      Bus.state = 1,
-      temp int t_1214 = Bus.j + 1,
-      temp int t_1215 = t_1214 % 2,
-      Bus.j = t_1215,
-      Lift_1.m = Bus.m,
-      Lift_1.state = 6;
-
-  process Bus_Lift_1
-    guardBlock
-      temp bool t_1216 = Bus.state == 1,
-      temp bool t_1217 = Bus.j == 1,
-      temp bool t_1218 = Bus.j != Bus.sender,
-      temp bool t_1219 = t_1217 and t_1218,
-      temp int t_1220 = Bus.j + 2,
-      temp int t_1221 = t_1220 - 1,
-      temp int t_1222 = t_1221 % 2,
-      temp byte t_1223 = relay[t_1222],
-      temp bool t_1224 = t_1223 == 1,
-      temp bool t_1225 = t_1219 and t_1224,
-      temp bool t_1226 = t_1216 and t_1225,
-      temp bool t_1227 = Lift_1.state == 8,
-      temp bool t_1228 = t_1226 and t_1227;
-    guardCondition t_1228;
-    effect
-      Bus.state = 1,
-      temp int t_1229 = Bus.j + 1,
-      temp int t_1230 = t_1229 % 2,
-      Bus.j = t_1230,
-      Lift_1.m = Bus.m,
-      Lift_1.state = 9;
-
-  process Bus_Lift_1
-    guardBlock
-      temp bool t_1231 = Bus.state == 1,
-      temp bool t_1232 = Bus.j == 1,
-      temp bool t_1233 = Bus.j != Bus.sender,
+      temp bool t_1230 = Lift_1.state == 14,
+      temp byte t_1231 = Lift_1.m / 8,
+      temp bool t_1232 = t_1231 == 3,
+      temp bool t_1233 = Lift_1.status == 2,
       temp bool t_1234 = t_1232 and t_1233,
-      temp int t_1235 = Bus.j + 2,
-      temp int t_1236 = t_1235 - 1,
-      temp int t_1237 = t_1236 % 2,
-      temp byte t_1238 = relay[t_1237],
-      temp bool t_1239 = t_1238 == 1,
-      temp bool t_1240 = t_1234 and t_1239,
-      temp bool t_1241 = t_1231 and t_1240,
-      temp bool t_1242 = Lift_1.state == 10,
-      temp bool t_1243 = t_1241 and t_1242;
-    guardCondition t_1243;
-    effect
-      Bus.state = 1,
-      temp int t_1244 = Bus.j + 1,
-      temp int t_1245 = t_1244 % 2,
-      Bus.j = t_1245,
-      Lift_1.m = Bus.m,
-      Lift_1.state = 11;
+      temp bool t_1235 = t_1230 and t_1234,
+      temp bool t_1236 = Wheels.state == 2,
+      temp bool t_1237 = Wheels.count < 1,
+      temp bool t_1238 = t_1236 and t_1237,
+      temp bool t_1239 = t_1235 and t_1238;
 
-  process Bus_Lift_1
+    guardCondition t_1239;
+    effect
+      Lift_1.state = 13,
+      Wheels.state = 2,
+      temp byte t_1240 = Wheels.count + 1,
+      Wheels.count = t_1240;
+
+  process Lift_1_Wheels 
     guardBlock
-      temp bool t_1246 = Bus.state == 1,
-      temp bool t_1247 = Bus.j == 1,
-      temp bool t_1248 = Bus.j != Bus.sender,
+      temp bool t_1241 = Lift_1.state == 14,
+      temp byte t_1242 = Lift_1.m / 8,
+      temp bool t_1243 = t_1242 == 3,
+      temp bool t_1244 = Lift_1.status == 2,
+      temp bool t_1245 = t_1243 and t_1244,
+      temp bool t_1246 = t_1241 and t_1245,
+      temp bool t_1247 = Wheels.state == 2,
+      temp bool t_1248 = Wheels.count == 1,
       temp bool t_1249 = t_1247 and t_1248,
-      temp int t_1250 = Bus.j + 2,
-      temp int t_1251 = t_1250 - 1,
-      temp int t_1252 = t_1251 % 2,
-      temp byte t_1253 = relay[t_1252],
-      temp bool t_1254 = t_1253 == 1,
-      temp bool t_1255 = t_1249 and t_1254,
-      temp bool t_1256 = t_1246 and t_1255,
-      temp bool t_1257 = Lift_1.state == 13,
+      temp bool t_1250 = t_1246 and t_1249;
+
+    guardCondition t_1250;
+    effect
+      Lift_1.state = 13,
+      Wheels.state = 0;
+
+  process Lift_1_Wheels 
+    guardBlock
+      temp bool t_1251 = Lift_1.state == 14,
+      temp byte t_1252 = Lift_1.m / 8,
+      temp bool t_1253 = t_1252 == 3,
+      temp bool t_1254 = Lift_1.status == 2,
+      temp bool t_1255 = t_1253 and t_1254,
+      temp bool t_1256 = t_1251 and t_1255,
+      temp bool t_1257 = Wheels.state == 1,
       temp bool t_1258 = t_1256 and t_1257;
+
     guardCondition t_1258;
     effect
-      Bus.state = 1,
-      temp int t_1259 = Bus.j + 1,
-      temp int t_1260 = t_1259 % 2,
-      Bus.j = t_1260,
-      Lift_1.m = Bus.m,
-      Lift_1.state = 14;
+      Lift_1.state = 13,
+      Wheels.state = 3;
 
-  process Bus_Lift_1
+  process Lift_1_Wheels 
     guardBlock
-      temp bool t_1261 = Bus.state == 2,
-      temp bool t_1262 = Bus.j == 1,
-      temp bool t_1263 = Bus.j != Bus.sender,
-      temp bool t_1264 = t_1262 and t_1263,
-      temp byte t_1265 = relay[Bus.j],
-      temp bool t_1266 = t_1265 == 1,
-      temp bool t_1267 = t_1264 and t_1266,
-      temp bool t_1268 = t_1261 and t_1267,
-      temp bool t_1269 = Lift_1.state == 3,
-      temp bool t_1270 = t_1268 and t_1269;
+      temp bool t_1259 = Lift_1.state == 17,
+      temp bool t_1260 = Lift_1.status == 2,
+      temp bool t_1261 = t_1259 and t_1260,
+      temp bool t_1262 = Wheels.state == 0,
+      temp bool t_1263 = t_1261 and t_1262;
+
+    guardCondition t_1263;
+    effect
+      Lift_1.state = 13,
+      Wheels.state = 2,
+      Wheels.count = 1;
+
+  process Lift_1_Wheels 
+    guardBlock
+      temp bool t_1264 = Lift_1.state == 17,
+      temp bool t_1265 = Lift_1.status == 2,
+      temp bool t_1266 = t_1264 and t_1265,
+      temp bool t_1267 = Wheels.state == 2,
+      temp bool t_1268 = Wheels.count < 1,
+      temp bool t_1269 = t_1267 and t_1268,
+      temp bool t_1270 = t_1266 and t_1269;
+
     guardCondition t_1270;
     effect
-      Bus.state = 2,
-      temp int t_1271 = Bus.j + 2,
-      temp int t_1272 = t_1271 - 1,
-      temp int t_1273 = t_1272 % 2,
-      Bus.j = t_1273,
-      Lift_1.m = Bus.m,
-      Lift_1.state = 4;
+      Lift_1.state = 13,
+      Wheels.state = 2,
+      temp byte t_1271 = Wheels.count + 1,
+      Wheels.count = t_1271;
 
-  process Bus_Lift_1
+  process Lift_1_Wheels 
     guardBlock
-      temp bool t_1274 = Bus.state == 2,
-      temp bool t_1275 = Bus.j == 1,
-      temp bool t_1276 = Bus.j != Bus.sender,
+      temp bool t_1272 = Lift_1.state == 17,
+      temp bool t_1273 = Lift_1.status == 2,
+      temp bool t_1274 = t_1272 and t_1273,
+      temp bool t_1275 = Wheels.state == 2,
+      temp bool t_1276 = Wheels.count == 1,
       temp bool t_1277 = t_1275 and t_1276,
-      temp byte t_1278 = relay[Bus.j],
-      temp bool t_1279 = t_1278 == 1,
-      temp bool t_1280 = t_1277 and t_1279,
-      temp bool t_1281 = t_1274 and t_1280,
-      temp bool t_1282 = Lift_1.state == 0,
+      temp bool t_1278 = t_1274 and t_1277;
+
+    guardCondition t_1278;
+    effect
+      Lift_1.state = 13,
+      Wheels.state = 0;
+
+  process Lift_1_Wheels 
+    guardBlock
+      temp bool t_1279 = Lift_1.state == 17,
+      temp bool t_1280 = Lift_1.status == 2,
+      temp bool t_1281 = t_1279 and t_1280,
+      temp bool t_1282 = Wheels.state == 1,
       temp bool t_1283 = t_1281 and t_1282;
+
     guardCondition t_1283;
     effect
-      Bus.state = 2,
-      temp int t_1284 = Bus.j + 2,
-      temp int t_1285 = t_1284 - 1,
-      temp int t_1286 = t_1285 % 2,
-      Bus.j = t_1286,
-      Lift_1.m = Bus.m,
-      Lift_1.state = 6;
+      Lift_1.state = 13,
+      Wheels.state = 3;
 
-  process Bus_Lift_1
+  process Environment_Lift_1 
     guardBlock
-      temp bool t_1287 = Bus.state == 2,
-      temp bool t_1288 = Bus.j == 1,
-      temp bool t_1289 = Bus.j != Bus.sender,
-      temp bool t_1290 = t_1288 and t_1289,
-      temp byte t_1291 = relay[Bus.j],
-      temp bool t_1292 = t_1291 == 1,
-      temp bool t_1293 = t_1290 and t_1292,
-      temp bool t_1294 = t_1287 and t_1293,
-      temp bool t_1295 = Lift_1.state == 8,
-      temp bool t_1296 = t_1294 and t_1295;
-    guardCondition t_1296;
-    effect
-      Bus.state = 2,
-      temp int t_1297 = Bus.j + 2,
-      temp int t_1298 = t_1297 - 1,
-      temp int t_1299 = t_1298 % 2,
-      Bus.j = t_1299,
-      Lift_1.m = Bus.m,
-      Lift_1.state = 9;
+      temp bool t_1284 = Environment.state == 4,
+      temp bool t_1285 = Lift_1.state == 0,
+      temp bool t_1286 = atomic == 0,
+      temp bool t_1287 = t_1285 and t_1286,
+      temp bool t_1288 = t_1284 and t_1287;
 
-  process Bus_Lift_1
-    guardBlock
-      temp bool t_1300 = Bus.state == 2,
-      temp bool t_1301 = Bus.j == 1,
-      temp bool t_1302 = Bus.j != Bus.sender,
-      temp bool t_1303 = t_1301 and t_1302,
-      temp byte t_1304 = relay[Bus.j],
-      temp bool t_1305 = t_1304 == 1,
-      temp bool t_1306 = t_1303 and t_1305,
-      temp bool t_1307 = t_1300 and t_1306,
-      temp bool t_1308 = Lift_1.state == 10,
-      temp bool t_1309 = t_1307 and t_1308;
-    guardCondition t_1309;
-    effect
-      Bus.state = 2,
-      temp int t_1310 = Bus.j + 2,
-      temp int t_1311 = t_1310 - 1,
-      temp int t_1312 = t_1311 % 2,
-      Bus.j = t_1312,
-      Lift_1.m = Bus.m,
-      Lift_1.state = 11;
-
-  process Bus_Lift_1
-    guardBlock
-      temp bool t_1313 = Bus.state == 2,
-      temp bool t_1314 = Bus.j == 1,
-      temp bool t_1315 = Bus.j != Bus.sender,
-      temp bool t_1316 = t_1314 and t_1315,
-      temp byte t_1317 = relay[Bus.j],
-      temp bool t_1318 = t_1317 == 1,
-      temp bool t_1319 = t_1316 and t_1318,
-      temp bool t_1320 = t_1313 and t_1319,
-      temp bool t_1321 = Lift_1.state == 13,
-      temp bool t_1322 = t_1320 and t_1321;
-    guardCondition t_1322;
-    effect
-      Bus.state = 2,
-      temp int t_1323 = Bus.j + 2,
-      temp int t_1324 = t_1323 - 1,
-      temp int t_1325 = t_1324 % 2,
-      Bus.j = t_1325,
-      Lift_1.m = Bus.m,
-      Lift_1.state = 14;
-
-  process Environment_Lift_1
-    guardBlock
-      temp bool t_1326 = Environment.state == 4,
-      temp bool t_1327 = Lift_1.state == 0,
-      temp bool t_1328 = atomic == 0,
-      temp bool t_1329 = t_1327 and t_1328,
-      temp bool t_1330 = t_1326 and t_1329;
-    guardCondition t_1330;
+    guardCondition t_1288;
     effect
       Environment.state = 4,
       Lift_1.state = 1,
@@ -2426,28 +2438,152 @@ byte Lift_1.count = 0;
       relay[1] = 1,
       Lift_1.nos = 1;
 
-  process Environment_Lift_0
+  process Environment_Lift_1 
     guardBlock
-      temp bool t_1331 = Environment.state == 0,
-      temp bool t_1332 = Lift_0.state == 13,
-      temp bool t_1333 = atomic == 0,
-      temp bool t_1334 = t_1332 and t_1333,
-      temp bool t_1335 = t_1331 and t_1334;
-    guardCondition t_1335;
-    effect
-      Environment.state = 4,
-      Lift_0.state = 10,
-      Lift_0.status = 0;
+      temp bool t_1289 = Environment.state == 4,
+      temp bool t_1290 = Lift_1.state == 10,
+      temp bool t_1291 = atomic == 0,
+      temp bool t_1292 = t_1290 and t_1291,
+      temp bool t_1293 = t_1289 and t_1292;
 
-  process Environment_Lift_0
-    guardBlock
-      temp bool t_1336 = Environment.state == 1,
-      temp bool t_1337 = Lift_0.state == 13,
-      temp bool t_1338 = atomic == 0,
-      temp bool t_1339 = t_1337 and t_1338,
-      temp bool t_1340 = t_1336 and t_1339;
-    guardCondition t_1340;
+    guardCondition t_1293;
     effect
-      Environment.state = 4,
-      Lift_0.state = 10,
-      Lift_0.status = 0;
+      Environment.state = 2,
+      Lift_1.state = 13,
+      Lift_1.status = 2,
+      Lift_1.count = 1;
+
+  process Lift_1_Bus 
+    guardBlock
+      temp bool t_1294 = Lift_1.state == 1,
+      temp bool t_1295 = atomic == 0,
+      temp bool t_1296 = t_1294 and t_1295,
+      temp bool t_1297 = Bus.state == 0,
+      temp bool t_1298 = t_1296 and t_1297;
+
+    guardCondition t_1298;
+    effect
+      Lift_1.state = 2,
+      temp byte t_1299 = 32 + Lift_1.pos,
+      Bus.m = t_1299,
+      Bus.state = 1,
+      Bus.sender = 1,
+      Bus.j = 0,
+      atomic = 1;
+
+  process Lift_1_Bus 
+    guardBlock
+      temp bool t_1300 = Lift_1.state == 5,
+      temp bool t_1301 = atomic == 0,
+      temp bool t_1302 = t_1300 and t_1301,
+      temp bool t_1303 = Bus.state == 0,
+      temp bool t_1304 = t_1302 and t_1303;
+
+    guardCondition t_1304;
+    effect
+      Lift_1.state = 10,
+      temp byte t_1305 = 0 + Lift_1.pos,
+      Bus.m = t_1305,
+      Bus.state = 1,
+      Bus.sender = 1,
+      Bus.j = 0,
+      atomic = 1;
+
+  process Lift_1_Bus 
+    guardBlock
+      temp bool t_1306 = Lift_1.state == 7,
+      temp bool t_1307 = atomic == 0,
+      temp bool t_1308 = t_1306 and t_1307,
+      temp bool t_1309 = Bus.state == 0,
+      temp bool t_1310 = t_1308 and t_1309;
+
+    guardCondition t_1310;
+    effect
+      Lift_1.state = 8,
+      temp byte t_1311 = 32 + Lift_1.pos,
+      Bus.m = t_1311,
+      Bus.state = 1,
+      Bus.sender = 1,
+      Bus.j = 0,
+      atomic = 1;
+
+  process Lift_1_Bus 
+    guardBlock
+      temp bool t_1312 = Lift_1.state == 9,
+      temp bool t_1313 = atomic == 0,
+      temp byte t_1314 = Lift_1.m / 8,
+      temp bool t_1315 = t_1314 == 0,
+      temp bool t_1316 = t_1313 and t_1315,
+      temp bool t_1317 = Lift_1.pos == 1,
+      temp bool t_1318 = t_1316 and t_1317,
+      temp bool t_1319 = t_1312 and t_1318,
+      temp bool t_1320 = Bus.state == 0,
+      temp bool t_1321 = t_1319 and t_1320;
+
+    guardCondition t_1321;
+    effect
+      Lift_1.state = 10,
+      temp byte t_1322 = 0 + Lift_1.pos,
+      Bus.m = t_1322,
+      Bus.state = 1,
+      Bus.sender = 1,
+      Bus.j = 0,
+      atomic = 1;
+
+  process Lift_1_Bus 
+    guardBlock
+      temp bool t_1323 = Lift_1.state == 12,
+      temp bool t_1324 = Bus.state == 0,
+      temp bool t_1325 = t_1323 and t_1324;
+
+    guardCondition t_1325;
+    effect
+      Lift_1.state = 10,
+      temp byte t_1326 = Lift_1.status * 8,
+      temp byte t_1327 = t_1326 + Lift_1.pos,
+      Bus.m = t_1327,
+      Bus.state = 1,
+      Bus.sender = 1,
+      Bus.j = 0,
+      atomic = 1;
+
+  process Lift_1_Bus 
+    guardBlock
+      temp bool t_1328 = Lift_1.state == 15,
+      temp bool t_1329 = Lift_1.count == Lift_1.nos,
+      temp bool t_1330 = t_1328 and t_1329,
+      temp bool t_1331 = Bus.state == 0,
+      temp bool t_1332 = t_1330 and t_1331;
+
+    guardCondition t_1332;
+    effect
+      Lift_1.state = 17,
+      Lift_1.count = 1,
+      temp byte t_1333 = 24 + Lift_1.pos,
+      Bus.m = t_1333,
+      Bus.state = 1,
+      Bus.sender = 1,
+      Bus.j = 0,
+      atomic = 1;
+
+  process Lift_1_Bus 
+    guardBlock
+      temp bool t_1334 = Lift_1.state == 15,
+      temp bool t_1335 = Lift_1.count != Lift_1.nos,
+      temp bool t_1336 = t_1334 and t_1335,
+      temp bool t_1337 = Bus.state == 0,
+      temp bool t_1338 = t_1336 and t_1337;
+
+    guardCondition t_1338;
+    effect
+      Lift_1.state = 13,
+      Lift_1.count = 1,
+      temp byte t_1339 = Lift_1.status * 8,
+      temp byte t_1340 = t_1339 + Lift_1.pos,
+      Bus.m = t_1340,
+      Bus.state = 1,
+      Bus.sender = 1,
+      Bus.j = 0,
+      atomic = 1;
+
+
