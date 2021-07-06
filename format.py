@@ -308,7 +308,7 @@ if __name__ == "__main__":
     # process_files(propagate_temporaries)
     # process_files(change_array_syntax)
     process_files(propagate_constants)
-    process_files(change_and_or)
+    # process_files(change_and_or)
     # process_files(comment_accepting_conditions)
     process_files(reorder_global_declarations)
     process_files(generate_initial_config)
