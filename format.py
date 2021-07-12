@@ -276,19 +276,18 @@ def generate_initial_config(sdve_file):
         is_array = name.endswith("]")
         if type == "int":
             if is_array:
-                config_values.append(proc_config_array(value, 8))
+                config_values += proc_config_array(value, 8)
             else:
                 config_values.append("{0:0{1}X}".format(int(value), 8))
         elif type == "state":
             config_values.append("{0:0{1}X}".format(int(value), 4))
         elif type == "byte" or type == "bool":
             if is_array:
-                config_values.append(proc_config_array(value, 2))
+                config_values += proc_config_array(value, 2)
             else:
                 config_values.append("{0:0{1}X}".format(int(value), 2))
 
     config_values.reverse()
-    config_values = list(flatten(config_values))
     initial_config = "".join(config_values)
 
     with open(sdve_file[:-5]+".cfg", "w") as f:
@@ -298,13 +297,6 @@ def proc_config_array(values, type_size):
     values = values[1:-1].split(", ")  # Remove { }
     values = ["{0:0{1}X}".format(int(value), type_size) for value in values]
     return values
-
-def flatten(l):
-    for el in l:
-        if isinstance(el, list) and not isinstance(el, (str, bytes)):
-            yield from flatten(el)
-        else:
-            yield el
 
 
 if __name__ == "__main__":

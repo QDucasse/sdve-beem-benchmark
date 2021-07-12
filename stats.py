@@ -337,7 +337,8 @@ def process_exec_stats():
         exec_stat(sdve_file)
 
 def exec_stat(sdve_file):
-    for ncores in [1,2,4,8,16]:
+    # for ncores in [1,2,4,8,16]:
+        ncores = 4
         print("{}: Starting simulation with {} core(s)".format(sdve_file, ncores))
         subprocess.run(["python", "../sdvs/sdvs/sdvs.py",
                                  "-s", sdve_file,
@@ -347,5 +348,6 @@ def exec_stat(sdve_file):
         print("Result written in the output file.")
 
 if __name__ == "__main__":
-    exec_stat("firewire_tree/firewire_tree.1.sdve")
+    import sys 
+    exec_stat(sys.argv[1])
     # process_exec_stats()
