@@ -276,18 +276,19 @@ def generate_initial_config(sdve_file):
         is_array = name.endswith("]")
         if type == "int":
             if is_array:
-                config_values += proc_config_array(value, 8)
+                config_values.append(proc_config_array(value, 8))
             else:
                 config_values.append("{0:0{1}X}".format(int(value), 8))
         elif type == "state":
             config_values.append("{0:0{1}X}".format(int(value), 4))
         elif type == "byte" or type == "bool":
             if is_array:
-                config_values += proc_config_array(value, 2)
+                config_values.append(proc_config_array(value, 2))
             else:
                 config_values.append("{0:0{1}X}".format(int(value), 2))
 
     config_values.reverse()
+    config_values = list(flatten(config_values))
     initial_config = "".join(config_values)
 
     with open(sdve_file[:-5]+".cfg", "w") as f:
@@ -298,6 +299,13 @@ def proc_config_array(values, type_size):
     values = ["{0:0{1}X}".format(int(value), type_size) for value in values]
     return values
 
+def flatten(l):
+    for el in l:
+        if isinstance(el, list) and not isinstance(el, (str, bytes)):
+            yield from flatten(el)
+        else:
+            yield el
+
 
 if __name__ == "__main__":
     DEBUG = False
@@ -307,9 +315,10 @@ if __name__ == "__main__":
     # process_files(change_tab_to_space)
     # process_files(propagate_temporaries)
     # process_files(change_array_syntax)
-    process_files(propagate_constants)
+    # process_files(propagate_constants)
     # process_files(change_and_or)
     # process_files(comment_accepting_conditions)
-    process_files(reorder_global_declarations)
+    # process_files(reorder_global_declarations)
     process_files(generate_initial_config)
+    # generate_initial_config("firewire_tree/firewire_tree.1.sdve")
     # generate_initial_config("adding/adding.6.sdve")
